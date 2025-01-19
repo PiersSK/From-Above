@@ -278,11 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bd62d43a6c568458ea20ad3906e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
   gravity: -9.8
   currentSpeed: 3
   baseSpeed: 3
   sprintSpeed: 5
-  jumpHeight: 1
+  jumpHeight: 0.5
 --- !u!114 &-7264112560730566213
 MonoBehaviour:
   m_ObjectHideFlags: 0
