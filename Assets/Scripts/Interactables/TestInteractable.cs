@@ -7,7 +7,7 @@ public class TestInteractable : Interactable
 
     private bool isRed = true;
 
-    protected override void Interact()
+    protected override void Interact(Transform player)
     {
         Debug.Log("Interacted with " + gameObject.name);
         isRed = !isRed;

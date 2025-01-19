@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-    private CharacterController controller;
+    public CharacterController controller;
     private Vector3 playerVelocity;
 
     private bool isGrounded;
+    private bool movementOverridden = false;
 
     private bool sprinting = false;
 
@@ -48,6 +49,8 @@ public class PlayerMotor : MonoBehaviour
 
     public void ProcessMove(Vector2 input)
     {
+        if (movementOverridden) return;
+
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;
@@ -73,6 +76,7 @@ public class PlayerMotor : MonoBehaviour
 
     public void Crouch()
     {
+        if(movementOverridden) return;
         crouching = !crouching;
         crouchTimer = 0f;
         lerpCrouch = true;
@@ -84,5 +88,17 @@ public class PlayerMotor : MonoBehaviour
         sprinting = !sprinting;
         if (sprinting) currentSpeed = sprintSpeed;
         else currentSpeed = baseSpeed;
+    }
+
+    public void ForcePlayerToPoint(Transform newPoint)
+    {
+        controller.enabled = false;
+        transform.position = newPoint.position;
+        controller.enabled = true;
+    }
+
+    public void ToggleMovementOverride()
+    {
+        movementOverridden = !movementOverridden;
     }
 }
