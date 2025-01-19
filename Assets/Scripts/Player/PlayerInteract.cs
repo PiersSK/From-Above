@@ -29,12 +29,15 @@ public class PlayerInteract : MonoBehaviour
             if(hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                Debug.Log(interactable.promptMessage);
-                promptText.text = interactable.promptMessage;
 
-                if (inputManager.playerActions.Interact.triggered)
+                if (interactable.isInteractable)
                 {
-                    interactable.BaseInteract();
+                    promptText.text = interactable.promptMessage;
+
+                    if (inputManager.playerActions.Interact.triggered)
+                    {
+                        interactable.BaseInteract(transform);
+                    }
                 }
             }
         }
