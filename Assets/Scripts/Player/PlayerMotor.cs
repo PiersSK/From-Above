@@ -68,7 +68,7 @@ public class PlayerMotor : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded)
+        if (isGrounded && !movementOverridden)
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
         }
@@ -90,10 +90,11 @@ public class PlayerMotor : MonoBehaviour
         else currentSpeed = baseSpeed;
     }
 
-    public void ForcePlayerToPoint(Transform newPoint)
+    public void ForcePlayerToPoint(Transform newPoint, bool useRotation = false)
     {
         controller.enabled = false;
         transform.position = newPoint.position;
+        if (useRotation) transform.localRotation = newPoint.localRotation;
         controller.enabled = true;
     }
 
