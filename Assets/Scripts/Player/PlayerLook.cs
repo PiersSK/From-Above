@@ -8,6 +8,11 @@ public class PlayerLook : MonoBehaviour
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
 
+    private float currentShakeTimer = 0f;
+    private float timeToShake = 0f;
+    private bool isShaking = false;
+    private float cameraShakeIntensity = 5f;
+
     private bool lookLocked = false;
 
     private void Awake()
@@ -25,7 +30,19 @@ public class PlayerLook : MonoBehaviour
         xRotation -= (mouseY * Time.deltaTime) * ySensitivity;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        float camZ = 0f;
+        if(isShaking)
+        {
+            camZ = Random.Range(-cameraShakeIntensity, cameraShakeIntensity);
+            currentShakeTimer += Time.deltaTime;
+            if(currentShakeTimer > timeToShake)
+            {
+                isShaking = false;
+            }
+        }
+
+
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, camZ);
 
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
     }
@@ -37,5 +54,13 @@ public class PlayerLook : MonoBehaviour
         {
             cam.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    public void CameraShake(float timer, float intensity = 5f)
+    {
+        cameraShakeIntensity = intensity;
+        timeToShake = timer;
+        currentShakeTimer = 0f;
+        isShaking = true;
     }
 }
