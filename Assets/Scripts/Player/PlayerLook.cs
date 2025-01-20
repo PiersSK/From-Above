@@ -30,8 +30,12 @@ public class PlayerLook : MonoBehaviour
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
     }
 
-    public void ToggleLookLock()
+    public void ToggleLookLock(bool resetCamera = true)
     {
         lookLocked = !lookLocked;
+        if(resetCamera)
+        {
+            cam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 }
