@@ -10,13 +10,16 @@ public class RapierTerminal : Computer
     [SerializeField] private Button shipStatusBtn;
     [SerializeField] private TextMeshProUGUI shipStatusSubtitle;
     [SerializeField] private Button readDataBtn;
-    [SerializeField] private TextMeshProUGUI readDataSubtitle;
     [SerializeField] private TextMeshProUGUI btnResponse;
+
+    [SerializeField] private DataReader dataReader;
 
     private bool shipDataUploaded = false;
     private const string shipDataUploadResponse = "UPLOAD COMPLETE\nCommand thanks you for your continued vigilance";
     private const string shipDataUploadReject = "NO UPDATED FOUND\nShip data was already updated today. Thank you for your continued vigilance";
     private const string shipDataSubtitleResponse = "NO ACTION REQUIRED";
+
+    private const string readDataReject = "NO DATA DRIVE INSERTED";
 
     //Something about reading data
 
@@ -43,6 +46,9 @@ public class RapierTerminal : Computer
 
     private void ReadData()
     {
-        // Something here later
+        if (dataReader.insertedDrive != null)
+            btnResponse.text = dataReader.insertedDrive.DiskTextContent;
+        else
+            btnResponse.text = readDataReject;
     }
 }

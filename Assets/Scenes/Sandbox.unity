@@ -2023,7 +2023,7 @@ GameObject:
   - component: {fileID: 314038355}
   - component: {fileID: 314038354}
   - component: {fileID: 314038353}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TestBench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2269,6 +2269,7 @@ GameObject:
   - component: {fileID: 329026862}
   - component: {fileID: 329026861}
   - component: {fileID: 329026860}
+  - component: {fileID: 329026864}
   m_Layer: 6
   m_Name: Disc Reader
   m_TagString: Untagged
@@ -2367,6 +2368,23 @@ Transform:
   - {fileID: 909238024}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &329026864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329026859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff42ab207a32f43e8a44fcdd4b0c9254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Insert/Remove Drive
+  isInteractable: 1
+  insertedDrive: {fileID: 0}
+  insertedDriveName: {fileID: 1290352301}
+  driveObj: {fileID: 909238023}
 --- !u!1 &334659669 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8256134651489076907, guid: 5ae3cacbff70d7a40bf78c7e266bfd03, type: 3}
@@ -4584,8 +4602,8 @@ MonoBehaviour:
   shipStatusBtn: {fileID: 442110230}
   shipStatusSubtitle: {fileID: 1958632136}
   readDataBtn: {fileID: 316274164}
-  readDataSubtitle: {fileID: 1290352301}
   btnResponse: {fileID: 1533521089}
+  dataReader: {fileID: 329026864}
 --- !u!1 &891459806
 GameObject:
   m_ObjectHideFlags: 0
@@ -7745,7 +7763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Button Response '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7395d755276cd049b34fcca02a94225, type: 2}
   m_sharedMaterial: {fileID: -3046814548264137173, guid: e7395d755276cd049b34fcca02a94225, type: 2}
@@ -7984,7 +8002,7 @@ GameObject:
   - component: {fileID: 1697505909}
   - component: {fileID: 1697505908}
   - component: {fileID: 1697505907}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
