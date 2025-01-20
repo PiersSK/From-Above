@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Computer : Interactable
 {
@@ -7,6 +8,8 @@ public class Computer : Interactable
     private PlayerLook look;
     private InputManager input;
     [SerializeField] private Transform lockPoint;
+
+    [SerializeField] private string escapeHelpMessage;
 
     private void Update()
     {
@@ -29,6 +32,9 @@ public class Computer : Interactable
 
         Cursor.lockState = CursorLockMode.None;
         look.ToggleLookLock();
+
+        UIManager.Instance.ToggleCrosshairVisibility();
+        UIManager.Instance.ShowHelpText(escapeHelpMessage);
     }
 
     private void ReleasePlayer()
@@ -37,5 +43,8 @@ public class Computer : Interactable
         Cursor.lockState = CursorLockMode.Locked;
         look.ToggleLookLock();
         isInteractable = true;
+
+        UIManager.Instance.ToggleCrosshairVisibility();
+        UIManager.Instance.HideHelpText();
     }
 }
