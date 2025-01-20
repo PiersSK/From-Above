@@ -8,6 +8,8 @@ public class PlayerLook : MonoBehaviour
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
 
+    private bool lookLocked = false;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -15,6 +17,8 @@ public class PlayerLook : MonoBehaviour
 
     public void ProcessLook(Vector2 input)
     {
+        if (lookLocked) return;
+
         float mouseX = input.x;
         float mouseY = input.y;
 
@@ -24,5 +28,10 @@ public class PlayerLook : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+    }
+
+    public void ToggleLookLock()
+    {
+        lookLocked = !lookLocked;
     }
 }
