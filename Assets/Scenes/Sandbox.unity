@@ -1752,6 +1752,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 872623014}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &257875020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8576532208612550083, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+  m_PrefabInstance: {fileID: 4520452601124261174}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &257875029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257875020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43a0fd6529284e4dbabd7303ab805e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataDrivesHeld: []
 --- !u!1 &267213925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,7 +1782,8 @@ GameObject:
   - component: {fileID: 267213928}
   - component: {fileID: 267213927}
   - component: {fileID: 267213926}
-  m_Layer: 0
+  - component: {fileID: 267213930}
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1862,6 +1881,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1497592610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &267213930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267213925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f3c5fcb56154bf1a2b689c082dbc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Remove/Place Data Drive
+  isInteractable: 1
+  driveStored: {fileID: 11400000, guid: f879787bdbebe4f10aaf528fd3fa4606, type: 2}
+  driveObj: {fileID: 1394641750}
 --- !u!1 &277576257
 GameObject:
   m_ObjectHideFlags: 0
@@ -10242,7 +10277,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8576532208612550083, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 257875029}
   m_SourcePrefab: {fileID: 100100000, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
