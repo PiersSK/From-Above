@@ -65,6 +65,7 @@ public class FocusPickup : Interactable
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.HideHelpText();
         UIManager.Instance.HidePopupText();
+        textPopupVisible = false;
 
         transform.position = initialPos;
         transform.rotation = initialRot;
