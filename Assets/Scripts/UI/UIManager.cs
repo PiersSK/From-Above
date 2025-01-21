@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance {  get; private set; }
     [SerializeField] private GameObject crosshair;
     [SerializeField] private TextMeshProUGUI helpText;
+    [SerializeField] private GameObject textPopUp;
+    [SerializeField] private TextMeshProUGUI textPopUpText;
 
     private void Awake()
     {
@@ -28,4 +30,16 @@ public class UIManager : MonoBehaviour
     {
         helpText.gameObject.SetActive(false);
     }
+
+    public void ShowPopupText(string message)
+    {
+        textPopUpText.text = message;
+        textPopUp.SetActive(true);
+    }
+
+    public void HidePopupText()
+    {
+        textPopUp.SetActive(false);
+    }
+
 }

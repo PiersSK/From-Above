@@ -9,7 +9,7 @@ public class Computer : Interactable
     private InputManager input;
     [SerializeField] private Transform lockPoint;
 
-    [SerializeField] private string escapeHelpMessage;
+    private const string ESCAPEUI = "[Esc] To exit terminal";
 
     private void Update()
     {
@@ -34,7 +34,7 @@ public class Computer : Interactable
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.ShowHelpText(escapeHelpMessage);
+        UIManager.Instance.ShowHelpText(ESCAPEUI);
     }
 
     private void ReleasePlayer()
