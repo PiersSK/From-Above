@@ -11,7 +11,11 @@ public class PlayerLook : MonoBehaviour
     private float currentShakeTimer = 0f;
     private float timeToShake = 0f;
     private bool isShaking = false;
+    private bool ascendingIntensity = false;
     private float cameraShakeIntensity = 5f;
+
+    private bool isDescendingShake = false;
+    private float timeToDescend = 0f;
 
     private bool lookLocked = false;
 
@@ -33,11 +37,24 @@ public class PlayerLook : MonoBehaviour
         float camZ = 0f;
         if(isShaking)
         {
-            camZ = Random.Range(-cameraShakeIntensity, cameraShakeIntensity);
+            float intensity = ascendingIntensity ? cameraShakeIntensity * (currentShakeTimer / timeToShake) : cameraShakeIntensity;
+            camZ = Random.Range(-intensity, intensity);
             currentShakeTimer += Time.deltaTime;
             if(currentShakeTimer > timeToShake)
             {
                 isShaking = false;
+                isDescendingShake = true;
+                currentShakeTimer = 0f;
+            }
+        } else if (isDescendingShake)
+        {
+            float intensity = cameraShakeIntensity - cameraShakeIntensity * (currentShakeTimer / timeToDescend);
+            camZ = Random.Range(-intensity, intensity);
+            currentShakeTimer += Time.deltaTime;
+            if (currentShakeTimer > timeToDescend)
+            {
+                isDescendingShake = false;
+                currentShakeTimer = 0f;
             }
         }
 
@@ -56,11 +73,15 @@ public class PlayerLook : MonoBehaviour
         }
     }
 
-    public void CameraShake(float timer, float intensity = 5f)
+    public void CameraShake(float timer, float intensity = 5f, bool ascending = false)
     {
         cameraShakeIntensity = intensity;
         timeToShake = timer;
+        timeToDescend = timer * 0.2f;
+        ascendingIntensity = ascending;
+
         currentShakeTimer = 0f;
         isShaking = true;
+
     }
 }

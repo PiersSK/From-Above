@@ -15,6 +15,6 @@ public class CyclePowerButton : Interactable
     {
         buttonAnimator.SetTrigger("Press");
         lightFlicker.Play();
-        playerLook.CameraShake(5f, 5f);
+        playerLook.CameraShake(5f, 5f, true);
     }
 }
