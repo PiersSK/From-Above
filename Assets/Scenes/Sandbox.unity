@@ -9610,8 +9610,9 @@ GameObject:
   - component: {fileID: 976371826}
   - component: {fileID: 976371825}
   - component: {fileID: 976371824}
-  m_Layer: 0
-  m_Name: TestBench (13)
+  - component: {fileID: 976371827}
+  m_Layer: 6
+  m_Name: Letter From V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9676,7 +9677,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd5a616a794b348f0845e69b47a37ca9, type: 2}
+  - {fileID: 2100000, guid: 786434287d4394017aa9ce0dcefc7093, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9706,6 +9707,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976371822}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &976371827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976371822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a1ed366121c448eac58902d5fbe89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: '[E] Read Letter From V'
+  isInteractable: 1
+  hasText: 1
+  textTranscript: "I tried, but I can\u2019t.\\nThis is too far, and you\u2019ll
+    be gone for so long up there.\\nYou didn\u2019t have to do this, you could have
+    said no.\\n\\t\\t\\tV"
 --- !u!1 &976752067
 GameObject:
   m_ObjectHideFlags: 0
@@ -19268,6 +19287,10 @@ PrefabInstance:
     - target: {fileID: 2796969451997746515, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2988225797057558807, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.7058824
       objectReference: {fileID: 0}
     - target: {fileID: 5193869270774491235, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_Pivot.x
