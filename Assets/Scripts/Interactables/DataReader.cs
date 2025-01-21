@@ -5,8 +5,11 @@ public class DataReader : Interactable
 {
     public DataDrive insertedDrive = null;
     [SerializeField] private TextMeshProUGUI insertedDriveName;
-    [SerializeField] private TextMeshProUGUI DiskInfo;
     [SerializeField] private GameObject driveObj;
+
+
+    [SerializeField] private TextMeshProUGUI textOutput;
+    [SerializeField] private MusicPlayer audioOutput;
 
     private const string NODISK = "NONE INSERTED";
 
@@ -25,7 +28,10 @@ public class DataReader : Interactable
             inv.dataDrivesHeld.Add(insertedDrive);
             insertedDrive = null;
             insertedDriveName.text = NODISK;
-            DiskInfo.text = string.Empty;
+
+            if(textOutput != null) textOutput.text = string.Empty;
+            if (audioOutput != null) audioOutput.DiskRemoved();
+
             driveObj.SetActive(false);
 
         }
