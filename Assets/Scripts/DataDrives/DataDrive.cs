@@ -5,4 +5,5 @@ public class DataDrive : ScriptableObject
 {
     public string DiskName;
     public string DiskTextContent;
+    public AudioClip DiskAudioContent;
 }
