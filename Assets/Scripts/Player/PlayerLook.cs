@@ -8,6 +8,15 @@ public class PlayerLook : MonoBehaviour
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
 
+    private float currentShakeTimer = 0f;
+    private float timeToShake = 0f;
+    private bool isShaking = false;
+    private bool ascendingIntensity = false;
+    private float cameraShakeIntensity = 5f;
+
+    private bool isDescendingShake = false;
+    private float timeToDescend = 0f;
+
     private bool lookLocked = false;
 
     private void Awake()
@@ -25,7 +34,32 @@ public class PlayerLook : MonoBehaviour
         xRotation -= (mouseY * Time.deltaTime) * ySensitivity;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        float camZ = 0f;
+        if(isShaking)
+        {
+            float intensity = ascendingIntensity ? cameraShakeIntensity * (currentShakeTimer / timeToShake) : cameraShakeIntensity;
+            camZ = Random.Range(-intensity, intensity);
+            currentShakeTimer += Time.deltaTime;
+            if(currentShakeTimer > timeToShake)
+            {
+                isShaking = false;
+                isDescendingShake = true;
+                currentShakeTimer = 0f;
+            }
+        } else if (isDescendingShake)
+        {
+            float intensity = cameraShakeIntensity - cameraShakeIntensity * (currentShakeTimer / timeToDescend);
+            camZ = Random.Range(-intensity, intensity);
+            currentShakeTimer += Time.deltaTime;
+            if (currentShakeTimer > timeToDescend)
+            {
+                isDescendingShake = false;
+                currentShakeTimer = 0f;
+            }
+        }
+
+
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, camZ);
 
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
     }
@@ -37,5 +71,17 @@ public class PlayerLook : MonoBehaviour
         {
             cam.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    public void CameraShake(float timer, float intensity = 5f, bool ascending = false)
+    {
+        cameraShakeIntensity = intensity;
+        timeToShake = timer;
+        timeToDescend = timer * 0.2f;
+        ascendingIntensity = ascending;
+
+        currentShakeTimer = 0f;
+        isShaking = true;
+
     }
 }
