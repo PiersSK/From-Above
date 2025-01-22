@@ -94,7 +94,7 @@ public class PlayerMotor : MonoBehaviour
     {
         controller.enabled = false;
         transform.position = newPoint.position;
-        if (useRotation) transform.localRotation = newPoint.localRotation;
+        if (useRotation) transform.rotation = newPoint.rotation;
         controller.enabled = true;
     }
 
