@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.93
+  m_AmbientIntensity: 0.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.18001422, g: 0.3104401, b: 0.7283019, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 4f355d2bbabd4ef4f987bd60fe65bfa6, type: 2}
@@ -25774,6 +25774,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship
       objectReference: {fileID: 0}
+    - target: {fileID: 1961138729159378919, guid: 7b7b2897a47ced34ba103a20cdbc5613, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 498d459407f94ce4c978de423c6ac08d, type: 2}
     - target: {fileID: 2135539489894524104, guid: 7b7b2897a47ced34ba103a20cdbc5613, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -25790,6 +25794,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 395630091}
+    - target: {fileID: 2311333557316440194, guid: 7b7b2897a47ced34ba103a20cdbc5613, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 498d459407f94ce4c978de423c6ac08d, type: 2}
     - target: {fileID: 2863211021083716892, guid: 7b7b2897a47ced34ba103a20cdbc5613, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -25806,6 +25814,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1899075987}
+    - target: {fileID: 3559722801871629154, guid: 7b7b2897a47ced34ba103a20cdbc5613, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 498d459407f94ce4c978de423c6ac08d, type: 2}
     - target: {fileID: 3712635191090170631, guid: 7b7b2897a47ced34ba103a20cdbc5613, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -41944,7 +41956,7 @@ Transform:
   m_GameObject: {fileID: 1784650461}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.160683, y: 452.06458, z: 1620.8422}
+  m_LocalPosition: {x: 28.160683, y: 452.07, z: 1620.8422}
   m_LocalScale: {x: 60, y: 0.1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
