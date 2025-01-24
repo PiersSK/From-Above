@@ -22,7 +22,7 @@ public class DataReader : Interactable
             insertedDrive = inv.dataDrivesHeld[0];
             inv.dataDrivesHeld.RemoveAt(0);
             insertedDriveName.text = insertedDrive.DiskName;
-            anim.SetTrigger("Insert");
+            if(anim != null) anim.SetTrigger("Insert");
 
         } else if (insertedDrive != null)
         {
@@ -32,8 +32,7 @@ public class DataReader : Interactable
 
             if(textOutput != null) textOutput.text = string.Empty;
             if (audioOutput != null) audioOutput.DiskRemoved();
-
-            anim.SetTrigger("Eject");
+            if (anim != null) anim.SetTrigger("Eject");
 
         }
     }
