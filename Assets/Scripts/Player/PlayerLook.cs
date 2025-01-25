@@ -31,7 +31,7 @@ public class PlayerLook : MonoBehaviour
         float mouseX = input.x;
         float mouseY = input.y;
 
-        xRotation -= (mouseY * Time.deltaTime) * ySensitivity;
+        xRotation -= mouseY * ySensitivity;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
         float camZ = 0f;
@@ -61,7 +61,7 @@ public class PlayerLook : MonoBehaviour
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, camZ);
 
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+        transform.Rotate(Vector3.up * mouseX * xSensitivity);
     }
 
     public void ToggleLookLock(bool resetCamera = true)

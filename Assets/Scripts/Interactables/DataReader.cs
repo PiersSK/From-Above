@@ -5,7 +5,7 @@ public class DataReader : Interactable
 {
     public DataDrive insertedDrive = null;
     [SerializeField] private TextMeshProUGUI insertedDriveName;
-    [SerializeField] private GameObject driveObj;
+    [SerializeField] private Animator anim;
 
 
     [SerializeField] private TextMeshProUGUI textOutput;
@@ -22,7 +22,8 @@ public class DataReader : Interactable
             insertedDrive = inv.dataDrivesHeld[0];
             inv.dataDrivesHeld.RemoveAt(0);
             insertedDriveName.text = insertedDrive.DiskName;
-            driveObj.SetActive(true);
+            if(anim != null) anim.SetTrigger("Insert");
+
         } else if (insertedDrive != null)
         {
             inv.dataDrivesHeld.Add(insertedDrive);
@@ -31,8 +32,7 @@ public class DataReader : Interactable
 
             if(textOutput != null) textOutput.text = string.Empty;
             if (audioOutput != null) audioOutput.DiskRemoved();
-
-            driveObj.SetActive(false);
+            if (anim != null) anim.SetTrigger("Eject");
 
         }
     }

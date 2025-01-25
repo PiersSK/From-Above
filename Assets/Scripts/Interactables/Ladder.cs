@@ -47,7 +47,7 @@ public class Ladder : Interactable
             else
                 lockPoint = topDistance < bottomDistance ? topDisembarkPoint : bottomLockPoint;
 
-            motor.ForcePlayerToPoint(lockPoint);
+            motor.ForcePlayerToPoint(lockPoint, true);
         }
 
         motor.ToggleMovementOverride();
