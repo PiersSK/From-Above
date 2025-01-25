@@ -18,6 +18,7 @@ public class DiaryTerminal : Computer
     [SerializeField] private List<GameObject> questionBlocks = new();
     [SerializeField] private GameObject header;
     [SerializeField] private GameObject footer;
+    [SerializeField] Task task;
 
     private void Start()
     {
@@ -25,6 +26,17 @@ public class DiaryTerminal : Computer
         questionBlocks[0].SetActive(true);
         header.GetComponent<TextMeshProUGUI>().text = HEADER;
         footer.GetComponent<TextMeshProUGUI>().text = FOOTER;
+    }
+
+    protected override void Update()
+    {
+        if(input != null && input.playerActions.Submit.triggered)
+        {
+            string answer = questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.text;
+            RevealNextText(answer);
+        }
+
+        base.Update();
     }
 
     public void RevealNextText(string answer)
@@ -42,7 +54,15 @@ public class DiaryTerminal : Computer
         }
         else
         {
+            TaskManager.Instance.CompleteTask(task);
             footer.SetActive(true);
         }
+    }
+
+    protected override void ReleasePlayer()
+    {
+        if (questionsAnswered < questionBlocks.Count) 
+            questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.DeactivateInputField();
+        base.ReleasePlayer();
     }
 }

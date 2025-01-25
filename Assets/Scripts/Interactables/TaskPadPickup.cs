@@ -7,7 +7,7 @@ public class TaskPadPickup : ClearableInteractable
     protected override void Interact(Transform player)
     {
         taskManager.ObtainTaskpad();
-        UIManager.Instance.ShowMenuPrompt();
+        UIManager.Instance.ShowTaskPadPrompt();
         base.Interact(player);
     }
 }

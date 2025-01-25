@@ -17,9 +17,14 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowMenuPrompt()
+    public void ShowTaskPadPrompt()
     {
         menuPrompt.SetActive(true);
+    }
+
+    public void HideTaskPadPrompt()
+    {
+        menuPrompt.SetActive(false);
     }
 
     public void ToggleMenuPromptStatus()

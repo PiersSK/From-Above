@@ -125,6 +125,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""79aa2da8-1da5-4418-90f3-7aa8a94a46ed"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -510,6 +519,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Tasklist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bcde347-a706-49a3-a743-36115809ea1b"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31560221-b055-49cc-a561-9227892df6de"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1108,6 +1139,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_UIToggle = m_Player.FindAction("UIToggle", throwIfNotFound: true);
         m_Player_Tasklist = m_Player.FindAction("Tasklist", throwIfNotFound: true);
+        m_Player_Submit = m_Player.FindAction("Submit", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1198,6 +1230,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_UIToggle;
     private readonly InputAction m_Player_Tasklist;
+    private readonly InputAction m_Player_Submit;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -1213,6 +1246,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @UIToggle => m_Wrapper.m_Player_UIToggle;
         public InputAction @Tasklist => m_Wrapper.m_Player_Tasklist;
+        public InputAction @Submit => m_Wrapper.m_Player_Submit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1255,6 +1289,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Tasklist.started += instance.OnTasklist;
             @Tasklist.performed += instance.OnTasklist;
             @Tasklist.canceled += instance.OnTasklist;
+            @Submit.started += instance.OnSubmit;
+            @Submit.performed += instance.OnSubmit;
+            @Submit.canceled += instance.OnSubmit;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1292,6 +1329,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Tasklist.started -= instance.OnTasklist;
             @Tasklist.performed -= instance.OnTasklist;
             @Tasklist.canceled -= instance.OnTasklist;
+            @Submit.started -= instance.OnSubmit;
+            @Submit.performed -= instance.OnSubmit;
+            @Submit.canceled -= instance.OnSubmit;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1485,6 +1525,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnEscape(InputAction.CallbackContext context);
         void OnUIToggle(InputAction.CallbackContext context);
         void OnTasklist(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

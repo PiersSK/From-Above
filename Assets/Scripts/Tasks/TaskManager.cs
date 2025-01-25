@@ -9,12 +9,14 @@ public class TaskManager : MonoBehaviour
     private bool taskPadVisible = false;
     private bool taskPadObtained = false;
 
-    [SerializeField] private List<Task> dailyTasks;
+    [SerializeField] private List<Task> Tasks;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
 
     private Animator taskPadAnim;
     [SerializeField] private GameObject taskPadObj;
+
+    [SerializeField] private Transform player;
 
     private void Awake()
     {
@@ -36,7 +38,9 @@ public class TaskManager : MonoBehaviour
 
     private void RefreshTaskListUI()
     {
-        foreach (var task in dailyTasks)
+        foreach (Transform task in taskPadListParent) Destroy(task.gameObject);
+
+        foreach (var task in Tasks)
         {
             Transform taskUI = Instantiate<Transform>(Resources.Load<Transform>(TASKUIOBJECT), taskPadListParent);
             taskUI.GetComponent<TaskPadTask>().SetTask(task);
@@ -44,15 +48,15 @@ public class TaskManager : MonoBehaviour
     }
 
 
-    public void ClearDailyTask(Task taskToComplete)
+    public void CompleteTask(Task taskToComplete)
     {
-        dailyTasks.Remove(taskToComplete);
+        Tasks.Remove(taskToComplete);
         RefreshTaskListUI();
     }
 
     public void ToggleTaskPad()
     {
-        if (!taskPadObtained) return;
+        if (!taskPadObtained || player.GetComponent<PlayerMotor>().movementOverridden) return;
 
         taskPadVisible = !taskPadVisible;
         UIManager.Instance.ToggleMenuPromptStatus();
