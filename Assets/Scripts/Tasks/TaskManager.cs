@@ -52,6 +52,7 @@ public class TaskManager : MonoBehaviour
     {
         Tasks.Remove(taskToComplete);
         RefreshTaskListUI();
+        UIManager.Instance.CompletedTaskPopup();
     }
 
     public void ToggleTaskPad()

@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject textPopUp;
     [SerializeField] private TextMeshProUGUI textPopUpText;
     [SerializeField] private GameObject menuPrompt;
+    [SerializeField] private Animation completedTaskPopup;
     private bool taskPadVisible = false;
 
     private void Awake()
@@ -20,6 +21,11 @@ public class UIManager : MonoBehaviour
     public void ShowTaskPadPrompt()
     {
         menuPrompt.SetActive(true);
+    }
+
+    public void CompletedTaskPopup()
+    {
+        completedTaskPopup.Play();
     }
 
     public void HideTaskPadPrompt()
