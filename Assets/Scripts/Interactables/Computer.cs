@@ -6,12 +6,12 @@ public class Computer : Interactable
     private bool playerAtComputer = false;
     private PlayerMotor motor;
     private PlayerLook look;
-    private InputManager input;
+    protected InputManager input;
     [SerializeField] private Transform lockPoint;
 
     private const string ESCAPEUI = "[Esc] To exit terminal";
 
-    private void Update()
+    protected virtual void Update()
     {
         if(input != null && !isInteractable && input.playerActions.Escape.triggered)
         {
@@ -35,9 +35,10 @@ public class Computer : Interactable
 
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.ShowHelpText(ESCAPEUI);
+        UIManager.Instance.HideTaskPadPrompt();
     }
 
-    private void ReleasePlayer()
+    protected virtual void ReleasePlayer()
     {
         motor.ToggleMovementOverride();
         Cursor.lockState = CursorLockMode.Locked;
@@ -46,5 +47,6 @@ public class Computer : Interactable
 
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.HideHelpText();
+        UIManager.Instance.ShowTaskPadPrompt();
     }
 }

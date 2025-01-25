@@ -6,7 +6,7 @@ public class PlayerMotor : MonoBehaviour
     private Vector3 playerVelocity;
 
     private bool isGrounded;
-    private bool movementOverridden = false;
+    public bool movementOverridden = false;
 
     private bool sprinting = false;
 

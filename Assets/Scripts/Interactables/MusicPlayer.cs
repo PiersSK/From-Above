@@ -5,6 +5,11 @@ public class MusicPlayer : Interactable
     [SerializeField] private DataReader dataReader;
     [SerializeField] private AudioSource audioSource;
 
+    private bool taskCompleted = false;
+    [SerializeField] private DataDrive wellnessTape;
+    [SerializeField] private Task wellnessTask;
+
+
 
     protected override void Interact(Transform player)
     {
@@ -16,7 +21,10 @@ public class MusicPlayer : Interactable
                 audioSource.resource = drive.DiskAudioContent;
 
             if (audioSource.resource != null && !audioSource.isPlaying)
+            {
                 audioSource.Play();
+                if (drive == wellnessTape && !taskCompleted) TaskManager.Instance.CompleteTask(wellnessTask);
+            }
             else if (audioSource.isPlaying)
                 audioSource.Pause();
            

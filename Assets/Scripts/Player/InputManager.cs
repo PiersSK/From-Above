@@ -6,6 +6,9 @@ public class InputManager : MonoBehaviour
     public PlayerInput.PlayerActions playerActions;
     private PlayerMotor motor;
     private PlayerLook look;
+
+    [SerializeField] private TaskManager taskManager;
+
     private void Awake()
     {
         playerInput = new PlayerInput();
@@ -17,6 +20,7 @@ public class InputManager : MonoBehaviour
         playerActions.Jump.performed += ctx => motor.Jump();
         playerActions.Crouch.performed += ctx => motor.Crouch();
         playerActions.Sprint.performed += ctx => motor.Sprint();
+        playerActions.Tasklist.performed += ctx => taskManager.ToggleTaskPad();
     }
 
     private void Update()

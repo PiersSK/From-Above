@@ -9,10 +9,34 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI helpText;
     [SerializeField] private GameObject textPopUp;
     [SerializeField] private TextMeshProUGUI textPopUpText;
+    [SerializeField] private GameObject menuPrompt;
+    [SerializeField] private Animation completedTaskPopup;
+    private bool taskPadVisible = false;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void ShowTaskPadPrompt()
+    {
+        menuPrompt.SetActive(true);
+    }
+
+    public void CompletedTaskPopup()
+    {
+        completedTaskPopup.Play();
+    }
+
+    public void HideTaskPadPrompt()
+    {
+        menuPrompt.SetActive(false);
+    }
+
+    public void ToggleMenuPromptStatus()
+    {
+        taskPadVisible = !taskPadVisible;
+        menuPrompt.GetComponentInChildren<TextMeshProUGUI>().text = taskPadVisible ? "Hide TaskPad" : "View TaskPad";
     }
 
     public void ToggleCrosshairVisibility()

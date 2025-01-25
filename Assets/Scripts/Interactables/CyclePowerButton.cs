@@ -7,6 +7,8 @@ public class CyclePowerButton : Interactable
     private Animator buttonAnimator;
     private bool powerNeedsCycling = true;
 
+    [SerializeField] private Task task;
+
     private void Start()
     {
         buttonAnimator = GetComponent<Animator>();
@@ -20,6 +22,7 @@ public class CyclePowerButton : Interactable
             lightFlicker.Play();
             playerLook.CameraShake(5f, 5f, true);
             powerNeedsCycling = false;
+            TaskManager.Instance.CompleteTask(task);
         } else
         {
             buttonAnimator.SetTrigger("Press");
