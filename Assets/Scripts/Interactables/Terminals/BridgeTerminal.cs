@@ -14,6 +14,8 @@ public class BridgeTerminal : Computer
     [SerializeField] private DataReader dataReader;
     [SerializeField] private DataDrive fleetData;
 
+    [SerializeField] private Task fleetDataTask;
+
     private bool fleetDataUploaded = false;
     private const string fleetDataUploadedMsg = "[UPLOAD OF DATA COMPLETE]";
     private const string fleetDataUploadedPreviouslyMsg = "DATA ALREADY UPLOADED. PLEASE RETURN DATA TO STORAGE";
@@ -44,6 +46,7 @@ public class BridgeTerminal : Computer
                 {
                     btnResponse.text = fleetDataUploadedMsg + "\n" + dataReader.insertedDrive.DiskTextContent;
                     fleetDataUploaded = true;
+                    TaskManager.Instance.CompleteTask(fleetDataTask);
                 }
                 else
                     btnResponse.text = fleetDataUploadedPreviouslyMsg;

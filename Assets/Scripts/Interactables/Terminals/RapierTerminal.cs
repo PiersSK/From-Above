@@ -14,6 +14,8 @@ public class RapierTerminal : Computer
 
     [SerializeField] private DataReader dataReader;
 
+    [SerializeField] private Task task;
+
     private bool shipDataUploaded = false;
     private const string shipDataUploadResponse = "UPLOAD COMPLETE\nCommand thanks you for your continued vigilance";
     private const string shipDataUploadReject = "NO UPDATED FOUND\nShip data was already updated today. Thank you for your continued vigilance";
@@ -38,6 +40,7 @@ public class RapierTerminal : Computer
             shipStatusSubtitle.text = shipDataSubtitleResponse;
             notif2.fontStyle = FontStyles.Strikethrough;
             shipDataUploaded = true;
+            TaskManager.Instance.CompleteTask(task);
         } else
         {
             btnResponse.text = shipDataUploadReject;
