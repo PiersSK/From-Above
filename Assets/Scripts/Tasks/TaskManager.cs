@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
@@ -15,6 +16,7 @@ public class TaskManager : MonoBehaviour
 
     private Animator taskPadAnim;
     [SerializeField] private GameObject taskPadObj;
+    [SerializeField] private TextMeshProUGUI taskCount;
 
     [SerializeField] private Transform player;
 
@@ -38,6 +40,8 @@ public class TaskManager : MonoBehaviour
 
     private void RefreshTaskListUI()
     {
+        taskCount.text = Tasks.Count.ToString();
+
         foreach (Transform task in taskPadListParent) Destroy(task.gameObject);
 
         foreach (var task in Tasks)
