@@ -11,6 +11,7 @@ public class ConsoleLever : Interactable
     {
         GetComponent<Animation>().Play();
         isFlipped = true;
+        DoomsdayStatusUI.Instance.calibrated++;
 
         if (otherLever.isFlipped) TaskManager.Instance.CompleteTask(task);
     }
