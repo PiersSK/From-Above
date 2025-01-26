@@ -60,6 +60,8 @@ public class DataReader : Interactable
 
     public void UnlockPlayer()
     {
+        Transform player = PlayerInventory.Instance.transform;
+
         PDUI.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         player.GetComponent<PlayerMotor>().ToggleMovementOverride();

@@ -20,12 +20,18 @@ public class ServerRack : MonoBehaviour
     private const string DimGlow = "DimGlow";
     private const string WhiteGlow = "WhiteGlow";
 
-    private void Start()
+    private void Update()
     {
-        leftLight.material = Resources.Load<Material>(hasDisk ? LEDGreen : LEDRed);
-        rightLight.material = Resources.Load<Material>(isUsable ? LEDBlue : LEDRed);
+        SetLights();
+    }
 
-        if (useCustomLabel) label.text = customLabel;
+    public void SetLights()
+    {
+        bool diskPresent = GetComponentInChildren<ServerDiscStorage>().driveInDock;
+        leftLight.material = Resources.Load<Material>(hasDisk && diskPresent ? LEDGreen : LEDRed);
+
+        bool inPhase = GetComponentInChildren<ServerButton>().usableInPhaseOne || TaskManager.Instance.isPhaseTwo;
+        rightLight.material = Resources.Load<Material>(isUsable && inPhase ? LEDBlue : LEDRed);
     }
 
     public void SetLabel(string name)

@@ -6,9 +6,8 @@ using UnityEngine;
 public class ServerDiscStorage : Interactable
 {
     [SerializeField] private DataDrive driveStored;
-    [SerializeField] private GameObject driveObj;
     [SerializeField] private Animator serverAnim;
-    private bool driveInDock = true;
+    public bool driveInDock = true;
 
     private string inDockPrompt;
     private string outDockPrompt;

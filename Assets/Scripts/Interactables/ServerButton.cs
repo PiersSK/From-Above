@@ -2,9 +2,17 @@ using UnityEngine;
 
 public class ServerButton : Interactable
 {
+    [SerializeField] private ServerEXE exe;
+    public bool usableInPhaseOne = false;
+
+    public override bool CanInteract()
+    {
+
+        return base.CanInteract() && (usableInPhaseOne || TaskManager.Instance.isPhaseTwo) && exe.IsRunnable();
+    }
+
     protected override void Interact(Transform player)
     {
-        base.Interact(player);
-        //Do Something
+        exe.RunExe();
     }
 }

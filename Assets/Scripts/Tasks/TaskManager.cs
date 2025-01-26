@@ -10,7 +10,10 @@ public class TaskManager : MonoBehaviour
     private bool taskPadVisible = false;
     private bool taskPadObtained = false;
 
-    [SerializeField] private List<Task> Tasks;
+    [SerializeField] private List<Task> tasks;
+    [SerializeField] private List<Task> phaseTwoTasks;
+    public bool isPhaseTwo = false;
+    [SerializeField] bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
 
@@ -28,6 +31,17 @@ public class TaskManager : MonoBehaviour
     private void Start()
     {
         taskPadAnim = taskPadObj.GetComponent<Animator>();
+        if(DEBUG_startOnPhaseTwo) MoveToPhaseTwo();
+    }
+
+    private void MoveToPhaseTwo()
+    {
+        isPhaseTwo = true;
+        tasks.Clear();
+        tasks.Add(phaseTwoTasks[0]);
+        phaseTwoTasks.RemoveAt(0);
+
+        RefreshTaskListUI();
     }
 
     public void ObtainTaskpad()
@@ -40,11 +54,11 @@ public class TaskManager : MonoBehaviour
 
     private void RefreshTaskListUI()
     {
-        taskCount.text = Tasks.Count.ToString();
+        taskCount.text = tasks.Count.ToString();
 
         foreach (Transform task in taskPadListParent) Destroy(task.gameObject);
 
-        foreach (var task in Tasks)
+        foreach (var task in tasks)
         {
             Transform taskUI = Instantiate<Transform>(Resources.Load<Transform>(TASKUIOBJECT), taskPadListParent);
             taskUI.GetComponent<TaskPadTask>().SetTask(task);
@@ -54,9 +68,21 @@ public class TaskManager : MonoBehaviour
 
     public void CompleteTask(Task taskToComplete)
     {
-        Tasks.Remove(taskToComplete);
+        tasks.Remove(taskToComplete);
+
+        if(isPhaseTwo && phaseTwoTasks.Count > 0)
+        {
+            tasks.Add(phaseTwoTasks[0]);
+            phaseTwoTasks.RemoveAt(0);
+        }
+
         RefreshTaskListUI();
         UIManager.Instance.CompletedTaskPopup();
+
+        if(!isPhaseTwo && tasks.Count == 0)
+        {
+            MoveToPhaseTwo();
+        }
     }
 
     public void ToggleTaskPad()
