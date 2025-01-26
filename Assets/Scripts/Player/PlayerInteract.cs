@@ -30,9 +30,9 @@ public class PlayerInteract : MonoBehaviour
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
 
-                if (interactable.isInteractable)
+                if (interactable.CanInteract())
                 {
-                    promptText.text = interactable.promptMessage;
+                    promptText.text = "[E] " + interactable.GetPrompt();
 
                     if (inputManager.playerActions.Interact.triggered)
                     {

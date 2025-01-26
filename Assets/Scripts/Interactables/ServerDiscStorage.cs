@@ -1,10 +1,37 @@
+using NUnit;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ServerDiscStorage : Interactable
 {
     [SerializeField] private DataDrive driveStored;
     [SerializeField] private GameObject driveObj;
+    [SerializeField] private Animator serverAnim;
     private bool driveInDock = true;
+
+    private string inDockPrompt;
+    private string outDockPrompt;
+
+    private void Start()
+    {
+        if (driveStored != null)
+        {
+            inDockPrompt = "Take " + driveStored.DiskName + " PD";
+            outDockPrompt = "Return " + driveStored.DiskName + " PD";
+        }
+    }
+
+    public override bool CanInteract()
+    {
+        List<DataDrive> playerDrives = PlayerInventory.Instance.dataDrivesHeld;
+        return driveStored != null && (!playerDrives.Contains(driveStored) && driveInDock) || (playerDrives.Contains(driveStored) && !driveInDock);
+    }
+
+    public override string GetPrompt()
+    {
+        return driveStored != null ? (driveInDock ? inDockPrompt : outDockPrompt) : string.Empty;
+    }
 
     protected override void Interact(Transform player)
     {
@@ -14,12 +41,13 @@ public class ServerDiscStorage : Interactable
         {
             inv.dataDrivesHeld.Add(driveStored);
             driveInDock = false;
-            driveObj.SetActive(false);
-        } else if (!driveInDock)
+            serverAnim.SetTrigger("Eject");
+        } else if (inv.dataDrivesHeld.Contains(driveStored) && !driveInDock)
         {
             inv.dataDrivesHeld.Remove(driveStored);
             driveInDock = true;
-            driveObj.SetActive(true);
+            serverAnim.SetTrigger("Insert");
+
         }
     }
 }
