@@ -4,6 +4,13 @@ using UnityEngine;
 public class LightSwitch : Interactable
 {
     [SerializeField] private List<ShipLight> lights;
+    [SerializeField] private Animator anim;
+    [SerializeField] private bool isOn = false;
+
+    private void Start()
+    {
+        anim.SetBool("IsOn", isOn);
+    }
 
     protected override void Interact(Transform player)
     {
@@ -11,5 +18,8 @@ public class LightSwitch : Interactable
         {
             light.ToggleLight();
         }
+
+        isOn = !isOn;
+        anim.SetBool("IsOn", isOn);
     }
 }

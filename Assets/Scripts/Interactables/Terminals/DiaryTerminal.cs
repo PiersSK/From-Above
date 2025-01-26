@@ -20,8 +20,14 @@ public class DiaryTerminal : Computer
     [SerializeField] private GameObject footer;
     [SerializeField] Task task;
 
+    [SerializeField] private Transform lookoutPoint;
+    private bool isLookingOut = false;
+
+    protected const string ESCAPEUI2 = "[Tab] To enter your observations\n[Esc] To exit terminal";
+
     private void Start()
     {
+        ESCAPEUI = "[Tab] To look out the window\n[Esc] To exit terminal";
         questionBlocks[0].GetComponent<DiaryQABlock>().questionText.text = QUESTIONS[0];
         questionBlocks[0].SetActive(true);
         header.GetComponent<TextMeshProUGUI>().text = HEADER;
@@ -30,13 +36,37 @@ public class DiaryTerminal : Computer
 
     protected override void Update()
     {
-        if(input != null && input.playerActions.Submit.triggered)
+        if(input != null && playerAtComputer && input.playerActions.Submit.triggered)
         {
             string answer = questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.text;
             RevealNextText(answer);
         }
 
+        if (input != null && playerAtComputer && input.playerActions.UIToggle.triggered)
+            ToggleLookout();
+
         base.Update();
+    }
+
+    private void ToggleLookout()
+    {
+        isLookingOut = !isLookingOut;
+
+        if (isLookingOut)
+        {
+            motor.ForcePlayerToPoint(lookoutPoint, true);
+            Cursor.lockState = CursorLockMode.Locked;
+            UIManager.Instance.ShowHelpText(ESCAPEUI2);
+            if (questionsAnswered < questionBlocks.Count)
+                questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.DeactivateInputField();
+        } else
+        {
+            motor.ForcePlayerToPoint(lockPoint, true);
+            Cursor.lockState = CursorLockMode.None;
+            UIManager.Instance.ShowHelpText(ESCAPEUI);
+            if (questionsAnswered < questionBlocks.Count)
+                questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.ActivateInputField();
+        }
     }
 
     public void RevealNextText(string answer)

@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class Computer : Interactable
 {
-    private bool playerAtComputer = false;
-    private PlayerMotor motor;
-    private PlayerLook look;
+    protected bool playerAtComputer = false;
+    protected PlayerMotor motor;
+    protected PlayerLook look;
     protected InputManager input;
-    [SerializeField] private Transform lockPoint;
+    [SerializeField] protected Transform lockPoint;
 
-    private const string ESCAPEUI = "[Esc] To exit terminal";
+    protected string ESCAPEUI = "[Q] To exit terminal";
 
     protected virtual void Update()
     {
@@ -36,6 +36,7 @@ public class Computer : Interactable
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.ShowHelpText(ESCAPEUI);
         UIManager.Instance.HideTaskPadPrompt();
+        playerAtComputer = true;
     }
 
     protected virtual void ReleasePlayer()
@@ -48,5 +49,6 @@ public class Computer : Interactable
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.HideHelpText();
         UIManager.Instance.ShowTaskPadPrompt();
+        playerAtComputer = false;
     }
 }
