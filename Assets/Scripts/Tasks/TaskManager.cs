@@ -10,7 +10,7 @@ public class TaskManager : MonoBehaviour
     private bool taskPadVisible = false;
     private bool taskPadObtained = false;
 
-    [SerializeField] private List<Task> tasks;
+    public List<Task> tasks;
     [SerializeField] private List<Task> phaseTwoTasks;
     public bool isPhaseTwo = false;
     [SerializeField] bool DEBUG_startOnPhaseTwo = false;
