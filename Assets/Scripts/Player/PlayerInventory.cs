@@ -8,6 +8,11 @@ public class PlayerInventory : MonoBehaviour
     private int drivesLastHeld = 0;
 
     [SerializeField] private Transform PDHolder;
+    [SerializeField] private GameObject keycard1;
+    [SerializeField] private GameObject keycard2;
+
+    public bool hasKeycard1 = false;
+    public bool hasKeycard2 = false;
 
     private void Awake()
     {
@@ -28,6 +33,8 @@ public class PlayerInventory : MonoBehaviour
                 t.localPosition = new Vector3(i * 0.01f, i * 0.1f, 0f);
             }
         }
-        { }
+
+        keycard1.SetActive(hasKeycard1);
+        keycard2.SetActive(hasKeycard2);
     }
 }
