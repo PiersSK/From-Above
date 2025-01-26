@@ -27,14 +27,10 @@ public class TimeController : MonoBehaviour
 
     private void Update()
     {
-        if(!isTimeSet && hasPhaseTwoStarted)
+        if(!isTimeSet && TaskManager.Instance.isPhaseTwo)
         {
             time = startTimeMins * 60;
             isTimeSet = true;
-        }
-        if(TaskManager.Instance.Tasks.Count == 0)
-        {
-            hasPhaseTwoStarted = true;
         }
 
     }
