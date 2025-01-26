@@ -14,7 +14,7 @@ public class LimitedTimedEvent : TimedEvent
     public virtual void TriggerEventEnd() { }
     public virtual bool ShouldEventEndTrigger()
     {
-        return hasBeenTriggered && !eventHasEnded && TimeController.Instance.TimeHasPassed(eventEndMinute, eventEndSecond);
+        return hasBeenTriggered && !eventHasEnded && TimeController.Instance.TimeHasPassed(eventEndMinute, eventEndSecond) && TimeController.Instance.hasPhaseTwoStarted;
     }
 
     public void SetEventEndTime(int min, int sec)
