@@ -9,7 +9,7 @@ public class Computer : Interactable
     protected InputManager input;
     [SerializeField] protected Transform lockPoint;
 
-    protected string ESCAPEUI = "[Q] To exit terminal";
+    protected string ESCAPEUI = "[Esc] To exit terminal";
 
     protected virtual void Update()
     {
