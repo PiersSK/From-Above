@@ -23,9 +23,9 @@ public class KeycardInput : Interactable
     public override string GetPrompt()
     {
         if(key == KeyCardRequired.One)
-            return PlayerInventory.Instance.hasKeycard1 ? "REQUIRES KEYCARD 1" : "INSERT KEYCARD 1";
+            return !PlayerInventory.Instance.hasKeycard1 ? "REQUIRES KEYCARD 1" : "INSERT KEYCARD 1";
         else if(key == KeyCardRequired.Two)
-            return PlayerInventory.Instance.hasKeycard2 ? "REQUIRES KEYCARD 2" : "INSERT KEYCARD 2";
+            return !PlayerInventory.Instance.hasKeycard2 ? "REQUIRES KEYCARD 2" : "INSERT KEYCARD 2";
 
         return string.Empty;
     }
