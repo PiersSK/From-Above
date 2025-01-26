@@ -10,7 +10,7 @@ public class TaskManager : MonoBehaviour
     private bool taskPadVisible = false;
     private bool taskPadObtained = false;
 
-    [SerializeField] private List<Task> Tasks;
+    [SerializeField] public List<Task> Tasks;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
 
