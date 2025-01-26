@@ -1,5 +1,8 @@
+using NUnit;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DataReader : Interactable
 {
@@ -11,29 +14,81 @@ public class DataReader : Interactable
     [SerializeField] private TextMeshProUGUI textOutput;
     [SerializeField] private MusicPlayer audioOutput;
 
+    [SerializeField] private GameObject PDUI;
+    [SerializeField] private Transform PDUIButtonContainer;
+
+    private Transform player;
     private const string NODISK = "NONE INSERTED";
 
-    protected override void Interact(Transform player)
+    public override bool CanInteract()
     {
-        PlayerInventory inv = player.GetComponent<PlayerInventory>();
+        return PlayerInventory.Instance.dataDrivesHeld.Count > 0 || insertedDrive != null;
+    }
 
-        if (insertedDrive == null && inv.dataDrivesHeld.Count > 0)
+    public override string GetPrompt()
+    {
+        return insertedDrive != null ? "Take " + insertedDrive.DiskName + " PD" : "Insert PD";
+    }
+
+    protected override void Interact(Transform p)
+    {
+        player = p;
+        PlayerInventory inv = PlayerInventory.Instance;
+
+        if (insertedDrive != null)
         {
-            insertedDrive = inv.dataDrivesHeld[0];
-            inv.dataDrivesHeld.RemoveAt(0);
-            insertedDriveName.text = insertedDrive.DiskName;
-            if(anim != null) anim.SetTrigger("Insert");
-
-        } else if (insertedDrive != null)
-        {
-            inv.dataDrivesHeld.Add(insertedDrive);
-            insertedDrive = null;
-            insertedDriveName.text = NODISK;
-
-            if(textOutput != null) textOutput.text = string.Empty;
-            if (audioOutput != null) audioOutput.DiskRemoved();
-            if (anim != null) anim.SetTrigger("Eject");
-
+            UnloadDrive();
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            player.GetComponent<PlayerMotor>().ToggleMovementOverride();
+            player.GetComponent<PlayerLook>().ToggleLookLock();
+            UIManager.Instance.ToggleCrosshairVisibility();
+
+            foreach (Transform t in PDUIButtonContainer) Destroy(t.gameObject);
+
+            foreach (DataDrive d in inv.dataDrivesHeld)
+            {
+                Button b = Instantiate(Resources.Load<Button>("PDButton"), PDUIButtonContainer);
+                b.GetComponent<PDButton>().SetDrive(d, this);
+            }
+
+            PDUI.SetActive(true);
+        }
+    }
+
+    public void UnlockPlayer()
+    {
+        PDUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        player.GetComponent<PlayerMotor>().ToggleMovementOverride();
+        player.GetComponent<PlayerLook>().ToggleLookLock();
+        UIManager.Instance.ToggleCrosshairVisibility();
+    }
+
+    public void DriveSelected(DataDrive drive)
+    {
+        UnlockPlayer();
+        LoadDrive(drive);
+    }
+
+    public void UnloadDrive()
+    {
+        PlayerInventory.Instance.dataDrivesHeld.Add(insertedDrive);
+        insertedDrive = null;
+        insertedDriveName.text = NODISK;
+
+        if (textOutput != null) textOutput.text = string.Empty;
+        if (audioOutput != null) audioOutput.DiskRemoved();
+        if (anim != null) anim.SetTrigger("Eject");
+    }
+
+    private void LoadDrive(DataDrive drive)
+    {
+        insertedDrive = drive;
+        PlayerInventory.Instance.dataDrivesHeld.Remove(drive);
+        insertedDriveName.text = insertedDrive.DiskName;
+        if (anim != null) anim.SetTrigger("Insert");
     }
 }
