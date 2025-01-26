@@ -10,6 +10,13 @@ public class ShipLight : MonoBehaviour
 
     [SerializeField] private bool lightIsOn = false;
 
+    private void Start()
+    {
+        string mat = lightIsOn ? ONMATPATH : OFFMATPATH;
+        lightRenderer.material = Resources.Load<Material>(mat);
+        lightSource.enabled = lightIsOn;
+    }
+
     public void ToggleLight()
     {
         lightIsOn = !lightIsOn;
