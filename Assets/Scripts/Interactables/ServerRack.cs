@@ -10,6 +10,7 @@ public class ServerRack : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI label;
     [SerializeField] private Renderer labelBG;
+    [SerializeField] private Light spotlight;
     [SerializeField] private string customLabel;
     [SerializeField] private bool useCustomLabel = false;
 
@@ -31,5 +32,6 @@ public class ServerRack : MonoBehaviour
     {
         label.text = useCustomLabel ? customLabel : name;
         labelBG.material = Resources.Load<Material>(useCustomLabel ? WhiteGlow : DimGlow);
+        spotlight.enabled = useCustomLabel;
     }
 }
