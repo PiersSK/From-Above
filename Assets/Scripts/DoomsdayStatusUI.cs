@@ -35,7 +35,7 @@ public class DoomsdayStatusUI : MonoBehaviour
         initiationStatus.text = warmedUp ? "WEAPON CORE WARMED UP" : "NOT STARTED";
         targetingStatus.text = calibrated.ToString() + "/2 CALIBRATED";
         unlockStatus.text = keycardsInserted.ToString() + "/2 KEYCARDS";
-        deployStatus.text = keycardsInserted.ToString() + "/3 LEVERS";
+        deployStatus.text = weaponLeversPulled.ToString() + "/3 LEVERS";
         safetyStatus.text = safetyOff.ToString().ToUpper();
 
         fireIsReady = warmedUp && safetyOff && calibrated == 2 && weaponLeversPulled == 3 && keycardsInserted == 2;
