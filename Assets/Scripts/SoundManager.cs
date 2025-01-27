@@ -4,6 +4,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
     public AudioSource genericSFXSource;
+    public AudioSource bgMusicSource;
     public string clipPlaying = string.Empty;
 
     private void Awake()
@@ -24,5 +25,11 @@ public class SoundManager : MonoBehaviour
         genericSFXSource.pitch = 1 + pMod;
         genericSFXSource.PlayOneShot(clip, volume + vMod);
         clipPlaying = clip.name;
+    }
+
+    public void PausePlayBGMusic()
+    {
+        if (bgMusicSource.isPlaying) bgMusicSource.Pause();
+        else bgMusicSource.Play();
     }
 }

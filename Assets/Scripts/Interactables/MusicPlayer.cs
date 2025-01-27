@@ -40,12 +40,17 @@ public class MusicPlayer : Interactable
 
             if (audioSource.resource != null && !audioSource.isPlaying)
             {
+                SoundManager.Instance.PausePlayBGMusic();
                 audioSource.Play();
                 if (drive == wellnessTape && !taskCompleted) TaskManager.Instance.CompleteTask(wellnessTask);
             }
             else if (audioSource.isPlaying)
+            {
+                SoundManager.Instance.PausePlayBGMusic();
                 audioSource.Pause();
-           
+            }
+
+
         }
     }
 
