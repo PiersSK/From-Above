@@ -40,7 +40,7 @@ public class Computer : Interactable
         UIManager.Instance.HideTaskPadPrompt();
         playerAtComputer = true;
 
-        SoundManager.Instance.PlaySFXOneShot(enterKeyclicks);
+        SoundManager.Instance.PlaySFXOneShot(enterKeyclicks, 0f, 0.1f, 0f);
     }
 
     protected virtual void ReleasePlayer()
