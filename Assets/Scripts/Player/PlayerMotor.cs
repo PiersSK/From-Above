@@ -32,6 +32,11 @@ public class PlayerMotor : MonoBehaviour
 
     private void Update()
     {
+        if (!isGrounded && controller.isGrounded)
+        {
+            FootstepSound(); // Landing Sound
+            footstepTimer = 0f;
+        }
         isGrounded = controller.isGrounded;
         if(lerpCrouch)
         {
@@ -61,7 +66,7 @@ public class PlayerMotor : MonoBehaviour
             float spacing = sprinting ? 0.4f : 0.6f;
             if(footstepTimer >= spacing)
             {
-                SoundManager.Instance.PlaySFXOneShotWithPitchVariation(footstep, 0.05f);
+                FootstepSound();
                 footstepTimer = 0f;
             }
         } else
@@ -78,7 +83,7 @@ public class PlayerMotor : MonoBehaviour
             return;
         }
 
-        if (!isMoving && (input.x > 0 || input.y > 0)) SoundManager.Instance.PlaySFXOneShotWithPitchVariation(footstep, 0.05f);
+        if (!isMoving && isGrounded && (input.x > 0 || input.y > 0)) FootstepSound(); //Initial Step Sound
         isMoving = (input.x > 0 || input.y > 0);
 
         Vector3 moveDirection = Vector3.zero;
@@ -132,5 +137,10 @@ public class PlayerMotor : MonoBehaviour
     public void ToggleMovementOverride()
     {
         movementOverridden = !movementOverridden;
+    }
+
+    private void FootstepSound()
+    {
+        SoundManager.Instance.PlaySFXOneShot(footstep, 0.05f, 0.5f, 0.1f);
     }
 }

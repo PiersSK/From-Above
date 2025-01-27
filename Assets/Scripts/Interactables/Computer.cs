@@ -9,6 +9,8 @@ public class Computer : Interactable
     protected InputManager input;
     [SerializeField] protected Transform lockPoint;
 
+    [SerializeField] protected AudioClip enterKeyclicks;
+
     protected string ESCAPEUI = "[Esc] To exit terminal";
 
     protected virtual void Update()
@@ -37,6 +39,8 @@ public class Computer : Interactable
         UIManager.Instance.ShowHelpText(ESCAPEUI);
         UIManager.Instance.HideTaskPadPrompt();
         playerAtComputer = true;
+
+        SoundManager.Instance.PlaySFXOneShot(enterKeyclicks);
     }
 
     protected virtual void ReleasePlayer()

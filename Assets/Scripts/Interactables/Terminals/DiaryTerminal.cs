@@ -23,6 +23,9 @@ public class DiaryTerminal : Computer
     [SerializeField] private Transform lookoutPoint;
     private bool isLookingOut = false;
 
+    [SerializeField] private AudioClip keysoundLight;
+    [SerializeField] private AudioClip keysoundHeavy;
+
     protected const string ESCAPEUI2 = "[Tab] To enter your observations\n[Esc] To exit terminal";
 
     private void Start()
@@ -44,6 +47,12 @@ public class DiaryTerminal : Computer
 
         if (input != null && playerAtComputer && input.playerActions.UIToggle.triggered)
             ToggleLookout();
+
+        if (playerAtComputer)
+        {
+            if (Input.GetKeyDown(KeyCode.Return)) SoundManager.Instance.PlaySFXOneShot(keysoundHeavy);
+            else if (Input.anyKeyDown) SoundManager.Instance.PlaySFXOneShot(keysoundLight, 0.2f);
+        }
 
         base.Update();
     }
