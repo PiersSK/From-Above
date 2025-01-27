@@ -6,6 +6,7 @@ public class PlayerMotor : MonoBehaviour
     private Vector3 playerVelocity;
 
     private bool isGrounded;
+    private bool isMoving;
     public bool movementOverridden = false;
 
     private bool sprinting = false;
@@ -19,6 +20,9 @@ public class PlayerMotor : MonoBehaviour
     public float baseSpeed = 3f;
     public float sprintSpeed = 5f;
     public float jumpHeight = 1f;
+
+    [SerializeField] private AudioClip footstep;
+    private float footstepTimer = 0f;
 
     private void Start()
     {
@@ -45,11 +49,37 @@ public class PlayerMotor : MonoBehaviour
                 crouchTimer = 0f;
             }
         }
+
+        if (!isMoving && sprinting)
+        {
+            Sprint();
+        }
+
+        if (isMoving && isGrounded)
+        {
+            footstepTimer += Time.deltaTime;
+            float spacing = sprinting ? 0.4f : 0.6f;
+            if(footstepTimer >= spacing)
+            {
+                SoundManager.Instance.PlaySFXOneShotWithPitchVariation(footstep, 0.05f);
+                footstepTimer = 0f;
+            }
+        } else
+        {
+            footstepTimer = 0f;
+        }
     }
 
     public void ProcessMove(Vector2 input)
     {
-        if (movementOverridden) return;
+        if (movementOverridden)
+        {
+            isMoving = false;
+            return;
+        }
+
+        if (!isMoving && (input.x > 0 || input.y > 0)) SoundManager.Instance.PlaySFXOneShotWithPitchVariation(footstep, 0.05f);
+        isMoving = (input.x > 0 || input.y > 0);
 
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
@@ -64,6 +94,7 @@ public class PlayerMotor : MonoBehaviour
         }
 
         controller.Move(playerVelocity * Time.deltaTime);
+
     }
 
     public void Jump()
