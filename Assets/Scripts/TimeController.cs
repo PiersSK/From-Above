@@ -12,7 +12,6 @@ public class TimeController : MonoBehaviour
     private int currentMin;
     private int currentSec;
     private bool isTimeSet = false;
-    public  bool hasPhaseTwoStarted = false;
 
     [Header("Events")]
     public Transform scheduledEvents;
@@ -31,8 +30,16 @@ public class TimeController : MonoBehaviour
         {
             time = startTimeMins * 60;
             isTimeSet = true;
+        } else if (isTimeSet)
+        {
+            time += Time.deltaTime;
         }
 
+    }
+
+    public float GetTimeInSeconds()
+    {
+        return time;
     }
 
     public bool TimeHasPassed(int mins, int secs)

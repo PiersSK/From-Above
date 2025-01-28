@@ -12,7 +12,7 @@ public class TimedEvent : MonoBehaviour
 
     public virtual void TriggerEvent(){} 
     public virtual bool ShouldEventTrigger(){
-        return !hasBeenTriggered && TimeController.Instance.hasPhaseTwoStarted && TimeController.Instance.TimeHasPassed(eventMinute, eventSecond);
+        return !hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.TimeHasPassed(eventMinute, eventSecond);
     }
     
     public void SetEventStartTime(int min, int sec)
