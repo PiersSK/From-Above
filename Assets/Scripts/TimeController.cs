@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TimeController : MonoBehaviour
@@ -39,9 +40,9 @@ public class TimeController : MonoBehaviour
         } else if (isTimeSet)
         {
             time += Time.deltaTime;
+            TriggerEvents();
         }
-        time += Time.deltaTime;
-
+        
     }
 
     public float GetTimeInSeconds()

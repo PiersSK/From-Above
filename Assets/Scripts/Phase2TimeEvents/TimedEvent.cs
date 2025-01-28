@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TimedEvent : MonoBehaviour
@@ -7,7 +8,6 @@ public class TimedEvent : MonoBehaviour
     public int eventMinute;
     [Range(0, 59)]
     public int eventSecond;
-
     public bool hasBeenTriggered = false;
 
     public virtual void TriggerEvent(){} 
