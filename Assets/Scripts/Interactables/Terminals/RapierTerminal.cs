@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +23,12 @@ public class RapierTerminal : Computer
     [SerializeField] private DataReader dataReader;
 
     [SerializeField] private Task shipStatusTask;
+
+    [SerializeField] private TMP_InputField adminPasswordInput;
+    [SerializeField] private GameObject adminUnlocked;
+    [SerializeField] private List<ServerRack> adminUnlockedServers;
+    [SerializeField] private string adminPassword;
+
 
     public enum Notifications
     {
@@ -47,7 +55,26 @@ public class RapierTerminal : Computer
         shipStatusBtn.onClick.AddListener(UploadShipStatus);
         readDataBtn.onClick.AddListener(ReadData);
     }
-    
+
+    override protected void Update()
+    {
+        if (input != null && playerAtComputer && input.playerActions.Submit.triggered)
+        {
+            string pass = adminPasswordInput.text;
+            if(pass == adminPassword)
+            {
+                adminPasswordInput.gameObject.SetActive(false);
+                adminUnlocked.SetActive(true);
+                foreach (ServerRack r in adminUnlockedServers) r.hasDisk = true;
+            } else
+            {
+                adminPasswordInput.text = string.Empty;
+            }
+        }
+
+        base.Update();
+    }
+
     public void ClearNotif(Notifications notif)
     {
         if(notif == Notifications.RapierFleetStatus)

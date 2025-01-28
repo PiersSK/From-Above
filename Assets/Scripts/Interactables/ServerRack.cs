@@ -5,7 +5,7 @@ public class ServerRack : MonoBehaviour
 {
     [SerializeField] private Renderer leftLight;
     [SerializeField] private Renderer rightLight;
-    [SerializeField] private bool hasDisk = false;
+    public bool hasDisk = false;
     [SerializeField] private bool isUsable = false;
 
     [SerializeField] private TextMeshProUGUI label;
