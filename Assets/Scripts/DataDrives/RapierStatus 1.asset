@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b046bb226bf344a029a48e48b721110c, type: 3}
+  m_Name: RapierStatus 1
+  m_EditorClassIdentifier: 
+  DiskName: Rapier Fleet Status
+  DiskTextContent: '> RAPIER 01: Mission=Complete; Location=Earth; LastUpdate=109D;
+    ActiveRepairRequests=null;
+
+    > RAPIER 02: Mission=Ongoing; Location=Orbit;
+    LastUpdate = 01D; ActiveRepairRequests=False;
+
+    > RAPIER 03: Outstanding Repair
+    Requests - Operational
+
+    > RAPIER 04: Mission descoped due to ongoing negotiations.
+    Crew returned to earth. Ship scheduled for return in 02 days.
+
+    > RAPIER 05:
+    Fully Operational
+
+    > RAPIER 06: Outstanding Repair Requests - Operational
+
+'
+  DiskAudioContent: {fileID: 0}

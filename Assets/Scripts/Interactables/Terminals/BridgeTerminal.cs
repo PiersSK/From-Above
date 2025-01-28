@@ -11,6 +11,7 @@ public class BridgeTerminal : Computer
     [SerializeField] private Button sendDataBtn;
     [SerializeField] private TextMeshProUGUI btnResponse;
 
+    [SerializeField] private RapierTerminal rapierTerminal;
     [SerializeField] private DataReader dataReader;
     [SerializeField] private DataDrive fleetData;
 
@@ -47,6 +48,7 @@ public class BridgeTerminal : Computer
                     btnResponse.text = fleetDataUploadedMsg + "\n" + dataReader.insertedDrive.DiskTextContent;
                     fleetDataUploaded = true;
                     TaskManager.Instance.CompleteTask(fleetDataTask);
+                    rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);
                 }
                 else
                     btnResponse.text = fleetDataUploadedPreviouslyMsg;
