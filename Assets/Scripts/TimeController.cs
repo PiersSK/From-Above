@@ -32,6 +32,7 @@ public class TimeController : MonoBehaviour
             time = startTimeMins * 60;
             isTimeSet = true;
         }
+        time += Time.deltaTime;
 
     }
 
