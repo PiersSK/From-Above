@@ -5,6 +5,7 @@ public class FirstRadioMessage : TimedEvent
 {
     public override void TriggerEvent()
     {
+        base.TriggerEvent();
     }
     
 }
