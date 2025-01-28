@@ -15,10 +15,11 @@ public class MusicPlayer : Interactable
     [SerializeField] private float spinTime = 2f;
     [SerializeField] private float pulseTime = 2f;
     private float playTime = 0f;
+    private bool isPlaying = false;
 
     private void Update()
     {
-        if(audioSource.isPlaying)
+        if(audioSource.isPlaying) // Spin Record
         {
             playTime += Time.deltaTime;
             PD.localEulerAngles = new Vector3(-90f, 0f, 360f * (playTime / spinTime - Mathf.Floor(playTime / spinTime)));
@@ -26,6 +27,11 @@ public class MusicPlayer : Interactable
 
             float hornScale = 100f + 3f * Mathf.Sin((playTime / spinTime - Mathf.Floor(playTime / spinTime)) * pulseTime * Mathf.PI);
             horn.localScale = new Vector3(hornScale, hornScale, hornScale);
+        }
+        if(isPlaying && !audioSource.isPlaying)
+        {
+            isPlaying = false;
+            DiskRemoved();
         }
     }
 
@@ -40,13 +46,13 @@ public class MusicPlayer : Interactable
 
             if (audioSource.resource != null && !audioSource.isPlaying)
             {
-                SoundManager.Instance.PausePlayBGMusic();
+                SoundManager.Instance.FadeOutBgMusic(2f);
                 audioSource.Play();
                 if (drive == wellnessTape && !taskCompleted) TaskManager.Instance.CompleteTask(wellnessTask);
             }
             else if (audioSource.isPlaying)
             {
-                SoundManager.Instance.PausePlayBGMusic();
+                SoundManager.Instance.FadeInBgMusic(2f);
                 audioSource.Pause();
             }
 
@@ -56,6 +62,7 @@ public class MusicPlayer : Interactable
 
     public void DiskRemoved()
     {
+        SoundManager.Instance.FadeInBgMusic(2f);
         audioSource.Stop();
         audioSource.resource = null;
         playTime = 0f;

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -5,11 +6,17 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
     public AudioSource genericSFXSource;
     public AudioSource bgMusicSource;
+    private float bgVol = 0.3f;
     public string clipPlaying = string.Empty;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        bgVol = bgMusicSource.volume;
     }
 
     private void Update()
@@ -27,9 +34,43 @@ public class SoundManager : MonoBehaviour
         clipPlaying = clip.name;
     }
 
-    public void PausePlayBGMusic()
+    public void FadeOutBgMusic(float fadeTime)
     {
-        if (bgMusicSource.isPlaying) bgMusicSource.Pause();
-        else bgMusicSource.Play();
+        StartCoroutine(FadeOut(bgMusicSource, fadeTime));
+    }
+
+    public void FadeInBgMusic(float fadeTime)
+    {
+        StartCoroutine(FadeIn(bgMusicSource, bgVol, fadeTime));
+    }
+
+    public IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Pause();
+        audioSource.volume = startVolume;
+    }
+
+    public IEnumerator FadeIn(AudioSource audioSource, float targetVol, float FadeTime)
+    {
+        audioSource.volume = 0f;
+        audioSource.Play();
+
+        while (audioSource.volume < targetVol)
+        {
+            audioSource.volume += targetVol * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.volume = targetVol;
     }
 }
