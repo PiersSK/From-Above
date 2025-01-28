@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ServerButton : Interactable
 {
-    [SerializeField] private ServerEXE exe;
+    public ServerEXE exe;
     public bool usableInPhaseOne = false;
 
     public override bool CanInteract()

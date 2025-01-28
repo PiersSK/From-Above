@@ -3,9 +3,10 @@ using UnityEngine;
 public class ServerEXE : MonoBehaviour
 {
     public Task task;
+    public bool hasRun = false;
     public virtual void RunExe()
     {
-        //Do nothing
+        hasRun = true;
     }
 
     public virtual bool IsRunnable()

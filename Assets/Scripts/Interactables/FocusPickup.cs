@@ -3,6 +3,7 @@ using UnityEngine;
 public class FocusPickup : Interactable
 {
     [SerializeField] private bool hasText;
+    [TextArea(15, 20)]
     [SerializeField] private string textTranscript;
     private bool textPopupVisible = false;
 
@@ -52,7 +53,7 @@ public class FocusPickup : Interactable
         UIManager.Instance.ShowHelpText(help);
 
         transform.position = player.position + new Vector3(0f, 0.6f, 0f) + player.forward * 0.5f;
-        transform.eulerAngles = new Vector3(90f, 180f + player.eulerAngles.y, 0f);
+        transform.eulerAngles = new Vector3(0f, 180f + player.eulerAngles.y, 0f);
     }
 
     private void ReleasePlayer()

@@ -5,7 +5,7 @@ public class ServerRack : MonoBehaviour
 {
     [SerializeField] private Renderer leftLight;
     [SerializeField] private Renderer rightLight;
-    [SerializeField] private bool hasDisk = false;
+    public bool hasDisk = false;
     [SerializeField] private bool isUsable = false;
 
     [SerializeField] private TextMeshProUGUI label;
@@ -31,7 +31,7 @@ public class ServerRack : MonoBehaviour
         leftLight.material = Resources.Load<Material>(hasDisk && diskPresent ? LEDGreen : LEDRed);
 
         bool inPhase = GetComponentInChildren<ServerButton>().usableInPhaseOne || TaskManager.Instance.isPhaseTwo;
-        rightLight.material = Resources.Load<Material>(isUsable && inPhase ? LEDBlue : LEDRed);
+        rightLight.material = Resources.Load<Material>(isUsable && !GetComponentInChildren<ServerButton>().exe.hasRun && inPhase ? LEDBlue : LEDRed);
     }
 
     public void SetLabel(string name)
