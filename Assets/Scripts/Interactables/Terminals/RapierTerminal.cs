@@ -31,7 +31,7 @@ public class RapierTerminal : Computer
     private bool fleetDataUploaded = false;
 
     private const string noNotifs = "0 Notifications";
-    private const string oneNotifs = "1 Notifications (Action Needed)";
+    private const string oneNotifs = "1 Notification (Action Needed)";
 
     private const string shipDataUploadResponse = "DAILY SHIP STATUS UPLOAD COMPLETE\nCommand thanks you for your continued vigilance";
     private const string shipDataUploadReject = "Ship data was already updated today. Thank you for your continued vigilance";

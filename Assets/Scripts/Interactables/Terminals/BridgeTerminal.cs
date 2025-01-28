@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +16,11 @@ public class BridgeTerminal : Computer
     [SerializeField] private RapierTerminal rapierTerminal;
     [SerializeField] private DataReader dataReader;
     [SerializeField] private DataDrive fleetData;
+
+    [SerializeField] private GameObject phase1Screen;
+    [SerializeField] private GameObject phase2Screen;
+    [SerializeField] private TextMeshProUGUI p2TaskCounter;
+    [SerializeField] private List<GameObject> phase2StatusBlocks;
 
     [SerializeField] private Task fleetDataTask;
 
@@ -32,9 +39,32 @@ public class BridgeTerminal : Computer
         sendDataBtn.onClick.AddListener(SendData);
     }
 
+    override protected void Update()
+    {
+        if (phase1Screen.activeSelf && TaskManager.Instance.isPhaseTwo) ShowPhaseTwoScreen();
+        if (phase2Screen.activeSelf) PhaseTwoStatusUpdate();
+        base.Update();
+    }
+
     private void TalkToCommand()
     {
-        btnResponse.text = "Command status set to ENGAGED. Try again later.";
+        btnResponse.text = "DENIED. Command status set to ENGAGED. Try again later.";
+    }
+
+    public void ShowPhaseTwoScreen()
+    {
+        phase1Screen.SetActive(false);
+        phase2Screen.SetActive(true);
+    }
+
+    public void PhaseTwoStatusUpdate()
+    {
+        p2TaskCounter.text = TaskManager.Instance.phaseTwoTasksCompleted + "/6 STEPS COMPLETED";
+
+        foreach (GameObject t in phase2StatusBlocks)
+        {
+            if (phase2StatusBlocks.IndexOf(t)  < TaskManager.Instance.phaseTwoTasksCompleted && !t.activeSelf) t.SetActive(true);
+        }
     }
 
     private void SendData()
@@ -45,7 +75,7 @@ public class BridgeTerminal : Computer
             {
                 if (!fleetDataUploaded)
                 {
-                    btnResponse.text = fleetDataUploadedMsg + "\n" + dataReader.insertedDrive.DiskTextContent;
+                    btnResponse.text = fleetDataUploadedMsg;
                     fleetDataUploaded = true;
                     TaskManager.Instance.CompleteTask(fleetDataTask);
                     rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);

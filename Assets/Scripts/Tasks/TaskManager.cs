@@ -13,6 +13,7 @@ public class TaskManager : MonoBehaviour
     public List<Task> tasks;
     [SerializeField] private List<Task> phaseTwoTasks;
     public bool isPhaseTwo = false;
+    public int phaseTwoTasksCompleted = 0;
     [SerializeField] bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
@@ -74,6 +75,7 @@ public class TaskManager : MonoBehaviour
         {
             tasks.Add(phaseTwoTasks[0]);
             phaseTwoTasks.RemoveAt(0);
+            phaseTwoTasksCompleted++;
         }
 
         RefreshTaskListUI();
