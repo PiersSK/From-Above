@@ -13,6 +13,12 @@ public class TimeController : MonoBehaviour
     private int currentSec;
     private bool isTimeSet = false;
 
+    [Header("Time Settings")]
+    [Range(0,20)]
+    public int phase1TimeLimitMins = 10;
+    [Range(0, 20)]
+    public int phase2TimeLimitMins = 10;
+
     [Header("Events")]
     public Transform scheduledEvents;
     public List<string> completeEvents;

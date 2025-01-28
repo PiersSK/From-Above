@@ -31,7 +31,7 @@ public class ServerRack : MonoBehaviour
         leftLight.material = Resources.Load<Material>(hasDisk && diskPresent ? LEDGreen : LEDRed);
 
         bool inPhase = GetComponentInChildren<ServerButton>().usableInPhaseOne || TaskManager.Instance.isPhaseTwo;
-        rightLight.material = Resources.Load<Material>(isUsable && inPhase ? LEDBlue : LEDRed);
+        rightLight.material = Resources.Load<Material>(isUsable && !GetComponentInChildren<ServerButton>().exe.hasRun && inPhase ? LEDBlue : LEDRed);
     }
 
     public void SetLabel(string name)

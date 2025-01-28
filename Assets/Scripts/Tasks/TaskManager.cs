@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -20,7 +21,15 @@ public class TaskManager : MonoBehaviour
 
     private Animator taskPadAnim;
     [SerializeField] private GameObject taskPadObj;
+    [SerializeField] private TextMeshProUGUI taskPadHeader;
     [SerializeField] private TextMeshProUGUI taskCount;
+    [SerializeField] private GameObject taskCountSentence;
+    [SerializeField] private GameObject phase2TaskPad;
+    [SerializeField] private TextMeshProUGUI phase2taskCount;
+    [SerializeField] private TextMeshProUGUI p2Timer;
+    [SerializeField] private List<GameObject> phase2taskBlocks;
+    private Color weaponColor = new Color(0.69f, 0.3f, 0.22f);
+
 
     [SerializeField] private Transform player;
 
@@ -35,12 +44,33 @@ public class TaskManager : MonoBehaviour
         if(DEBUG_startOnPhaseTwo) MoveToPhaseTwo();
     }
 
+    private void Update()
+    {
+        if(isPhaseTwo)
+        {
+            phase2taskCount.text = phaseTwoTasksCompleted + "/6 STEPS COMPLETED";
+            TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds());
+            p2Timer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
+
+            foreach (GameObject t in phase2taskBlocks)
+            {
+                if (phase2taskBlocks.IndexOf(t) < phaseTwoTasksCompleted && !t.activeSelf) t.SetActive(true);
+            }
+        }
+    }
+
     private void MoveToPhaseTwo()
     {
         isPhaseTwo = true;
         tasks.Clear();
         tasks.Add(phaseTwoTasks[0]);
         phaseTwoTasks.RemoveAt(0);
+
+        taskCount.gameObject.SetActive(false);
+        taskCountSentence.SetActive(false);
+        phase2TaskPad.SetActive(true);
+        phase2taskCount.text = "0/6 STEPS COMPLETED";
+        taskPadHeader.color = weaponColor;
 
         RefreshTaskListUI();
     }
