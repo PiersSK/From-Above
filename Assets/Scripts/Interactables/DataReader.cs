@@ -9,8 +9,11 @@ public class DataReader : Interactable
     public DataDrive insertedDrive = null;
     [SerializeField] private TextMeshProUGUI insertedDriveName;
     [SerializeField] private Animator anim;
+    [SerializeField] private GameObject visiblePD;
 
 
+    [SerializeField] private GameObject defaultScreen;
+    [SerializeField] private GameObject outputScreen;
     [SerializeField] private TextMeshProUGUI textOutput;
     [SerializeField] private MusicPlayer audioOutput;
 
@@ -27,7 +30,8 @@ public class DataReader : Interactable
 
     public override string GetPrompt()
     {
-        return insertedDrive != null ? "Take " + insertedDrive.DiskName + " PD" : "Insert PD";
+        string addPrefix = audioOutput != null ? "Place" : "Insert";
+        return insertedDrive != null ? "Take " + insertedDrive.DiskName + " PD" : addPrefix + "PD";
     }
 
     protected override void Interact(Transform p)
@@ -82,8 +86,14 @@ public class DataReader : Interactable
         insertedDriveName.text = NODISK;
 
         if (textOutput != null) textOutput.text = string.Empty;
+        if (outputScreen != null)
+        {
+            defaultScreen.SetActive(true);
+            outputScreen.SetActive(false);
+        }
         if (audioOutput != null) audioOutput.DiskRemoved();
         if (anim != null) anim.SetTrigger("Eject");
+        if (visiblePD != null) visiblePD.SetActive(false);
     }
 
     private void LoadDrive(DataDrive drive)
@@ -92,5 +102,6 @@ public class DataReader : Interactable
         PlayerInventory.Instance.dataDrivesHeld.Remove(drive);
         insertedDriveName.text = insertedDrive.DiskName;
         if (anim != null) anim.SetTrigger("Insert");
+        if (visiblePD != null) visiblePD.SetActive(true);
     }
 }

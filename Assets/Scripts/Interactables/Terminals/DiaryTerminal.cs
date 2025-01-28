@@ -23,6 +23,9 @@ public class DiaryTerminal : Computer
     [SerializeField] private Transform lookoutPoint;
     private bool isLookingOut = false;
 
+    [SerializeField] private AudioClip keysoundLight;
+    [SerializeField] private AudioClip keysoundHeavy;
+
     protected const string ESCAPEUI2 = "[Tab] To enter your observations\n[Esc] To exit terminal";
 
     private void Start()
@@ -36,7 +39,7 @@ public class DiaryTerminal : Computer
 
     protected override void Update()
     {
-        if(input != null && playerAtComputer && input.playerActions.Submit.triggered)
+        if(input != null && playerAtComputer && input.playerActions.Submit.triggered && questionsAnswered < questionBlocks.Count)
         {
             string answer = questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.text;
             RevealNextText(answer);
@@ -44,6 +47,19 @@ public class DiaryTerminal : Computer
 
         if (input != null && playerAtComputer && input.playerActions.UIToggle.triggered)
             ToggleLookout();
+
+
+        if (playerAtComputer && SoundManager.Instance.clipPlaying != "StartBeep")
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SoundManager.Instance.PlaySFXOneShot(keysoundHeavy);
+            }
+            else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                SoundManager.Instance.PlaySFXOneShot(keysoundLight, 0.2f);
+            }
+        }
 
         base.Update();
     }

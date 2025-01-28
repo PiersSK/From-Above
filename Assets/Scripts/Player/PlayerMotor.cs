@@ -6,6 +6,7 @@ public class PlayerMotor : MonoBehaviour
     private Vector3 playerVelocity;
 
     private bool isGrounded;
+    private bool isMoving;
     public bool movementOverridden = false;
 
     private bool sprinting = false;
@@ -20,6 +21,9 @@ public class PlayerMotor : MonoBehaviour
     public float sprintSpeed = 5f;
     public float jumpHeight = 1f;
 
+    [SerializeField] private AudioClip footstep;
+    private float footstepTimer = 0f;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -28,6 +32,11 @@ public class PlayerMotor : MonoBehaviour
 
     private void Update()
     {
+        if (!isGrounded && controller.isGrounded)
+        {
+            FootstepSound(); // Landing Sound
+            footstepTimer = 0f;
+        }
         isGrounded = controller.isGrounded;
         if(lerpCrouch)
         {
@@ -45,11 +54,37 @@ public class PlayerMotor : MonoBehaviour
                 crouchTimer = 0f;
             }
         }
+
+        if (!isMoving && sprinting)
+        {
+            Sprint();
+        }
+
+        if (isMoving && isGrounded)
+        {
+            footstepTimer += Time.deltaTime;
+            float spacing = sprinting ? 0.4f : 0.6f;
+            if(footstepTimer >= spacing)
+            {
+                FootstepSound();
+                footstepTimer = 0f;
+            }
+        } else
+        {
+            footstepTimer = 0f;
+        }
     }
 
     public void ProcessMove(Vector2 input)
     {
-        if (movementOverridden) return;
+        if (movementOverridden)
+        {
+            isMoving = false;
+            return;
+        }
+
+        if (!isMoving && isGrounded && (input.x > 0 || input.y > 0)) FootstepSound(); //Initial Step Sound
+        isMoving = (input.x > 0 || input.y > 0);
 
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
@@ -64,6 +99,7 @@ public class PlayerMotor : MonoBehaviour
         }
 
         controller.Move(playerVelocity * Time.deltaTime);
+
     }
 
     public void Jump()
@@ -101,5 +137,10 @@ public class PlayerMotor : MonoBehaviour
     public void ToggleMovementOverride()
     {
         movementOverridden = !movementOverridden;
+    }
+
+    private void FootstepSound()
+    {
+        SoundManager.Instance.PlaySFXOneShot(footstep, 0.05f, 0.5f, 0.1f);
     }
 }
