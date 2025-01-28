@@ -7,6 +7,8 @@ public class LightSwitch : Interactable
     [SerializeField] private Animator anim;
     [SerializeField] private bool isOn = false;
 
+    [SerializeField] private AudioClip switchSound;
+
     private void Start()
     {
         anim.SetBool("IsOn", isOn);
@@ -21,5 +23,6 @@ public class LightSwitch : Interactable
 
         isOn = !isOn;
         anim.SetBool("IsOn", isOn);
+        SoundManager.Instance.PlaySFXOneShot(switchSound);
     }
 }

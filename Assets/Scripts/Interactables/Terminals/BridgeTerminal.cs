@@ -33,7 +33,7 @@ public class BridgeTerminal : Computer
 
     private void TalkToCommand()
     {
-        btnResponse.text = "TALKTOCOMMAND() IS NOT YET IMPLEMENTED";
+        btnResponse.text = "Command status set to ENGAGED. Try again later.";
     }
 
     private void SendData()
