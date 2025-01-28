@@ -1,12 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
     public AudioSource genericSFXSource;
     public AudioSource bgMusicSource;
+
+    public AudioMixerGroup bgMixer;
     private float bgVol = 0.3f;
+    private List<AudioSource> fadingSources = new();
+
     public string clipPlaying = string.Empty;
 
     private void Awake()
@@ -22,6 +28,8 @@ public class SoundManager : MonoBehaviour
     private void Update()
     {
         if (!genericSFXSource.isPlaying) clipPlaying = string.Empty;
+
+        if(!fadingSources.Contains(bgMusicSource)) AutoAdjustBGForOtherTracks();
     }
 
     public void PlaySFXOneShot(AudioClip clip, float maxPitchVariation = 0f, float volume = 1f, float maxVolumeVariation = 0f)
@@ -41,11 +49,29 @@ public class SoundManager : MonoBehaviour
 
     public void FadeInBgMusic(float fadeTime)
     {
+        
         StartCoroutine(FadeIn(bgMusicSource, bgVol, fadeTime));
+    }
+
+    private void AutoAdjustBGForOtherTracks()
+    {
+        int musicSourcesPlaying = 0;
+
+        foreach (var audioSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+        {
+            if (audioSource.outputAudioMixerGroup == bgMixer && audioSource.isPlaying && audioSource != bgMusicSource)
+            {
+                Debug.Log(audioSource.name);
+                musicSourcesPlaying++;
+            }
+        }
+
+        bgMusicSource.volume = musicSourcesPlaying > 0 ? bgVol * 0.25f : bgVol;
     }
 
     public IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
     {
+        fadingSources.Add(audioSource);
         float startVolume = audioSource.volume;
 
         while (audioSource.volume > 0)
@@ -57,10 +83,12 @@ public class SoundManager : MonoBehaviour
 
         audioSource.Pause();
         audioSource.volume = startVolume;
+        fadingSources.Remove(audioSource);
     }
 
     public IEnumerator FadeIn(AudioSource audioSource, float targetVol, float FadeTime)
     {
+        fadingSources.Add(audioSource);
         audioSource.volume = 0f;
         audioSource.Play();
 
@@ -72,5 +100,6 @@ public class SoundManager : MonoBehaviour
         }
 
         audioSource.volume = targetVol;
+        fadingSources.Remove(audioSource);
     }
 }
