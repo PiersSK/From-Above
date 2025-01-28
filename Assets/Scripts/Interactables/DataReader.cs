@@ -12,6 +12,8 @@ public class DataReader : Interactable
     [SerializeField] private GameObject visiblePD;
 
 
+    [SerializeField] private GameObject defaultScreen;
+    [SerializeField] private GameObject outputScreen;
     [SerializeField] private TextMeshProUGUI textOutput;
     [SerializeField] private MusicPlayer audioOutput;
 
@@ -84,6 +86,11 @@ public class DataReader : Interactable
         insertedDriveName.text = NODISK;
 
         if (textOutput != null) textOutput.text = string.Empty;
+        if (outputScreen != null)
+        {
+            defaultScreen.SetActive(true);
+            outputScreen.SetActive(false);
+        }
         if (audioOutput != null) audioOutput.DiskRemoved();
         if (anim != null) anim.SetTrigger("Eject");
         if (visiblePD != null) visiblePD.SetActive(false);
