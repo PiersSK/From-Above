@@ -17,6 +17,10 @@ public class DataReader : Interactable
     [SerializeField] private TextMeshProUGUI textOutput;
     [SerializeField] private MusicPlayer audioOutput;
 
+    [SerializeField] private AudioClip ejectSfx;
+    [SerializeField] private AudioClip insertSfx;
+    [SerializeField] private AudioClip audioDiscSfx;
+
     [SerializeField] private GameObject PDUI;
     [SerializeField] private Transform PDUIButtonContainer;
 
@@ -93,6 +97,7 @@ public class DataReader : Interactable
         }
         if (audioOutput != null) audioOutput.DiskRemoved();
         if (anim != null) anim.SetTrigger("Eject");
+        SoundManager.Instance.PlaySFXOneShot(audioOutput == null ? ejectSfx : audioDiscSfx, 0, 0.3f);
         if (visiblePD != null) visiblePD.SetActive(false);
     }
 
@@ -102,6 +107,7 @@ public class DataReader : Interactable
         PlayerInventory.Instance.dataDrivesHeld.Remove(drive);
         insertedDriveName.text = insertedDrive.DiskName;
         if (anim != null) anim.SetTrigger("Insert");
+        SoundManager.Instance.PlaySFXOneShot(audioOutput == null ? insertSfx : audioDiscSfx, 0, 0.3f);
         if (visiblePD != null) visiblePD.SetActive(true);
     }
 }
