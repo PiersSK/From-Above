@@ -5,6 +5,7 @@ public class FocusPickup : Interactable
     [SerializeField] private bool hasText;
     [TextArea(15, 20)]
     [SerializeField] private string textTranscript;
+    [SerializeField] private AudioClip sfx;
     private bool textPopupVisible = false;
 
     private Vector3 initialPos;
@@ -43,6 +44,8 @@ public class FocusPickup : Interactable
         input = player.GetComponent<InputManager>();
 
         isInteractable = false;
+
+        SoundManager.Instance.PlaySFXOneShot(sfx);
 
         motor.ToggleMovementOverride();
         look.ToggleLookLock();

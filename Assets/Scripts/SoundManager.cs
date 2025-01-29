@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
         if(!fadingSources.Contains(bgMusicSource)) AutoAdjustBGForOtherTracks();
     }
 
-    public void PlaySFXOneShot(AudioClip clip, float maxPitchVariation = 0f, float volume = 1f, float maxVolumeVariation = 0f)
+    public void PlaySFXOneShot(AudioClip clip, float maxPitchVariation = 0f, float volume = 0.3f, float maxVolumeVariation = 0f)
     {
         float vMod = maxVolumeVariation == 0f ? 0f : Random.Range(-maxVolumeVariation, maxVolumeVariation);
         float pMod = maxPitchVariation == 0f ? 0f : Random.Range(-maxPitchVariation, maxPitchVariation);
