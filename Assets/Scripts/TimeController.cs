@@ -39,6 +39,7 @@ public class TimeController : MonoBehaviour
         } else if (isTimeSet)
         {
             time += Time.deltaTime;
+            TriggerEvents();
         }
 
     }
