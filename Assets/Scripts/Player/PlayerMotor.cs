@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
@@ -21,7 +22,7 @@ public class PlayerMotor : MonoBehaviour
     public float sprintSpeed = 5f;
     public float jumpHeight = 1f;
 
-    [SerializeField] private AudioClip footstep;
+    [SerializeField] private List<AudioClip> footsteps;
     private float footstepTimer = 0f;
 
     private void Start()
@@ -63,7 +64,7 @@ public class PlayerMotor : MonoBehaviour
         if (isMoving && isGrounded)
         {
             footstepTimer += Time.deltaTime;
-            float spacing = sprinting ? 0.4f : 0.6f;
+            float spacing = sprinting ? 0.35f : 0.55f;
             if(footstepTimer >= spacing)
             {
                 FootstepSound();
@@ -141,6 +142,7 @@ public class PlayerMotor : MonoBehaviour
 
     private void FootstepSound()
     {
-        SoundManager.Instance.PlaySFXOneShot(footstep, 0.05f, 0.5f, 0.1f);
+        float vol = sprinting ? 0.4f : 0.3f;
+        SoundManager.Instance.PlaySFXOneShot(footsteps[Random.Range(0,footsteps.Count)], 0.05f, vol, 0.1f);
     }
 }
