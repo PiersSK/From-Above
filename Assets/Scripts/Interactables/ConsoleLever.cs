@@ -8,6 +8,7 @@ public class ConsoleLever : Interactable
     [SerializeField] private Task task;
     [SerializeField] private AudioClip sfx;
     [SerializeField] private AudioClip taskCompleteLine;
+    [SerializeField] private AudioClip slidingDoor;
 
     protected override void Interact(Transform player)
     {
@@ -19,8 +20,14 @@ public class ConsoleLever : Interactable
         if (otherLever.isFlipped)
         {
             TaskManager.Instance.CompleteTask(task);
-            SoundManager.Instance.PlaySFXOneShot(taskCompleteLine, 0, 0.3f);
+            Invoke("PlayConfirm", 1f);
+            SoundManager.Instance.PlaySFXOneShot(slidingDoor, 0, 1f);
         }
+    }
+
+    private void PlayConfirm()
+    {
+        SoundManager.Instance.PlaySFXOneShot(taskCompleteLine, 0, 0.3f);
     }
 
     public override bool CanInteract()

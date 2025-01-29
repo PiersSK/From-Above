@@ -78,7 +78,7 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-        bgMusicSource.volume = musicSourcesPlaying > 0 ? bgVol * 0.25f : bgVol;
+        bgMusicSource.volume = musicSourcesPlaying > 0 ? bgVol * 0.6f : bgVol;
     }
 
     public IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
@@ -125,6 +125,15 @@ public class SoundManager : MonoBehaviour
             {
                 currentBGClip = 1;
                 soundtrackTimer = 0;
+            }
+
+            if(TaskManager.Instance.isPhaseTwo)
+            {
+                soundtrackTimer = 0;
+                currentBGClip = 2;
+                bgMusicSource.Stop();
+                bgMusicSource.PlayOneShot(soundtrack[2]);
+                Invoke("IncrementSoundtrack", soundtrack[2].length);
             }
         }
         else if (currentBGClip == 1)
