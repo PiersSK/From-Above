@@ -100,12 +100,11 @@ public class TaskManager : MonoBehaviour
     public void CompleteTask(Task taskToComplete)
     {
         tasks.Remove(taskToComplete);
-
-        if(isPhaseTwo && phaseTwoTasks.Count > 0)
+        if(isPhaseTwo) phaseTwoTasksCompleted++;
+        if (isPhaseTwo && phaseTwoTasks.Count > 0)
         {
             tasks.Add(phaseTwoTasks[0]);
             phaseTwoTasks.RemoveAt(0);
-            phaseTwoTasksCompleted++;
         }
 
         RefreshTaskListUI();
