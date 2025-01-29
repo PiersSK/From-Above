@@ -13,6 +13,8 @@ public class KeycardInput : Interactable
     [SerializeField] private Task task;
     [SerializeField] private GameObject keyObj;
 
+    [SerializeField] private AudioClip unlockConfirmLine;
+
     private bool keyInserted = false;
 
     public override bool CanInteract()
@@ -50,6 +52,7 @@ public class KeycardInput : Interactable
         if(DoomsdayStatusUI.Instance.keycardsInserted == 2)
         {
             TaskManager.Instance.CompleteTask(task);
+            SoundManager.Instance.PlaySFXOneShot(unlockConfirmLine);
         }
     }
 }
