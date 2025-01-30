@@ -17,7 +17,6 @@ public class SubtitleManager : MonoBehaviour
         List<AudioClip> subtitledClips = subtitleTracks.Select(x => x.clip).ToList();
         List<AudioSource> subtitledAudios = new List<AudioSource>(FindObjectsByType<AudioSource>(FindObjectsSortMode.None)).Where(x => x.isPlaying && subtitledClips.Contains(x.clip)).ToList();
 
-        Debug.Log("SubtitledAudios Count = " + subtitledAudios.Count);
         foreach (Transform t in subtitleHolder) Destroy(t.gameObject);
 
         foreach(AudioSource a in subtitledAudios)

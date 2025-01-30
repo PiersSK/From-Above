@@ -11,7 +11,7 @@ public class Computer : Interactable
 
     [SerializeField] protected AudioClip enterKeyclicks;
 
-    protected string ESCAPEUI = "[Esc] To exit terminal";
+    protected string ESCAPEUI = "[CTRL] To exit terminal";
 
     protected virtual void Update()
     {

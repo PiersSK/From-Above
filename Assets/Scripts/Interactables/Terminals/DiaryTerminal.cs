@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -26,11 +27,11 @@ public class DiaryTerminal : Computer
     [SerializeField] private AudioClip keysoundLight;
     [SerializeField] private AudioClip keysoundHeavy;
 
-    protected const string ESCAPEUI2 = "[Tab] To enter your observations\n[Esc] To exit terminal";
+    protected const string ESCAPEUI2 = "[TAB] To enter your observations\n[CTRL] To exit terminal";
 
     private void Start()
     {
-        ESCAPEUI = "[Tab] To look out the window\n[Esc] To exit terminal";
+        ESCAPEUI = "[TAB] To look out the window\n[CTRL] To exit terminal";
         questionBlocks[0].GetComponent<DiaryQABlock>().questionText.text = QUESTIONS[0];
         questionBlocks[0].SetActive(true);
         header.GetComponent<TextMeshProUGUI>().text = HEADER;
@@ -39,14 +40,17 @@ public class DiaryTerminal : Computer
 
     protected override void Update()
     {
-        if(input != null && playerAtComputer && input.playerActions.Submit.triggered && questionsAnswered < questionBlocks.Count)
+        if (input != null && playerAtComputer)
         {
-            string answer = questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.text;
-            RevealNextText(answer);
-        }
+            if (input.playerActions.Submit.triggered && questionsAnswered < questionBlocks.Count)
+            {
+                string answer = questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.text;
+                RevealNextText(answer);
+            }
 
-        if (input != null && playerAtComputer && input.playerActions.UIToggle.triggered)
-            ToggleLookout();
+            if (input.playerActions.UIToggle.triggered)
+                ToggleLookout();
+        }
 
 
         if (playerAtComputer && SoundManager.Instance.clipPlaying != "StartBeep")
