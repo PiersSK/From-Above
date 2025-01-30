@@ -190,7 +190,7 @@ public class SoundManager : MonoBehaviour
             }
         } else if (currentBGClip ==  6)
         {
-            if(soundtrackTimer >= 10 && TaskManager.Instance.pacifistEndingReached)
+            if(TaskManager.Instance.pacifistEndingReached)
             {
                 bgMusicSource.clip = noWeaponEnding;
                 bgMusicSource.loop = false;
