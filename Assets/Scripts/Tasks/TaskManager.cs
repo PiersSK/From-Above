@@ -14,6 +14,7 @@ public class TaskManager : MonoBehaviour
     public List<Task> tasks;
     [SerializeField] private List<Task> phaseTwoTasks;
     public bool isPhaseTwo = false;
+    public bool pacifistEndingReached = false;
     public int phaseTwoTasksCompleted = 0;
     [SerializeField] bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
@@ -31,6 +32,10 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI phase2taskCount;
     [SerializeField] private TextMeshProUGUI p2Timer;
     [SerializeField] private List<GameObject> phase2taskBlocks;
+
+    [SerializeField] private FireButton fireBtn;
+
+    private Color dailyColor = new Color(0.2f, 0.69f, 0.2f);
     private Color weaponColor = new Color(0.69f, 0.3f, 0.22f);
 
 
@@ -58,6 +63,11 @@ public class TaskManager : MonoBehaviour
             foreach (GameObject t in phase2taskBlocks)
             {
                 if (phase2taskBlocks.IndexOf(t) < phaseTwoTasksCompleted && !t.activeSelf) t.SetActive(true);
+            }
+
+            if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds() && !fireBtn.weaponFired)
+            {
+                PacifistEnding();
             }
         }
     }
@@ -131,5 +141,19 @@ public class TaskManager : MonoBehaviour
         UIManager.Instance.ToggleCrosshairVisibility();
         taskPadAnim.SetBool("IsUp", taskPadVisible);
         if(taskPadVisible) SoundManager.Instance.PlaySFXOneShot(padBeep);
+    }
+
+    private void PacifistEnding()
+    {
+        tasks.Clear();
+        taskCount.gameObject.SetActive(true);
+        taskCountSentence.SetActive(true);
+        phase2TaskPad.SetActive(false);
+        taskPadHeader.color = dailyColor;
+
+        RefreshTaskListUI();
+        
+        isPhaseTwo = false;
+        pacifistEndingReached = true;
     }
 }

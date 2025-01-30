@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textPopUpText;
     [SerializeField] private GameObject menuPrompt;
     [SerializeField] private Animation completedTaskPopup;
+
+    [SerializeField] private GameObject pacifistEnding;
     private bool taskPadVisible = false;
 
     [SerializeField] private AudioClip buttonBeep;
@@ -72,4 +74,9 @@ public class UIManager : MonoBehaviour
         textPopUp.SetActive(false);
     }
 
+    public void ShowPacifistEnding()
+    {
+        pacifistEnding.SetActive(true);
+        Time.timeScale = 0f;
+    }
 }

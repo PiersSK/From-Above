@@ -13,6 +13,8 @@ public class FireButton : Interactable
     [SerializeField] private CyclePowerButton cycleBtn;
     [SerializeField] private PlayerLook look;
 
+    public bool weaponFired = false;
+
     [SerializeField] List<AudioSource> commanderLines;
 
     public override bool CanInteract()
@@ -28,6 +30,7 @@ public class FireButton : Interactable
         TaskManager.Instance.CompleteTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         SoundManager.Instance.PlaySFXOneShot(fireCountdown);
+        weaponFired = true;
 
         if (cycleBtn.overloaded)
         {

@@ -178,45 +178,37 @@ public class SoundManager : MonoBehaviour
             }
         } else if (currentBGClip == 4)
         {
-            //if(bgMusicSource.isPlaying && bgMusicSource.clip != soundtrack[4])
-            //{
-            //    if(bgMusicSource.time == soundtrack[3].length)
-            //    {
-            //        bgMusicSource.Stop();
-            //        bgMusicSource.clip = soundtrack[4];
-            //        bgMusicSource.Play();
-            //    }
-            //}
-
-            if(TaskManager.Instance.phaseTwoTasksCompleted == 6)
+            if(TaskManager.Instance.phaseTwoTasksCompleted == 6 || TimeController.Instance.GetTimeInSeconds() >= TimeController.Instance.phase2TimeLimitMins * 60 - 12)
             {
                 Debug.Log("Moving to final soundtrack");
                 currentBGClip = 5;
                 bgMusicSource.clip = soundtrack[5];
                 bgMusicSource.loop = false;
                 bgMusicSource.Play();
+                Invoke("IncrementSoundtrack", soundtrack[5].length);
 
-            }
-
-            if (TimeController.Instance.GetTimeInSeconds() >= TimeController.Instance.phase2TimeLimitMins * 60)
-            {
-                currentBGClip = 6;
-                bgMusicSource.Stop();
             }
         } else if (currentBGClip ==  6)
         {
-            if(soundtrackTimer >= 30)
+            if(TaskManager.Instance.pacifistEndingReached)
             {
                 bgMusicSource.clip = noWeaponEnding;
                 bgMusicSource.loop = false;
                 bgMusicSource.Play();
                 currentBGClip = -1;
+                Invoke("ShowPacifistEnding", noWeaponEnding.length - 12f);
             }
         }
+    }
+
+    private void ShowPacifistEnding()
+    {
+        UIManager.Instance.ShowPacifistEnding();
     }
 
     private void IncrementSoundtrack()
     {
         currentBGClip++;
+        soundtrackTimer = 0f;
     }
 }

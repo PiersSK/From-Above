@@ -20,6 +20,7 @@ public class BridgeTerminal : Computer
 
     [SerializeField] private GameObject phase1Screen;
     [SerializeField] private GameObject phase2Screen;
+    [SerializeField] private GameObject overrideImg;
     [SerializeField] private TextMeshProUGUI p2TaskCounter;
     [SerializeField] private TextMeshProUGUI p2Timer;
     [SerializeField] private List<GameObject> phase2StatusBlocks;
@@ -45,6 +46,11 @@ public class BridgeTerminal : Computer
     {
         if (phase1Screen.activeSelf && TaskManager.Instance.isPhaseTwo) ShowPhaseTwoScreen();
         if (phase2Screen.activeSelf) PhaseTwoStatusUpdate();
+        if (TaskManager.Instance.pacifistEndingReached)
+        {
+            overrideImg.SetActive(true);
+            ShowPhaseOneScreen();
+        }
         base.Update();
     }
 
@@ -57,6 +63,12 @@ public class BridgeTerminal : Computer
     {
         phase1Screen.SetActive(false);
         phase2Screen.SetActive(true);
+    }
+
+    public void ShowPhaseOneScreen()
+    {
+        phase1Screen.SetActive(true);
+        phase2Screen.SetActive(false);
     }
 
     public void PhaseTwoStatusUpdate()

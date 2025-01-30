@@ -7,6 +7,7 @@ public class DoomsdayStatusUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI authStatus;
     [SerializeField] private GameObject stepsUI;
+    [SerializeField] private GameObject overrideUI;
     [SerializeField] private TextMeshProUGUI initiationStatus;
     [SerializeField] private TextMeshProUGUI targetingStatus;
     [SerializeField] private TextMeshProUGUI unlockStatus;
@@ -40,6 +41,8 @@ public class DoomsdayStatusUI : MonoBehaviour
 
         fireIsReady = warmedUp && safetyOff && calibrated == 2 && weaponLeversPulled == 3 && keycardsInserted == 2;
         fireMessage.SetActive(fireIsReady);
+
+        overrideUI.SetActive(TaskManager.Instance.pacifistEndingReached);
     }
 
 
