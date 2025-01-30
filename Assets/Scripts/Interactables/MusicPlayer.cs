@@ -9,6 +9,8 @@ public class MusicPlayer : Interactable
     [SerializeField] private DataDrive wellnessTape;
     [SerializeField] private Task wellnessTask;
 
+    [SerializeField] private AudioClip playSfx;
+
     [SerializeField] private Transform PD;
     [SerializeField] private Transform spindle;
     [SerializeField] private Transform horn;
@@ -48,7 +50,12 @@ public class MusicPlayer : Interactable
             {
                 SoundManager.Instance.FadeOutBgMusic(2f);
                 audioSource.Play();
-                if (drive == wellnessTape && !taskCompleted) TaskManager.Instance.CompleteTask(wellnessTask);
+                SoundManager.Instance.PlaySFXOneShot(playSfx, 0, 0.3f);
+                if (drive == wellnessTape && !taskCompleted)
+                {
+                    TaskManager.Instance.CompleteTask(wellnessTask);
+                    taskCompleted = true;
+                }
             }
             else if (audioSource.isPlaying)
             {

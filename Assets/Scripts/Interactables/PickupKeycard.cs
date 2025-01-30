@@ -8,6 +8,7 @@ public class PickupKeycard : Interactable
         Two
     }
     public KeyCard key;
+    [SerializeField] private AudioClip sfx;
 
     protected override void Interact(Transform player)
     {
@@ -21,5 +22,6 @@ public class PickupKeycard : Interactable
 
         isInteractable = false;
         gameObject.SetActive(false);
+        SoundManager.Instance.PlaySFXOneShot(sfx);
     }
 }

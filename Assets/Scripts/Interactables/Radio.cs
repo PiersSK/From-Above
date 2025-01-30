@@ -19,6 +19,7 @@ public class Radio : Interactable
     [SerializeField] private List<float> broadcastStarts = new();
 
     [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip staticSound;
 
     private void Start()
     {
@@ -67,6 +68,8 @@ public class Radio : Interactable
 
         frequency.text = freqs[currentFreq] + "Hz";
         source.Pause();
+
+        SoundManager.Instance.PlaySFXOneShot(staticSound);
     }
 
 }

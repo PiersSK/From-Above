@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,9 @@ public class Ladder : Interactable
     [SerializeField] private Transform bottomLockPoint;
     [SerializeField] private Transform topDisembarkPoint;
 
+    private float sfxTimer = 0f;
+    [SerializeField] float sfxSpacing = 0.6f;
+    [SerializeField] List<AudioClip> sounds;
     private bool playerOnLadder = false;
     private Transform player; 
 
@@ -28,11 +32,22 @@ public class Ladder : Interactable
                 ToggleLadderState();
             }
 
+            if (input != 0)
+            {
+                sfxTimer += Time.deltaTime;
+                if (sfxTimer >= 0.6f)
+                {
+                    SoundManager.Instance.PlaySFXOneShot(sounds[Random.Range(0, sounds.Count)]);
+                    sfxTimer = 0f;
+                }
+            }
+
         }
     }
 
     private void ToggleLadderState(bool SnapToPoint = true) {
         playerOnLadder = !playerOnLadder;
+        if(playerOnLadder) SoundManager.Instance.PlaySFXOneShot(sounds[Random.Range(0, sounds.Count)]);
         promptMessage = playerOnLadder ? "Release Ladder" : "Use Ladder";
         PlayerMotor motor = player.GetComponent<PlayerMotor>();
 
@@ -50,6 +65,7 @@ public class Ladder : Interactable
             motor.ForcePlayerToPoint(lockPoint, true);
         }
 
+        sfxTimer = 0f;
         motor.ToggleMovementOverride();
     }
 
