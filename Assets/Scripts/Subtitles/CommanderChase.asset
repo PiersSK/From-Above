@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95b591673151cf4487bbd2ce7ed006a, type: 3}
+  m_Name: CommanderChase
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 8aef1fb08a1e77d4c8efe95da051c9f9, type: 3}
+  characterName: Commander
+  trackColor: {r: 1, g: 1, b: 0, a: 1}
+  dialogueLines:
+  - RAPIER 06, I have given you an order and I expect you to follow it.
+  - There is no time for thought or pause, now is a time of action,
+  - 'the weapon must be deployed immediately. '
+  dialogueTimestamps: 000000000500000008000000
