@@ -4,6 +4,7 @@ public class ButtonCase : Interactable
 {
     [SerializeField] private Task task;
     [SerializeField] private AudioClip safetyOffLine;
+    [SerializeField] private AudioClip sfx;
     private bool isUp = false;
 
     public override bool CanInteract()
@@ -15,6 +16,7 @@ public class ButtonCase : Interactable
     {
         GetComponent<Animation>().Play();
         SoundManager.Instance.PlaySFXOneShot(safetyOffLine);
+        SoundManager.Instance.PlaySFXOneShot(sfx);
         isUp = true;
         DoomsdayStatusUI.Instance.safetyOff = true;
         TaskManager.Instance.CompleteTask(task);

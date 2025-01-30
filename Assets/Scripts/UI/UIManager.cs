@@ -13,6 +13,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Animation completedTaskPopup;
     private bool taskPadVisible = false;
 
+    [SerializeField] private AudioClip buttonBeep;
+    public void ButtonBeep()
+    {
+        SoundManager.Instance.PlaySFXOneShot(buttonBeep);
+    }
+
     private void Awake()
     {
         Instance = this;

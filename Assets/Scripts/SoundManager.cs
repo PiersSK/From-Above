@@ -162,7 +162,7 @@ public class SoundManager : MonoBehaviour
                 bgMusicSource.Play();
             }
 
-            if(TaskManager.Instance.phaseTwoTasksCompleted >= 4 || TimeController.Instance.GetTimeInSeconds() > TimeController.Instance.phase2TimeLimitMins * 0.8 * 60)
+            if(TaskManager.Instance.phaseTwoTasksCompleted >= 3 || TimeController.Instance.GetTimeInSeconds() > TimeController.Instance.phase2TimeLimitMins * 0.8 * 60)
             {
                 currentBGClip = 4;
                 bgMusicSource.clip = soundtrack[4];
