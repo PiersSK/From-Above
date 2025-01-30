@@ -13,6 +13,10 @@ public class KeycardInput : Interactable
     [SerializeField] private Task task;
     [SerializeField] private GameObject keyObj;
 
+    [SerializeField] private AudioClip unlockConfirmLine;
+    [SerializeField] private AudioClip confirmBeep;
+    [SerializeField] private AudioClip sfx;
+
     private bool keyInserted = false;
 
     public override bool CanInteract()
@@ -34,6 +38,7 @@ public class KeycardInput : Interactable
     {
         if (key == KeyCardRequired.One && PlayerInventory.Instance.hasKeycard1)
         {
+            SoundManager.Instance.PlaySFXOneShot(sfx);
             keyObj.SetActive(true);
             PlayerInventory.Instance.hasKeycard1 = false;
             DoomsdayStatusUI.Instance.keycardsInserted++;
@@ -41,6 +46,7 @@ public class KeycardInput : Interactable
         }
         if (key == KeyCardRequired.Two && PlayerInventory.Instance.hasKeycard2)
         {
+            SoundManager.Instance.PlaySFXOneShot(sfx);
             keyObj.SetActive(true);
             PlayerInventory.Instance.hasKeycard2 = false;
             DoomsdayStatusUI.Instance.keycardsInserted++;
@@ -50,6 +56,8 @@ public class KeycardInput : Interactable
         if(DoomsdayStatusUI.Instance.keycardsInserted == 2)
         {
             TaskManager.Instance.CompleteTask(task);
+            SoundManager.Instance.PlaySFXOneShot(confirmBeep);
+            SoundManager.Instance.PlaySFXOneShot(unlockConfirmLine);
         }
     }
 }

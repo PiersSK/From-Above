@@ -8,6 +8,9 @@ public class CyclePowerButton : Interactable
     private Animator buttonAnimator;
     private bool powerNeedsCycling = true;
 
+    [SerializeField] private AudioClip buttonSfx;
+    [SerializeField] private AudioClip cycleSequenceSfx;
+
     [SerializeField] private Task task;
 
     private void Start()
@@ -17,17 +20,17 @@ public class CyclePowerButton : Interactable
 
     protected override void Interact(Transform player)
     {
+        buttonAnimator.SetTrigger("Press");
+        SoundManager.Instance.PlaySFXOneShot(buttonSfx);
+
         if (powerNeedsCycling)
         {
-            buttonAnimator.SetTrigger("Press");
             lightFlicker.Play();
             playerLook.CameraShake(5f, 5f, true);
             powerNeedsCycling = false;
             TaskManager.Instance.CompleteTask(task);
             cycleNotif.SetActive(false);
-        } else
-        {
-            buttonAnimator.SetTrigger("Press");
+            SoundManager.Instance.PlaySFXOneShot(cycleSequenceSfx);
         }
     }
 }

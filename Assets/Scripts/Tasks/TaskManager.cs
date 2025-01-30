@@ -20,6 +20,9 @@ public class TaskManager : MonoBehaviour
     private const string TASKUIOBJECT = "Task";
 
     private Animator taskPadAnim;
+    [SerializeField] private AudioClip padBeep;
+    [SerializeField] private AudioClip task1Beep;
+    [SerializeField] private AudioClip task2Beep;
     [SerializeField] private GameObject taskPadObj;
     [SerializeField] private TextMeshProUGUI taskPadHeader;
     [SerializeField] private TextMeshProUGUI taskCount;
@@ -100,16 +103,16 @@ public class TaskManager : MonoBehaviour
     public void CompleteTask(Task taskToComplete)
     {
         tasks.Remove(taskToComplete);
-
-        if(isPhaseTwo && phaseTwoTasks.Count > 0)
+        if(isPhaseTwo) phaseTwoTasksCompleted++;
+        if (isPhaseTwo && phaseTwoTasks.Count > 0)
         {
             tasks.Add(phaseTwoTasks[0]);
             phaseTwoTasks.RemoveAt(0);
-            phaseTwoTasksCompleted++;
         }
 
         RefreshTaskListUI();
         UIManager.Instance.CompletedTaskPopup();
+        SoundManager.Instance.PlaySFXOneShot(isPhaseTwo ? task2Beep : task1Beep);
 
         if(!isPhaseTwo && tasks.Count == 0)
         {
@@ -125,5 +128,6 @@ public class TaskManager : MonoBehaviour
         UIManager.Instance.ToggleMenuPromptStatus();
         UIManager.Instance.ToggleCrosshairVisibility();
         taskPadAnim.SetBool("IsUp", taskPadVisible);
+        if(taskPadVisible) SoundManager.Instance.PlaySFXOneShot(padBeep);
     }
 }

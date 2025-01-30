@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.702636
+      value: 30.545
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.10000014
+      value: 5.0600004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.8530241
+      value: 6.363
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalRotation.w
@@ -38,15 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -99,27 +99,27 @@ PrefabInstance:
     - target: {fileID: 2141982964207847295, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 317f2015b4c0447c0ba2d6381dbcf3ec, type: 2}
+      objectReference: {fileID: 2100000, guid: d7e28900b255842439a520f749af24a9, type: 2}
     - target: {fileID: 2141982964207847295, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2100000, guid: 544df1151a1d04e888b00e428418d0f8, type: 2}
+      objectReference: {fileID: 2100000, guid: 1c8810f2750df48448f869334c8cfd4b, type: 2}
     - target: {fileID: 2141982964207847295, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3e96bfbbbb057405c977f0fad97b807d, type: 2}
+      objectReference: {fileID: 2100000, guid: d7e28900b255842439a520f749af24a9, type: 2}
     - target: {fileID: 2141982964207847295, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: 'm_Materials.Array.data[4]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1e975416ba09742f09ab688c134d90a8, type: 2}
+      objectReference: {fileID: 2100000, guid: 0de3ebedef7992842898962bc48b34d8, type: 2}
     - target: {fileID: 3401919043088636557, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 317f2015b4c0447c0ba2d6381dbcf3ec, type: 2}
+      objectReference: {fileID: 2100000, guid: 5217600dfd001d844bee74fa450f4177, type: 2}
     - target: {fileID: 3401919043088636557, guid: dc9efb82803c542c7a082a2567822672, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: b524c76bc2a8348fe858e6ca3096a12e, type: 2}
+      objectReference: {fileID: 2100000, guid: 2ec7e9caaf8ed444e853ac8c7b6fc0bd, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -178,9 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a66e37320c8488d980bcdd918cf41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: '[E] Pull the lever Kronk'
+  promptMessage: Deploy SWORD 3
   isInteractable: 1
   anim: {fileID: 2741086341994590309}
+  task: {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
+  weaponAnim: {fileID: 0}
 --- !u!65 &5685761025501161144
 BoxCollider:
   m_ObjectHideFlags: 0

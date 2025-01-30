@@ -7,6 +7,10 @@ public class ServerDiscStorage : Interactable
 {
     [SerializeField] private DataDrive driveStored;
     [SerializeField] private Animator serverAnim;
+
+    [SerializeField] private AudioClip ejectSfx;
+    [SerializeField] private AudioClip insertSfx;
+
     public bool driveInDock = true;
 
     private string inDockPrompt;
@@ -41,12 +45,13 @@ public class ServerDiscStorage : Interactable
             inv.dataDrivesHeld.Add(driveStored);
             driveInDock = false;
             serverAnim.SetTrigger("Eject");
+            SoundManager.Instance.PlaySFXOneShot(ejectSfx, 0, 0.3f);
         } else if (inv.dataDrivesHeld.Contains(driveStored) && !driveInDock)
         {
             inv.dataDrivesHeld.Remove(driveStored);
             driveInDock = true;
             serverAnim.SetTrigger("Insert");
-
+            SoundManager.Instance.PlaySFXOneShot(insertSfx, 0, 0.3f);
         }
     }
 }
