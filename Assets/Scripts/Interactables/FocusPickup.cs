@@ -5,7 +5,7 @@ public class FocusPickup : Interactable
     [SerializeField] private bool hasText;
     [TextArea(15, 20)]
     [SerializeField] private string textTranscript;
-    [SerializeField] private AudioClip sfx;
+    [SerializeField] public AudioClip sfx;
     private bool textPopupVisible = false;
 
     private Vector3 initialPos;
@@ -59,7 +59,7 @@ public class FocusPickup : Interactable
         transform.eulerAngles = new Vector3(0f, 180f + player.eulerAngles.y, 0f);
     }
 
-    private void ReleasePlayer()
+    public virtual void ReleasePlayer()
     {
         motor.ToggleMovementOverride();
         Cursor.lockState = CursorLockMode.Locked;

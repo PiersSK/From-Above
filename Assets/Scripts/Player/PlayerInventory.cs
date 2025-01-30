@@ -12,9 +12,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Transform PDHolder;
     [SerializeField] private GameObject keycard1;
     [SerializeField] private GameObject keycard2;
+    [SerializeField] private GameObject serverPassword;
 
     public bool hasKeycard1 = false;
     public bool hasKeycard2 = false;
+    public bool hasServerPassword = false;
 
     private void Awake()
     {
@@ -43,5 +45,6 @@ public class PlayerInventory : MonoBehaviour
 
         keycard1.SetActive(hasKeycard1);
         keycard2.SetActive(hasKeycard2);
+        serverPassword.SetActive(hasServerPassword);
     }
 }
