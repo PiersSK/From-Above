@@ -13,6 +13,7 @@ public class FourthRadioMessage : TimedEvent
         if(TaskManager.Instance.phaseTwoTasksCompleted == 4)
         {
             TimeController.Instance.isGetOnWithItTimerPaused = true;
+            TimeController.Instance.isTimePaused = false;
         }
         base.TriggerEvent();
     }

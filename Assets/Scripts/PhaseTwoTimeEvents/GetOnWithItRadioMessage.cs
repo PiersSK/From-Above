@@ -5,7 +5,7 @@ public class GetOnWithItRadioMessage : TimedEvent
 {
     public override bool ShouldEventTrigger()
     {
-        return !hasBeenTriggered && TimeController.Instance.getOnWithItTimer >= 240f;
+        return !hasBeenTriggered && TimeController.Instance.getOnWithItTimer >= 120f;
     }
     public override void TriggerEvent()
     {
