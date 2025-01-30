@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95b591673151cf4487bbd2ce7ed006a, type: 3}
+  m_Name: Commander4
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: fe913a2c3738cb645a33aadcf5760ff0, type: 3}
+  characterName: Commander
+  trackColor: {r: 1, g: 1, b: 0, a: 1}
+  dialogueLines:
+  - Soldier, this is an order; fire the sword now, don't fail me.
+  - I suspect I don't need to remind you of the punishment for insubordination.
+  - <i>You</i> aren't in control here, <i>you</i> aren't in command
+  - <i>you</i> are the weapon.
+  dialogueTimestamps: 0000000005000000090000000d000000

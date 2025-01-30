@@ -27,7 +27,7 @@ public class ConsoleLever : Interactable
 
     private void PlayConfirm()
     {
-        SoundManager.Instance.PlaySFXOneShot(taskCompleteLine, 0, 0.3f);
+        SoundManager.Instance.PlayShipPALine(taskCompleteLine);
     }
 
     public override bool CanInteract()
