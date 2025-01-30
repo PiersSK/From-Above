@@ -5,7 +5,7 @@ public class FifthRadioMessage : TimedEvent
 {
     public override bool ShouldEventTrigger()
     {
-        return !hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond) && TimeController.Instance.radioMessagesPlayed == 4
-        || !hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.getOnWithItTimer >= 180f && TimeController.Instance.getOnWithItMessagePlayed;
+        return !hasBeenTriggered  && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond) && TimeController.Instance.radioMessagesPlayed == 4 && TaskManager.Instance.phaseTwoTasksCompleted >= 4
+        || !hasBeenTriggered && TimeController.Instance.getOnWithItTimer >= 180f && TimeController.Instance.getOnWithItMessagePlayed;
     }
 }
