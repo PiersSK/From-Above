@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: graph_0
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/3DModels/Spreadward_Plush/Spreadward_Plush_512_Pants.sbsar
+  RawData: {fileID: -244192453324840774, guid: d2f8e5f04f62dc44e8032c5c6f0c70d1, type: 3}
+  Name: graph_0
+  IsRoot: 1
+  FlagedForDelete: 0
+  GUID: 2e64ee58-b4e3-4a1c-9470-3a3217ffd91e
+  Index: 0
+  Input: []
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 6
+    Description:
+      Identifier: Pants_Base_color
+      Label: Pants_Base_color
+      Index: 0
+      Type: 8
+      Channel: baseColor
+    OutputTexture: {fileID: 2800000, guid: 7700fc868a24beb43ac23610fb2da3aa, type: 3}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BaseMap
+  - Index: 1
+    VirtualOutputIndex: 7
+    Description:
+      Identifier: Pants_Metallic
+      Label: Pants_Metallic
+      Index: 1
+      Type: 8
+      Channel: metallic
+    OutputTexture: {fileID: 2800000, guid: 1d1329a943a8d234cb00f5f73e3d549e, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: Pants_Roughness
+    InvertAssignedAlpha: 1
+    Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
+  - Index: 2
+    VirtualOutputIndex: 8
+    Description:
+      Identifier: Pants_Roughness
+      Label: Pants_Roughness
+      Index: 2
+      Type: 8
+      Channel: roughness
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _RoughnessMap
+  - Index: 3
+    VirtualOutputIndex: 9
+    Description:
+      Identifier: Pants_Normal
+      Label: Pants_Normal
+      Index: 3
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 851b6b12573bfd141b0738baee053977, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  - Index: 4
+    VirtualOutputIndex: 10
+    Description:
+      Identifier: Pants_Height
+      Label: Pants_Height
+      Index: 4
+      Type: 8
+      Channel: height
+    OutputTexture: {fileID: 2800000, guid: b550809d4f909ed44bfe466d2c724bbf, type: 3}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _ParallaxMap
+  - Index: 5
+    VirtualOutputIndex: 11
+    Description:
+      Identifier: Pants_Normal_DirectX
+      Label: Pants_Normal_DirectX
+      Index: 5
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 7d03c58ba32b81b48a6c374bb9b5a2c6, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  CurrentStatePreset: 
+  IsRuntimeOnly: 0
+  GenerateAllOutputs: 0
+  GenerateAllMipmaps: 1
+  OutputMaterial: {fileID: 2100000, guid: 907215b6a54d1114c9596968fb9208a4, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://Spreadward_Plush_512_Pants\" label=\"\"
+    >\n </sbspreset>\n"
+  MaterialShader: Universal Render Pipeline/Lit
+  RenderTextures: 0
+  OutputRemaped: 0
+  Presets: []
+  references:
+    version: 2
+    RefIds: []

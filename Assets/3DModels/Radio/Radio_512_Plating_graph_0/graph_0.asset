@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: graph_0
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/3DModels/Radio/Radio_512_Plating.sbsar
+  RawData: {fileID: -244192453324840774, guid: 0c8d634bf7d630d42b2792c58280a60e, type: 3}
+  Name: graph_0
+  IsRoot: 1
+  FlagedForDelete: 0
+  GUID: 71da91c5-9434-4b53-862c-f66a4b9f2afc
+  Index: 0
+  Input: []
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 6
+    Description:
+      Identifier: Plating_Base_color
+      Label: Plating_Base_color
+      Index: 0
+      Type: 8
+      Channel: baseColor
+    OutputTexture: {fileID: 2800000, guid: d9e6df022a0fd804cb41bd2facf7e71c, type: 3}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BaseMap
+  - Index: 1
+    VirtualOutputIndex: 7
+    Description:
+      Identifier: Plating_Metallic
+      Label: Plating_Metallic
+      Index: 1
+      Type: 8
+      Channel: metallic
+    OutputTexture: {fileID: 2800000, guid: e92de6ba32f6e8f4494d54c49fae9a47, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: Plating_Roughness
+    InvertAssignedAlpha: 1
+    Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
+  - Index: 2
+    VirtualOutputIndex: 8
+    Description:
+      Identifier: Plating_Roughness
+      Label: Plating_Roughness
+      Index: 2
+      Type: 8
+      Channel: roughness
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _RoughnessMap
+  - Index: 3
+    VirtualOutputIndex: 9
+    Description:
+      Identifier: Plating_Normal
+      Label: Plating_Normal
+      Index: 3
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 2930eb3d12c13504ca2f27a6947e3ea8, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  - Index: 4
+    VirtualOutputIndex: 10
+    Description:
+      Identifier: Plating_Height
+      Label: Plating_Height
+      Index: 4
+      Type: 8
+      Channel: height
+    OutputTexture: {fileID: 2800000, guid: 4ff4d24d1b087af41a68c69ea7c31525, type: 3}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _ParallaxMap
+  - Index: 5
+    VirtualOutputIndex: 11
+    Description:
+      Identifier: Plating_Normal_DirectX
+      Label: Plating_Normal_DirectX
+      Index: 5
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 4e5f04a774e0e254abe271ddc3277129, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  CurrentStatePreset: 
+  IsRuntimeOnly: 0
+  GenerateAllOutputs: 0
+  GenerateAllMipmaps: 1
+  OutputMaterial: {fileID: 2100000, guid: 4b93326690dc91f4eab2f89f0658531c, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://Radio_512_Plating\" label=\"\" >\n </sbspreset>\n"
+  MaterialShader: Universal Render Pipeline/Lit
+  RenderTextures: 0
+  OutputRemaped: 0
+  Presets: []
+  references:
+    version: 2
+    RefIds: []

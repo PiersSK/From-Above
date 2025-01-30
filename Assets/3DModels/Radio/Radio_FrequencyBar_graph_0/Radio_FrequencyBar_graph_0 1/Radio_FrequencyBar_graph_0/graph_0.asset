@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: graph_0
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/3DModels/Radio/Radio_FrequencyBar_graph_0/Radio_FrequencyBar_graph_0
+    1/Radio_FrequencyBar.sbsar
+  RawData: {fileID: -244192453324840774, guid: b0fceb7f92956f747bac4f75bedf9fc5, type: 3}
+  Name: graph_0
+  IsRoot: 1
+  FlagedForDelete: 0
+  GUID: 44768b72-3641-49ed-96f7-8a9c5659bb09
+  Index: 0
+  Input: []
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 6
+    Description:
+      Identifier: FrequencyBar_Base_color
+      Label: FrequencyBar_Base_color
+      Index: 0
+      Type: 8
+      Channel: baseColor
+    OutputTexture: {fileID: 2800000, guid: 94b8ffdfdd8d2824a8d1e9837cb59004, type: 3}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BaseMap
+  - Index: 1
+    VirtualOutputIndex: 7
+    Description:
+      Identifier: FrequencyBar_Metallic
+      Label: FrequencyBar_Metallic
+      Index: 1
+      Type: 8
+      Channel: metallic
+    OutputTexture: {fileID: 2800000, guid: fc07303e7fe45f641bc53d35d77ca14a, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: FrequencyBar_Roughness
+    InvertAssignedAlpha: 1
+    Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
+  - Index: 2
+    VirtualOutputIndex: 8
+    Description:
+      Identifier: FrequencyBar_Roughness
+      Label: FrequencyBar_Roughness
+      Index: 2
+      Type: 8
+      Channel: roughness
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _RoughnessMap
+  - Index: 3
+    VirtualOutputIndex: 9
+    Description:
+      Identifier: FrequencyBar_Normal
+      Label: FrequencyBar_Normal
+      Index: 3
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 196adfa5baf4c3f4d938985423c8963d, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  - Index: 4
+    VirtualOutputIndex: 10
+    Description:
+      Identifier: FrequencyBar_Height
+      Label: FrequencyBar_Height
+      Index: 4
+      Type: 8
+      Channel: height
+    OutputTexture: {fileID: 2800000, guid: 56ead5d7fe726cc4a80889104b389997, type: 3}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _ParallaxMap
+  - Index: 5
+    VirtualOutputIndex: 11
+    Description:
+      Identifier: FrequencyBar_Normal_DirectX
+      Label: FrequencyBar_Normal_DirectX
+      Index: 5
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 370ccff4528458b4a810cd93ffb59ac5, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  CurrentStatePreset: 
+  IsRuntimeOnly: 0
+  GenerateAllOutputs: 0
+  GenerateAllMipmaps: 1
+  OutputMaterial: {fileID: 2100000, guid: 3e233ef39e6f7844baf19573cf420fdb, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://Radio_FrequencyBar\" label=\"\" >\n
+    </sbspreset>\n"
+  MaterialShader: Universal Render Pipeline/Lit
+  RenderTextures: 0
+  OutputRemaped: 0
+  Presets: []
+  references:
+    version: 2
+    RefIds: []
