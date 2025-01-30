@@ -9,7 +9,7 @@ public class GetOnWithItRadioMessage : TimedEvent
     }
     public override void TriggerEvent()
     {
-        TimeController.Instance.time = 0f;
+        TimeController.Instance.radioMessageTimer = 0f;
         TimeController.Instance.radioMessagesPlayed -= 1;
         TimeController.Instance.isTimePaused = true;
         TimeController.Instance.getOnWithItTimer = 0f;

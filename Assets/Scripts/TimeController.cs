@@ -8,6 +8,7 @@ public class TimeController : MonoBehaviour
 {
     public static TimeController Instance { get; private set;}
     public float time = 0f;
+    public float radioMessageTimer = 0f;
     public float getOnWithItTimer = 0f;
     private bool isTimeSet = false;
     public bool isGetOnWithItTimerSet = false;
@@ -42,10 +43,11 @@ public class TimeController : MonoBehaviour
             isTimeSet = true;
         } else if(isTimeSet)
         {
+            time += Time.deltaTime;
             TriggerEvents();
             if(!isTimePaused)
             {
-                time += Time.deltaTime;
+                radioMessageTimer += Time.deltaTime;
             }
         }
         if(!isGetOnWithItTimerSet && radioMessagesPlayed >= 2)
@@ -76,6 +78,15 @@ public class TimeController : MonoBehaviour
         return CurrentTime() >= timeToCompare;
     }
 
+    public bool RadioMessageTimeHasPassed(int mins, int secs)
+    {
+        return radioMessageTimer > mins * 60 + secs;
+    }
+    public bool RadioMessageTimeHasPassed (TimeSpan timeToCompare)
+    {
+        return CurrentRadioMessageTime() >= timeToCompare;
+    }
+
     public bool GetOnWithItTimePassed(int mins, int secs)
     {
         return getOnWithItTimer > mins * 60 + secs;
@@ -92,6 +103,10 @@ public class TimeController : MonoBehaviour
     }
 
     public TimeSpan CurrentGetOnWithItTime()
+    {
+        return TimeSpan.FromSeconds(getOnWithItTimer);
+    }
+    public TimeSpan CurrentRadioMessageTime()
     {
         return TimeSpan.FromSeconds(getOnWithItTimer);
     }
