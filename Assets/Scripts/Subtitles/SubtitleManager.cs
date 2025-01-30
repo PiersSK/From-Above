@@ -7,8 +7,10 @@ using UnityEngine;
 public class SubtitleManager : MonoBehaviour
 {
     public List<Subtitle> subtitleTracks;
-    public TextMeshProUGUI subtitleText;
     public Transform subtitleHolder;
+    [SerializeField] private Transform player;
+    [SerializeField] private int subtitle3DRange;
+
 
     private void Update()
     {
@@ -22,12 +24,15 @@ public class SubtitleManager : MonoBehaviour
         foreach(AudioSource a in subtitledAudios)
         {
             Subtitle s = subtitleTracks.Where(x => x.clip == a.clip).DefaultIfEmpty(null).Min();
+            if (a.spatialBlend > 0.5 && Vector3.Distance(player.position, a.transform.position) > subtitle3DRange) continue;
+
             if (s != null)
             {
                 int relevantTimestamp = s.dialogueTimestamps.Where(x => x < a.time).DefaultIfEmpty(-1).Max();
                 lineIndex = relevantTimestamp > 0 ? s.dialogueTimestamps.IndexOf(relevantTimestamp) : 0;
                 TextMeshProUGUI line = Instantiate(Resources.Load<TextMeshProUGUI>("Subtitle"), subtitleHolder);
-                line.text = "[" + s.characterName + "] - " + s.dialogueLines[lineIndex];
+                string nametag = s.dialogueLines[lineIndex] != "" && s.dialogueLines[lineIndex] != " " && s.dialogueLines[lineIndex] != string.Empty ? "[" + s.characterName + "] - " : string.Empty;
+                line.text = nametag + s.dialogueLines[lineIndex];
                 line.color = s.trackColor != null ? s.trackColor : Color.white;
             }
         }

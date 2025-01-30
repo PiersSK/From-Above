@@ -29,7 +29,7 @@ public class Lever : Interactable
             TaskManager.Instance.CompleteTask(task);
             weaponAnim.SetTrigger("Deploy");
             SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
-            SoundManager.Instance.PlaySFXOneShot(confirmVoice, 0, 0.3f);
+            SoundManager.Instance.PlayShipPALine(confirmVoice);
             look.CameraShake(19f, 0.5f);
         }
     }

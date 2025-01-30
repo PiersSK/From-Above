@@ -29,7 +29,7 @@ public class FireButton : Interactable
         anim.SetTrigger("Press");
         TaskManager.Instance.CompleteTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
-        SoundManager.Instance.PlaySFXOneShot(fireCountdown);
+        SoundManager.Instance.PlayShipPALine(fireCountdown);
         weaponFired = true;
 
         if (cycleBtn.overloaded)

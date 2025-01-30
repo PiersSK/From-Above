@@ -57,7 +57,7 @@ public class KeycardInput : Interactable
         {
             TaskManager.Instance.CompleteTask(task);
             SoundManager.Instance.PlaySFXOneShot(confirmBeep);
-            SoundManager.Instance.PlaySFXOneShot(unlockConfirmLine);
+            SoundManager.Instance.PlayShipPALine(unlockConfirmLine);
         }
     }
 }
