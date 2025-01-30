@@ -54,6 +54,14 @@ public class SoundManager : MonoBehaviour
         clipPlaying = clip.name;
     }
 
+    public void PlaySFXOneShotSetPitchAndVolume(AudioClip clip, float pitch = 1f, float volume = 0.3f)
+    {
+
+        genericSFXSource.pitch = pitch;
+        genericSFXSource.PlayOneShot(clip, volume);
+        clipPlaying = clip.name;
+    }
+
     public void FadeOutBgMusic(float fadeTime)
     {
         bgPaused = true;
