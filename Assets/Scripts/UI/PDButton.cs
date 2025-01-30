@@ -12,6 +12,6 @@ public class PDButton : MonoBehaviour
     {
         drive = d;
         label.text = d.DiskName;
-        GetComponent<Button>().onClick.AddListener(() => reader.DriveSelected(drive)); ;
+        GetComponent<Button>().onClick.AddListener(() => reader.DriveSelected(drive));
     }
 }
