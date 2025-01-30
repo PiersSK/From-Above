@@ -7,6 +7,7 @@ public class FireButton : Interactable
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private AudioClip fireCountdown;
     [SerializeField] private AudioClip sfx;
+    [SerializeField] private Animator anim;
 
     [SerializeField] List<AudioSource> commanderLines;
 
@@ -17,8 +18,9 @@ public class FireButton : Interactable
 
     protected override void Interact(Transform player)
     {
-        foreach (AudioSource source in commanderLines) source.Stop();
+        foreach (AudioSource source in commanderLines) source.enabled = false;
 
+        anim.SetTrigger("Press");
         TaskManager.Instance.CompleteTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         SoundManager.Instance.PlaySFXOneShot(fireCountdown);
