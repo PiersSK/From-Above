@@ -102,6 +102,8 @@ public class TaskManager : MonoBehaviour
 
     public void CompleteTask(Task taskToComplete)
     {
+        if (!tasks.Contains(taskToComplete)) return;
+
         tasks.Remove(taskToComplete);
         if(isPhaseTwo) phaseTwoTasksCompleted++;
         if (isPhaseTwo && phaseTwoTasks.Count > 0)
