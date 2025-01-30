@@ -15,7 +15,7 @@ public class ButtonCase : Interactable
     protected override void Interact(Transform player)
     {
         GetComponent<Animation>().Play();
-        SoundManager.Instance.PlaySFXOneShot(safetyOffLine);
+        SoundManager.Instance.PlayShipPALine(safetyOffLine);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         isUp = true;
         DoomsdayStatusUI.Instance.safetyOff = true;

@@ -10,7 +10,7 @@ public class SwordInitiation : ServerEXE
         TaskManager.Instance.CompleteTask(task);
         DoomsdayStatusUI.Instance.warmedUp = true;
         initiationDone = true;
-        SoundManager.Instance.PlaySFXOneShot(warmupSfx, 0, 0.3f);
+        SoundManager.Instance.PlayShipPALine(warmupSfx);
         base.RunExe();
     }
 

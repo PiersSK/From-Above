@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
     public AudioSource genericSFXSource;
     public AudioSource bgMusicSource;
+    public AudioSource shipPASource;
 
     public AudioMixerGroup bgMixer;
     private float bgVol = 0.3f;
@@ -60,6 +61,14 @@ public class SoundManager : MonoBehaviour
         genericSFXSource.pitch = pitch;
         genericSFXSource.PlayOneShot(clip, volume);
         clipPlaying = clip.name;
+    }
+
+    public void PlayShipPALine(AudioClip clip, float pitch = 1f, float volume = 0.3f)
+    {
+        shipPASource.clip = clip;
+        shipPASource.pitch = pitch;
+        shipPASource.volume = volume;
+        shipPASource.Play();
     }
 
     public void FadeOutBgMusic(float fadeTime)

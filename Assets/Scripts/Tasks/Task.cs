@@ -13,5 +13,4 @@ public class Task : ScriptableObject
     public string taskLocation;
     public string taskNumber;
     public TaskType taskType;
-    public string weaponStatusMessage;
 }
