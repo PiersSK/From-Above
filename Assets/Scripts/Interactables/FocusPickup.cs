@@ -15,8 +15,8 @@ public class FocusPickup : Interactable
     private PlayerMotor motor;
     private PlayerLook look;
 
-    private const string READUI = "[Tab] To View Text";
-    private const string ESCAPEUI = "[Esc] To Put Down";
+    private const string READUI = "[TAB] To View Text";
+    private const string ESCAPEUI = "[CTRL] To Put Down";
 
     private void Start()
     {
