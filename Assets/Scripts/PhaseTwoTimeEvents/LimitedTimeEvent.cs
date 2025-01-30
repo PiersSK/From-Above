@@ -12,7 +12,7 @@ public class LimitedTimedEvent : TimedEvent
     public bool eventHasEnded = false;
 
     public virtual void TriggerEventEnd() { }
-    public virtual bool ShouldEventEndTrigger()
+    public virtual bool ShouldEventEndTrigger(int radioMessagesPlayed, float time, int phaseTwoTasksCompleted)
     {
         return hasBeenTriggered && !eventHasEnded && TimeController.Instance.TimeHasPassed(eventEndMinute, eventEndSecond) && TaskManager.Instance.isPhaseTwo;
     }

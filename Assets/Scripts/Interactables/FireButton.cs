@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireButton : Interactable
@@ -7,6 +8,8 @@ public class FireButton : Interactable
     [SerializeField] private AudioClip fireCountdown;
     [SerializeField] private AudioClip sfx;
 
+    [SerializeField] List<AudioSource> commanderLines;
+
     public override bool CanInteract()
     {
         return TaskManager.Instance.tasks.Contains(task);
@@ -14,6 +17,8 @@ public class FireButton : Interactable
 
     protected override void Interact(Transform player)
     {
+        foreach (AudioSource source in commanderLines) source.Stop();
+
         TaskManager.Instance.CompleteTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         SoundManager.Instance.PlaySFXOneShot(fireCountdown);
