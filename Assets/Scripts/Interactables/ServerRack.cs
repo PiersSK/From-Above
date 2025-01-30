@@ -13,6 +13,7 @@ public class ServerRack : MonoBehaviour
     [SerializeField] private Light spotlight;
     [SerializeField] private string customLabel;
     [SerializeField] private bool useCustomLabel = false;
+    [SerializeField] private bool spotLightOn = false;
 
     private const string LEDGreen = "LEDGreen";
     private const string LEDBlue = "LEDBlue";
@@ -32,12 +33,13 @@ public class ServerRack : MonoBehaviour
 
         bool inPhase = GetComponentInChildren<ServerButton>().usableInPhaseOne || TaskManager.Instance.isPhaseTwo;
         rightLight.material = Resources.Load<Material>(isUsable && !GetComponentInChildren<ServerButton>().exe.hasRun && inPhase ? LEDBlue : LEDRed);
+
+        spotlight.enabled = spotLightOn;
     }
 
     public void SetLabel(string name)
     {
         label.text = useCustomLabel ? customLabel : name;
         labelBG.material = Resources.Load<Material>(useCustomLabel ? WhiteGlow : DimGlow);
-        spotlight.enabled = useCustomLabel;
     }
 }

@@ -20,6 +20,11 @@ public class RapierTerminal : Computer
 
     [SerializeField] private TextMeshProUGUI mainScreenResponse;
 
+    [SerializeField] private GameObject overrideBtn;
+    [SerializeField] private GameObject mainScreen;
+    [SerializeField] private GameObject overrideScreen;
+    [SerializeField] private ServerDiscStorage overrideServer;
+
     [SerializeField] private DataReader dataReader;
 
     [SerializeField] private Task shipStatusTask;
@@ -69,6 +74,17 @@ public class RapierTerminal : Computer
             } else
             {
                 adminPasswordInput.text = string.Empty;
+            }
+        }
+
+        if (overrideServer.driveInDock && !overrideBtn.activeSelf) overrideBtn.SetActive(true);
+        else if (!overrideServer.driveInDock && overrideBtn.activeSelf)
+        {
+            overrideBtn.SetActive(false);
+            if(overrideScreen.activeSelf)
+            {
+                overrideScreen.SetActive(false);
+                mainScreen.SetActive(true);
             }
         }
 

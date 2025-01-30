@@ -5,9 +5,13 @@ public class FireButton : Interactable
 {
     [SerializeField] private Task task;
     [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject gameOverActivistUI;
     [SerializeField] private AudioClip fireCountdown;
     [SerializeField] private AudioClip sfx;
     [SerializeField] private Animator anim;
+
+    [SerializeField] private CyclePowerButton cycleBtn;
+    [SerializeField] private PlayerLook look;
 
     [SerializeField] List<AudioSource> commanderLines;
 
@@ -24,12 +28,27 @@ public class FireButton : Interactable
         TaskManager.Instance.CompleteTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         SoundManager.Instance.PlaySFXOneShot(fireCountdown);
-        Invoke("EndGame", fireCountdown.length);
+
+        if (cycleBtn.overloaded)
+        {
+            look.CameraShake(fireCountdown.length, 10f, true);
+            Invoke("EndGameActivist", fireCountdown.length);
+        }
+        else
+        {
+            Invoke("EndGame", fireCountdown.length);
+        }
     }
 
     private void EndGame()
     {
         gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    private void EndGameActivist()
+    {
+        gameOverActivistUI.SetActive(true);
         Time.timeScale = 0f;
     }
 
