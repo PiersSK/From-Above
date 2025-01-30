@@ -9,7 +9,6 @@ public class TimedEvent : MonoBehaviour
     public int eventSecond;
     public bool hasBeenTriggered = false;
     private AudioSource audioSource;
-
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -22,6 +21,8 @@ public class TimedEvent : MonoBehaviour
             audioSource.Play();
         }
         hasBeenTriggered = true;
+        TimeController.Instance.time = 0f;
+        TimeController.Instance.radioMessagesPlayed ++;
     } 
     public virtual bool ShouldEventTrigger(){
         return !hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.TimeHasPassed(eventMinute, eventSecond);

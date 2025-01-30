@@ -1,28 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class TimeController : MonoBehaviour
 {
     public static TimeController Instance { get; private set;}
-
-    private int startTimeMins = 0;
-    private float time = 0f;
+    public float time = 0f;
+    public float getOnWithItTimer = 0f;
+    private bool isTimeSet = false;
+    public bool isGetOnWithItTimerSet = false;
+    public bool isTimePaused = false;
+    public bool isGetOnWithItTimerPaused = false;
     private int currentMin;
     private int currentSec;
-    private bool isTimeSet = false;
+    public int radioMessagesPlayed = 0;
+    public bool getOnWithItMessagePlayed = false;
 
     [Header("Time Settings")]
     [Range(0,20)]
     public int phase1TimeLimitMins = 10;
     [Range(0, 20)]
     public int phase2TimeLimitMins = 10;
+    private int startTimeMins = 0;
 
     [Header("Events")]
     public Transform scheduledEvents;
     public List<string> completeEvents;
-
    // private List<TimedEvent> scheduledEvents;
 
     private void Awake()
@@ -34,14 +39,26 @@ public class TimeController : MonoBehaviour
     {
         if(!isTimeSet && TaskManager.Instance.isPhaseTwo)
         {
-            time = startTimeMins * 60;
             isTimeSet = true;
-        } else if (isTimeSet)
+        } else if(isTimeSet)
         {
-            time += Time.deltaTime;
             TriggerEvents();
+            if(!isTimePaused)
+            {
+                time += Time.deltaTime;
+            }
         }
-
+        if(!isGetOnWithItTimerSet && radioMessagesPlayed >= 2)
+        {
+            isGetOnWithItTimerSet = true;
+        } else if (isGetOnWithItTimerSet)
+        {
+            if(!isGetOnWithItTimerPaused)
+            {
+                getOnWithItTimer += Time.deltaTime;
+                Debug.Log("Get On With It Timer: " + getOnWithItTimer);
+            }
+        }
     }
 
     public float GetTimeInSeconds()
@@ -59,9 +76,24 @@ public class TimeController : MonoBehaviour
         return CurrentTime() >= timeToCompare;
     }
 
+    public bool GetOnWithItTimePassed(int mins, int secs)
+    {
+        return getOnWithItTimer > mins * 60 + secs;
+    }
+
+    public bool GetOnWithItTimePassed(TimeSpan timeToCompare)
+    {
+        return CurrentGetOnWithItTime() >= timeToCompare;
+    }
+
     public TimeSpan CurrentTime()
     {
         return TimeSpan.FromSeconds(time);
+    }
+
+    public TimeSpan CurrentGetOnWithItTime()
+    {
+        return TimeSpan.FromSeconds(getOnWithItTimer);
     }
 
     public bool IsInTimeSpan(int min1, int sec1, int min2, int sec2)
@@ -75,23 +107,12 @@ public class TimeController : MonoBehaviour
         {
             if (eventTransform.TryGetComponent(out TimedEvent e))
             {
-                if (e.ShouldEventTrigger())
+                if(e.ShouldEventTrigger())
                 {
-                    e.TriggerEvent();
-                    e.hasBeenTriggered = true;
-                }
-            }
-
-            if (e.TryGetComponent(out LimitedTimedEvent lte))
-            {
-                if (lte.ShouldEventTrigger())
-                {
-                    lte.TriggerEventEnd();
-                    lte.eventHasEnded = true;
+                e.TriggerEvent();
+                e.hasBeenTriggered = true;
                 }
             }
         }
     }
-
-
 }
