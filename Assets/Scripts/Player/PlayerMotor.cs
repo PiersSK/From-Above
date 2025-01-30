@@ -8,7 +8,7 @@ public class PlayerMotor : MonoBehaviour
 
     private bool isGrounded;
     private bool isMoving;
-    public bool movementOverridden = false;
+    public bool movementOverridden = true;
 
     private bool sprinting = false;
 
@@ -28,6 +28,7 @@ public class PlayerMotor : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        movementOverridden = true;
         currentSpeed = baseSpeed;
     }
 
