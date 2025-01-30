@@ -11,6 +11,13 @@ public class SubtitleManager : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private int subtitle3DRange;
 
+    private void Start()
+    {
+        foreach(Subtitle subtitleTrack in subtitleTracks)
+        {
+            Debug.Log("Name: " + subtitleTrack.name + " Clip: " + subtitleTrack.clip);
+        }
+    }
 
     private void Update()
     {
@@ -23,6 +30,7 @@ public class SubtitleManager : MonoBehaviour
 
         foreach(AudioSource a in subtitledAudios)
         {
+            Debug.Log(a.clip);
             Subtitle s = subtitleTracks.Where(x => x.clip == a.clip).DefaultIfEmpty(null).Min();
             if (a.spatialBlend > 0.5 && Vector3.Distance(player.position, a.transform.position) > subtitle3DRange) continue;
 
