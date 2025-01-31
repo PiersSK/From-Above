@@ -31,6 +31,7 @@ public class RapierTerminal : Computer
 
     [SerializeField] private TMP_InputField adminPasswordInput;
     [SerializeField] private GameObject adminUnlocked;
+    [SerializeField] private GameObject adminPasswordHeader;
     [SerializeField] private List<ServerRack> adminUnlockedServers;
     [SerializeField] private string adminPassword;
 
@@ -69,6 +70,7 @@ public class RapierTerminal : Computer
             if(pass == adminPassword)
             {
                 adminPasswordInput.gameObject.SetActive(false);
+                adminPasswordHeader.gameObject.SetActive(false);
                 adminUnlocked.SetActive(true);
                 foreach (ServerRack r in adminUnlockedServers) r.hasDisk = true;
             } else
