@@ -12,9 +12,19 @@ public class MainMenu : MonoBehaviour
     [SerializeField] string leadingChar = "|";
     [SerializeField] string writer;
     [SerializeField] TMP_Text _tmpProText;
+    [SerializeField] GameObject btn;
+    [SerializeField] GameObject startBtn;
+    [SerializeField] GameObject title;
+
+    [SerializeField] private Animator anim;
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip typesfx;
 
     public void OnStartButton()
     {
+        anim.SetTrigger("Fade");
+        title.SetActive(false);
+        btn.SetActive(false);
         StartCoroutine("WriteText");
     }
 
@@ -33,10 +43,15 @@ public class MainMenu : MonoBehaviour
                 }
                 _tmpProText.text += c;
                 _tmpProText.text += leadingChar;
-                yield return new WaitForSeconds(timeBtwChar);
+                source.PlayOneShot(typesfx);
+                yield return new WaitForSeconds(timeBtwChar * (c == '\\' ? 5 : 1));
             }
 
-            SceneManager.LoadScene(1);
-        
+        startBtn.SetActive(true);
+    }
+
+    public void LoadGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }
