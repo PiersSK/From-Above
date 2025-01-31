@@ -71,15 +71,22 @@ public class SoundManager : MonoBehaviour
         shipPASource.Play();
     }
 
-    public void FadeOutBgMusic(float fadeTime)
+    public void PauseBgMusic(float fadeTime)
     {
-        bgPaused = true;
-        StartCoroutine(FadeOut(bgMusicSource, fadeTime));
+        if (bgMusicSource.isPlaying)
+        {
+            bgPaused = true;
+            bgMusicSource.Pause();
+        }
     }
 
-    public void FadeInBgMusic(float fadeTime)
+    public void RestartBgMusic(float fadeTime)
     {
-        StartCoroutine(FadeIn(bgMusicSource, bgVol, fadeTime));
+        if (!bgMusicSource.isPlaying && bgPaused)
+        {
+            bgMusicSource.Play();
+            bgPaused = false;
+        }
     }
 
     private void AutoAdjustBGForOtherTracks()

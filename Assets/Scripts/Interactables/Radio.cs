@@ -21,6 +21,8 @@ public class Radio : Interactable
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip staticSound;
 
+    public bool isOn = true;
+
     private void Start()
     {
         foreach(var freq in freqs)
@@ -32,28 +34,34 @@ public class Radio : Interactable
     private void Update()
     {
         broadcastTimer += Time.deltaTime;
-        
-        AudioClip clip = messages[currentFreq];
 
-        if (clip != null)
+        if (isOn)
         {
-            float length = clip.length;
+            AudioClip clip = messages[currentFreq];
 
-            if (broadcastTimer >= broadcastStarts[currentFreq])
+            if (clip != null)
             {
-                float cycleLength = length + broadcastFrequency; 
-                float timerInCycle = (broadcastTimer - broadcastStarts[currentFreq]) % cycleLength;
-                if (timerInCycle <= length && !source.isPlaying)
+                float length = clip.length;
+
+                if (broadcastTimer >= broadcastStarts[currentFreq])
                 {
-                    source.clip = clip;
-                    source.time = timerInCycle;
-                    source.Play();
-                }
-                else if (timerInCycle > length && source.isPlaying)
-                {
-                    source.Pause();
+                    float cycleLength = length + broadcastFrequency;
+                    float timerInCycle = (broadcastTimer - broadcastStarts[currentFreq]) % cycleLength;
+                    if (timerInCycle <= length && !source.isPlaying)
+                    {
+                        source.clip = clip;
+                        source.time = timerInCycle;
+                        source.Play();
+                    }
+                    else if (timerInCycle > length && source.isPlaying)
+                    {
+                        source.Pause();
+                    }
                 }
             }
+        } else if (source.isPlaying)
+        {
+            source.Pause();
         }
     }
 

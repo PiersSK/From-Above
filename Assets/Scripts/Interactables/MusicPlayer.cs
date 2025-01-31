@@ -48,7 +48,7 @@ public class MusicPlayer : Interactable
 
             if (audioSource.resource != null && !audioSource.isPlaying)
             {
-                SoundManager.Instance.FadeOutBgMusic(2f);
+                SoundManager.Instance.PauseBgMusic(2f);
                 audioSource.Play();
                 SoundManager.Instance.PlaySFXOneShot(playSfx, 0, 0.3f);
                 if (drive == wellnessTape && !taskCompleted)
@@ -59,7 +59,7 @@ public class MusicPlayer : Interactable
             }
             else if (audioSource.isPlaying)
             {
-                SoundManager.Instance.FadeInBgMusic(2f);
+                SoundManager.Instance.RestartBgMusic(2f);
                 audioSource.Pause();
             }
 
@@ -69,7 +69,7 @@ public class MusicPlayer : Interactable
 
     public void DiskRemoved()
     {
-        SoundManager.Instance.FadeInBgMusic(2f);
+        SoundManager.Instance.RestartBgMusic(2f);
         audioSource.Stop();
         audioSource.resource = null;
         playTime = 0f;

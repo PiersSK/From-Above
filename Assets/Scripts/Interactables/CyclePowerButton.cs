@@ -41,7 +41,13 @@ public class CyclePowerButton : Interactable
             }
         }
 
-        if(overloaded)
+        if (timesCycledInRange == 3 && !overloaded)
+        {
+            overloaded = true;
+            overloadMsg.SetActive(true);
+        }
+
+        if (overloaded)
         {
             overloadTimer += Time.deltaTime;
             repairPerc.text = "REPAIRING: " + Mathf.Round((overloadTimer / autoRepairTime)*100) + "%";
@@ -79,10 +85,5 @@ public class CyclePowerButton : Interactable
     private void EndCycle()
     {
         inProgress = false;
-        if (timesCycledInRange == 3 && !overloaded)
-        {
-            overloaded = true;
-            overloadMsg.SetActive(true);
-        }
     }
 }
