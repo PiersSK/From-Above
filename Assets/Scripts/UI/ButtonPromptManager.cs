@@ -5,15 +5,34 @@ using UnityEngine;
 public class ButtonPromptManager : MonoBehaviour
 {
     private InputManager input;
-    private Dictionary<string, string> displayValueOverrides = new Dictionary<string, string>()
+    private Dictionary<InputManager.LastInputType, Dictionary<string, string>> displayValueOverrides = new()
     {
-        {"Left Control","CTRL"}
+        {
+            InputManager.LastInputType.KeyboardMouse,
+            new()
+            {
+                { "Left Control", "CTRL" }
+            }
+        },
+        {
+            InputManager.LastInputType.Gamepad,
+            new()
+            {
+                { "", "" }
+            }
+        },
     };
 
     private const string INTERACT = "Interact";
+    private const string TASKLIST = "Tasklist";
+    private const string TOGGLE = "UIToggle";
+    private const string BACKOUT = "Escape";
 
 
     [SerializeField] private ButtonPrompt interactPrompt;
+    [SerializeField] private ButtonPrompt taskPrompt;
+    [SerializeField] private ButtonPrompt togglePrompt;
+    [SerializeField] private ButtonPrompt backoutPrompt;
 
     private void OnEnable()
     {
@@ -22,14 +41,15 @@ public class ButtonPromptManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("kjhsdfkjsdfkjhsdf)");
         input = InputManager.Instance;
         UpdateButtonPrompts(input.lastInputType);
     }
 
     private void UpdateButtonPrompts(InputManager.LastInputType newType)
     {
-        Debug.Log("updating......kdjfsdf");
         interactPrompt.UpdatePrompt(input.GetCurrentBinding(INTERACT), newType);
+        taskPrompt.UpdatePrompt(input.GetCurrentBinding(TASKLIST), newType);
+        togglePrompt.UpdatePrompt(input.GetCurrentBinding(TOGGLE), newType);
+        backoutPrompt.UpdatePrompt(input.GetCurrentBinding(BACKOUT), newType);
     }
 }

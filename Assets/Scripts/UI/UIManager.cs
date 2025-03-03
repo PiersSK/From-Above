@@ -6,7 +6,12 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance {  get; private set; }
     [SerializeField] private GameObject crosshair;
-    [SerializeField] private TextMeshProUGUI helpText;
+
+    [SerializeField] private GameObject toggleObj;
+    [SerializeField] private GameObject backoutObj;
+    [SerializeField] private TextMeshProUGUI toggleText;
+    [SerializeField] private TextMeshProUGUI backoutText;
+
     [SerializeField] private GameObject textPopUp;
     [SerializeField] private TextMeshProUGUI textPopUpText;
     [SerializeField] private GameObject menuPrompt;
@@ -52,15 +57,26 @@ public class UIManager : MonoBehaviour
         crosshair.SetActive(!crosshair.activeSelf);
     }
 
-    public void ShowHelpText(string message)
+    public void ShowBackoutText(string message)
     {
-        helpText.text = message;
-        helpText.gameObject.SetActive(true);
+        backoutText.text = message;
+        backoutObj.SetActive(true);
     }
 
-    public void HideHelpText()
+    public void ShowToggleText(string message)
     {
-        helpText.gameObject.SetActive(false);
+        toggleText.text = message;
+        toggleObj.SetActive(true);
+    }
+
+    public void HideBackoutText()
+    {
+        backoutObj.SetActive(false);
+    }
+
+    public void HideToggleText()
+    {
+        toggleObj.SetActive(false);
     }
 
     public void ShowPopupText(string message)

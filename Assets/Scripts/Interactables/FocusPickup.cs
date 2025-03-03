@@ -15,8 +15,8 @@ public class FocusPickup : Interactable
     private PlayerMotor motor;
     private PlayerLook look;
 
-    private const string READUI = "[TAB] To View Text";
-    private const string ESCAPEUI = "[CTRL] To Put Down";
+    private const string READUI = "To View Text";
+    private const string ESCAPEUI = "To Put Down";
 
     private void Start()
     {
@@ -52,8 +52,8 @@ public class FocusPickup : Interactable
 
         UIManager.Instance.ToggleCrosshairVisibility();
 
-        string help = hasText ? READUI + "\n" + ESCAPEUI : ESCAPEUI;
-        UIManager.Instance.ShowHelpText(help);
+        if (hasText) UIManager.Instance.ShowToggleText(READUI);
+        UIManager.Instance.ShowBackoutText(ESCAPEUI);
 
         transform.position = player.position + new Vector3(0f, 0.6f, 0f) + player.forward * 0.5f;
         transform.eulerAngles = new Vector3(0f, 180f + player.eulerAngles.y, 0f);
@@ -67,7 +67,8 @@ public class FocusPickup : Interactable
         isInteractable = true;
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.HideHelpText();
+        UIManager.Instance.HideBackoutText();
+        UIManager.Instance.HideToggleText();
         UIManager.Instance.HidePopupText();
         textPopupVisible = false;
 
