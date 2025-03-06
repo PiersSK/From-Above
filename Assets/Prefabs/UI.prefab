@@ -51,9 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 3377646987006391055}
   promptBackground: {fileID: 8691082885751036227}
-  MKBackground: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
-  GamepadBackground: {fileID: 21300000, guid: dbda3368a0ae2413da1416cd2dc247bc, type: 3}
-  rectangleButton: 0
 --- !u!1 &166392670647463969
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,9 +112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 6333519854664101136}
   promptBackground: {fileID: 3168742727162888280}
-  MKBackground: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
-  GamepadBackground: {fileID: 21300000, guid: dbda3368a0ae2413da1416cd2dc247bc, type: 3}
-  rectangleButton: 1
 --- !u!1 &836631369787070959
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -959,8 +953,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1157,7 +1151,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 50}
+  m_SizeDelta: {x: 90, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &554070608358848311
 CanvasRenderer:
@@ -1180,16 +1174,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cdd3a50feed3f4448a78f3d203c43a8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1446,7 +1440,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -773.31, y: 25.93}
-  m_SizeDelta: {x: 88.3582, y: 46.1564}
+  m_SizeDelta: {x: 90, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7620824727048914883
 CanvasRenderer:
@@ -1469,16 +1463,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 1cdd3a50feed3f4448a78f3d203c43a8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1500,9 +1494,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 431409190939942217}
   promptBackground: {fileID: 7972241029222395789}
-  MKBackground: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
-  GamepadBackground: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
-  rectangleButton: 1
 --- !u!1 &4673092439884592659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,7 +1928,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3373,10 +3364,10 @@ RectTransform:
   - {fileID: 7638312594635951319}
   m_Father: {fileID: 2904325006746843308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -55.8172, y: 40.578}
-  m_SizeDelta: {x: 88.3582, y: 46.1564}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 455.55533, y: -41.922012}
+  m_SizeDelta: {x: 90, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5752909183221214953
 CanvasRenderer:
@@ -3399,16 +3390,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 1cdd3a50feed3f4448a78f3d203c43a8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3430,9 +3421,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 9016869491507805632}
   promptBackground: {fileID: 5757770698449808104}
-  MKBackground: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
-  GamepadBackground: {fileID: 21300000, guid: 806a9c281cd35214fbb17663fcd427b2, type: 3}
-  rectangleButton: 1
 --- !u!1 &9174819120291685104
 GameObject:
   m_ObjectHideFlags: 0

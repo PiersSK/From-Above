@@ -15,20 +15,6 @@ public class ButtonPromptManager : MonoBehaviour
                 { "Left Control", "CTRL" }
             }
         },
-        {
-            InputManager.LastInputType.Playstation,
-            new()
-            {
-                { "X", "□" },
-                { "B", "○" },
-                { "Y", "△" },
-                { "A", "⤬" },
-                { "RB", "R1" },
-                { "LB", "L1" },
-                { "RT", "R2" },
-                { "LT", "L2" },
-            }
-        },
     };
 
     private const string INTERACT = "Interact";
@@ -65,7 +51,6 @@ public class ButtonPromptManager : MonoBehaviour
     {
         if (displayValueOverrides.Keys.Contains(type))
         {
-            Debug.Log(type + " " + assignment);
             Dictionary<string, string> overrides = displayValueOverrides[type];
             if (overrides.Keys.Contains(assignment))
             {
