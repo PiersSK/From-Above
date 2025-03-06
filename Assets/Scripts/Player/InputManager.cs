@@ -100,10 +100,7 @@ public class InputManager : MonoBehaviour
 
         foreach (var binding in action.bindings)
         {
-            // Done akwardly because can't have enum with & symbol in
-            if ((lastInputType == LastInputType.Playstation && binding.groups.Contains("Gamepad")) ||
-                (lastInputType == LastInputType.Xbox && binding.groups.Contains("Gamepad")) ||
-                (lastInputType == LastInputType.Gamepad && binding.groups.Contains("Gamepad")) ||
+            if ((lastInputType != LastInputType.KeyboardMouse && binding.groups.Contains("Gamepad")) ||
                 (lastInputType == LastInputType.KeyboardMouse && binding.groups.Contains("Keyboard&Mouse")))
             {
                 return binding.ToDisplayString();

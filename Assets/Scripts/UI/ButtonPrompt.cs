@@ -9,8 +9,6 @@ public class ButtonPrompt : MonoBehaviour
     public TextMeshProUGUI promptText;
     public Image promptBackground;
 
-    private float bgHeight = 45f;
-
     private static string BUTTONPROMPTFPATH = "ButtonPrompts/";
     private static string KEYBOARDMOUSEFPATH = "KeyboardMouse/";
     private static string XBOXPATH = "Xbox/";
@@ -45,8 +43,6 @@ public class ButtonPrompt : MonoBehaviour
             else
                 DefaultButton(newPrompt);
         }
-
-        //promptBackground.GetComponent<RectTransform>().sizeDelta = new(width, bgHeight);
     }
 
     private void DefaultButton(string newPrompt)
