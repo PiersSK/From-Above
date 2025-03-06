@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -15,10 +16,17 @@ public class ButtonPromptManager : MonoBehaviour
             }
         },
         {
-            InputManager.LastInputType.Gamepad,
+            InputManager.LastInputType.Playstation,
             new()
             {
-                { "", "" }
+                { "X", "□" },
+                { "B", "○" },
+                { "Y", "△" },
+                { "A", "⤬" },
+                { "RB", "R1" },
+                { "LB", "L1" },
+                { "RT", "R2" },
+                { "LT", "L2" },
             }
         },
     };
@@ -47,9 +55,25 @@ public class ButtonPromptManager : MonoBehaviour
 
     private void UpdateButtonPrompts(InputManager.LastInputType newType)
     {
-        interactPrompt.UpdatePrompt(input.GetCurrentBinding(INTERACT), newType);
-        taskPrompt.UpdatePrompt(input.GetCurrentBinding(TASKLIST), newType);
-        togglePrompt.UpdatePrompt(input.GetCurrentBinding(TOGGLE), newType);
-        backoutPrompt.UpdatePrompt(input.GetCurrentBinding(BACKOUT), newType);
+        interactPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(INTERACT), newType), newType);
+        taskPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(TASKLIST), newType), newType);
+        togglePrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(TOGGLE), newType), newType);
+        backoutPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(BACKOUT), newType), newType);
+    }
+
+    private string GetAltText(string assignment, InputManager.LastInputType type)
+    {
+        if (displayValueOverrides.Keys.Contains(type))
+        {
+            Debug.Log(type + " " + assignment);
+            Dictionary<string, string> overrides = displayValueOverrides[type];
+            if (overrides.Keys.Contains(assignment))
+            {
+                Debug.Log(overrides[assignment]);
+                return overrides[assignment];
+            }
+        }
+
+        return assignment;
     }
 }

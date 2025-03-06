@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private TaskManager taskManager;
 
-    public enum LastInputType { KeyboardMouse, Gamepad }
+    public enum LastInputType { KeyboardMouse, Playstation, Xbox, Gamepad }
     public LastInputType lastInputType { get; private set; }
 
     public delegate void OnInputTypeChanged(LastInputType newInputType);
@@ -82,9 +82,9 @@ public class InputManager : MonoBehaviour
         if (device is Gamepad gamepad)
         {
             if (gamepad.displayName.Contains("Xbox"))
-                return LastInputType.Gamepad;
+                return LastInputType.Xbox;
             if (gamepad.displayName.Contains("DualSense") || gamepad.displayName.Contains("DualShock"))
-                return LastInputType.Gamepad;
+                return LastInputType.Playstation;
 
             return LastInputType.Gamepad;
         }
@@ -101,7 +101,9 @@ public class InputManager : MonoBehaviour
         foreach (var binding in action.bindings)
         {
             // Done akwardly because can't have enum with & symbol in
-            if ((lastInputType == LastInputType.Gamepad && binding.groups.Contains("Gamepad")) ||
+            if ((lastInputType == LastInputType.Playstation && binding.groups.Contains("Gamepad")) ||
+                (lastInputType == LastInputType.Xbox && binding.groups.Contains("Gamepad")) ||
+                (lastInputType == LastInputType.Gamepad && binding.groups.Contains("Gamepad")) ||
                 (lastInputType == LastInputType.KeyboardMouse && binding.groups.Contains("Keyboard&Mouse")))
             {
                 return binding.ToDisplayString();
