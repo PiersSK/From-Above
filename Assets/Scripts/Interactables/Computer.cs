@@ -29,7 +29,7 @@ public class Computer : Interactable
 
         isInteractable = false;
 
-        motor.ForcePlayerToPoint(lockPoint, true); 
+        motor.ForcePlayerToPoint(lockPoint, true);
         motor.ToggleMovementOverride();
 
         Cursor.lockState = CursorLockMode.None;
