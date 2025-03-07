@@ -12,7 +12,8 @@ public class ButtonPromptManager : MonoBehaviour
             InputManager.LastInputType.KeyboardMouse,
             new()
             {
-                { "Left Control", "CTRL" }
+                { "Left Control", "CTRL" },
+                { "Escape", "ESC" }
             }
         },
     };
