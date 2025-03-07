@@ -11,7 +11,7 @@ public class Computer : Interactable
 
     [SerializeField] protected AudioClip enterKeyclicks;
 
-    protected string ESCAPEUI = "[CTRL] To exit terminal";
+    protected string ESCAPEUI = "[ESC] To exit terminal";
 
     protected virtual void Update()
     {
@@ -29,7 +29,7 @@ public class Computer : Interactable
 
         isInteractable = false;
 
-        motor.ForcePlayerToPoint(lockPoint, true);
+        motor.ForcePlayerToPoint(lockPoint, true); 
         motor.ToggleMovementOverride();
 
         Cursor.lockState = CursorLockMode.None;
