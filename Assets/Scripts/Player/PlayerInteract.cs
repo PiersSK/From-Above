@@ -7,6 +7,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float distance = 3f;
     [SerializeField] private LayerMask mask;
     [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private GameObject buttonPromptObject;
 
     private InputManager inputManager;
 
@@ -20,6 +21,7 @@ public class PlayerInteract : MonoBehaviour
     void Update()
     {
         promptText.text = string.Empty;
+        buttonPromptObject.SetActive(false);
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance);
@@ -32,7 +34,8 @@ public class PlayerInteract : MonoBehaviour
 
                 if (interactable.CanInteract())
                 {
-                    promptText.text = "[E] " + interactable.GetPrompt();
+                    promptText.text = interactable.GetPrompt();
+                    buttonPromptObject.SetActive(true);
 
                     if (inputManager.playerActions.Interact.triggered)
                     {

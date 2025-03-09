@@ -11,7 +11,7 @@ public class Computer : Interactable
 
     [SerializeField] protected AudioClip enterKeyclicks;
 
-    protected string ESCAPEUI = "[ESC] To exit terminal";
+    protected const string EXITTERMINAL = "Exit Terminal";
 
     protected virtual void Update()
     {
@@ -36,7 +36,7 @@ public class Computer : Interactable
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.ShowHelpText(ESCAPEUI);
+        UIManager.Instance.ShowBackoutText(EXITTERMINAL);
         UIManager.Instance.HideTaskPadPrompt();
         playerAtComputer = true;
 
@@ -51,7 +51,7 @@ public class Computer : Interactable
         isInteractable = true;
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.HideHelpText();
+        UIManager.Instance.HideBackoutText();
         UIManager.Instance.ShowTaskPadPrompt();
         playerAtComputer = false;
     }

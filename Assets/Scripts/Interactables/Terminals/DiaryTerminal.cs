@@ -27,15 +27,16 @@ public class DiaryTerminal : Computer
     [SerializeField] private AudioClip keysoundLight;
     [SerializeField] private AudioClip keysoundHeavy;
 
-    protected const string ESCAPEUI2 = "[TAB] To enter your observations\n[CTRL] To exit terminal";
+    protected const string LOOKOUTWINDOW = "To look out the window";
+    protected const string RETURNTODIARY = "To enter your observations";
 
     private void Start()
     {
-        ESCAPEUI = "[TAB] To look out the window\n[CTRL] To exit terminal";
         questionBlocks[0].GetComponent<DiaryQABlock>().questionText.text = QUESTIONS[0];
         questionBlocks[0].SetActive(true);
         header.GetComponent<TextMeshProUGUI>().text = HEADER;
         footer.GetComponent<TextMeshProUGUI>().text = FOOTER;
+        if (input == null) input = InputManager.Instance;
     }
 
     protected override void Update()
@@ -68,6 +69,12 @@ public class DiaryTerminal : Computer
         base.Update();
     }
 
+    protected override void Interact(Transform player)
+    {
+        base.Interact(player);
+        UIManager.Instance.ShowToggleText(LOOKOUTWINDOW);
+    }
+
     private void ToggleLookout()
     {
         isLookingOut = !isLookingOut;
@@ -76,14 +83,14 @@ public class DiaryTerminal : Computer
         {
             motor.ForcePlayerToPoint(lookoutPoint, true);
             Cursor.lockState = CursorLockMode.Locked;
-            UIManager.Instance.ShowHelpText(ESCAPEUI2);
+            UIManager.Instance.ShowToggleText(RETURNTODIARY);
             if (questionsAnswered < questionBlocks.Count)
                 questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.DeactivateInputField();
         } else
         {
             motor.ForcePlayerToPoint(lockPoint, true);
             Cursor.lockState = CursorLockMode.None;
-            UIManager.Instance.ShowHelpText(ESCAPEUI);
+            UIManager.Instance.ShowToggleText(LOOKOUTWINDOW);
             if (questionsAnswered < questionBlocks.Count)
                 questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.ActivateInputField();
         }
@@ -113,6 +120,8 @@ public class DiaryTerminal : Computer
     {
         if (questionsAnswered < questionBlocks.Count) 
             questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.DeactivateInputField();
+
+        UIManager.Instance.HideToggleText();
         base.ReleasePlayer();
     }
 }
