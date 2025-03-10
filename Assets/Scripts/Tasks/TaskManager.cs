@@ -34,11 +34,6 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private List<GameObject> phase2taskBlocks;
 
     [SerializeField] private FireButton fireBtn;
-
-    private Color dailyColor = new Color(0.2f, 0.69f, 0.2f);
-    private Color weaponColor = new Color(0.69f, 0.3f, 0.22f);
-
-
     [SerializeField] private Transform player;
 
     private void Awake()
@@ -83,7 +78,7 @@ public class TaskManager : MonoBehaviour
         taskCountSentence.SetActive(false);
         phase2TaskPad.SetActive(true);
         phase2taskCount.text = "0/6 STEPS COMPLETED";
-        taskPadHeader.color = weaponColor;
+        taskPadHeader.color = UIColors.terminalRed;
 
         RefreshTaskListUI();
     }
@@ -150,7 +145,7 @@ public class TaskManager : MonoBehaviour
         taskCount.gameObject.SetActive(true);
         taskCountSentence.SetActive(true);
         phase2TaskPad.SetActive(false);
-        taskPadHeader.color = dailyColor;
+        taskPadHeader.color = UIColors.terminalGreen;
 
         RefreshTaskListUI();
         
