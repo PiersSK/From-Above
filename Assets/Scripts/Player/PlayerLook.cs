@@ -33,15 +33,22 @@ public class PlayerLook : MonoBehaviour
         if (lookLocked) return;
 
         bool isMouse = InputManager.Instance.lastInputType == InputManager.LastInputType.KeyboardMouse;
+        float frameMultiplier = isMouse ? 1f : Mathf.Clamp(Time.deltaTime * 144f, 0.5f, 1.5f);
         float xSensitivity = isMouse ? mouseSensitivy.GetModifiedValue() : controllerXSensitivity.GetModifiedValue();
         float ySensitivity = isMouse ? mouseSensitivy.GetModifiedValue() : controllerYSensitivity.GetModifiedValue();
 
-        float mouseX = input.x * xSensitivity;
-        float mouseY = input.y * ySensitivity;
+        if (!isMouse)
+        {
+            input.x = Mathf.Sign(input.x) * Mathf.Pow(Mathf.Abs(input.x), 1.5f);
+            input.y = Mathf.Sign(input.y) * Mathf.Pow(Mathf.Abs(input.y), 1.5f);
+        }
 
-        xRotation -= mouseY;
+        float inputX = input.x * xSensitivity * frameMultiplier;
+        float inputY = input.y * ySensitivity * frameMultiplier;
+
+        xRotation -= inputY;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f); // up down
-        transform.Rotate(Vector3.up * mouseX); // left right
+        transform.Rotate(Vector3.up * inputX); // left right
 
 
         float camZ = 0f;
