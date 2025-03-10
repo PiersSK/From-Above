@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class KeycardInput : Interactable
@@ -19,17 +18,37 @@ public class KeycardInput : Interactable
 
     private bool keyInserted = false;
 
+    private const string KEYCARD1INSERT = "Insert Keycard 1";
+    private const string KEYCARD2INSERT = "Insert Keycard 2";
+    private const string KEYCARD1NEEDED = "Requires Keycard 1";
+    private const string KEYCARD2NEEDED = "Requires Keycard 2";
+
     public override bool CanInteract()
     {
-        return TaskManager.Instance.tasks.Contains(task) && !keyInserted;
+        return TaskManager.Instance.tasks.Contains(task) && !keyInserted
+            && ((key == KeyCardRequired.One && PlayerInventory.Instance.hasKeycard1)
+               || (key == KeyCardRequired.Two && PlayerInventory.Instance.hasKeycard2));
     }
 
     public override string GetPrompt()
     {
         if(key == KeyCardRequired.One)
-            return !PlayerInventory.Instance.hasKeycard1 ? "REQUIRES KEYCARD 1" : "INSERT KEYCARD 1";
-        else if(key == KeyCardRequired.Two)
-            return !PlayerInventory.Instance.hasKeycard2 ? "REQUIRES KEYCARD 2" : "INSERT KEYCARD 2";
+            return KEYCARD1INSERT;
+        else if (key == KeyCardRequired.Two)
+            return KEYCARD2INSERT;
+
+        return string.Empty;
+    }
+
+    public override string GetRequirementMessage()
+    {
+        if (TaskManager.Instance.tasks.Contains(task) && !keyInserted)
+        {
+            if (key == KeyCardRequired.One)
+                return KEYCARD1NEEDED;
+            else if (key == KeyCardRequired.Two)
+                return KEYCARD2NEEDED;
+        }
 
         return string.Empty;
     }
