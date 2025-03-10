@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 public class MenuSlider : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
-    [SerializeField] private TextMeshProUGUI valueDisplay;
+    [SerializeField] protected Slider slider;
+    [SerializeField] protected TextMeshProUGUI valueDisplay;
 
     [Header("Scaling Options")]
     [Range(-30f, 30f)]
-    [SerializeField] private float actualValueOffset;
+    [SerializeField] protected float actualValueOffset;
     [Range(0f, 30f)]
-    [SerializeField] private float actualValuePerIncrement;
+    [SerializeField] protected float actualValuePerIncrement;
 
     private void Update()
     {
