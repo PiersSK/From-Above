@@ -5,22 +5,27 @@ public class PlayerLook : MonoBehaviour
     public static PlayerLook Instance {  get; private set; }
 
     public Camera cam;
-    private float xRotation = 0f;
 
+    [Header("Sensitivity Settings")]
     [SerializeField] private MenuSlider mouseSensitivy;
     [SerializeField] private MenuSlider controllerXSensitivity;
     [SerializeField] private MenuSlider controllerYSensitivity;
 
+    [SerializeField] private float macSensitivtyMultiplier;
+    private const string MAC = "Mac";
+
+    public bool lookLocked = false;
+
+    private float xRotation = 0f;
+
+    // Shake Variables
     private float currentShakeTimer = 0f;
     private float timeToShake = 0f;
     private bool isShaking = false;
     private bool ascendingIntensity = false;
     private float cameraShakeIntensity = 5f;
-
     private bool isDescendingShake = false;
     private float timeToDescend = 0f;
-
-    public bool lookLocked = false;
 
     private void Awake()
     {
@@ -41,6 +46,10 @@ public class PlayerLook : MonoBehaviour
         {
             input.x = Mathf.Sign(input.x) * Mathf.Pow(Mathf.Abs(input.x), 1.5f);
             input.y = Mathf.Sign(input.y) * Mathf.Pow(Mathf.Abs(input.y), 1.5f);
+        } else if (SystemInfo.operatingSystem.Contains(MAC))
+        {
+            input.x *= macSensitivtyMultiplier;
+            input.y *= macSensitivtyMultiplier;
         }
 
         float inputX = input.x * xSensitivity * frameMultiplier;
