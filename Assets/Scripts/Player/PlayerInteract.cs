@@ -34,6 +34,7 @@ public class PlayerInteract : MonoBehaviour
 
                 if (interactable.CanInteract())
                 {
+                    promptText.color = UIColors.white;
                     promptText.text = interactable.GetPrompt();
                     buttonPromptObject.SetActive(true);
 
@@ -41,6 +42,10 @@ public class PlayerInteract : MonoBehaviour
                     {
                         interactable.BaseInteract(transform);
                     }
+                } else
+                {
+                    promptText.color = UIColors.terminalRed;
+                    promptText.text = interactable.GetRequirementMessage();
                 }
             }
         }
