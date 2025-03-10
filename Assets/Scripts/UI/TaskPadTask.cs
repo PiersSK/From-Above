@@ -13,9 +13,6 @@ public class TaskPadTask : MonoBehaviour
     [SerializeField] private Image taskNumberBackground;
     [SerializeField] private Image taskBorder;
 
-    private Color dailyColor = new Color(0.2f, 0.69f, 0.2f);
-    private Color weaponColor = new Color(0.69f, 0.3f, 0.22f);
-
     public void SetTask(Task t)
     {
         task = t;
@@ -25,19 +22,17 @@ public class TaskPadTask : MonoBehaviour
         taskNumber.text = task.taskNumber;
 
         if (task.taskType == Task.TaskType.Daily)
-        {
-            taskTitle.color = dailyColor;
-            locationPrefix.color = dailyColor;
-            taskLocation.color = dailyColor;
-            taskNumberBackground.color = dailyColor;
-            taskBorder.color = dailyColor;
-        } else if (task.taskType == Task.TaskType.Weapon)
-        {
-            taskTitle.color = weaponColor;
-            locationPrefix.color = weaponColor;
-            taskLocation.color = weaponColor;
-            taskNumberBackground.color = weaponColor;
-            taskBorder.color = weaponColor;
-        }
+            SetUIColors(UIColors.terminalGreen);
+        else if (task.taskType == Task.TaskType.Weapon)
+            SetUIColors(UIColors.terminalRed);
+    }
+
+    private void SetUIColors(Color color)
+    {
+        taskTitle.color = color;
+        locationPrefix.color = color;
+        taskLocation.color = color;
+        taskNumberBackground.color = color;
+        taskBorder.color = color;
     }
 }
