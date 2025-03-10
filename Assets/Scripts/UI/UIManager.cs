@@ -18,7 +18,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Animation completedTaskPopup;
 
     [SerializeField] private GameObject pacifistEnding;
+
+    [SerializeField] private GameObject pauseMenu;
     private bool taskPadVisible = false;
+
 
     [SerializeField] private AudioClip buttonBeep;
     public void ButtonBeep()
@@ -94,5 +97,18 @@ public class UIManager : MonoBehaviour
     {
         pacifistEnding.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void TogglePauseMenu()
+    {
+        if (PlayerMotor.Instance.movementOverridden) return; // Pausing only possible outside of focus interactablesto avoid keybind clash
+
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        Time.timeScale = pauseMenu.activeSelf ? 0f : 1f;
+        PlayerLook.Instance.lookLocked = pauseMenu.activeSelf;
+        Cursor.lockState = pauseMenu.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
+
+        if (pauseMenu.activeSelf) SoundManager.Instance.PauseAllSound();
+        else SoundManager.Instance.UnpauseAllPausedSound();
     }
 }

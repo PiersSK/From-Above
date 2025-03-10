@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    public static PlayerLook Instance {  get; private set; }
+
     public Camera cam;
     private float xRotation = 0f;
 
@@ -17,10 +19,11 @@ public class PlayerLook : MonoBehaviour
     private bool isDescendingShake = false;
     private float timeToDescend = 0f;
 
-    private bool lookLocked = false;
+    public bool lookLocked = false;
 
     private void Awake()
     {
+        Instance = this;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
