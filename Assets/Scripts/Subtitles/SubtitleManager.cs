@@ -41,7 +41,8 @@ public class SubtitleManager : MonoBehaviour
                 TextMeshProUGUI line = Instantiate(Resources.Load<TextMeshProUGUI>("Subtitle"), subtitleHolder);
                 string nametag = s.dialogueLines[lineIndex] != "" && s.dialogueLines[lineIndex] != " " && s.dialogueLines[lineIndex] != string.Empty ? "[" + s.characterName + "] - " : string.Empty;
                 line.text = nametag + s.dialogueLines[lineIndex];
-                line.color = s.trackColor != null ? s.trackColor : UIColors.white;
+
+                line.color = UIColors.subtitleColors[(int)s.trackColor];
             }
         }
     }
