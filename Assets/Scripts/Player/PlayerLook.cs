@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    public static PlayerLook Instance {  get; private set; }
+
     public Camera cam;
     private float xRotation = 0f;
 
-    public float xSensitivity = 30f;
-    public float ySensitivity = 30f;
+    [SerializeField] private MenuSlider mouseSensitivy;
 
     private float currentShakeTimer = 0f;
     private float timeToShake = 0f;
@@ -17,10 +18,11 @@ public class PlayerLook : MonoBehaviour
     private bool isDescendingShake = false;
     private float timeToDescend = 0f;
 
-    private bool lookLocked = false;
+    public bool lookLocked = false;
 
     private void Awake()
     {
+        Instance = this;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -31,7 +33,7 @@ public class PlayerLook : MonoBehaviour
         float mouseX = input.x;
         float mouseY = input.y;
 
-        xRotation -= mouseY * ySensitivity;
+        xRotation -= mouseY * mouseSensitivy.GetModifiedValue();
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
         float camZ = 0f;
@@ -61,7 +63,7 @@ public class PlayerLook : MonoBehaviour
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, camZ);
 
-        transform.Rotate(Vector3.up * mouseX * xSensitivity);
+        transform.Rotate(Vector3.up * mouseX * mouseSensitivy.GetModifiedValue());
     }
 
     public void ToggleLookLock(bool resetCamera = true)

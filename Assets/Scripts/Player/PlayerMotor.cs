@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
+    public static PlayerMotor Instance { get; private set; }
+
     public CharacterController controller;
     private Vector3 playerVelocity;
 
@@ -24,6 +26,11 @@ public class PlayerMotor : MonoBehaviour
 
     [SerializeField] private List<AudioClip> footsteps;
     private float footstepTimer = 0f;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {

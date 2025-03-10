@@ -18,7 +18,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Animation completedTaskPopup;
 
     [SerializeField] private GameObject pacifistEnding;
+
+    [SerializeField] private GameObject pauseMenu;
     private bool taskPadVisible = false;
+
 
     [SerializeField] private AudioClip buttonBeep;
     public void ButtonBeep()

@@ -12,6 +12,8 @@ public class SoundManager : MonoBehaviour
 
     public AudioMixerGroup bgMixer;
     private float bgVol = 0.3f;
+    
+    public List<AudioSource> pausedSources = new();
     private List<AudioSource> fadingSources = new();
 
     public string clipPlaying = string.Empty;
@@ -87,6 +89,27 @@ public class SoundManager : MonoBehaviour
             bgMusicSource.Play();
             bgPaused = false;
         }
+    }
+
+    public void PauseAllSound()
+    {
+        foreach (var audioSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+        {
+            if (audioSource.isPlaying) {
+                audioSource.Pause();
+                pausedSources.Add(audioSource);
+            }
+        }
+    }
+
+    public void UnpauseAllPausedSound()
+    {
+        foreach (var audioSource in pausedSources)
+        {
+            audioSource.UnPause();
+        }
+
+        pausedSources.Clear();
     }
 
     private void AutoAdjustBGForOtherTracks()
