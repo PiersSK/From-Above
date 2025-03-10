@@ -8,6 +8,8 @@ public class PlayerLook : MonoBehaviour
     private float xRotation = 0f;
 
     [SerializeField] private MenuSlider mouseSensitivy;
+    [SerializeField] private MenuSlider controllerXSensitivity;
+    [SerializeField] private MenuSlider controllerYSensitivity;
 
     private float currentShakeTimer = 0f;
     private float timeToShake = 0f;
@@ -30,11 +32,17 @@ public class PlayerLook : MonoBehaviour
     {
         if (lookLocked) return;
 
-        float mouseX = input.x;
-        float mouseY = input.y;
+        bool isMouse = InputManager.Instance.lastInputType == InputManager.LastInputType.KeyboardMouse;
+        float xSensitivity = isMouse ? mouseSensitivy.GetModifiedValue() : controllerXSensitivity.GetModifiedValue();
+        float ySensitivity = isMouse ? mouseSensitivy.GetModifiedValue() : controllerYSensitivity.GetModifiedValue();
 
-        xRotation -= mouseY * mouseSensitivy.GetModifiedValue();
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        float mouseX = input.x * xSensitivity;
+        float mouseY = input.y * ySensitivity;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -80f, 80f); // up down
+        transform.Rotate(Vector3.up * mouseX); // left right
+
 
         float camZ = 0f;
         if(isShaking)
@@ -63,7 +71,6 @@ public class PlayerLook : MonoBehaviour
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, camZ);
 
-        transform.Rotate(Vector3.up * mouseX * mouseSensitivy.GetModifiedValue());
     }
 
     public void ToggleLookLock(bool resetCamera = true)
