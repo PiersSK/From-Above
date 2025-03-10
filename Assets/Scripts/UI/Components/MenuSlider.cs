@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class MenuSlider : MonoBehaviour
 {
+    [Header("Component References")]
     [SerializeField] protected Slider slider;
     [SerializeField] protected TextMeshProUGUI valueDisplay;
 
@@ -16,5 +17,10 @@ public class MenuSlider : MonoBehaviour
     private void Update()
     {
         valueDisplay.text = slider.value.ToString();
+    }
+
+    public float GetModifiedValue()
+    {
+        return actualValueOffset + actualValuePerIncrement * slider.value;
     }
 }

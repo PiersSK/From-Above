@@ -21,7 +21,7 @@ public class AudioMenuSlider : MenuSlider
     {
         if (mixer == null) return;
 
-        float modifiedValue = value == 0 ? -80f : actualValueOffset + actualValuePerIncrement * value;
+        float modifiedValue = value == 0 ? -80f : GetModifiedValue();
         mixer.SetFloat(targetValue.ToString(), modifiedValue);
     }
 }
