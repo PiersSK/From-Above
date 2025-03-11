@@ -2,33 +2,37 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DiaryTerminal : Computer
 {
-    private  string HEADER = "===== Rapier 06 Observation Log =====\nAwaiting daily log for operation day: 0847...";
+    [Header("Object References")]
+    [SerializeField] private List<GameObject> questionBlocks = new();
+    [SerializeField] private GameObject header;
+    [SerializeField] private GameObject footer;
+    [SerializeField] private Transform lookoutPoint;
+
+    [Header("Progression Settings")]
+    [SerializeField] Task task;
+
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip keysoundLight;
+    [SerializeField] private AudioClip keysoundHeavy;
+
+    private int questionsAnswered = 0;
+    private bool isLookingOut = false;
+
+    // String Constants
+    private const string HEADER = "===== Rapier 06 Observation Log =====\nAwaiting daily log for operation day: 0847...";
     private List<string> QUESTIONS = new List<string>() {
         "Question 01: When you look out, what do you see?",
         "Question 02: When you look out, how do you feel?",
         "Question 03: Do you see any signs of aggression from the enemy?"
     };
+
     private const string FOOTER = "LOG COMPLETED. Thank you for your continued vigilance. Please return tomorrow";
-    //private const string USERPREFIX = "rapier06@log-cpu: ";
-
-    private int questionsAnswered = 0;
-
-    [SerializeField] private List<GameObject> questionBlocks = new();
-    [SerializeField] private GameObject header;
-    [SerializeField] private GameObject footer;
-    [SerializeField] Task task;
-
-    [SerializeField] private Transform lookoutPoint;
-    private bool isLookingOut = false;
-
-    [SerializeField] private AudioClip keysoundLight;
-    [SerializeField] private AudioClip keysoundHeavy;
-
-    protected const string LOOKOUTWINDOW = "To look out the window";
-    protected const string RETURNTODIARY = "To enter your observations";
+    private const string LOOKOUTWINDOW = "To look out the window";
+    private const string RETURNTODIARY = "To enter your observations";
 
     private void Start()
     {
@@ -53,8 +57,7 @@ public class DiaryTerminal : Computer
                 ToggleLookout();
         }
 
-
-        if (playerAtComputer && SoundManager.Instance.clipPlaying != "StartBeep")
+        if (playerAtComputer && SoundManager.Instance.clipPlaying != initiationSound.name)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -73,6 +76,7 @@ public class DiaryTerminal : Computer
     {
         base.Interact(player);
         UIManager.Instance.ShowToggleText(LOOKOUTWINDOW);
+        questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.Select();
     }
 
     private void ToggleLookout()
@@ -98,7 +102,7 @@ public class DiaryTerminal : Computer
 
     public void RevealNextText(string answer)
     {
-        questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.enabled = false;
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(null);
         questionsAnswered++;
 
         if (questionsAnswered < questionBlocks.Count)

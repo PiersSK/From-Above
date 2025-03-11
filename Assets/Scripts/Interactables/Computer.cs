@@ -9,7 +9,7 @@ public class Computer : Interactable
     protected InputManager input;
     [SerializeField] protected Transform lockPoint;
 
-    [SerializeField] protected AudioClip enterKeyclicks;
+    [SerializeField] protected AudioClip initiationSound;
 
     protected const string EXITTERMINAL = "Exit Terminal";
 
@@ -40,7 +40,7 @@ public class Computer : Interactable
         UIManager.Instance.HideTaskPadPrompt();
         playerAtComputer = true;
 
-        SoundManager.Instance.PlaySFXOneShot(enterKeyclicks, 0f, 0.1f, 0f);
+        SoundManager.Instance.PlaySFXOneShot(initiationSound, 0f, 0.1f, 0f);
     }
 
     protected virtual void ReleasePlayer()
