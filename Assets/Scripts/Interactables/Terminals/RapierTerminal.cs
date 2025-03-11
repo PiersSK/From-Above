@@ -128,7 +128,7 @@ public class RapierTerminal : Computer
         {
             shipStatusBtn.navigation = UIManager.Instance.CreateNewNavigation(null, adminBtn, null, readDataBtn);
             readDataBtn.navigation = UIManager.Instance.CreateNewNavigation(null, adminBtn, shipStatusBtn, null);
-            adminBtn.navigation = UIManager.Instance.CreateNewNavigation(shipStatusBtn, null, null, null);
+            adminBtn.navigation = UIManager.Instance.CreateNewNavigation(shipStatusBtn, null, shipStatusBtn, readDataBtn);
         }
     }
 
