@@ -1,4 +1,5 @@
 using NUnit;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class DataReader : Interactable
 
     [SerializeField] private GameObject PDUI;
     [SerializeField] private Transform PDUIButtonContainer;
+    [SerializeField] private Button PDCancelBtn;
 
     private Transform player;
     private const string NODISK = "NONE INSERTED";
@@ -56,11 +58,29 @@ public class DataReader : Interactable
 
             foreach (Transform t in PDUIButtonContainer) Destroy(t.gameObject);
 
+            List<Button> pdButtons = new();
             foreach (DataDrive d in inv.dataDrivesHeld)
             {
                 Button b = Instantiate(Resources.Load<Button>("PDButton"), PDUIButtonContainer);
                 b.GetComponent<PDButton>().SetDrive(d, this);
+
+                pdButtons.Add(b);
+                if (inv.dataDrivesHeld.IndexOf(d) == 0) b.Select();
             }
+
+            foreach(Button b in pdButtons)
+            {
+                int index = pdButtons.IndexOf(b);
+
+                Selectable up = index > 1 ? pdButtons[index - 2] : null;
+                Selectable down = index < pdButtons.Count - (2 - index % 2) ? pdButtons[index + 2 >= pdButtons.Count ? pdButtons.Count - 1 : index + 2] : PDCancelBtn;
+                Selectable left = index % 2 == 1 ? pdButtons[index - 1] : null;
+                Selectable right = index % 2 == 0 && index < pdButtons.Count - 1 ? pdButtons[index + 1] : null;
+
+                b.navigation = UIManager.Instance.CreateNewNavigation(up, down, left, right);
+            }
+
+            PDCancelBtn.navigation = UIManager.Instance.CreateNewNavigation(pdButtons.Count > 0 ? pdButtons[pdButtons.Count - 1] : null, null, null, null);
 
             PDUI.SetActive(true);
         }
