@@ -22,8 +22,16 @@ public class ButtonHighlighter : MonoBehaviour
 
             textStandardColor = buttonText.color;
         }
+    }
 
+    private void OnEnable()
+    {
         InputManager.InputTypeChanged += UpdateForInputType;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.InputTypeChanged -= UpdateForInputType;
     }
 
     private void UpdateForInputType(InputManager.LastInputType newInputType)
