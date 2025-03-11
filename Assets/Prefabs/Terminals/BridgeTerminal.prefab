@@ -2535,11 +2535,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 764745960263705508}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -3063,12 +3063,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 2087035032737093789}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
@@ -3654,6 +3654,7 @@ MonoBehaviour:
   audioDiscSfx: {fileID: 0}
   PDUI: {fileID: 0}
   PDUIButtonContainer: {fileID: 0}
+  PDCancelBtn: {fileID: 0}
 --- !u!1 &7581143161237639828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4520,9 +4521,6 @@ MonoBehaviour:
   commanderSubtitle: {fileID: 4984731602087253219}
   sendDataBtn: {fileID: 2087035032737093789}
   btnResponse: {fileID: 8423982354600398985}
-  rapierTerminal: {fileID: 0}
-  dataReader: {fileID: 8575440741854930776}
-  fleetData: {fileID: 11400000, guid: f879787bdbebe4f10aaf528fd3fa4606, type: 2}
   phase1Screen: {fileID: 7337635964796963137}
   phase2Screen: {fileID: 1802775513349088729}
   overrideImg: {fileID: 8414941990565361683}
@@ -4535,6 +4533,9 @@ MonoBehaviour:
   - {fileID: 6113986282423889965}
   - {fileID: 1717524487975988001}
   - {fileID: 3285416953363473675}
+  rapierTerminal: {fileID: 0}
+  dataReader: {fileID: 8575440741854930776}
+  fleetData: {fileID: 11400000, guid: f879787bdbebe4f10aaf528fd3fa4606, type: 2}
   fleetDataTask: {fileID: 11400000, guid: be674cb2ee166e2499011f9abb6dc4fc, type: 2}
 --- !u!1001 &7636465716465701507
 PrefabInstance:
