@@ -7,17 +7,13 @@ using UnityEngine.UI;
 
 public class BridgeTerminal : Computer
 {
+    [Header("Object References")]
     [SerializeField] private TextMeshProUGUI Header;
     [SerializeField] private TextMeshProUGUI Subheader;
     [SerializeField] private Button commanderBtn;
     [SerializeField] private TextMeshProUGUI commanderSubtitle;
     [SerializeField] private Button sendDataBtn;
     [SerializeField] private TextMeshProUGUI btnResponse;
-
-    [SerializeField] private RapierTerminal rapierTerminal;
-    [SerializeField] private DataReader dataReader;
-    [SerializeField] private DataDrive fleetData;
-
     [SerializeField] private GameObject phase1Screen;
     [SerializeField] private GameObject phase2Screen;
     [SerializeField] private GameObject overrideImg;
@@ -25,16 +21,21 @@ public class BridgeTerminal : Computer
     [SerializeField] private TextMeshProUGUI p2Timer;
     [SerializeField] private List<GameObject> phase2StatusBlocks;
 
+    [Header("Terminal & Data Settings")]
+    [SerializeField] private RapierTerminal rapierTerminal;
+    [SerializeField] private DataReader dataReader;
+    [SerializeField] private DataDrive fleetData;
+
+    [Header("Progression Settings")]
     [SerializeField] private Task fleetDataTask;
 
     private bool fleetDataUploaded = false;
-    private const string fleetDataUploadedMsg = "[UPLOAD OF DATA COMPLETE]";
-    private const string fleetDataUploadedPreviouslyMsg = "DATA ALREADY UPLOADED. PLEASE RETURN DATA TO STORAGE";
-    private const string dataUploadRejection = "NO REQUEST FOUND FOR INSERTED DATA DRIVE. PLEASE RETURN DATA TO STORAGE IMMEDIATELY";
+    private const string UPLOADSUCCESS = "[UPLOAD OF DATA COMPLETE]";
+    private const string UPLOADREPEATEDMESSAGE = "DATA ALREADY UPLOADED. PLEASE RETURN DATA TO STORAGE";
+    private const string UPLOADDATAREJECT = "NO REQUEST FOUND FOR INSERTED DATA DRIVE. PLEASE RETURN DATA TO STORAGE IMMEDIATELY";
 
-    private const string readDataReject = "NO DATA DRIVE INSERTED";
-
-    //Something about reading data
+    private const string READDATAREJECT = "NO DATA DRIVE INSERTED";
+    private const string COMMSREJECTION = "DENIED. Command status set to ENGAGED. Try again later.";
 
     private void Start()
     {
@@ -54,9 +55,21 @@ public class BridgeTerminal : Computer
         base.Update();
     }
 
+    protected override void Interact(Transform player)
+    {
+        base.Interact(player);
+        commanderBtn.Select();
+    }
+
+    protected override void ReleasePlayer()
+    {
+        base.ReleasePlayer();
+        UIManager.Instance.ClearSelectedUIObject();
+    }
+
     private void TalkToCommand()
     {
-        btnResponse.text = "DENIED. Command status set to ENGAGED. Try again later.";
+        btnResponse.text = COMMSREJECTION;
     }
 
     public void ShowPhaseTwoScreen()
@@ -91,19 +104,19 @@ public class BridgeTerminal : Computer
             {
                 if (!fleetDataUploaded)
                 {
-                    btnResponse.text = fleetDataUploadedMsg;
+                    btnResponse.text = UPLOADSUCCESS;
                     fleetDataUploaded = true;
                     TaskManager.Instance.CompleteTask(fleetDataTask);
                     rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);
                 }
                 else
-                    btnResponse.text = fleetDataUploadedPreviouslyMsg;
+                    btnResponse.text = UPLOADREPEATEDMESSAGE;
             } else
             {
-                btnResponse.text = dataUploadRejection;
+                btnResponse.text = UPLOADDATAREJECT;
             }
         }
         else
-            btnResponse.text = readDataReject;
+            btnResponse.text = READDATAREJECT;
     }
 }

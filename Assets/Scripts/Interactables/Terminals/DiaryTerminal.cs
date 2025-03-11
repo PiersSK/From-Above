@@ -102,7 +102,7 @@ public class DiaryTerminal : Computer
 
     public void RevealNextText(string answer)
     {
-        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(null);
+        UIManager.Instance.ClearSelectedUIObject();
         questionsAnswered++;
 
         if (questionsAnswered < questionBlocks.Count)

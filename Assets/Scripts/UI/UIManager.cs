@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -97,5 +98,10 @@ public class UIManager : MonoBehaviour
     {
         pacifistEnding.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void ClearSelectedUIObject()
+    {
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(null);
     }
 }
