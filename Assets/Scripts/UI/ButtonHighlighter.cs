@@ -18,22 +18,35 @@ public class ButtonHighlighter : MonoBehaviour
             enabled = false;
         } else
         {
-            ColorBlock colorBlock = new ColorBlock();
-            colorBlock.normalColor = UIColors.grey;
-            colorBlock.highlightedColor = UIColors.white;
-            colorBlock.pressedColor = UIColors.grey;
-            colorBlock.disabledColor = UIColors.darkGrey;
-            colorBlock.selectedColor = UIColors.white;
-            colorBlock.colorMultiplier = 1f;
-            button.colors = colorBlock;
+            UpdateForInputType(InputManager.Instance.lastInputType);
 
             textStandardColor = buttonText.color;
         }
+
+        InputManager.InputTypeChanged += UpdateForInputType;
+    }
+
+    private void UpdateForInputType(InputManager.LastInputType newInputType)
+    {
+        ColorBlock colorBlock = new ColorBlock();
+        colorBlock.pressedColor = UIColors.grey;
+        colorBlock.disabledColor = UIColors.darkGrey;
+        colorBlock.selectedColor = UIColors.white;
+        colorBlock.highlightedColor = UIColors.white;
+        colorBlock.colorMultiplier = 1f;
+
+        if (newInputType == InputManager.LastInputType.KeyboardMouse)
+            colorBlock.normalColor = UIColors.white;
+        else
+            colorBlock.normalColor = UIColors.grey;
+
+        button.colors = colorBlock;
     }
 
     private void Update()
     {
-        if (button.gameObject == UIManager.Instance.GetSelectedUIObject())
+        if (UIManager.Instance.IsObjectSelected(button.gameObject) 
+            && InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
         {
             buttonText.color = UIColors.white;
         } else

@@ -10,8 +10,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject toggleObj;
     [SerializeField] private GameObject backoutObj;
+    [SerializeField] private GameObject confirmObj;
     [SerializeField] private TextMeshProUGUI toggleText;
     [SerializeField] private TextMeshProUGUI backoutText;
+    [SerializeField] private TextMeshProUGUI confirmText;
 
     [SerializeField] private GameObject textPopUp;
     [SerializeField] private TextMeshProUGUI textPopUpText;
@@ -73,6 +75,12 @@ public class UIManager : MonoBehaviour
         toggleObj.SetActive(true);
     }
 
+    public void ShowConfirmText(string message)
+    {
+        confirmText.text = message;
+        confirmObj.SetActive(true);
+    }
+
     public void HideBackoutText()
     {
         backoutObj.SetActive(false);
@@ -81,6 +89,11 @@ public class UIManager : MonoBehaviour
     public void HideToggleText()
     {
         toggleObj.SetActive(false);
+    }
+
+    public void HideConfirmText()
+    {
+        confirmObj.SetActive(false);
     }
 
     public void ShowPopupText(string message)
@@ -108,6 +121,11 @@ public class UIManager : MonoBehaviour
     public GameObject GetSelectedUIObject()
     {
         return GameObject.Find("EventSystem").GetComponent<EventSystem>().currentSelectedGameObject;
+    }
+
+    public bool IsObjectSelected(GameObject obj)
+    {
+        return obj == GameObject.Find("EventSystem").GetComponent<EventSystem>().currentSelectedGameObject;
     }
 
     public Navigation CreateNewNavigation(Selectable up, Selectable down, Selectable left, Selectable right)

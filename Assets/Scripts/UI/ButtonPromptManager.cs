@@ -22,12 +22,14 @@ public class ButtonPromptManager : MonoBehaviour
     private const string TASKLIST = "Tasklist";
     private const string TOGGLE = "UIToggle";
     private const string BACKOUT = "Escape";
+    private const string CONFIRM = "Confirm";
 
 
     [SerializeField] private ButtonPrompt interactPrompt;
     [SerializeField] private ButtonPrompt taskPrompt;
     [SerializeField] private ButtonPrompt togglePrompt;
     [SerializeField] private ButtonPrompt backoutPrompt;
+    [SerializeField] private ButtonPrompt confirmPrompt;
 
     private void OnEnable()
     {
@@ -46,6 +48,7 @@ public class ButtonPromptManager : MonoBehaviour
         taskPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(TASKLIST), newType), newType);
         togglePrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(TOGGLE), newType), newType);
         backoutPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(BACKOUT), newType), newType);
+        confirmPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(CONFIRM), newType), newType);
     }
 
     private string GetAltText(string assignment, InputManager.LastInputType type)
