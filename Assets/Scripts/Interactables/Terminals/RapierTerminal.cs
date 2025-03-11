@@ -2,10 +2,12 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class RapierTerminal : Computer
 {
+    [Header("Homescreen Object References")]
     [SerializeField] private TextMeshProUGUI notifHeader;
     [SerializeField] private TextMeshProUGUI fleetNotif;
     [SerializeField] private TextMeshProUGUI shipNotif;
@@ -18,23 +20,40 @@ public class RapierTerminal : Computer
     [SerializeField] private TextMeshProUGUI PDNameTitle;
     [SerializeField] private TextMeshProUGUI PDContent;
 
+    [SerializeField] private Button adminBtn;
+    [SerializeField] private Button overrideBtn;
+
     [SerializeField] private TextMeshProUGUI mainScreenResponse;
 
-    [SerializeField] private GameObject overrideBtn;
     [SerializeField] private GameObject mainScreen;
+
+    [Header("Ship Status Screen Settings")]
+    [SerializeField] private Button uploadStatusBtn;
+    [SerializeField] private GameObject statusScreen;
+
+    [Header("PD Screen Settings")]
+    [SerializeField] private Button pdReturnBtn;
+    [SerializeField] private GameObject pdScreen;
+
+    [Header("Override Screen References")]
+    [SerializeField] private Button overrideReturnBtn;
     [SerializeField] private GameObject overrideScreen;
     [SerializeField] private ServerDiscStorage overrideServer;
 
+    [Header("Terminal & Data Settings")]
     [SerializeField] private DataReader dataReader;
 
+    [Header("Progression Settings")]
     [SerializeField] private Task shipStatusTask;
 
+    [Header("Admin Access Settings")]
+    [SerializeField] private Button adminReturnBtn;
     [SerializeField] private TMP_InputField adminPasswordInput;
     [SerializeField] private GameObject adminUnlocked;
     [SerializeField] private GameObject adminPasswordHeader;
     [SerializeField] private List<ServerRack> adminUnlockedServers;
     [SerializeField] private string adminPassword;
-
+    [SerializeField] private GameObject adminScreen;
 
     public enum Notifications
     {
@@ -44,21 +63,19 @@ public class RapierTerminal : Computer
     private bool shipDataUploaded = false;
     private bool fleetDataUploaded = false;
 
-    private const string noNotifs = "0 Notifications";
-    private const string oneNotifs = "1 Notification (Action Needed)";
+    private const string ZERONOTIFICATIONS = "0 Notifications";
+    private const string ONENOTIFICATION = "1 Notification (Action Needed)";
 
-    private const string shipDataUploadResponse = "DAILY SHIP STATUS UPLOAD COMPLETE\nCommand thanks you for your continued vigilance";
-    private const string shipDataUploadReject = "Ship data was already updated today. Thank you for your continued vigilance";
-    private const string shipDataSubtitleResponse = "DAILY UPLOAD COMPLETE";
-    private const string shipDataSubtitleResponse2 = "LAST SENT: 00 DAYS AGO";
+    private const string UPLOADSUCCESS = "DAILY SHIP STATUS UPLOAD COMPLETE\nCommand thanks you for your continued vigilance";
+    private const string UPLOADREJECT = "Ship data was already updated today. Thank you for your continued vigilance";
+    private const string SUBTITLEPOSTUPLOAD = "DAILY UPLOAD COMPLETE";
+    private const string SUBTITLEPOSTUPLOADTIMER = "LAST SENT: 00 DAYS AGO";
 
-    private const string readDataReject = "NO DATA DRIVE INSERTED";
-
-    //Something about reading data
+    private const string READDATAREJECT = "NO DATA DRIVE INSERTED";
 
     private void Start()
     {
-        shipStatusBtn.onClick.AddListener(UploadShipStatus);
+        uploadStatusBtn.onClick.AddListener(UploadShipStatus);
         readDataBtn.onClick.AddListener(ReadData);
     }
 
@@ -79,18 +96,62 @@ public class RapierTerminal : Computer
             }
         }
 
-        if (overrideServer.driveInDock && !overrideBtn.activeSelf) overrideBtn.SetActive(true);
-        else if (!overrideServer.driveInDock && overrideBtn.activeSelf)
+        if (overrideServer.driveInDock && !overrideBtn.gameObject.activeSelf)
         {
-            overrideBtn.SetActive(false);
-            if(overrideScreen.activeSelf)
+            overrideBtn.gameObject.SetActive(true);
+            AdjustButtonNavigation();
+        }
+        else if (!overrideServer.driveInDock && overrideBtn.gameObject.activeSelf)
+        {
+            overrideBtn.gameObject.SetActive(false);
+            if (overrideScreen.activeSelf)
             {
                 overrideScreen.SetActive(false);
                 mainScreen.SetActive(true);
             }
+            AdjustButtonNavigation();
         }
 
         base.Update();
+    }
+
+    private void AdjustButtonNavigation()
+    {
+        bool overridePresent = overrideBtn.gameObject.activeSelf;
+
+        if (overridePresent)
+        {
+            shipStatusBtn.navigation = UIManager.Instance.CreateNewNavigation(null, overrideBtn, null, readDataBtn);
+            readDataBtn.navigation = UIManager.Instance.CreateNewNavigation(null, overrideBtn, shipStatusBtn, null);
+            adminBtn.navigation = UIManager.Instance.CreateNewNavigation(overrideBtn, null, null, null);
+        } else
+        {
+            shipStatusBtn.navigation = UIManager.Instance.CreateNewNavigation(null, adminBtn, null, readDataBtn);
+            readDataBtn.navigation = UIManager.Instance.CreateNewNavigation(null, adminBtn, shipStatusBtn, null);
+            adminBtn.navigation = UIManager.Instance.CreateNewNavigation(shipStatusBtn, null, null, null);
+        }
+    }
+
+    private void SelectAppropriateButtonOnStart()
+    {
+        if (mainScreen.activeSelf) shipStatusBtn.Select();
+        else if (statusScreen.activeSelf) uploadStatusBtn.Select();
+        else if (pdScreen.activeSelf) pdReturnBtn.Select();
+        else if (adminScreen.activeSelf) adminReturnBtn.Select();
+        else if (overrideScreen.activeSelf) overrideReturnBtn.Select();
+    }
+
+
+    protected override void Interact(Transform player)
+    {
+        base.Interact(player);
+        SelectAppropriateButtonOnStart();
+    }
+
+    protected override void ReleasePlayer()
+    {
+        base.ReleasePlayer();
+        UIManager.Instance.ClearSelectedUIObject();
     }
 
     public void ClearNotif(Notifications notif)
@@ -105,25 +166,25 @@ public class RapierTerminal : Computer
             shipDataUploaded = true;
         }
 
-        if (fleetDataUploaded && shipDataUploaded) notifHeader.text = noNotifs;
-        else if (fleetDataUploaded || shipDataUploaded) notifHeader.text = oneNotifs;
+        if (fleetDataUploaded && shipDataUploaded) notifHeader.text = ZERONOTIFICATIONS;
+        else if (fleetDataUploaded || shipDataUploaded) notifHeader.text = ONENOTIFICATION;
     }
 
     private void UploadShipStatus()
     {
         if (!shipDataUploaded)
         {
-            mainScreenResponse.text = shipDataUploadResponse; // give feedback on main screen
+            mainScreenResponse.text = UPLOADSUCCESS; // give feedback on main screen
 
-            shipStatusHomeSubtitle.text = shipDataSubtitleResponse; // update main screen state
-            shipStatusDetailsSubtitle.text = shipDataSubtitleResponse2; // update details screen state
+            shipStatusHomeSubtitle.text = SUBTITLEPOSTUPLOAD; // update main screen state
+            shipStatusDetailsSubtitle.text = SUBTITLEPOSTUPLOADTIMER; // update details screen state
 
             ClearNotif(Notifications.ShipStatus);
 
             TaskManager.Instance.CompleteTask(shipStatusTask);
         } else
         {
-            mainScreenResponse.text = shipDataUploadReject;
+            mainScreenResponse.text = UPLOADREJECT;
         }
     }
 
@@ -136,7 +197,7 @@ public class RapierTerminal : Computer
         }
         else
         {
-            PDNameTitle.text = readDataReject;
+            PDNameTitle.text = READDATAREJECT;
             PDContent.text = string.Empty;
         }
     }

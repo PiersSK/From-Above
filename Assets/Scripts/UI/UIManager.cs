@@ -104,4 +104,16 @@ public class UIManager : MonoBehaviour
     {
         GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(null);
     }
+
+    public Navigation CreateNewNavigation(Selectable up, Selectable down, Selectable left, Selectable right)
+    {
+        Navigation navigation = new Navigation();
+        navigation.mode = Navigation.Mode.Explicit;
+        navigation.selectOnUp = up;
+        navigation.selectOnDown = down;
+        navigation.selectOnLeft = left;
+        navigation.selectOnRight = right;
+
+        return navigation;
+    }
 }
