@@ -114,11 +114,6 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         motor.ProcessMove(playerActions.Move.ReadValue<Vector2>());
-
-    }
-
-    private void LateUpdate()
-    {
         look.ProcessLook(playerActions.Look.ReadValue<Vector2>());
     }
 
