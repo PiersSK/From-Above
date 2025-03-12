@@ -815,11 +815,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4464583311322742223, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
       propertyPath: m_Name
-      value: Question 3
+      value: Question Block 3
       objectReference: {fileID: 0}
     - target: {fileID: 4464583311322742223, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 6260269829486985909}
+    - target: {fileID: 7093072900241932271, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Name
+      value: Input 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562340422823655402, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Name
+      value: Question 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -836,6 +852,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4464583311322742223, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
   m_PrefabInstance: {fileID: 1105825143395768039}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4808414465706741553 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+  m_PrefabInstance: {fileID: 1105825143395768039}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1946319600080313187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -926,11 +953,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4464583311322742223, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
       propertyPath: m_Name
-      value: Question 2
+      value: Question Block 2
       objectReference: {fileID: 0}
     - target: {fileID: 4464583311322742223, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 2497690660104084564}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 4808414465706741553}
+    - target: {fileID: 7093072900241932271, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Name
+      value: Input 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562340422823655402, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Name
+      value: Question 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -947,6 +994,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2987391735884144807, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
   m_PrefabInstance: {fileID: 1946319600080313187}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6260269829486985909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+  m_PrefabInstance: {fileID: 1946319600080313187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2640992977578006534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1379,8 +1437,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4464583311322742223, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
       propertyPath: m_Name
-      value: Question 1
+      value: Question Block 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 6260269829486985909}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

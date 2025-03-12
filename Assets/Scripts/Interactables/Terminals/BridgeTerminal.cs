@@ -55,18 +55,6 @@ public class BridgeTerminal : Computer
         base.Update();
     }
 
-    protected override void Interact(Transform player)
-    {
-        base.Interact(player);
-        if(InputManager.Instance.GamepadIsCurrentInput()) commanderBtn.Select();
-    }
-
-    protected override void ReleasePlayer()
-    {
-        base.ReleasePlayer();
-        UIManager.Instance.ClearSelectedUIObject();
-    }
-
     private void TalkToCommand()
     {
         btnResponse.text = COMMSREJECTION;

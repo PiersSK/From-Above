@@ -8,19 +8,14 @@ public class DiaryQABlock : MonoBehaviour
     public TMP_InputField inputField;
     [SerializeField] private GameObject selectedOutline;
 
-    private void Start()
+    private void Update()
     {
-        inputField.onSelect.AddListener(ShowSelectBox);
-        inputField.onDeselect.AddListener(HideSelectBox);
-    }
+        bool isSelected = UIManager.Instance.IsObjectSelected(inputField.gameObject);
+        bool isFocused = inputField.isFocused;
 
-    private void ShowSelectBox(string e)
-    {
-        selectedOutline.SetActive(true);
-    }
+        selectedOutline.SetActive(isSelected || isFocused);
 
-    private void HideSelectBox(string e)
-    {
-        selectedOutline.SetActive(false);
+        if (isFocused && InputManager.Instance.GamepadIsCurrentInput()) selectedOutline.GetComponent<Image>().color = UIColors.white;
+        else if (isSelected) selectedOutline.GetComponent<Image>().color = UIColors.terminalGreen;
     }
 }

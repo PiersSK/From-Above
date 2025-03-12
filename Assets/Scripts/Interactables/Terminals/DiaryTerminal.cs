@@ -117,6 +117,8 @@ public class DiaryTerminal : Computer
     public void RevealNextText(string answer)
     {
         UIManager.Instance.ClearSelectedUIObject();
+        questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.readOnly = true;
+        questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.interactable = false;
         questionsAnswered++;
 
         if (questionsAnswered < questionBlocks.Count)
@@ -136,10 +138,9 @@ public class DiaryTerminal : Computer
 
     protected override void ReleasePlayer()
     {
-        if (questionsAnswered < questionBlocks.Count) 
-            questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.DeactivateInputField();
-
-        UIManager.Instance.HideToggleText();
         base.ReleasePlayer();
+        UIManager.Instance.HideToggleText();
+        if (questionsAnswered < questionBlocks.Count)
+            questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.DeactivateInputField();
     }
 }

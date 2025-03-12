@@ -157,12 +157,6 @@ public class RapierTerminal : Computer
         SelectAppropriateButton();
     }
 
-    protected override void ReleasePlayer()
-    {
-        base.ReleasePlayer();
-        UIManager.Instance.ClearSelectedUIObject();
-    }
-
     public void ClearNotif(Notifications notif)
     {
         if(notif == Notifications.RapierFleetStatus)

@@ -58,7 +58,6 @@ public class ButtonPromptManager : MonoBehaviour
             Dictionary<string, string> overrides = displayValueOverrides[type];
             if (overrides.Keys.Contains(assignment))
             {
-                Debug.Log(overrides[assignment]);
                 return overrides[assignment];
             }
         }

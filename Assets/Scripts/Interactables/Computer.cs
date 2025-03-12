@@ -70,8 +70,11 @@ public class Computer : Interactable
         motor.ForcePlayerToPoint(lockPoint, true);
         motor.ToggleMovementOverride();
 
-        if(!InputManager.Instance.GamepadIsCurrentInput())
+        if (!InputManager.Instance.GamepadIsCurrentInput())
             Cursor.lockState = CursorLockMode.None;
+        else
+            defaultSelectable.Select();
+
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();
@@ -92,6 +95,7 @@ public class Computer : Interactable
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.HideBackoutText();
         UIManager.Instance.ShowTaskPadPrompt();
+        UIManager.Instance.ClearSelectedUIObject();
         playerAtComputer = false;
     }
 }
