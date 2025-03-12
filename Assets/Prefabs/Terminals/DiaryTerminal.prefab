@@ -1218,6 +1218,7 @@ MonoBehaviour:
   requirementsNotMetMessage: 
   isInteractable: 1
   lockPoint: {fileID: 3265846863018097590}
+  defaultSelectable: {fileID: 2497690660104084564}
   initiationSound: {fileID: 8300000, guid: 7a6f2516850864b0a991bae0772627e7, type: 3}
   questionBlocks:
   - {fileID: 5962400675124475981}
@@ -1385,6 +1386,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+--- !u!114 &2497690660104084564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5612124368143391190, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}
+  m_PrefabInstance: {fileID: 8019733414906201474}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5061634730976306469 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2987391735884144807, guid: b218965d7fd87924e93ba5e186837bc9, type: 3}

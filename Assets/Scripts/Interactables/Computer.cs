@@ -8,10 +8,48 @@ public class Computer : Interactable
     protected PlayerLook look;
     protected InputManager input;
     [SerializeField] protected Transform lockPoint;
+    [SerializeField] protected Selectable defaultSelectable;
 
     [SerializeField] protected AudioClip initiationSound;
 
     protected const string EXITTERMINAL = "Exit Terminal";
+
+    private void OnEnable()
+    {
+        InputManager.InputTypeChanged += OnInputChange;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.InputTypeChanged -= OnInputChange;
+    }
+
+    private void OnInputChange(InputManager.LastInputType newType)
+    {
+        if (playerAtComputer)
+        {
+            if (newType == InputManager.LastInputType.KeyboardMouse)
+            {
+                SwitchToMouseKeyboard();
+            }
+            else
+            {
+                SwitchToGamepad();
+            }
+        }
+    }
+
+    protected virtual void SwitchToMouseKeyboard()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        UIManager.Instance.ClearSelectedUIObject();
+    }
+
+    protected virtual void SwitchToGamepad()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        defaultSelectable.Select();
+    }
 
     protected virtual void Update()
     {
@@ -32,7 +70,8 @@ public class Computer : Interactable
         motor.ForcePlayerToPoint(lockPoint, true);
         motor.ToggleMovementOverride();
 
-        Cursor.lockState = CursorLockMode.None;
+        if(!InputManager.Instance.GamepadIsCurrentInput())
+            Cursor.lockState = CursorLockMode.None;
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();

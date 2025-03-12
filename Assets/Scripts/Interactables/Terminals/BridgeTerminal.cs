@@ -58,7 +58,7 @@ public class BridgeTerminal : Computer
     protected override void Interact(Transform player)
     {
         base.Interact(player);
-        commanderBtn.Select();
+        if(InputManager.Instance.GamepadIsCurrentInput()) commanderBtn.Select();
     }
 
     protected override void ReleasePlayer()

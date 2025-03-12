@@ -132,20 +132,29 @@ public class RapierTerminal : Computer
         }
     }
 
-    private void SelectAppropriateButtonOnStart()
+    protected override void SwitchToGamepad()
     {
-        if (mainScreen.activeSelf) shipStatusBtn.Select();
-        else if (statusScreen.activeSelf) uploadStatusBtn.Select();
-        else if (pdScreen.activeSelf) pdReturnBtn.Select();
-        else if (adminScreen.activeSelf) adminReturnBtn.Select();
-        else if (overrideScreen.activeSelf) overrideReturnBtn.Select();
+        Cursor.lockState = CursorLockMode.Locked;
+        SelectAppropriateButton();
+    }
+
+    private void SelectAppropriateButton()
+    {
+        if (InputManager.Instance.GamepadIsCurrentInput())
+        {
+            if (mainScreen.activeSelf) shipStatusBtn.Select();
+            else if (statusScreen.activeSelf) uploadStatusBtn.Select();
+            else if (pdScreen.activeSelf) pdReturnBtn.Select();
+            else if (adminScreen.activeSelf) adminReturnBtn.Select();
+            else if (overrideScreen.activeSelf) overrideReturnBtn.Select();
+        }
     }
 
 
     protected override void Interact(Transform player)
     {
         base.Interact(player);
-        SelectAppropriateButtonOnStart();
+        SelectAppropriateButton();
     }
 
     protected override void ReleasePlayer()

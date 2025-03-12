@@ -79,6 +79,20 @@ public class DiaryTerminal : Computer
         questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.Select();
     }
 
+    protected override void SwitchToMouseKeyboard()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        if(questionsAnswered < questionBlocks.Count)
+            questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.ActivateInputField();
+    }
+
+    protected override void SwitchToGamepad()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        if (questionsAnswered < questionBlocks.Count)
+            questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.ActivateInputField();
+    }
+
     private void ToggleLookout()
     {
         isLookingOut = !isLookingOut;
