@@ -41,7 +41,7 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.activeSelf && InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
+        if (gameObject.activeSelf && InputManager.Instance.GamepadIsCurrentInput())
         {
             SettingsPanel panelHeaderSelected = null;
             bool panelInFocus = false;
@@ -88,7 +88,7 @@ public class PauseManager : MonoBehaviour
     {
         confirmExitScreen.SetActive(true);
 
-        if(InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
+        if(InputManager.Instance.GamepadIsCurrentInput())
         {
             UIManager.Instance.ShowBackoutText(CANCELEXIT);
             cancelExitGame.Select();
@@ -99,7 +99,7 @@ public class PauseManager : MonoBehaviour
     {
         confirmExitScreen.SetActive(false);
 
-        if (InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
+        if (InputManager.Instance.GamepadIsCurrentInput())
         {
             UIManager.Instance.ShowBackoutText(BACKOUTMESSAGE);
             exitGameFirstButton.Select();

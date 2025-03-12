@@ -25,7 +25,7 @@ public class SettingsPanel : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
+        if (InputManager.Instance.GamepadIsCurrentInput())
         {
             bool focusedComponent = false;
             foreach (Selectable selectable in selectableOptions)
@@ -49,7 +49,7 @@ public class SettingsPanel : MonoBehaviour
 
     private void SettingsPanelSelected()
     {
-        if (InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
+        if (InputManager.Instance.GamepadIsCurrentInput())
         {
             selectableOptions[0].Select();
             border.color = UIColors.terminalGreen;

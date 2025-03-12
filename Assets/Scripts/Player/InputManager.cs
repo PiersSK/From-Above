@@ -78,6 +78,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public bool GamepadIsCurrentInput()
+    {
+        return lastInputType != LastInputType.KeyboardMouse;
+    }
+
     private LastInputType DetectInputDevice(InputDevice device)
     {
         if (device is Gamepad gamepad)

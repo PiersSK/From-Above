@@ -54,7 +54,7 @@ public class ButtonHighlighter : MonoBehaviour
     private void Update()
     {
         if (UIManager.Instance.IsObjectSelected(button.gameObject) 
-            && InputManager.Instance.lastInputType != InputManager.LastInputType.KeyboardMouse)
+            && InputManager.Instance.GamepadIsCurrentInput())
         {
             buttonText.color = UIColors.white;
         } else
