@@ -73,6 +73,8 @@ public class RapierTerminal : Computer
 
     private const string READDATAREJECT = "NO DATA DRIVE INSERTED";
 
+    private const string BACKTOMAINSCREEN = "Return To Home Screen";
+
     private void Start()
     {
         uploadStatusBtn.onClick.AddListener(UploadShipStatus);
@@ -112,7 +114,31 @@ public class RapierTerminal : Computer
             AdjustButtonNavigation();
         }
 
-        base.Update();
+        if (playerAtComputer && InputManager.Instance.GamepadIsCurrentInput())
+            UIManager.Instance.ShowBackoutText(mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
+
+        if (input != null && !isInteractable && input.playerActions.Escape.triggered)
+        {
+            if (InputManager.Instance.GamepadIsCurrentInput())
+            {
+                if (mainScreen.activeSelf) ReleasePlayer();
+                else ReturnToMainScreen();
+            } else
+            {
+                ReleasePlayer();
+            }
+        }
+    }
+
+    private void ReturnToMainScreen()
+    {
+        if (statusScreen.activeSelf) statusScreen.SetActive(false);
+        else if (pdScreen.activeSelf) pdScreen.SetActive(false);
+        else if (adminScreen.activeSelf) adminScreen.SetActive(false);
+        else if (overrideScreen.activeSelf) overrideScreen.SetActive(false);
+
+        mainScreen.SetActive(true);
+        SelectAppropriateButton();
     }
 
     private void AdjustButtonNavigation()
@@ -132,10 +158,17 @@ public class RapierTerminal : Computer
         }
     }
 
+    protected override void SwitchToMouseKeyboard()
+    {
+        base.SwitchToMouseKeyboard();
+        UIManager.Instance.ShowBackoutText(EXITTERMINAL);
+    }
+
     protected override void SwitchToGamepad()
     {
         Cursor.lockState = CursorLockMode.Locked;
         SelectAppropriateButton();
+        UIManager.Instance.ShowBackoutText(mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
     }
 
     private void SelectAppropriateButton()
