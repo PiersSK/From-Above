@@ -41,6 +41,11 @@ public class ButtonPromptManager : MonoBehaviour
         InputManager.InputTypeChanged += UpdateButtonPrompts;
     }
 
+    private void OnDisable()
+    {
+        InputManager.InputTypeChanged -= UpdateButtonPrompts;
+    }
+
     private void Start()
     {
         input = InputManager.Instance;
