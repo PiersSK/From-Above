@@ -83,7 +83,7 @@ public class RapierTerminal : Computer
 
     override protected void Update()
     {
-        if (input != null && playerAtComputer && input.playerActions.Submit.triggered)
+        if (playerAtComputer && InputManager.Instance.playerActions.Submit.triggered)
         {
             string pass = adminPasswordInput.text;
             if(pass == adminPassword)
@@ -117,7 +117,7 @@ public class RapierTerminal : Computer
         if (playerAtComputer && InputManager.Instance.GamepadIsCurrentInput())
             UIManager.Instance.ShowBackoutText(mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
 
-        if (input != null && !isInteractable && input.playerActions.Escape.triggered)
+        if (!isInteractable && InputManager.Instance.playerActions.Escape.triggered)
         {
             if (InputManager.Instance.GamepadIsCurrentInput())
             {

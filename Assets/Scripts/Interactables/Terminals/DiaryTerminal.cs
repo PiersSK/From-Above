@@ -40,20 +40,19 @@ public class DiaryTerminal : Computer
         questionBlocks[0].SetActive(true);
         header.GetComponent<TextMeshProUGUI>().text = HEADER;
         footer.GetComponent<TextMeshProUGUI>().text = FOOTER;
-        if (input == null) input = InputManager.Instance;
     }
 
     protected override void Update()
     {
-        if (input != null && playerAtComputer)
+        if (playerAtComputer)
         {
-            if (input.playerActions.Submit.triggered && questionsAnswered < questionBlocks.Count)
+            if (InputManager.Instance.playerActions.Submit.triggered && questionsAnswered < questionBlocks.Count)
             {
                 string answer = questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().inputField.text;
                 RevealNextText(answer);
             }
 
-            if (input.playerActions.UIToggle.triggered)
+            if (InputManager.Instance.playerActions.UIToggle.triggered)
                 ToggleLookout();
         }
 

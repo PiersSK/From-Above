@@ -6,7 +6,6 @@ public class Computer : Interactable
     protected bool playerAtComputer = false;
     protected PlayerMotor motor;
     protected PlayerLook look;
-    protected InputManager input;
     [SerializeField] protected Transform lockPoint;
     [SerializeField] protected Selectable defaultSelectable;
 
@@ -53,7 +52,7 @@ public class Computer : Interactable
 
     protected virtual void Update()
     {
-        if(input != null && !isInteractable && input.playerActions.Escape.triggered)
+        if(!isInteractable && InputManager.Instance.playerActions.Escape.triggered)
         {
             ReleasePlayer();
         }
@@ -63,7 +62,6 @@ public class Computer : Interactable
     {
         motor = player.GetComponent<PlayerMotor>();
         look = player.GetComponent<PlayerLook>();
-        input = player.GetComponent<InputManager>();
 
         isInteractable = false;
 
