@@ -11,9 +11,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject toggleObj;
     [SerializeField] private GameObject backoutObj;
     [SerializeField] private GameObject confirmObj;
+    [SerializeField] private GameObject lRObj;
     [SerializeField] private TextMeshProUGUI toggleText;
     [SerializeField] private TextMeshProUGUI backoutText;
     [SerializeField] private TextMeshProUGUI confirmText;
+    [SerializeField] private TextMeshProUGUI lRText;
 
     [SerializeField] private GameObject textPopUp;
     [SerializeField] private TextMeshProUGUI textPopUpText;
@@ -81,6 +83,12 @@ public class UIManager : MonoBehaviour
         confirmObj.SetActive(true);
     }
 
+    public void ShowLRText(string message)
+    {
+        lRText.text = message;
+        lRObj.SetActive(true);
+    }
+
     public void HideBackoutText()
     {
         backoutObj.SetActive(false);
@@ -94,6 +102,11 @@ public class UIManager : MonoBehaviour
     public void HideConfirmText()
     {
         confirmObj.SetActive(false);
+    }
+
+    public void HideLRText()
+    {
+        lRObj.SetActive(false);
     }
 
     public void ShowPopupText(string message)

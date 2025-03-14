@@ -7,13 +7,16 @@ public class PauseManager : MonoBehaviour
 {
     public static PauseManager Instance { get; private set; }
     [SerializeField] private int mainMenuSceneIndex;
-    [SerializeField] private List<SettingsPanel> settingsPanels;
     [SerializeField] private Selectable initiallySelectedItem;
+    [SerializeField] private List<SettingsPanel> settingsPanels;
+    private SettingsPanel activePanel = null;
 
     [SerializeField] private Button exitGameFirstButton;
     [SerializeField] private Button cancelExitGame;
     [SerializeField] private GameObject confirmExitScreen;
 
+    private const string MENUSELECT = "Select Menu Option";
+    private const string SETTINGSELECT = "Edit Setting Value";
     private const string BACKOUTMESSAGE = "To Resume Game";
     private const string CANCELEXIT = "Back to Settings";
 
@@ -41,30 +44,29 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
+        foreach (SettingsPanel panel in settingsPanels)
+        {
+            if (panel.gameObject.activeSelf) activePanel = panel;
+        }
+
         if (gameObject.activeSelf && InputManager.Instance.GamepadIsCurrentInput())
         {
-            SettingsPanel panelHeaderSelected = null;
-            bool panelInFocus = false;
 
-            foreach (SettingsPanel panel in settingsPanels)
-            {
-                panelInFocus = panelInFocus || panel.isFocused;
+            if (activePanel != null) UIManager.Instance.HideConfirmText();
+            else UIManager.Instance.ShowConfirmText(MENUSELECT);
 
-                if (UIManager.Instance.IsObjectSelected(panel.headerButton.gameObject)) panelHeaderSelected = panel;
-            }
-
-            if (panelHeaderSelected != null)
-                UIManager.Instance.ShowConfirmText("Adjust " + panelHeaderSelected.settingsPanelName + " settings");
-            else
-                UIManager.Instance.HideConfirmText();
-
-            if (InputManager.Instance.playerActions.Escape.triggered && !panelInFocus)
+            if (InputManager.Instance.playerActions.Escape.triggered)
             {
                 if (confirmExitScreen.activeSelf)
                     CancelExit();
+                else if (activePanel != null) {
+                    activePanel.SettingsPanelDeselected();
+                    ShowDefaultPauseKeyBindings(InputManager.Instance.lastInputType);
+                }
                 else
                     TogglePauseMenu();
             }
+
         }
 
     }
@@ -74,13 +76,19 @@ public class PauseManager : MonoBehaviour
         ShowDefaultPauseKeyBindings(newInputType);
         if(newInputType != InputManager.LastInputType.KeyboardMouse)
         {
-            if(confirmExitScreen.activeSelf)
+            Cursor.lockState = CursorLockMode.Locked;
+
+            if (confirmExitScreen.activeSelf)
                 cancelExitGame.Select();
+            else if (activePanel != null)
+                activePanel.SettingsPanelSelected();
             else 
                 initiallySelectedItem.Select();
         } else
         {
+            if (activePanel != null) activePanel.UpdateLastSelectedOption();
             UIManager.Instance.ClearSelectedUIObject();
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -106,6 +114,15 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    public void CloseAllSettingsPanels()
+    {
+        foreach (SettingsPanel panel in settingsPanels)
+        {
+            panel.gameObject.SetActive(false);
+        }
+        activePanel = null;
+    }
+
     public void TogglePauseMenu()
     {
         if (PlayerMotor.Instance.movementOverridden) return; // Pausing only possible outside of focus interactablesto avoid keybind clash
@@ -113,13 +130,13 @@ public class PauseManager : MonoBehaviour
         gameObject.SetActive(!gameObject.activeSelf);
         Time.timeScale = gameObject.activeSelf ? 0f : 1f;
         PlayerLook.Instance.lookLocked = gameObject.activeSelf;
-        Cursor.lockState = gameObject.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
 
         if (gameObject.activeSelf)
         {
             SoundManager.Instance.PauseAllSound();
             initiallySelectedItem.Select();
             ShowDefaultPauseKeyBindings(InputManager.Instance.lastInputType);
+            if(!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
         }
         else
         {
@@ -128,10 +145,9 @@ public class PauseManager : MonoBehaviour
             UIManager.Instance.HideBackoutText();
             UIManager.Instance.HideConfirmText();
             confirmExitScreen.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
-
-    
 
     public void ShowDefaultPauseKeyBindings(InputManager.LastInputType inputType)
     {
@@ -139,9 +155,11 @@ public class PauseManager : MonoBehaviour
         {
             UIManager.Instance.HideConfirmText();
             UIManager.Instance.HideBackoutText();
+            UIManager.Instance.HideLRText();
         }
         else
         {
+            UIManager.Instance.ShowConfirmText(MENUSELECT);
             UIManager.Instance.ShowBackoutText(confirmExitScreen.activeSelf ? CANCELEXIT : BACKOUTMESSAGE);
         }
     }

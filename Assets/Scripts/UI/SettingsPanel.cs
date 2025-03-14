@@ -7,60 +7,48 @@ using UnityEngine.Windows;
 
 public class SettingsPanel : MonoBehaviour
 {
+    [SerializeField] private Button mainNavigationButton;
     [SerializeField] private List<Selectable> selectableOptions;
-    [SerializeField] private TextMeshProUGUI headerText;
-    public Button headerButton;
-    [SerializeField] private Image headerBackground;
-    [SerializeField] private Image border;
 
     public string settingsPanelName;
-    public bool isFocused = false;
+    private Selectable lastSelectedOption;
 
     private const string BACKOUTMESSAGE = "Back";
+    private const string CHANGEVALUE = "Edit Settings Value";
 
-    private void Start()
+    public void UpdateLastSelectedOption()
     {
-        headerButton.onClick.AddListener(SettingsPanelSelected);
-    }
-
-    private void Update()
-    {
-        if (InputManager.Instance.GamepadIsCurrentInput())
+        foreach (Selectable option in selectableOptions)
         {
-            bool focusedComponent = false;
-            foreach (Selectable selectable in selectableOptions)
+            if (option.gameObject == UIManager.Instance.GetSelectedUIObject())
             {
-                if (UIManager.Instance.IsObjectSelected(selectable.gameObject))
-                {
-                    focusedComponent = true;
-                    break;
-                }
+                lastSelectedOption = option;
             }
-            isFocused = focusedComponent;
-            if (isFocused && InputManager.Instance.playerActions.Escape.triggered)
-            {
-                SettingsPanelDeselected();
-            }
-        } else
-        {
-            border.color = UIColors.terminalGreen;
         }
     }
 
-    private void SettingsPanelSelected()
+    public void SettingsPanelSelected()
     {
         if (InputManager.Instance.GamepadIsCurrentInput())
         {
-            selectableOptions[0].Select();
-            border.color = UIColors.terminalGreen;
+            if(lastSelectedOption != null) lastSelectedOption.Select();
+            else selectableOptions[0].Select();
+
             UIManager.Instance.ShowBackoutText(BACKOUTMESSAGE);
+            UIManager.Instance.ShowLRText(CHANGEVALUE);
         }
     }
 
-    private void SettingsPanelDeselected()
+    public void SettingsPanelDeselected()
     {
-        headerButton.Select();
-        border.color = UIColors.terminalGreenTransparent;
-        PauseManager.Instance.ShowDefaultPauseKeyBindings(InputManager.Instance.lastInputType);
+        if (InputManager.Instance.GamepadIsCurrentInput())
+        {
+            PauseManager.Instance.CloseAllSettingsPanels();
+            UIManager.Instance.HideLRText();
+
+            mainNavigationButton.Select();
+            lastSelectedOption = null;
+        }
     }
+
 }
