@@ -65,7 +65,6 @@ public class TimeController : MonoBehaviour
             if(!isGetOnWithItTimerPaused)
             {
                 getOnWithItTimer += Time.deltaTime;
-                Debug.Log("Get On With It Timer: " + getOnWithItTimer);
             }
         }
     }

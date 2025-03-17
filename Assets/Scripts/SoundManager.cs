@@ -39,7 +39,6 @@ public class SoundManager : MonoBehaviour
     {
         bgVol = bgMusicSource.volume;
         ambientSpacing = Random.Range(30, 100);
-        Debug.Log("ambient will play after " + ambientSpacing);
     }
 
     private void Update()
@@ -104,7 +103,6 @@ public class SoundManager : MonoBehaviour
         {
             if (audioSource.outputAudioMixerGroup == bgMixer && audioSource.isPlaying && audioSource != bgMusicSource)
             {
-                Debug.Log(audioSource.name);
                 musicSourcesPlaying++;
             }
         }
@@ -173,7 +171,6 @@ public class SoundManager : MonoBehaviour
             {
                 soundtrackTimer = 0;
                 ambientSpacing = Random.Range(30, 100);
-                Debug.Log("ambient will play again after " + ambientSpacing);
                 bgMusicSource.PlayOneShot(soundtrack[1]);
             }
 
@@ -203,7 +200,6 @@ public class SoundManager : MonoBehaviour
         {
             if(TaskManager.Instance.phaseTwoTasksCompleted == 6 || TimeController.Instance.GetTimeInSeconds() >= TimeController.Instance.phase2TimeLimitMins * 60 - 12)
             {
-                Debug.Log("Moving to final soundtrack");
                 currentBGClip = 5;
                 bgMusicSource.clip = soundtrack[5];
                 bgMusicSource.loop = false;
