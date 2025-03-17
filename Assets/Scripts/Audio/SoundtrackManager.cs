@@ -107,8 +107,13 @@ public class SoundtrackManager : MonoBehaviour
 
         bGMusicSource.Play();
 
-        if (currentSoundtrack.progressOnTaskCompletion && TaskManager.Instance.completedTasks.Contains(currentSoundtrack.progressAfter))
-            MoveToNextSoundtrack(); // Instant skip if task completed prior to soundtrack start
+        // Checks for instant skips due to to criteria being met in the past
+        if ((currentSoundtrack.progressOnTaskCompletion && TaskManager.Instance.completedTasks.Contains(currentSoundtrack.progressAfter)) // Task is completed
+            || CheckSoundtrackShouldProgress() // Timer has already passed
+            || currentSoundtrack.progressOnPhaseTransition && TaskManager.Instance.isPhaseTwo) // Phase transition has already occurred
+        {
+            MoveToNextSoundtrack();
+        }
     }
 
     private int GetRandomLoopTime()
