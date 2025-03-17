@@ -11,7 +11,7 @@ public class SoundtrackEditor : Editor
 
         EditorGUILayout.LabelField("Audio Clips", EditorStyles.boldLabel);
         soundtrack.clip = (AudioClip)EditorGUILayout.ObjectField("Clip", soundtrack.clip, typeof(AudioClip), false);
-        soundtrack.nextClip = (Soundtrack)EditorGUILayout.ObjectField("Next Clip", soundtrack.nextClip, typeof(Soundtrack), false);
+        soundtrack.nextSoundtrack = (Soundtrack)EditorGUILayout.ObjectField("Next Soundtrack", soundtrack.nextSoundtrack, typeof(Soundtrack), false);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Progression Conditions", EditorStyles.boldLabel);

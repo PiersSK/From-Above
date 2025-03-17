@@ -4,7 +4,7 @@ using UnityEngine;
 public class Soundtrack : ScriptableObject
 {
     public AudioClip clip;
-    public Soundtrack nextClip;
+    public Soundtrack nextSoundtrack;
 
     [Header("Progression Conditions")]
     public bool progressOnEnd;
