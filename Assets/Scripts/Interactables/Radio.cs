@@ -47,7 +47,7 @@ public class Radio : Interactable
                 {
                     float cycleLength = length + broadcastFrequency;
                     float timerInCycle = (broadcastTimer - broadcastStarts[currentFreq]) % cycleLength;
-                    if (timerInCycle <= length && !source.isPlaying)
+                    if (timerInCycle <= length && !source.isPlaying && !SoundManager.Instance.pausedSources.Contains(source))
                     {
                         source.clip = clip;
                         source.time = timerInCycle;

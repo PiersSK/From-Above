@@ -2,25 +2,34 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    public static PlayerLook Instance {  get; private set; }
+
     public Camera cam;
+
+    [Header("Sensitivity Settings")]
+    [SerializeField] private MenuSlider mouseSensitivy;
+    [SerializeField] private MenuSlider controllerXSensitivity;
+    [SerializeField] private MenuSlider controllerYSensitivity;
+
+    [SerializeField] private float macSensitivtyMultiplier;
+    private const string MAC = "Mac";
+
+    public bool lookLocked = false;
+
     private float xRotation = 0f;
 
-    public float xSensitivity = 30f;
-    public float ySensitivity = 30f;
-
+    // Shake Variables
     private float currentShakeTimer = 0f;
     private float timeToShake = 0f;
     private bool isShaking = false;
     private bool ascendingIntensity = false;
     private float cameraShakeIntensity = 5f;
-
     private bool isDescendingShake = false;
     private float timeToDescend = 0f;
 
-    private bool lookLocked = false;
-
     private void Awake()
     {
+        Instance = this;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -28,11 +37,28 @@ public class PlayerLook : MonoBehaviour
     {
         if (lookLocked) return;
 
-        float mouseX = input.x;
-        float mouseY = input.y;
+        bool isMouse = InputManager.Instance.lastInputType == InputManager.LastInputType.KeyboardMouse;
+        float frameMultiplier = isMouse ? 1f : Mathf.Clamp(Time.deltaTime * 144f, 0.5f, 1.5f);
+        float xSensitivity = isMouse ? mouseSensitivy.GetModifiedValue() : controllerXSensitivity.GetModifiedValue();
+        float ySensitivity = isMouse ? mouseSensitivy.GetModifiedValue() : controllerYSensitivity.GetModifiedValue();
 
-        xRotation -= mouseY * ySensitivity;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        if (!isMouse)
+        {
+            input.x = Mathf.Sign(input.x) * Mathf.Pow(Mathf.Abs(input.x), 1.5f);
+            input.y = Mathf.Sign(input.y) * Mathf.Pow(Mathf.Abs(input.y), 1.5f);
+        } else if (SystemInfo.operatingSystem.Contains(MAC))
+        {
+            input.x *= macSensitivtyMultiplier;
+            input.y *= macSensitivtyMultiplier;
+        }
+
+        float inputX = input.x * xSensitivity * frameMultiplier;
+        float inputY = input.y * ySensitivity * frameMultiplier;
+
+        xRotation -= inputY;
+        xRotation = Mathf.Clamp(xRotation, -80f, 80f); // up down
+        transform.Rotate(Vector3.up * inputX); // left right
+
 
         float camZ = 0f;
         if(isShaking)
@@ -61,7 +87,6 @@ public class PlayerLook : MonoBehaviour
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, camZ);
 
-        transform.Rotate(Vector3.up * mouseX * xSensitivity);
     }
 
     public void ToggleLookLock(bool resetCamera = true)

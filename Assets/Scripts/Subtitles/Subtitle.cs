@@ -7,7 +7,7 @@ public class Subtitle : ScriptableObject
 {
     public AudioClip clip;
     public string characterName;
-    public Color trackColor;
+    public UIColors.SubtitleColor trackColor;
     public List<string> dialogueLines = new();
     public List<int> dialogueTimestamps = new();
 }

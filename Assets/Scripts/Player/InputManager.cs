@@ -42,6 +42,7 @@ public class InputManager : MonoBehaviour
         playerActions.Crouch.performed += ctx => motor.Crouch();
         playerActions.Sprint.performed += ctx => motor.Sprint();
         playerActions.Tasklist.performed += ctx => taskManager.ToggleTaskPad();
+        playerActions.Pause.performed += ctx => PauseManager.Instance.TogglePauseMenu();
 
         InputSystem.onAnyButtonPress.Call(OnAnyInputDetected);
         InputSystem.onEvent += OnAnyDeviceEvent;
@@ -120,11 +121,6 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         motor.ProcessMove(playerActions.Move.ReadValue<Vector2>());
-
-    }
-
-    private void LateUpdate()
-    {
         look.ProcessLook(playerActions.Look.ReadValue<Vector2>());
     }
 
