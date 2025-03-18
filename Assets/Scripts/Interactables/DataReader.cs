@@ -28,6 +28,7 @@ public class DataReader : Interactable
 
     private Transform player;
     private const string NODISK = "NONE INSERTED";
+    private List<Button> pdButtons = new();
 
     public override bool CanInteract()
     {
@@ -51,21 +52,22 @@ public class DataReader : Interactable
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None;
+            if(!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
+            InputManager.InputTypeChanged += InputChangedWhilstUIOpen;
             player.GetComponent<PlayerMotor>().ToggleMovementOverride();
             player.GetComponent<PlayerLook>().ToggleLookLock();
             UIManager.Instance.ToggleCrosshairVisibility();
 
             foreach (Transform t in PDUIButtonContainer) Destroy(t.gameObject);
 
-            List<Button> pdButtons = new();
+            pdButtons.Clear();
             foreach (DataDrive d in inv.dataDrivesHeld)
             {
                 Button b = Instantiate(Resources.Load<Button>("PDButton"), PDUIButtonContainer);
                 b.GetComponent<PDButton>().SetDrive(d, this);
 
                 pdButtons.Add(b);
-                if (inv.dataDrivesHeld.IndexOf(d) == 0) b.Select();
+                if (inv.dataDrivesHeld.IndexOf(d) == 0 && InputManager.Instance.GamepadIsCurrentInput()) b.Select();
             }
 
             foreach(Button b in pdButtons)
@@ -86,6 +88,23 @@ public class DataReader : Interactable
         }
     }
 
+    private void InputChangedWhilstUIOpen(InputManager.LastInputType newType)
+    {
+        if (newType == InputManager.LastInputType.KeyboardMouse)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            UIManager.Instance.ClearSelectedUIObject();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            if (pdButtons.Count > 0)
+                pdButtons[0].Select();
+            else
+                PDCancelBtn.Select();
+        }
+    }
+
     public void UnlockPlayer()
     {
         Transform player = PlayerInventory.Instance.transform;
@@ -95,6 +114,7 @@ public class DataReader : Interactable
         player.GetComponent<PlayerMotor>().ToggleMovementOverride();
         player.GetComponent<PlayerLook>().ToggleLookLock();
         UIManager.Instance.ToggleCrosshairVisibility();
+        InputManager.InputTypeChanged -= InputChangedWhilstUIOpen;
     }
 
     public void DriveSelected(DataDrive drive)
