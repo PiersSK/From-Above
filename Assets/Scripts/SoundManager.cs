@@ -25,16 +25,24 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<AudioClip> soundtrack;
     [SerializeField] private AudioClip noWeaponEnding;
 
+    private string incrementSoundtrack = "IncrementSoundtrack";
+
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void Start()
     {
         bgVol = bgMusicSource.volume;
         ambientSpacing = Random.Range(30, 100);
-        Debug.Log("ambient will play after " + ambientSpacing);
     }
 
     private void Update()
@@ -120,7 +128,6 @@ public class SoundManager : MonoBehaviour
         {
             if (audioSource.outputAudioMixerGroup == bgMixer && audioSource.isPlaying && audioSource != bgMusicSource)
             {
-                Debug.Log(audioSource.name);
                 musicSourcesPlaying++;
             }
         }
@@ -180,7 +187,7 @@ public class SoundManager : MonoBehaviour
                 currentBGClip = 2;
                 bgMusicSource.Stop();
                 bgMusicSource.PlayOneShot(soundtrack[2]);
-                Invoke("IncrementSoundtrack", soundtrack[2].length);
+                Invoke(incrementSoundtrack, soundtrack[2].length);
             }
         }
         else if (currentBGClip == 1)
@@ -189,7 +196,6 @@ public class SoundManager : MonoBehaviour
             {
                 soundtrackTimer = 0;
                 ambientSpacing = Random.Range(30, 100);
-                Debug.Log("ambient will play again after " + ambientSpacing);
                 bgMusicSource.PlayOneShot(soundtrack[1]);
             }
 
@@ -198,7 +204,7 @@ public class SoundManager : MonoBehaviour
                 soundtrackTimer = 0;
                 currentBGClip = 2;
                 bgMusicSource.PlayOneShot(soundtrack[2]);
-                Invoke("IncrementSoundtrack", soundtrack[2].length);
+                Invoke(incrementSoundtrack, soundtrack[2].length);
             }
         } else if (currentBGClip == 3)
         {
@@ -219,12 +225,11 @@ public class SoundManager : MonoBehaviour
         {
             if(TaskManager.Instance.phaseTwoTasksCompleted == 6 || TimeController.Instance.GetTimeInSeconds() >= TimeController.Instance.phase2TimeLimitMins * 60 - 12)
             {
-                Debug.Log("Moving to final soundtrack");
                 currentBGClip = 5;
                 bgMusicSource.clip = soundtrack[5];
                 bgMusicSource.loop = false;
                 bgMusicSource.Play();
-                Invoke("IncrementSoundtrack", soundtrack[5].length);
+                Invoke(incrementSoundtrack, soundtrack[5].length);
 
             }
         } else if (currentBGClip ==  6)

@@ -33,7 +33,14 @@ public class TimeController : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void Update()
@@ -58,7 +65,6 @@ public class TimeController : MonoBehaviour
             if(!isGetOnWithItTimerPaused)
             {
                 getOnWithItTimer += Time.deltaTime;
-                Debug.Log("Get On With It Timer: " + getOnWithItTimer);
             }
         }
     }
