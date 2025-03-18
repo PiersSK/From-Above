@@ -14,7 +14,6 @@ public class GetOnWithItRadioMessage : TimedEvent
         TimeController.Instance.isTimePaused = true;
         TimeController.Instance.getOnWithItTimer = 0f;
         TimeController.Instance.getOnWithItMessagePlayed = true;
-        Debug.Log("GetOnWithItRadioMessage event triggered");
         base.TriggerEvent();
     } 
 }
