@@ -16,7 +16,6 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject confirmExitScreen;
 
     private const string MENUSELECT = "Select Menu Option";
-    private const string SETTINGSELECT = "Edit Setting Value";
     private const string BACKOUTMESSAGE = "To Resume Game";
     private const string CANCELEXIT = "Back to Settings";
 
@@ -140,10 +139,11 @@ public class PauseManager : MonoBehaviour
         }
         else
         {
-            SoundManager.Instance.UnpauseAllPausedSound();
+            if (activePanel != null) activePanel.SettingsPanelDeselected();
             UIManager.Instance.ClearSelectedUIObject();
             UIManager.Instance.HideBackoutText();
             UIManager.Instance.HideConfirmText();
+            UIManager.Instance.HideLRText();
             confirmExitScreen.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
