@@ -6,13 +6,11 @@ public class Soundtrack : ScriptableObject
     public AudioClip clip;
     public Soundtrack nextSoundtrack;
 
-    [Header("Progression Conditions")]
     public bool progressOnEnd;
     public bool progressOnTimeCondition;
     public bool progressOnPhaseTransition;
     public bool progressOnTaskCompletion;
 
-    [Header("Loop Settings")]
     public bool shouldLoop;
     public bool leaveTimeBetweenLoops;
     public int minSecondsBetweenLoops;
@@ -24,12 +22,10 @@ public class Soundtrack : ScriptableObject
         AbsoluteFromEnd,
         Relative
     }
-    [Header("Time Condition Settings")]
     public TimeConditionType timeConditionType;
     public int absoluteSecondsIntoPhase;
     public int absoluteSecondsBeforePhaseEnd;
     public int percentageThroughPhase;
 
-    [Header("Task Condition Settings")]
     public Task progressAfter;
 }
