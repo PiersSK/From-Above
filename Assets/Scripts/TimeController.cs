@@ -29,7 +29,6 @@ public class TimeController : MonoBehaviour
     [Header("Events")]
     public Transform scheduledEvents;
     public List<string> completeEvents;
-   // private List<TimedEvent> scheduledEvents;
 
     private void Awake()
     {
@@ -84,7 +83,6 @@ public class TimeController : MonoBehaviour
         return CurrentTime(timer) >= timeToCompare;
     }
 
-
     public TimeSpan CurrentTime(float timer)
     {
         return TimeSpan.FromSeconds(timer);
@@ -103,8 +101,8 @@ public class TimeController : MonoBehaviour
             {
                 if(e.ShouldEventTrigger())
                 {
-                e.TriggerEvent();
-                e.hasBeenTriggered = true;
+                    e.TriggerEvent();
+                    e.hasBeenTriggered = true;
                 }
             }
         }
