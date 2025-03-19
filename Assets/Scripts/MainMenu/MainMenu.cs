@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,19 +13,45 @@ public class MainMenu : MonoBehaviour
     [SerializeField] string leadingChar = "|";
     [SerializeField] string writer;
     [SerializeField] TMP_Text _tmpProText;
-    [SerializeField] GameObject btn;
-    [SerializeField] GameObject startBtn;
+    [SerializeField] GameObject playButton;
+    [SerializeField] GameObject commenceGameButton;
     [SerializeField] GameObject title;
 
     [SerializeField] private Animator anim;
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip typesfx;
 
-    public void OnStartButton()
+    private void OnEnable()
+    {
+        InputManager.InputTypeChanged += InputTypeChanged;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.InputTypeChanged -= InputTypeChanged;
+    }
+
+    private void InputTypeChanged(InputManager.LastInputType type)
+    {
+        if (type == InputManager.LastInputType.KeyboardMouse)
+        {
+            GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(null);
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            if (playButton.activeSelf) playButton.GetComponent<Button>().Select();
+            else if (commenceGameButton.activeSelf) commenceGameButton.GetComponent<Button>().Select();
+
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+        public void OnStartButton()
     {
         anim.SetTrigger("Fade");
         title.SetActive(false);
-        btn.SetActive(false);
+        playButton.SetActive(false);
         StartCoroutine("WriteText");
     }
 
@@ -47,7 +74,8 @@ public class MainMenu : MonoBehaviour
                 yield return new WaitForSeconds(timeBtwChar * (c == '\\' ? 5 : 1));
             }
 
-        startBtn.SetActive(true);
+        commenceGameButton.SetActive(true);
+        if(InputManager.Instance.GamepadIsCurrentInput()) commenceGameButton.GetComponent<Button>().Select();
     }
 
     public void LoadGame()

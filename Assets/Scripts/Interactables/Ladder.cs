@@ -19,9 +19,8 @@ public class Ladder : Interactable
         if (playerOnLadder)
         {
             PlayerMotor motor = player.GetComponent<PlayerMotor>();
-            InputManager playerInput = player.GetComponent<InputManager>();
 
-            float input = playerInput.playerActions.Move.ReadValue<Vector2>().y;
+            float input = InputManager.Instance.playerActions.Move.ReadValue<Vector2>().y;
             Vector3 moveDirection = new Vector3(0f, input, 0f);
             motor.controller.Move(transform.TransformDirection(moveDirection) * 2f * Time.deltaTime);
 

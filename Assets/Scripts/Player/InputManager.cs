@@ -7,13 +7,8 @@ using UnityEngine.InputSystem.Utilities;
 public class InputManager : MonoBehaviour 
 {
     public static InputManager Instance { get; private set; }
-
     private PlayerInput playerInput;
     public PlayerInput.PlayerActions playerActions;
-    private PlayerMotor motor;
-    private PlayerLook look;
-
-    [SerializeField] private TaskManager taskManager;
 
     public enum LastInputType { KeyboardMouse, Playstation, Xbox, Gamepad }
     public LastInputType lastInputType { get; private set; }
@@ -23,19 +18,17 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if(Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
 
         playerInput = new PlayerInput();
         playerActions = playerInput.Player;
-
-        motor = GetComponent<PlayerMotor>();
-        look = GetComponent<PlayerLook>();
-
-        playerActions.Jump.performed += ctx => motor.Jump();
-        playerActions.Crouch.performed += ctx => motor.Crouch();
-        playerActions.Sprint.performed += ctx => motor.Sprint();
-        playerActions.Tasklist.performed += ctx => taskManager.ToggleTaskPad();
-        playerActions.Pause.performed += ctx => PauseManager.Instance.TogglePauseMenu();
 
         InputSystem.onAnyButtonPress.Call(OnAnyInputDetected);
         InputSystem.onEvent += OnAnyDeviceEvent;
@@ -78,6 +71,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public bool GamepadIsCurrentInput()
+    {
+        return lastInputType != LastInputType.KeyboardMouse;
+    }
+
     private LastInputType DetectInputDevice(InputDevice device)
     {
         if (device is Gamepad gamepad)
@@ -92,7 +90,7 @@ public class InputManager : MonoBehaviour
         return LastInputType.KeyboardMouse;
     }
 
-    public string GetCurrentBinding(string actionName)
+    public string GetCurrentBinding(string actionName, string compositePart = null)
     {
         if (playerInput == null) return string.Empty;
 
@@ -101,29 +99,21 @@ public class InputManager : MonoBehaviour
 
         foreach (var binding in action.bindings)
         {
-            if ((lastInputType != LastInputType.KeyboardMouse && binding.groups.Contains("Gamepad")) ||
-                (lastInputType == LastInputType.KeyboardMouse && binding.groups.Contains("Keyboard&Mouse")))
+            string bindingGroups = binding.groups ?? string.Empty;
+
+            bool isGamepadBinding = GamepadIsCurrentInput() && bindingGroups.Contains("Gamepad");
+            bool isKeyboardBinding = !GamepadIsCurrentInput() && bindingGroups.Contains("Keyboard&Mouse");
+
+            if (compositePart != null) { 
+                if (binding.isPartOfComposite && binding.name.ToUpper() == compositePart.ToUpper() && (isGamepadBinding || isKeyboardBinding))
+                    return binding.ToDisplayString();
+            } else
             {
-                return binding.ToDisplayString();
+                if (!binding.isPartOfComposite && (isGamepadBinding || isKeyboardBinding))
+                    return binding.ToDisplayString();
             }
         }
 
         return string.Empty;
-    }
-
-    private void Update()
-    {
-        motor.ProcessMove(playerActions.Move.ReadValue<Vector2>());
-        look.ProcessLook(playerActions.Look.ReadValue<Vector2>());
-    }
-
-    private void OnEnable()
-    {
-        playerActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerActions.Disable();
     }
 }

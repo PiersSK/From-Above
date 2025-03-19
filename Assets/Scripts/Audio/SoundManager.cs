@@ -20,9 +20,18 @@ public class SoundManager : MonoBehaviour
 
     public bool bgPaused = false;
 
+    private string incrementSoundtrack = "IncrementSoundtrack";
+
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void Start()
@@ -112,7 +121,6 @@ public class SoundManager : MonoBehaviour
         {
             if (audioSource.outputAudioMixerGroup == bgMixer && audioSource.isPlaying && audioSource != bgMusicSource)
             {
-                Debug.Log(audioSource.name);
                 musicSourcesPlaying++;
             }
         }

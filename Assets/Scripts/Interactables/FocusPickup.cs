@@ -11,7 +11,6 @@ public class FocusPickup : Interactable
     private Vector3 initialPos;
     private Quaternion initialRot;
 
-    private InputManager input;
     private PlayerMotor motor;
     private PlayerLook look;
 
@@ -26,12 +25,12 @@ public class FocusPickup : Interactable
 
     private void Update()
     {
-        if (input != null && !isInteractable && input.playerActions.Escape.triggered)
+        if (!isInteractable && InputManager.Instance.playerActions.Escape.triggered)
         {
             ReleasePlayer();
         }
 
-        if (input != null && !isInteractable && input.playerActions.UIToggle.triggered && hasText)
+        if (!isInteractable && InputManager.Instance.playerActions.UIToggle.triggered && hasText)
         {
             ToggleTextUI();
         }
@@ -41,7 +40,6 @@ public class FocusPickup : Interactable
     {
         motor = player.GetComponent<PlayerMotor>();
         look = player.GetComponent<PlayerLook>();
-        input = player.GetComponent<InputManager>();
 
         isInteractable = false;
 

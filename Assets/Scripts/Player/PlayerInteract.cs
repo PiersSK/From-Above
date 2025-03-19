@@ -9,12 +9,9 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject buttonPromptObject;
 
-    private InputManager inputManager;
-
     private void Start()
     {
         cam = GetComponent<PlayerLook>().cam;
-        inputManager = GetComponent<InputManager>();
     }
 
     // Update is called once per frame
@@ -38,7 +35,7 @@ public class PlayerInteract : MonoBehaviour
                     promptText.text = interactable.GetPrompt();
                     buttonPromptObject.SetActive(true);
 
-                    if (inputManager.playerActions.Interact.triggered)
+                    if (InputManager.Instance.playerActions.Interact.triggered)
                     {
                         interactable.BaseInteract(transform);
                     }
