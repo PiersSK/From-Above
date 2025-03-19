@@ -9,4 +9,9 @@ public class FifthRadioMessage : RapierSixPhaseTwoCommand
         && TimeController.Instance.radioMessagesPlayed == 4 && TaskManager.Instance.phaseTwoTasksCompleted >= 4
         || !hasBeenTriggered && TimeController.Instance.getOnWithItTimer >= 180f && TimeController.Instance.getOnWithItMessagePlayed;
     }
+    public override void TriggerEvent()
+    {
+        TimeController.Instance.radioMessagesPlayed ++;
+        base.TriggerEvent();
+    }
 }

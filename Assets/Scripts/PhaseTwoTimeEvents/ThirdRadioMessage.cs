@@ -15,6 +15,7 @@ public class ThirdRadioMessage : RapierSixPhaseTwoCommand
         {
             TimeController.Instance.getOnWithItTimer = 0;
         }
+        TimeController.Instance.radioMessagesPlayed ++;
         base.TriggerEvent();
     }
 }

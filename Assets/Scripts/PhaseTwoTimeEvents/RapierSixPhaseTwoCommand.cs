@@ -11,7 +11,6 @@ public class RapierSixPhaseTwoCommand : TimedEvent
     public override void TriggerEvent()
     {
         TimeController.Instance.radioMessageTimer = 0f;
-        TimeController.Instance.radioMessagesPlayed ++;
         base.TriggerEvent();
     } 
 }

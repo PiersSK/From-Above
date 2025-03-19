@@ -16,6 +16,7 @@ public class FourthRadioMessage : RapierSixPhaseTwoCommand
             TimeController.Instance.isGetOnWithItTimerPaused = true;
             TimeController.Instance.isTimePaused = false;
         }
+        TimeController.Instance.radioMessagesPlayed ++;
         base.TriggerEvent();
     }
 }

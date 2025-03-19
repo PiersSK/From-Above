@@ -9,4 +9,9 @@ public class SecondRadioMessage : RapierSixPhaseTwoCommand
         return (!hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.TimeHasPassed(TimeController.Instance.radioMessageTimer, eventMinute, eventSecond)) ||
         (!hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TaskManager.Instance.phaseTwoTasksCompleted == 1);
     }
+    public override void TriggerEvent()
+    {
+        TimeController.Instance.radioMessagesPlayed ++;
+        base.TriggerEvent();
+    }
 }
