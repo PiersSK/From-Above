@@ -1,8 +1,8 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DiaryQABlock : MonoBehaviour
+public class DiaryQABlock : TerminalInput
 {
     public TextMeshProUGUI questionText;
-    public TMP_InputField inputField;
 }

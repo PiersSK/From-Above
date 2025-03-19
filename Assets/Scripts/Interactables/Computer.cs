@@ -6,16 +6,53 @@ public class Computer : Interactable
     protected bool playerAtComputer = false;
     protected PlayerMotor motor;
     protected PlayerLook look;
-    protected InputManager input;
     [SerializeField] protected Transform lockPoint;
+    [SerializeField] protected Selectable defaultSelectable;
 
-    [SerializeField] protected AudioClip enterKeyclicks;
+    [SerializeField] protected AudioClip initiationSound;
 
     protected const string EXITTERMINAL = "Exit Terminal";
 
+    private void OnEnable()
+    {
+        InputManager.InputTypeChanged += OnInputChange;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.InputTypeChanged -= OnInputChange;
+    }
+
+    private void OnInputChange(InputManager.LastInputType newType)
+    {
+        if (playerAtComputer)
+        {
+            if (newType == InputManager.LastInputType.KeyboardMouse)
+            {
+                SwitchToMouseKeyboard();
+            }
+            else
+            {
+                SwitchToGamepad();
+            }
+        }
+    }
+
+    protected virtual void SwitchToMouseKeyboard()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        UIManager.Instance.ClearSelectedUIObject();
+    }
+
+    protected virtual void SwitchToGamepad()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        defaultSelectable.Select();
+    }
+
     protected virtual void Update()
     {
-        if(input != null && !isInteractable && input.playerActions.Escape.triggered)
+        if(!isInteractable && InputManager.Instance.playerActions.Escape.triggered)
         {
             ReleasePlayer();
         }
@@ -25,14 +62,17 @@ public class Computer : Interactable
     {
         motor = player.GetComponent<PlayerMotor>();
         look = player.GetComponent<PlayerLook>();
-        input = player.GetComponent<InputManager>();
 
         isInteractable = false;
 
         motor.ForcePlayerToPoint(lockPoint, true);
         motor.ToggleMovementOverride();
 
-        Cursor.lockState = CursorLockMode.None;
+        if (!InputManager.Instance.GamepadIsCurrentInput())
+            Cursor.lockState = CursorLockMode.None;
+        else
+            defaultSelectable.Select();
+
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();
@@ -40,7 +80,7 @@ public class Computer : Interactable
         UIManager.Instance.HideTaskPadPrompt();
         playerAtComputer = true;
 
-        SoundManager.Instance.PlaySFXOneShot(enterKeyclicks, 0f, 0.1f, 0f);
+        SoundManager.Instance.PlaySFXOneShot(initiationSound, 0f, 0.1f, 0f);
     }
 
     protected virtual void ReleasePlayer()
@@ -53,6 +93,7 @@ public class Computer : Interactable
         UIManager.Instance.ToggleCrosshairVisibility();
         UIManager.Instance.HideBackoutText();
         UIManager.Instance.ShowTaskPadPrompt();
+        UIManager.Instance.ClearSelectedUIObject();
         playerAtComputer = false;
     }
 }

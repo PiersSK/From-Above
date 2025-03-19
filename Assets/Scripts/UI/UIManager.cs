@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -9,8 +10,12 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject toggleObj;
     [SerializeField] private GameObject backoutObj;
+    [SerializeField] private GameObject confirmObj;
+    [SerializeField] private GameObject lRObj;
     [SerializeField] private TextMeshProUGUI toggleText;
     [SerializeField] private TextMeshProUGUI backoutText;
+    [SerializeField] private TextMeshProUGUI confirmText;
+    [SerializeField] private TextMeshProUGUI lRText;
 
     [SerializeField] private GameObject textPopUp;
     [SerializeField] private TextMeshProUGUI textPopUpText;
@@ -79,6 +84,18 @@ public class UIManager : MonoBehaviour
         toggleObj.SetActive(true);
     }
 
+    public void ShowConfirmText(string message)
+    {
+        confirmText.text = message;
+        confirmObj.SetActive(true);
+    }
+
+    public void ShowLRText(string message)
+    {
+        lRText.text = message;
+        lRObj.SetActive(true);
+    }
+
     public void HideBackoutText()
     {
         backoutObj.SetActive(false);
@@ -87,6 +104,16 @@ public class UIManager : MonoBehaviour
     public void HideToggleText()
     {
         toggleObj.SetActive(false);
+    }
+
+    public void HideConfirmText()
+    {
+        confirmObj.SetActive(false);
+    }
+
+    public void HideLRText()
+    {
+        lRObj.SetActive(false);
     }
 
     public void ShowPopupText(string message)
@@ -104,5 +131,32 @@ public class UIManager : MonoBehaviour
     {
         pacifistEnding.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void ClearSelectedUIObject()
+    {
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(null);
+    }
+
+    public GameObject GetSelectedUIObject()
+    {
+        return GameObject.Find("EventSystem").GetComponent<EventSystem>().currentSelectedGameObject;
+    }
+
+    public bool IsObjectSelected(GameObject obj)
+    {
+        return obj == GameObject.Find("EventSystem").GetComponent<EventSystem>().currentSelectedGameObject;
+    }
+
+    public Navigation CreateNewNavigation(Selectable up, Selectable down, Selectable left, Selectable right)
+    {
+        Navigation navigation = new Navigation();
+        navigation.mode = Navigation.Mode.Explicit;
+        navigation.selectOnUp = up;
+        navigation.selectOnDown = down;
+        navigation.selectOnLeft = left;
+        navigation.selectOnRight = right;
+
+        return navigation;
     }
 }
