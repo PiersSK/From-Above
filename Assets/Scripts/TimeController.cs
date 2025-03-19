@@ -74,52 +74,25 @@ public class TimeController : MonoBehaviour
         return time;
     }
 
-    public bool TimeHasPassed(int mins, int secs)
+    public bool TimeHasPassed(float timer, int mins, int secs)
     {
-        return time > mins * 60 + secs;
+        return timer > mins * 60 + secs;
     }
 
-    public bool TimeHasPassed(TimeSpan timeToCompare)
+    public bool TimeHasPassed(float timer, TimeSpan timeToCompare)
     {
-        return CurrentTime() >= timeToCompare;
+        return CurrentTime(timer) >= timeToCompare;
     }
 
-    public bool RadioMessageTimeHasPassed(int mins, int secs)
+
+    public TimeSpan CurrentTime(float timer)
     {
-        return radioMessageTimer > mins * 60 + secs;
-    }
-    public bool RadioMessageTimeHasPassed (TimeSpan timeToCompare)
-    {
-        return CurrentRadioMessageTime() >= timeToCompare;
+        return TimeSpan.FromSeconds(timer);
     }
 
-    public bool GetOnWithItTimePassed(int mins, int secs)
+    public bool IsInTimeSpan(float timer, int min1, int sec1, int min2, int sec2)
     {
-        return getOnWithItTimer > mins * 60 + secs;
-    }
-
-    public bool GetOnWithItTimePassed(TimeSpan timeToCompare)
-    {
-        return CurrentGetOnWithItTime() >= timeToCompare;
-    }
-
-    public TimeSpan CurrentTime()
-    {
-        return TimeSpan.FromSeconds(time);
-    }
-
-    public TimeSpan CurrentGetOnWithItTime()
-    {
-        return TimeSpan.FromSeconds(getOnWithItTimer);
-    }
-    public TimeSpan CurrentRadioMessageTime()
-    {
-        return TimeSpan.FromSeconds(getOnWithItTimer);
-    }
-
-    public bool IsInTimeSpan(int min1, int sec1, int min2, int sec2)
-    {
-        return TimeHasPassed(min1, sec1) && !TimeHasPassed(min2, sec2);
+        return TimeHasPassed(timer, min1, sec1) && !TimeHasPassed(timer, min2, sec2);
     }
 
     private void TriggerEvents()

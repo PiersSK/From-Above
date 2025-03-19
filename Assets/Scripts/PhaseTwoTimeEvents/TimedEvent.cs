@@ -23,7 +23,7 @@ public class TimedEvent : MonoBehaviour
         hasBeenTriggered = true;
     } 
     public virtual bool ShouldEventTrigger(){
-        return !hasBeenTriggered && TimeController.Instance.TimeHasPassed(eventMinute, eventSecond);
+        return !hasBeenTriggered && TimeController.Instance.TimeHasPassed(TimeController.Instance.time, eventMinute, eventSecond);
     }
     
     public void SetEventStartTime(int min, int sec)
