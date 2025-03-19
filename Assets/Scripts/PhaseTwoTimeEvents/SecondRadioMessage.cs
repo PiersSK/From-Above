@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SecondRadioMessage : TimedAudioClip
+public class SecondRadioMessage : TimedEvent
 {
     public override bool ShouldEventTrigger()
     {

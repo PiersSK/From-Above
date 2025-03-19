@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class FifthRadioMessage : TimedAudioClip
+public class FifthRadioMessage : TimedEvent
 {
     public override bool ShouldEventTrigger()
     {

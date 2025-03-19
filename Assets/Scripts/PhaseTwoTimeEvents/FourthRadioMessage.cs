@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class FourthRadioMessage : TimedAudioClip
+public class FourthRadioMessage : TimedEvent
 {
      public override bool ShouldEventTrigger()
     {
