@@ -93,7 +93,7 @@ public class TaskManager : MonoBehaviour
     public void ObtainTaskpad()
     {
         taskPadObtained = true;
-        player.GetComponent<PlayerMotor>().ToggleMovementOverride();
+        player.GetComponent<PlayerMotor>().LockPlayer();
         taskPadObj.SetActive(true);
         ToggleTaskPad();
         RefreshTaskListUI();
