@@ -21,11 +21,9 @@ public class TimedEvent : MonoBehaviour
             audioSource.Play();
         }
         hasBeenTriggered = true;
-        TimeController.Instance.radioMessageTimer = 0f;
-        TimeController.Instance.radioMessagesPlayed ++;
     } 
     public virtual bool ShouldEventTrigger(){
-        return !hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond);
+        return !hasBeenTriggered && TimeController.Instance.TimeHasPassed(eventMinute, eventSecond);
     }
     
     public void SetEventStartTime(int min, int sec)

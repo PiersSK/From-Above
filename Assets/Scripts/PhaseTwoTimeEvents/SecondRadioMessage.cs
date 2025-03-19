@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SecondRadioMessage : TimedEvent
+public class SecondRadioMessage : RapierSixPhaseTwoCommand
 {
     public override bool ShouldEventTrigger()
     {

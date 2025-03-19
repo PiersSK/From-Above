@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GetOnWithItRadioMessage : TimedEvent
+public class GetOnWithItRadioMessage : RapierSixPhaseTwoCommand
 {
     public override bool ShouldEventTrigger()
     {
