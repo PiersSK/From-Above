@@ -16,6 +16,9 @@ public class TaskPadCollider : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         triggers.Remove(other.gameObject);
-        if(triggers.Count == 0) taskPadAnim.SetBool("IsObstructed", false);
+        if (triggers.Count == 0)
+        {
+            taskPadAnim.SetBool("IsObstructed", false);
+        }
     }
 }

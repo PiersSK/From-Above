@@ -143,6 +143,7 @@ public class TaskManager : MonoBehaviour
 
         taskPadVisible = !taskPadVisible;
         PlayerMotor.Instance.controller.radius = taskPadVisible ? 0.6f : 0.5f;
+        taskPadTrigger.layer = taskPadVisible ? 7 : 0;
 
         UIManager.Instance.ToggleMenuPromptStatus();
         UIManager.Instance.ToggleCrosshairVisibility();
