@@ -25,6 +25,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private AudioClip task1Beep;
     [SerializeField] private AudioClip task2Beep;
     [SerializeField] private GameObject taskPadObj;
+    [SerializeField] private GameObject taskPadTrigger;
     [SerializeField] private TextMeshProUGUI taskPadHeader;
     [SerializeField] private TextMeshProUGUI taskCount;
     [SerializeField] private GameObject taskCountSentence;
@@ -95,6 +96,7 @@ public class TaskManager : MonoBehaviour
         taskPadObtained = true;
         player.GetComponent<PlayerMotor>().ToggleMovementOverride();
         taskPadObj.SetActive(true);
+        taskPadTrigger.SetActive(true);
         ToggleTaskPad();
         RefreshTaskListUI();
     }
@@ -140,6 +142,8 @@ public class TaskManager : MonoBehaviour
         if (!taskPadObtained || player.GetComponent<PlayerMotor>().movementOverridden) return;
 
         taskPadVisible = !taskPadVisible;
+        PlayerMotor.Instance.controller.radius = taskPadVisible ? 0.6f : 0.5f;
+
         UIManager.Instance.ToggleMenuPromptStatus();
         UIManager.Instance.ToggleCrosshairVisibility();
         taskPadAnim.SetBool("IsUp", taskPadVisible);
