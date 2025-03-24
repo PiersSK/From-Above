@@ -1,4 +1,3 @@
-using Adobe.Substance.Connector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;

@@ -1,7 +1,4 @@
-using Adobe.Substance.Connector;
 using UnityEngine;
-using static InputManager;
-using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
