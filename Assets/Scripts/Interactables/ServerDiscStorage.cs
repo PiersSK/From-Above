@@ -29,7 +29,6 @@ public class ServerDiscStorage : Interactable
     {
         List<DataDrive> playerDrives = PlayerInventory.Instance.dataDrivesHeld;
         ServerRack rack = GetComponentInParent<ServerRack>();
-        Debug.Log(rack.hasDisk);
         return (driveStored != null && !playerDrives.Contains(driveStored) && driveInDock && rack.hasDisk) || (playerDrives.Contains(driveStored) && !driveInDock);
     }
 
