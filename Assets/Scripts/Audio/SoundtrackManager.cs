@@ -9,6 +9,7 @@ public class SoundtrackManager : MonoBehaviour
 
     private float randomLoopTimer = 0f;
     private float timeTillNextRandomLooperPlay = 0f;
+    private bool applicationInFocus = true;
 
     public delegate void OnSoundtrackChange(Soundtrack newSoundtrack);
     public static event OnSoundtrackChange SoundtrackChanged;
@@ -25,6 +26,11 @@ public class SoundtrackManager : MonoBehaviour
         TaskManager.PhaseChanged -= PhaseChanged;
     }
 
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        applicationInFocus = hasFocus;
+    }
+
     private void Start()
     {
         if (TaskManager.Instance.DEBUG_startOnPhaseTwo) currentSoundtrack = DEBUG_phase2SoundtrackStart;
@@ -34,7 +40,7 @@ public class SoundtrackManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentSoundtrack.leaveTimeBetweenLoops && !bGMusicSource.isPlaying && !SoundManager.Instance.bgPaused)
+        if (currentSoundtrack.leaveTimeBetweenLoops && !bGMusicSource.isPlaying && !SoundManager.Instance.bgPaused && applicationInFocus)
         {
             randomLoopTimer += Time.deltaTime;
             if(randomLoopTimer >= timeTillNextRandomLooperPlay)
@@ -50,7 +56,7 @@ public class SoundtrackManager : MonoBehaviour
 
     private bool CheckSoundtrackShouldProgress()
     {
-        if (currentSoundtrack.progressOnEnd && !bGMusicSource.isPlaying && !SoundManager.Instance.bgPaused)
+        if (currentSoundtrack.progressOnEnd && !bGMusicSource.isPlaying && !SoundManager.Instance.bgPaused && applicationInFocus)
             return true;
 
         if (currentSoundtrack.progressOnTimeCondition)
