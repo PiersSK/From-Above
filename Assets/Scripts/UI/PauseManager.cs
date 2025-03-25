@@ -151,6 +151,7 @@ public class PauseManager : MonoBehaviour
         else
         {
             if (activePanel != null) activePanel.SettingsPanelDeselected();
+            SoundManager.Instance.UnpauseAllPausedSound();
             UIManager.Instance.ClearSelectedUIObject();
             UIManager.Instance.HideBackoutText();
             UIManager.Instance.HideConfirmText();
