@@ -17,7 +17,7 @@ MonoBehaviour:
   progressOnEnd: 1
   progressOnTimeCondition: 0
   progressOnPhaseTransition: 0
-  progressOnTaskCompletion: 0
+  progressOnTaskCompletion: 1
   shouldLoop: 0
   leaveTimeBetweenLoops: 0
   minSecondsBetweenLoops: 15
@@ -26,4 +26,4 @@ MonoBehaviour:
   absoluteSecondsIntoPhase: 1
   absoluteSecondsBeforePhaseEnd: 1
   percentageThroughPhase: 1
-  progressAfter: {fileID: 0}
+  progressAfter: {fileID: 11400000, guid: 8e0b4c009488d7443930b234c583aa9d, type: 2}
