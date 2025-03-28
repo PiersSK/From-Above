@@ -54,7 +54,7 @@ public class DataReader : Interactable
         {
             if(!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
             InputManager.InputTypeChanged += InputChangedWhilstUIOpen;
-            player.GetComponent<PlayerMotor>().ToggleMovementOverride();
+            player.GetComponent<PlayerMotor>().LockPlayer();
             player.GetComponent<PlayerLook>().ToggleLookLock();
             UIManager.Instance.ToggleCrosshairVisibility();
 
@@ -111,7 +111,7 @@ public class DataReader : Interactable
 
         PDUI.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        player.GetComponent<PlayerMotor>().ToggleMovementOverride();
+        player.GetComponent<PlayerMotor>().LockPlayer();
         player.GetComponent<PlayerLook>().ToggleLookLock();
         UIManager.Instance.ToggleCrosshairVisibility();
         InputManager.InputTypeChanged -= InputChangedWhilstUIOpen;

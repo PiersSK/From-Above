@@ -65,7 +65,7 @@ public class Ladder : Interactable
         }
 
         sfxTimer = 0f;
-        motor.ToggleMovementOverride();
+        motor.LockPlayer();
     }
 
 
