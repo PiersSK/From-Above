@@ -170,7 +170,7 @@ public class TaskManager : MonoBehaviour
             if (pacifistEndingReached)
                 Invoke("ShowPacifistEnding", newSoundtrack.clip.length - 12f);
             else
-                SoundManager.Instance.PauseBgMusic(0f);
+                SoundManager.Instance.PauseBgMusic();
 
 
             SoundtrackManager.SoundtrackChanged -= OnSoundtrackChange;

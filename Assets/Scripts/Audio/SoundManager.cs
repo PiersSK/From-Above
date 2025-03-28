@@ -72,7 +72,7 @@ public class SoundManager : MonoBehaviour
         shipPASource.Play();
     }
 
-    public void PauseBgMusic(float fadeTime)
+    public void PauseBgMusic()
     {
         if (bgMusicSource.isPlaying)
         {
@@ -81,7 +81,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void RestartBgMusic(float fadeTime)
+    public void RestartBgMusic()
     {
         if (!bgMusicSource.isPlaying && bgPaused)
         {
@@ -97,7 +97,7 @@ public class SoundManager : MonoBehaviour
             if (audioSource.isPlaying) {
                 audioSource.Pause();
                 pausedSources.Add(audioSource);
-                if (audioSource.outputAudioMixerGroup == bgMixer) bgPaused = true;
+                if (audioSource == bgMusicSource) bgPaused = true;
             }
         }
     }
@@ -107,7 +107,7 @@ public class SoundManager : MonoBehaviour
         foreach (var audioSource in pausedSources)
         {
             audioSource.UnPause();
-            if (audioSource.outputAudioMixerGroup == bgMixer) bgPaused = false;
+            if (audioSource == bgMusicSource) bgPaused = false;
         }
 
         pausedSources.Clear();

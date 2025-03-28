@@ -111,7 +111,7 @@ public class SoundtrackManager : MonoBehaviour
         randomLoopTimer = 0f;
         timeTillNextRandomLooperPlay = GetRandomLoopTime();
 
-        bGMusicSource.Play();
+        if(!SoundManager.Instance.bgPaused) bGMusicSource.Play();
 
         // Checks for instant skips due to to criteria being met in the past
         if ((currentSoundtrack.progressOnTaskCompletion && TaskManager.Instance.completedTasks.Contains(currentSoundtrack.progressAfter)) // Task is completed
