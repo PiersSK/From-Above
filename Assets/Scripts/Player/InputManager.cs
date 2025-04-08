@@ -9,6 +9,11 @@ public class InputManager : MonoBehaviour
     private PlayerInput playerInput;
     public PlayerInput.PlayerActions playerActions;
 
+    [Header("Player Manager References")]
+    [SerializeField] private PlayerMotor playerMotor;
+    [SerializeField] private PlayerLook playerLook;
+    [SerializeField] private TaskManager taskManager;
+
     public enum LastInputType { KeyboardMouse, Playstation, Xbox, Gamepad }
     public LastInputType lastInputType { get; private set; }
 
@@ -29,10 +34,22 @@ public class InputManager : MonoBehaviour
         playerInput = new PlayerInput();
         playerActions = playerInput.Player;
 
+        playerActions.Jump.performed += ctx => playerMotor.Jump();
+        playerActions.Crouch.performed += ctx => playerMotor.Crouch();
+        playerActions.Sprint.performed += ctx => playerMotor.Sprint();
+        playerActions.Tasklist.performed += ctx => taskManager.ToggleTaskPad();
+        playerActions.Pause.performed += ctx => PauseManager.Instance.TogglePauseMenu();
+
         InputSystem.onAnyButtonPress.Call(OnAnyInputDetected);
         InputSystem.onEvent += OnAnyDeviceEvent;
 
         lastInputType = LastInputType.KeyboardMouse;
+    }
+
+    private void Update()
+    {
+        playerMotor.ProcessMove(playerActions.Move.ReadValue<Vector2>());
+        playerLook.ProcessLook(playerActions.Look.ReadValue<Vector2>());
     }
 
     private void OnAnyInputDetected(InputControl control)
@@ -114,5 +131,15 @@ public class InputManager : MonoBehaviour
         }
 
         return string.Empty;
+    }
+
+    private void OnEnable()
+    {
+        playerActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerActions.Disable();
     }
 }
