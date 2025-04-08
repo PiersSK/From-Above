@@ -4380,7 +4380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71916135}
-  - component: {fileID: 71916134}
+  - component: {fileID: 71916136}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -4388,18 +4388,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &71916134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71916133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 347d9700f4500c044927d8faf98f2e73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &71916135
 Transform:
   m_ObjectHideFlags: 0
@@ -4415,6 +4403,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &71916136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71916133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347d9700f4500c044927d8faf98f2e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericSFXSource: {fileID: 1765217106}
+  bgMusicSource: {fileID: 817121800}
+  shipPASource: {fileID: 630534947}
+  bgMixer: {fileID: 3105115873693713842, guid: d68c59168663e6b4484322c5dc30c865, type: 2}
+  pausedSources: []
+  clipPlaying: 
+  currentBGClip: 0
+  soundtrack:
+  - {fileID: 8300000, guid: f3f9389c29d693e44b2c7a6bd87688f3, type: 3}
+  - {fileID: 8300000, guid: 3f9f7ff7762fef04f93228e72ff85d02, type: 3}
+  - {fileID: 8300000, guid: d523c2a3049f368408c62c709fd23826, type: 3}
+  - {fileID: 8300000, guid: 482ef7f25c2e6264893c90b59e85e957, type: 3}
+  - {fileID: 8300000, guid: 59453cb2127ec084d8cf5d3213cb034f, type: 3}
+  - {fileID: 8300000, guid: 0d377880d3ebaa147bd22b1cdfa7d49b, type: 3}
+  noWeaponEnding: {fileID: 8300000, guid: 5bceed04696bcc24aa9cbe61ab847ae6, type: 3}
 --- !u!1 &74557008
 GameObject:
   m_ObjectHideFlags: 0
@@ -39394,7 +39409,7 @@ GameObject:
   m_Layer: 0
   m_Name: ShipPA
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -100594,6 +100609,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae8e231026df4ea4398d27cafd8287e9, type: 3}
+--- !u!82 &1765217106 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4752692191124571412, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+  m_PrefabInstance: {fileID: 4520452601124261174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1765217109 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1416672960733386821, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
@@ -133239,7 +133259,7 @@ PrefabInstance:
       objectReference: {fileID: 329897644}
     - target: {fileID: 525726324227998627, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1303
+      value: 1306
       objectReference: {fileID: 0}
     - target: {fileID: 916898657491349458, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -133247,7 +133267,7 @@ PrefabInstance:
       objectReference: {fileID: 470913347}
     - target: {fileID: 916898657491349458, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 952
+      value: 955
       objectReference: {fileID: 0}
     - target: {fileID: 993093963443648295, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -133259,7 +133279,7 @@ PrefabInstance:
       objectReference: {fileID: 278000241}
     - target: {fileID: 1122059581148116338, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 952
+      value: 955
       objectReference: {fileID: 0}
     - target: {fileID: 1342519930052903901, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
