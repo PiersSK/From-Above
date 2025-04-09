@@ -34,11 +34,14 @@ public class InputManager : MonoBehaviour
         playerInput = new PlayerInput();
         playerActions = playerInput.Player;
 
-        playerActions.Jump.performed += ctx => playerMotor.Jump();
-        playerActions.Crouch.performed += ctx => playerMotor.Crouch();
-        playerActions.Sprint.performed += ctx => playerMotor.Sprint();
-        playerActions.Tasklist.performed += ctx => taskManager.ToggleTaskPad();
-        playerActions.Pause.performed += ctx => PauseManager.Instance.TogglePauseMenu();
+        if (playerMotor != null && taskManager != null)
+        {
+            playerActions.Jump.performed += ctx => playerMotor.Jump();
+            playerActions.Crouch.performed += ctx => playerMotor.Crouch();
+            playerActions.Sprint.performed += ctx => playerMotor.Sprint();
+            playerActions.Tasklist.performed += ctx => taskManager.ToggleTaskPad();
+            playerActions.Pause.performed += ctx => PauseManager.Instance.TogglePauseMenu();
+        }
 
         InputSystem.onAnyButtonPress.Call(OnAnyInputDetected);
         InputSystem.onEvent += OnAnyDeviceEvent;
@@ -48,8 +51,11 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        playerMotor.ProcessMove(playerActions.Move.ReadValue<Vector2>());
-        playerLook.ProcessLook(playerActions.Look.ReadValue<Vector2>());
+        if (playerMotor != null && playerLook != null)
+        {
+            playerMotor.ProcessMove(playerActions.Move.ReadValue<Vector2>());
+            playerLook.ProcessLook(playerActions.Look.ReadValue<Vector2>());
+        }
     }
 
     private void OnAnyInputDetected(InputControl control)
