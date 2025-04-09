@@ -18,23 +18,28 @@ public class SubtitleManager : MonoBehaviour
         List<AudioClip> subtitledClips = subtitleTracks.Select(x => x.clip).ToList();
         List<AudioSource> subtitledAudios = new List<AudioSource>(FindObjectsByType<AudioSource>(FindObjectsSortMode.None)).Where(x => x.isPlaying && subtitledClips.Contains(x.clip)).ToList();
 
+        bool hasSubtitlesAndInRange = false;
+
         foreach (Transform t in subtitleHolder) Destroy(t.gameObject);
 
         foreach(AudioSource a in subtitledAudios)
         {
             Subtitle s = subtitleTracks.Where(x => x.clip == a.clip).DefaultIfEmpty(null).Min();
+            if (s == null) continue;
             if (a.spatialBlend > 0.5 && Vector3.Distance(player.position, a.transform.position) > subtitle3DRange) continue;
 
-            if (s != null)
-            {
-                int relevantTimestamp = s.dialogueTimestamps.Where(x => x < a.time).DefaultIfEmpty(-1).Max();
-                lineIndex = relevantTimestamp > 0 ? s.dialogueTimestamps.IndexOf(relevantTimestamp) : 0;
-                TextMeshProUGUI line = Instantiate(Resources.Load<TextMeshProUGUI>("Subtitle"), subtitleHolder);
-                string nametag = s.dialogueLines[lineIndex] != "" && s.dialogueLines[lineIndex] != " " && s.dialogueLines[lineIndex] != string.Empty ? "[" + s.characterName + "] - " : string.Empty;
-                line.text = nametag + s.dialogueLines[lineIndex];
+            hasSubtitlesAndInRange = true;
+        
+            int relevantTimestamp = s.dialogueTimestamps.Where(x => x < a.time).DefaultIfEmpty(-1).Max();
+            lineIndex = relevantTimestamp > 0 ? s.dialogueTimestamps.IndexOf(relevantTimestamp) : 0;
+            TextMeshProUGUI line = Instantiate(Resources.Load<TextMeshProUGUI>("Subtitle"), subtitleHolder);
+            string nametag = s.dialogueLines[lineIndex] != "" && s.dialogueLines[lineIndex] != " " && s.dialogueLines[lineIndex] != string.Empty ? "[" + s.characterName + "] - " : string.Empty;
+            line.text = nametag + s.dialogueLines[lineIndex];
 
-                line.color = UIColors.subtitleColors[(int)s.trackColor];
-            }
+            line.color = UIColors.subtitleColors[(int)s.trackColor];
+
         }
+        subtitleHolder.gameObject.SetActive(hasSubtitlesAndInRange);
+
     }
 }
