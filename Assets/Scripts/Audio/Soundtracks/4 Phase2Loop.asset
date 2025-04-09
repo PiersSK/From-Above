@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de8d2ca1479d974f94f2f170d1147b3, type: 3}
+  m_Name: 4 Phase2Loop
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 482ef7f25c2e6264893c90b59e85e957, type: 3}
+  nextSoundtrack: {fileID: 11400000, guid: e8d476c565bd96f438bedbe353a176af, type: 2}
+  progressOnEnd: 0
+  progressOnTimeCondition: 1
+  progressOnPhaseTransition: 0
+  progressOnTaskCompletion: 1
+  shouldLoop: 1
+  leaveTimeBetweenLoops: 0
+  minSecondsBetweenLoops: 15
+  maxSecondsBetweenLoops: 45
+  timeConditionType: 2
+  absoluteSecondsIntoPhase: 1
+  absoluteSecondsBeforePhaseEnd: 1
+  percentageThroughPhase: 80
+  progressAfter: {fileID: 11400000, guid: 8e0b4c009488d7443930b234c583aa9d, type: 2}

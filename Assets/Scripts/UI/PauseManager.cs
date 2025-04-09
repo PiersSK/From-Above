@@ -143,8 +143,8 @@ public class PauseManager : MonoBehaviour
 
         if (gameObject.activeSelf)
         {
-            SoundManager.Instance.PauseAllSound();
             initiallySelectedItem.Select();
+            SoundManager.Instance.PauseAllSound();
             ShowDefaultPauseKeyBindings(InputManager.Instance.lastInputType);
             if(!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
         }
@@ -152,11 +152,13 @@ public class PauseManager : MonoBehaviour
         {
             if (activePanel != null) activePanel.SettingsPanelDeselected();
             SoundManager.Instance.UnpauseAllPausedSound();
+
             UIManager.Instance.ClearSelectedUIObject();
             UIManager.Instance.HideBackoutText();
             UIManager.Instance.HideConfirmText();
             UIManager.Instance.HideLRText();
             confirmExitScreen.SetActive(false);
+
             Cursor.lockState = CursorLockMode.Locked;
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static InputManager;
 
 public class TaskManager : MonoBehaviour
 {
@@ -12,11 +13,12 @@ public class TaskManager : MonoBehaviour
     private bool taskPadObtained = false;
 
     public List<Task> tasks;
+    public List<Task> completedTasks;
     [SerializeField] private List<Task> phaseTwoTasks;
     public bool isPhaseTwo = false;
     public bool pacifistEndingReached = false;
     public int phaseTwoTasksCompleted = 0;
-    [SerializeField] bool DEBUG_startOnPhaseTwo = false;
+    public bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
 
@@ -37,6 +39,14 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private FireButton fireBtn;
     [SerializeField] private Transform player;
 
+    [SerializeField] private Soundtrack pacifistSoundtrack;
+
+    public delegate void OnTaskComplete(Task task);
+    public static event OnTaskComplete TaskCompleted;
+
+    public delegate void OnPhaseChange();
+    public static event OnPhaseChange PhaseChanged;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -53,6 +63,7 @@ public class TaskManager : MonoBehaviour
     {
         taskPadAnim = taskPadObj.GetComponent<Animator>();
         if(DEBUG_startOnPhaseTwo) MoveToPhaseTwo();
+        SoundtrackManager.SoundtrackChanged += OnSoundtrackChange;
     }
 
     private void Update()
@@ -78,6 +89,7 @@ public class TaskManager : MonoBehaviour
     private void MoveToPhaseTwo()
     {
         isPhaseTwo = true;
+        completedTasks.AddRange(tasks);
         tasks.Clear();
         tasks.Add(phaseTwoTasks[0]);
         phaseTwoTasks.RemoveAt(0);
@@ -89,6 +101,7 @@ public class TaskManager : MonoBehaviour
         taskPadHeader.color = UIColors.terminalRed;
 
         RefreshTaskListUI();
+        PhaseChanged?.Invoke();
     }
 
     public void ObtainTaskpad()
@@ -119,7 +132,9 @@ public class TaskManager : MonoBehaviour
     {
         if (!tasks.Contains(taskToComplete)) return;
 
+        completedTasks.Add(taskToComplete);
         tasks.Remove(taskToComplete);
+
         if(isPhaseTwo) phaseTwoTasksCompleted++;
         if (isPhaseTwo && phaseTwoTasks.Count > 0)
         {
@@ -135,6 +150,8 @@ public class TaskManager : MonoBehaviour
         {
             MoveToPhaseTwo();
         }
+
+        TaskCompleted?.Invoke(taskToComplete);
     }
 
     public void ToggleTaskPad()
@@ -149,6 +166,25 @@ public class TaskManager : MonoBehaviour
         UIManager.Instance.ToggleCrosshairVisibility();
         taskPadAnim.SetBool("IsUp", taskPadVisible);
         if(taskPadVisible) SoundManager.Instance.PlaySFXOneShot(padBeep);
+    }
+
+    private void OnSoundtrackChange(Soundtrack newSoundtrack)
+    {
+        if (newSoundtrack == pacifistSoundtrack)
+        {
+            if (pacifistEndingReached)
+                Invoke("ShowPacifistEnding", newSoundtrack.clip.length - 12f);
+            else
+                SoundManager.Instance.PauseBgMusic();
+
+
+            SoundtrackManager.SoundtrackChanged -= OnSoundtrackChange;
+        }
+    }
+
+    private void ShowPacifistEnding()
+    {
+        UIManager.Instance.ShowPacifistEnding();
     }
 
     private void PacifistEnding()
