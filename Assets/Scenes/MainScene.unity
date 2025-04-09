@@ -4428,7 +4428,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 71916135}
+  - component: {fileID: 71916137}
   - component: {fileID: 71916136}
   m_Layer: 0
   m_Name: SoundManager
@@ -4437,21 +4437,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &71916135
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71916133}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.944624, y: 6.1726794, z: -1.6465985}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &71916136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4471,7 +4456,7 @@ MonoBehaviour:
   pausedSources: []
   clipPlaying: 
   bgPaused: 0
---- !u!4 &71916135
+--- !u!4 &71916137
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166359,7 +166344,6 @@ SceneRoots:
   - {fileID: 1641273591}
   - {fileID: 1092394213}
   - {fileID: 46043982}
-  - {fileID: 71916135}
   - {fileID: 746647938}
   - {fileID: 22630295}
   - {fileID: 630534946}
@@ -166370,3 +166354,4 @@ SceneRoots:
   - {fileID: 749181582}
   - {fileID: 811555855}
   - {fileID: 1794381413}
+  - {fileID: 71916137}
