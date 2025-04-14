@@ -689,6 +689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1624476594781705815}
+  - component: {fileID: 3343762707104722397}
   m_Layer: 0
   m_Name: LightSwitch
   m_TagString: Untagged
@@ -714,6 +715,28 @@ Transform:
   - {fileID: 2332451051292007441}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3343762707104722397
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7572182648568635322}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 768187583f537d44b8a4adaef3ec5cb5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7956500065479887455
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +866,7 @@ GameObject:
   - component: {fileID: 1911322687731566711}
   - component: {fileID: 1550840677814830619}
   m_Layer: 6
-  m_Name: LightSwitch
+  m_Name: InteractableComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -950,9 +973,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97dcc4ac89e87a94dbb9b69cc5552a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: '[E] Toggle Bridge Lights'
+  promptMessage: Toggle Lights
+  requirementsNotMetMessage: 
   isInteractable: 1
   lights:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  anim: {fileID: 3343762707104722397}
+  isOn: 1
+  switchSound: {fileID: 8300000, guid: 2d688ce2da711604d80fdc63f0596e13, type: 3}

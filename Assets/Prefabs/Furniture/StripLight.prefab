@@ -497,6 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b720287905bcd41b68e71aaafdd904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightRenderer: {fileID: 3393490836238787657}
-  lightSource: {fileID: 8388744032991512071}
+  lightRenderers:
+  - {fileID: 3393490836238787657}
+  lightSources:
+  - {fileID: 8388744032991512071}
   lightIsOn: 1

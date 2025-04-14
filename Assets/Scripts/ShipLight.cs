@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipLight : MonoBehaviour
@@ -5,30 +6,23 @@ public class ShipLight : MonoBehaviour
     private const string OFFMATPATH = "LightOff";
     private const string ONMATPATH = "LightOn";
 
-    [SerializeField] private Renderer lightRenderer;
-    [SerializeField] private Light lightSource;
+    [SerializeField] private List<Renderer> lightRenderers;
+    [SerializeField] private List<Light> lightSources;
 
     [SerializeField] private bool lightIsOn = false;
 
     private void Start()
     {
         string mat = lightIsOn ? ONMATPATH : OFFMATPATH;
-        lightRenderer.material = Resources.Load<Material>(mat);
-        lightSource.enabled = lightIsOn;
+        foreach(Renderer ren in lightRenderers) ren.material = Resources.Load<Material>(mat);
+        foreach (Light light in lightSources) light.enabled = lightIsOn;
     }
 
     public void ToggleLight()
     {
         lightIsOn = !lightIsOn;
-        if (lightIsOn)
-        {
-            lightRenderer.material = Resources.Load<Material>(ONMATPATH);
-            lightSource.enabled = true;
-        }
-        else
-        {
-            lightRenderer.material = Resources.Load<Material>(OFFMATPATH);
-            lightSource.enabled = false;
-        }
+        string mat = lightIsOn ? ONMATPATH : OFFMATPATH;
+        foreach (Renderer ren in lightRenderers) ren.material = Resources.Load<Material>(mat);
+        foreach (Light light in lightSources) light.enabled = lightIsOn;
     }
 }
