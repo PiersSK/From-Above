@@ -24,8 +24,6 @@ public class TaskManager : MonoBehaviour
 
     private Animator taskPadAnim;
     [SerializeField] private AudioClip padBeep;
-    [SerializeField] private AudioClip task1Beep;
-    [SerializeField] private AudioClip task2Beep;
     [SerializeField] private GameObject taskPadObj;
     [SerializeField] private GameObject taskPadTrigger;
     [SerializeField] private TextMeshProUGUI taskPadHeader;
@@ -35,6 +33,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI phase2taskCount;
     [SerializeField] private TextMeshProUGUI p2Timer;
     [SerializeField] private List<GameObject> phase2taskBlocks;
+    [SerializeField] private List<Phase> phases;
 
     [SerializeField] private FireButton fireBtn;
     [SerializeField] private Transform player;
@@ -144,7 +143,7 @@ public class TaskManager : MonoBehaviour
 
         RefreshTaskListUI();
         UIManager.Instance.CompletedTaskPopup();
-        SoundManager.Instance.PlaySFXOneShot(isPhaseTwo ? task2Beep : task1Beep);
+        SoundManager.Instance.PlaySFXOneShot(isPhaseTwo ? phases[1].taskBeep : phases[0].taskBeep);
 
         if(!isPhaseTwo && tasks.Count == 0)
         {

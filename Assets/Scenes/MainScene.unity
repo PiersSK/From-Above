@@ -298,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1360381959279542057, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1503590821387261437, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -350,7 +350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3327993236152973181, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4368994505988537987, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -698,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8608892220343342711, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1992783251603786516, guid: 3f8903c825779394080c3cc8b3d7f25d, type: 3}
@@ -61376,6 +61376,8 @@ MonoBehaviour:
   - {fileID: 328281595}
   - {fileID: 1808546882}
   - {fileID: 1403516142}
+  phases:
+  - {fileID: 11400000, guid: eb58bf63f69a4074e8b5e065b1d997a6, type: 2}
   fireBtn: {fileID: 663069162}
   player: {fileID: 1250557289}
   pacifistSoundtrack: {fileID: 11400000, guid: 62653a9de25016446a78aad31b18de3a, type: 2}
