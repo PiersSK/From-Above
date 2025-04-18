@@ -28,7 +28,8 @@ public class ServerDiscStorage : Interactable
     public override bool CanInteract()
     {
         List<DataDrive> playerDrives = PlayerInventory.Instance.dataDrivesHeld;
-        return driveStored != null && (!playerDrives.Contains(driveStored) && driveInDock) || (playerDrives.Contains(driveStored) && !driveInDock);
+        ServerRack rack = GetComponentInParent<ServerRack>();
+        return (driveStored != null && !playerDrives.Contains(driveStored) && driveInDock && rack.hasDisk) || (playerDrives.Contains(driveStored) && !driveInDock);
     }
 
     public override string GetPrompt()

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static InputManager;
 
 public class TaskManager : MonoBehaviour
 {
@@ -12,11 +13,12 @@ public class TaskManager : MonoBehaviour
     private bool taskPadObtained = false;
 
     public List<Task> tasks;
+    public List<Task> completedTasks;
     [SerializeField] private List<Task> phaseTwoTasks;
     public bool isPhaseTwo = false;
     public bool pacifistEndingReached = false;
     public int phaseTwoTasksCompleted = 0;
-    [SerializeField] bool DEBUG_startOnPhaseTwo = false;
+    public bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
 
@@ -25,6 +27,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private AudioClip task1Beep;
     [SerializeField] private AudioClip task2Beep;
     [SerializeField] private GameObject taskPadObj;
+    [SerializeField] private GameObject taskPadTrigger;
     [SerializeField] private TextMeshProUGUI taskPadHeader;
     [SerializeField] private TextMeshProUGUI taskCount;
     [SerializeField] private GameObject taskCountSentence;
@@ -35,6 +38,14 @@ public class TaskManager : MonoBehaviour
 
     [SerializeField] private FireButton fireBtn;
     [SerializeField] private Transform player;
+
+    [SerializeField] private Soundtrack pacifistSoundtrack;
+
+    public delegate void OnTaskComplete(Task task);
+    public static event OnTaskComplete TaskCompleted;
+
+    public delegate void OnPhaseChange();
+    public static event OnPhaseChange PhaseChanged;
 
     private void Awake()
     {
@@ -52,6 +63,7 @@ public class TaskManager : MonoBehaviour
     {
         taskPadAnim = taskPadObj.GetComponent<Animator>();
         if(DEBUG_startOnPhaseTwo) MoveToPhaseTwo();
+        SoundtrackManager.SoundtrackChanged += OnSoundtrackChange;
     }
 
     private void Update()
@@ -77,6 +89,7 @@ public class TaskManager : MonoBehaviour
     private void MoveToPhaseTwo()
     {
         isPhaseTwo = true;
+        completedTasks.AddRange(tasks);
         tasks.Clear();
         tasks.Add(phaseTwoTasks[0]);
         phaseTwoTasks.RemoveAt(0);
@@ -88,13 +101,15 @@ public class TaskManager : MonoBehaviour
         taskPadHeader.color = UIColors.terminalRed;
 
         RefreshTaskListUI();
+        PhaseChanged?.Invoke();
     }
 
     public void ObtainTaskpad()
     {
         taskPadObtained = true;
-        player.GetComponent<PlayerMotor>().ToggleMovementOverride();
+        player.GetComponent<PlayerMotor>().LockPlayer();
         taskPadObj.SetActive(true);
+        taskPadTrigger.SetActive(true);
         ToggleTaskPad();
         RefreshTaskListUI();
     }
@@ -117,7 +132,9 @@ public class TaskManager : MonoBehaviour
     {
         if (!tasks.Contains(taskToComplete)) return;
 
+        completedTasks.Add(taskToComplete);
         tasks.Remove(taskToComplete);
+
         if(isPhaseTwo) phaseTwoTasksCompleted++;
         if (isPhaseTwo && phaseTwoTasks.Count > 0)
         {
@@ -133,6 +150,8 @@ public class TaskManager : MonoBehaviour
         {
             MoveToPhaseTwo();
         }
+
+        TaskCompleted?.Invoke(taskToComplete);
     }
 
     public void ToggleTaskPad()
@@ -140,10 +159,32 @@ public class TaskManager : MonoBehaviour
         if (!taskPadObtained || player.GetComponent<PlayerMotor>().movementOverridden) return;
 
         taskPadVisible = !taskPadVisible;
+        PlayerMotor.Instance.controller.radius = taskPadVisible ? 0.6f : 0.5f;
+        taskPadTrigger.layer = taskPadVisible ? 7 : 0;
+
         UIManager.Instance.ToggleMenuPromptStatus();
         UIManager.Instance.ToggleCrosshairVisibility();
         taskPadAnim.SetBool("IsUp", taskPadVisible);
         if(taskPadVisible) SoundManager.Instance.PlaySFXOneShot(padBeep);
+    }
+
+    private void OnSoundtrackChange(Soundtrack newSoundtrack)
+    {
+        if (newSoundtrack == pacifistSoundtrack)
+        {
+            if (pacifistEndingReached)
+                Invoke("ShowPacifistEnding", newSoundtrack.clip.length - 12f);
+            else
+                SoundManager.Instance.PauseBgMusic();
+
+
+            SoundtrackManager.SoundtrackChanged -= OnSoundtrackChange;
+        }
+    }
+
+    private void ShowPacifistEnding()
+    {
+        UIManager.Instance.ShowPacifistEnding();
     }
 
     private void PacifistEnding()

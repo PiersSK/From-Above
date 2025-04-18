@@ -66,7 +66,7 @@ public class Computer : Interactable
         isInteractable = false;
 
         motor.ForcePlayerToPoint(lockPoint, true);
-        motor.ToggleMovementOverride();
+        motor.LockPlayer();
 
         if (!InputManager.Instance.GamepadIsCurrentInput())
             Cursor.lockState = CursorLockMode.None;
@@ -85,7 +85,7 @@ public class Computer : Interactable
 
     protected virtual void ReleasePlayer()
     {
-        motor.ToggleMovementOverride();
+        motor.LockPlayer();
         Cursor.lockState = CursorLockMode.Locked;
         look.ToggleLookLock();
         isInteractable = true;

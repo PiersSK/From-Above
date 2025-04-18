@@ -18,12 +18,7 @@ public class SoundManager : MonoBehaviour
 
     public string clipPlaying = string.Empty;
 
-    private float soundtrackTimer = 0f;
-    private int ambientSpacing;
-    public int currentBGClip = 0;
-    private bool bgPaused = false;
-    [SerializeField] private List<AudioClip> soundtrack;
-    [SerializeField] private AudioClip noWeaponEnding;
+    public bool bgPaused = false;
 
     private string incrementSoundtrack = "IncrementSoundtrack";
 
@@ -42,7 +37,6 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         bgVol = bgMusicSource.volume;
-        ambientSpacing = Random.Range(30, 100);
     }
 
     private void Update()
@@ -50,9 +44,6 @@ public class SoundManager : MonoBehaviour
         if (!genericSFXSource.isPlaying) clipPlaying = string.Empty;
 
         if(!fadingSources.Contains(bgMusicSource)) AutoAdjustBGForOtherTracks();
-
-        soundtrackTimer += Time.deltaTime;
-        UpdateScore();
     }
 
     public void PlaySFXOneShot(AudioClip clip, float maxPitchVariation = 0f, float volume = 0.3f, float maxVolumeVariation = 0f)
@@ -81,7 +72,7 @@ public class SoundManager : MonoBehaviour
         shipPASource.Play();
     }
 
-    public void PauseBgMusic(float fadeTime)
+    public void PauseBgMusic()
     {
         if (bgMusicSource.isPlaying)
         {
@@ -90,7 +81,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void RestartBgMusic(float fadeTime)
+    public void RestartBgMusic()
     {
         if (!bgMusicSource.isPlaying && bgPaused)
         {
@@ -106,6 +97,7 @@ public class SoundManager : MonoBehaviour
             if (audioSource.isPlaying) {
                 audioSource.Pause();
                 pausedSources.Add(audioSource);
+                if (audioSource == bgMusicSource) bgPaused = true;
             }
         }
     }
@@ -115,6 +107,7 @@ public class SoundManager : MonoBehaviour
         foreach (var audioSource in pausedSources)
         {
             audioSource.UnPause();
+            if (audioSource == bgMusicSource) bgPaused = false;
         }
 
         pausedSources.Clear();
@@ -168,91 +161,5 @@ public class SoundManager : MonoBehaviour
 
         audioSource.volume = targetVol;
         fadingSources.Remove(audioSource);
-    }
-
-    private void UpdateScore()
-    {
-
-        if (currentBGClip == 0)
-        {
-            if (!bgMusicSource.isPlaying && !bgPaused)
-            {
-                currentBGClip = 1;
-                soundtrackTimer = 0;
-            }
-
-            if(TaskManager.Instance.isPhaseTwo)
-            {
-                soundtrackTimer = 0;
-                currentBGClip = 2;
-                bgMusicSource.Stop();
-                bgMusicSource.PlayOneShot(soundtrack[2]);
-                Invoke(incrementSoundtrack, soundtrack[2].length);
-            }
-        }
-        else if (currentBGClip == 1)
-        {
-            if (soundtrackTimer >= ambientSpacing)
-            {
-                soundtrackTimer = 0;
-                ambientSpacing = Random.Range(30, 100);
-                bgMusicSource.PlayOneShot(soundtrack[1]);
-            }
-
-            if (TaskManager.Instance.isPhaseTwo)
-            {
-                soundtrackTimer = 0;
-                currentBGClip = 2;
-                bgMusicSource.PlayOneShot(soundtrack[2]);
-                Invoke(incrementSoundtrack, soundtrack[2].length);
-            }
-        } else if (currentBGClip == 3)
-        {
-            if(!bgMusicSource.isPlaying)
-            {
-                bgMusicSource.clip = soundtrack[3];
-                bgMusicSource.loop = true;
-                bgMusicSource.Play();
-            }
-
-            if(TaskManager.Instance.phaseTwoTasksCompleted >= 3 || TimeController.Instance.GetTimeInSeconds() > TimeController.Instance.phase2TimeLimitMins * 0.8 * 60)
-            {
-                currentBGClip = 4;
-                bgMusicSource.clip = soundtrack[4];
-                bgMusicSource.Play();
-            }
-        } else if (currentBGClip == 4)
-        {
-            if(TaskManager.Instance.phaseTwoTasksCompleted == 6 || TimeController.Instance.GetTimeInSeconds() >= TimeController.Instance.phase2TimeLimitMins * 60 - 12)
-            {
-                currentBGClip = 5;
-                bgMusicSource.clip = soundtrack[5];
-                bgMusicSource.loop = false;
-                bgMusicSource.Play();
-                Invoke(incrementSoundtrack, soundtrack[5].length);
-
-            }
-        } else if (currentBGClip ==  6)
-        {
-            if(TaskManager.Instance.pacifistEndingReached)
-            {
-                bgMusicSource.clip = noWeaponEnding;
-                bgMusicSource.loop = false;
-                bgMusicSource.Play();
-                currentBGClip = -1;
-                Invoke("ShowPacifistEnding", noWeaponEnding.length - 12f);
-            }
-        }
-    }
-
-    private void ShowPacifistEnding()
-    {
-        UIManager.Instance.ShowPacifistEnding();
-    }
-
-    private void IncrementSoundtrack()
-    {
-        currentBGClip++;
-        soundtrackTimer = 0f;
     }
 }

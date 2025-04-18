@@ -143,9 +143,10 @@ public class PlayerMotor : MonoBehaviour
         controller.enabled = true;
     }
 
-    public void ToggleMovementOverride()
+    public void LockPlayer(bool preventPause = true)
     {
         movementOverridden = !movementOverridden;
+        PauseManager.Instance.pauseIsBlocked = movementOverridden && preventPause;
     }
 
     private void FootstepSound()

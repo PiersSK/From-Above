@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     public static PauseManager Instance { get; private set; }
+
     [SerializeField] private int mainMenuSceneIndex;
     [SerializeField] private Selectable initiallySelectedItem;
     [SerializeField] private List<SettingsPanel> settingsPanels;
@@ -15,13 +16,23 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button cancelExitGame;
     [SerializeField] private GameObject confirmExitScreen;
 
+    public bool pauseIsBlocked = false;
+
     private const string MENUSELECT = "Select Menu Option";
     private const string BACKOUTMESSAGE = "To Resume Game";
     private const string CANCELEXIT = "Back to Settings";
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         gameObject.SetActive(false);
     }
 
@@ -124,7 +135,7 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        if (PlayerMotor.Instance.movementOverridden) return; // Pausing only possible outside of focus interactablesto avoid keybind clash
+        if (pauseIsBlocked) return; // Pausing only possible outside of focus interactablesto avoid keybind clash
 
         gameObject.SetActive(!gameObject.activeSelf);
         Time.timeScale = gameObject.activeSelf ? 0f : 1f;
@@ -132,19 +143,22 @@ public class PauseManager : MonoBehaviour
 
         if (gameObject.activeSelf)
         {
-            SoundManager.Instance.PauseAllSound();
             initiallySelectedItem.Select();
+            SoundManager.Instance.PauseAllSound();
             ShowDefaultPauseKeyBindings(InputManager.Instance.lastInputType);
             if(!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
         }
         else
         {
             if (activePanel != null) activePanel.SettingsPanelDeselected();
+            SoundManager.Instance.UnpauseAllPausedSound();
+
             UIManager.Instance.ClearSelectedUIObject();
             UIManager.Instance.HideBackoutText();
             UIManager.Instance.HideConfirmText();
             UIManager.Instance.HideLRText();
             confirmExitScreen.SetActive(false);
+
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
