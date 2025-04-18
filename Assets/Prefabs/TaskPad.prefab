@@ -406,6 +406,7 @@ GameObject:
   - component: {fileID: 6573663990283411284}
   - component: {fileID: 4567504064195909455}
   - component: {fileID: 2412772734723341120}
+  - component: {fileID: 5958254555486745555}
   m_Layer: 0
   m_Name: TaskPad
   m_TagString: Untagged
@@ -1673,6 +1674,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3869430885053537799}
   m_Mesh: {fileID: 0}
+--- !u!114 &5958254555486745555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869430885053537799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec865945304e7a345be9699001cfb533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4825354972886320239
 GameObject:
   m_ObjectHideFlags: 0

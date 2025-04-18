@@ -6,12 +6,12 @@ using UnityEngine;
 public class Phase : ScriptableObject
 {
     [SerializeField] public AudioClip taskBeep;
-    [SerializeField] public GameObject taskPad;
-    [SerializeField] public GameObject taskPadTrigger;
     [SerializeField] public TextMeshProUGUI taskCount;
     [SerializeField] public TextMeshProUGUI timer;
     [SerializeField] public List<Task> tasks;
     [SerializeField] public List<GameObject> taskBlocks;
+
+    private List<Task> tasksCompleted;
 }
 
 //!!!Notes I am to delete later!!!

@@ -18,7 +18,7 @@ public class TaskManager : MonoBehaviour
     public bool isPhaseTwo = false;
     public bool pacifistEndingReached = false;
     public int phaseTwoTasksCompleted = 0;
-    public bool DEBUG_startOnPhaseTwo = false;
+    public bool DEBUG_startOnPhaseTwo = true;
     [SerializeField] private Transform taskPadListParent;
     private const string TASKUIOBJECT = "Task";
 
@@ -27,9 +27,9 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private GameObject taskPadObj;
     [SerializeField] private GameObject taskPadTrigger;
     [SerializeField] private TextMeshProUGUI taskPadHeader;
-    [SerializeField] private TextMeshProUGUI taskCount;
-    [SerializeField] private GameObject taskCountSentence;
-    [SerializeField] private GameObject phase2TaskPad;
+    [SerializeField] private TextMeshProUGUI phaseOneTaskCount;
+    [SerializeField] private GameObject phaseOneTaskCountSentence;
+    [SerializeField] private GameObject phase2TaskPadCanvas;
     [SerializeField] private TextMeshProUGUI phase2taskCount;
     [SerializeField] private TextMeshProUGUI p2Timer;
     [SerializeField] private List<GameObject> phase2taskBlocks;
@@ -93,9 +93,11 @@ public class TaskManager : MonoBehaviour
         tasks.Add(phaseTwoTasks[0]);
         phaseTwoTasks.RemoveAt(0);
 
-        taskCount.gameObject.SetActive(false);
-        taskCountSentence.SetActive(false);
-        phase2TaskPad.SetActive(true);
+        var taskPadScripot = taskPadObj.GetComponent<TaskPad>();
+        taskPadScripot.MoveToNextPhsae();
+        //phaseOneTaskCount.gameObject.SetActive(false);
+        //phaseOneTaskCountSentence.SetActive(false);
+        //phase2TaskPadCanvas.SetActive(true);
         phase2taskCount.text = "0/6 STEPS COMPLETED";
         taskPadHeader.color = UIColors.terminalRed;
 
@@ -113,9 +115,16 @@ public class TaskManager : MonoBehaviour
         RefreshTaskListUI();
     }
 
+    private void refreshTaskPadPhaseData(int phaseIndex)
+    {
+        var phaseObj = phases[phaseIndex];
+
+        phaseOneTaskCount.text = phaseObj.taskCount.ToString();
+    }
+
     private void RefreshTaskListUI()
     {
-        taskCount.text = tasks.Count.ToString();
+        phaseOneTaskCount.text = tasks.Count.ToString();
 
         foreach (Transform task in taskPadListParent) Destroy(task.gameObject);
 
@@ -189,9 +198,9 @@ public class TaskManager : MonoBehaviour
     private void PacifistEnding()
     {
         tasks.Clear();
-        taskCount.gameObject.SetActive(true);
-        taskCountSentence.SetActive(true);
-        phase2TaskPad.SetActive(false);
+        phaseOneTaskCount.gameObject.SetActive(true);
+        phaseOneTaskCountSentence.SetActive(true);
+        phase2TaskPadCanvas.SetActive(false);
         taskPadHeader.color = UIColors.terminalGreen;
 
         RefreshTaskListUI();
