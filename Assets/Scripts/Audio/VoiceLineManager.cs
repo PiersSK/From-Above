@@ -1,8 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
-using UnityEngine.Audio;
-using UnityEditor.MPE;
 
 public class VoiceLineManager : MonoBehaviour
 {
