@@ -114,7 +114,11 @@ public class VoiceLineManager : MonoBehaviour
                 else if (vl.secondsSinceLastVoiceLine <= TimeController.Instance.radioMessageTimer)   
                         return true;
                 else return false;
-            
+
+            case VoiceLine.TimeConditionType.AbsoluteFromEnd:
+                if(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) <= vl.absoluteSecondsBeforePhaseEnd)
+                    return true;
+                else return false;
             default: return false;
         }
     }
