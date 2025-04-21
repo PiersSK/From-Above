@@ -1935,6 +1935,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d538f9df44531df4fb122e4cde005ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allVoiceLines:
+  - {fileID: 11400000, guid: 64d99bb81472f6749af50a345fccaebb, type: 2}
+  - {fileID: 11400000, guid: 1c7a26f1b292a2f4ea6c19eb20d40b6b, type: 2}
+  - {fileID: 11400000, guid: b9e3fce525b94504aa7ea15541c81c07, type: 2}
+  - {fileID: 11400000, guid: 05132f45b023eb143aaa7b320acfe36c, type: 2}
+  - {fileID: 11400000, guid: c4223d0bbc9da8c42a7f509af332ce25, type: 2}
+  - {fileID: 11400000, guid: fe99a935ed789504f8e5ea1c8c16dfb9, type: 2}
 --- !u!4 &33616798
 Transform:
   m_ObjectHideFlags: 0
@@ -39495,9 +39502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea81d339890a79640bb8e2b55036bb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventMinute: 0
-  eventSecond: 0
-  hasBeenTriggered: 0
 --- !u!82 &633522268 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: -2463065844792980420, guid: ebe342dc43d01c247bfab90d7086363d, type: 3}

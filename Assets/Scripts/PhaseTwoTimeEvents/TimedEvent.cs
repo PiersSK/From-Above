@@ -16,10 +16,10 @@ public class TimedEvent : MonoBehaviour
 
     public virtual void TriggerEvent()
     {
-        if(audioSource != null)
+        /*if(audioSource != null)
         {
             audioSource.Play();
-        }
+        }*/
         hasBeenTriggered = true;
         TimeController.Instance.radioMessageTimer = 0f;
         TimeController.Instance.radioMessagesPlayed ++;
