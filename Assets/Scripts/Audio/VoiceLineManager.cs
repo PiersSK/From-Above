@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
+using UnityEngine.Audio;
 
 public class VoiceLineManager : MonoBehaviour
 {
@@ -78,7 +79,8 @@ public class VoiceLineManager : MonoBehaviour
     {
         if (vl.clip != null)
         {
-            audioSource.PlayOneShot(vl.clip);
+            audioSource.resource = vl.clip;
+            audioSource.Play();
             playedVoiceLines.Add(vl);
             timeOfLastVoiceLine = TimeController.Instance.GetTimeInSeconds();
             Debug.Log($"[VoiceLineManager] Played {vl.name} at {timeOfLastVoiceLine}s");
