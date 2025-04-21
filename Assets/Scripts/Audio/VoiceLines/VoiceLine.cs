@@ -1,0 +1,24 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "VoiceLine", menuName = "Scriptable Objects/VoiceLine")]
+public class VoiceLine : ScriptableObject
+{
+    public AudioClip clip;
+    public bool playOnTimeCondition;
+    public bool playOnPhaseTransition;
+    public bool playOnTaskCompletion;
+
+    public enum TimeConditionType
+    {
+        AbsoluteFromStart,
+        AbsoluteFromEnd,
+        RelativeToLastVoiceLine,
+    }
+    public TimeConditionType timeConditionType;
+    public int absoluteSecondsIntoPhase;
+    public int absoluteSecondsBeforePhaseEnd;
+    public int percentageThroughPhase;
+    public int secondsSinceLastVoiceLine;
+
+    public Task taskTrigger;
+}
