@@ -61,7 +61,7 @@ public class SoundtrackManager : MonoBehaviour
 
         if (currentSoundtrack.progressOnTimeCondition)
         {
-            float currentTime = TimeController.Instance.GetTimeInSeconds();
+            float currentTime = TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time);
             float phaseTimeLimit = TimeController.Instance.phase2TimeLimitMins * 60f;
 
             if (currentSoundtrack.timeConditionType == Soundtrack.TimeConditionType.AbsoluteFromStart)

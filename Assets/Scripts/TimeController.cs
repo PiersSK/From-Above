@@ -51,10 +51,7 @@ public class TimeController : MonoBehaviour
                 radioMessageTimer += Time.deltaTime;
             }
         }
-        if(!isGetOnWithItTimerSet && radioMessagesPlayed >= 2)
-        {
-            isGetOnWithItTimerSet = true;
-        } else if (isGetOnWithItTimerSet)
+        if (isGetOnWithItTimerSet)
         {
             if(!isGetOnWithItTimerPaused)
             {
@@ -100,5 +97,15 @@ public class TimeController : MonoBehaviour
 
     private void VoiceLinePlayed(VoiceLine vl)
     {
+        radioMessageTimer = 0f;
+
+        if (vl.name == "Rapier 6 2 - Weapon Warmup")
+            isGetOnWithItTimerSet = true;
+        
+        if (vl.name == "Rapier 6 3 - Pick up the pace" && TaskManager.Instance.phaseTwoTasksCompleted == 3)
+            getOnWithItTimer = 0f;
+
+        if (vl.name == "Rapier 6 4 - You are the weapon")
+            isGetOnWithItTimerPaused = true;
     }
 }
