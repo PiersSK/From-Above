@@ -80,7 +80,7 @@ public class VoiceLineManager : MonoBehaviour
         {
             audioSource.PlayOneShot(vl.clip);
             playedVoiceLines.Add(vl);
-            timeOfLastVoiceLine = TimeController.Instance.time;
+            timeOfLastVoiceLine = TimeController.Instance.GetTimeInSeconds();
             Debug.Log($"[VoiceLineManager] Played {vl.name} at {timeOfLastVoiceLine}s");
         }
     }
