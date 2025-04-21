@@ -8,7 +8,8 @@ public class VoiceLineManager : MonoBehaviour
     public List<VoiceLine> allVoiceLines;
     private AudioSource audioSource;
     private List<VoiceLine> playedVoiceLines = new List<VoiceLine>();
-
+    public delegate void OnVoiceLinePlayed(VoiceLine vl);
+    public static event OnVoiceLinePlayed VoiceLinePlayed;
     private float timeOfLastVoiceLine;
     
     private void Awake()
@@ -52,16 +53,22 @@ public class VoiceLineManager : MonoBehaviour
             if (playedVoiceLines.Contains(vl))
                 continue;
 
-            if (!AreTaskConditionsSatisfied(vl))
-                continue;
+            bool shouldPlay = false;
 
             if (vl.playOnPhaseTransition && TaskManager.Instance.isPhaseTwo)
             {
-                PlayVoiceLine(vl);
+                shouldPlay = true;
             }
             else if (vl.playOnTaskCompletion && AreTaskConditionsSatisfied(vl))
             {
+                shouldPlay = true;
+            }
+
+            if (shouldPlay) {
                 PlayVoiceLine(vl);
+            }
+            else if(vl.playOnTimeCondition)
+            {
             }
         }
     }
@@ -82,8 +89,8 @@ public class VoiceLineManager : MonoBehaviour
             audioSource.resource = vl.clip;
             audioSource.Play();
             playedVoiceLines.Add(vl);
-            timeOfLastVoiceLine = TimeController.Instance.GetTimeInSeconds();
-            Debug.Log($"[VoiceLineManager] Played {vl.name} at {timeOfLastVoiceLine}s");
+            timeOfLastVoiceLine = TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time);
+            VoiceLinePlayed?.Invoke(vl);
         }
     }
 }

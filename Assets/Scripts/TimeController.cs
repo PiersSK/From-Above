@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class TimeController : MonoBehaviour
@@ -14,8 +12,6 @@ public class TimeController : MonoBehaviour
     public bool isGetOnWithItTimerSet = false;
     public bool isTimePaused = false;
     public bool isGetOnWithItTimerPaused = false;
-    private int currentMin;
-    private int currentSec;
     public int radioMessagesPlayed = 0;
     public bool getOnWithItMessagePlayed = false;
 
@@ -24,7 +20,6 @@ public class TimeController : MonoBehaviour
     public int phase1TimeLimitMins = 10;
     [Range(0, 20)]
     public int phase2TimeLimitMins = 10;
-    private int startTimeMins = 0;
 
     [Header("Events")]
     public Transform scheduledEvents;
@@ -51,7 +46,6 @@ public class TimeController : MonoBehaviour
         } else if(isTimeSet)
         {
             time += Time.deltaTime;
-            TriggerEvents();
             if(!isTimePaused)
             {
                 radioMessageTimer += Time.deltaTime;
@@ -69,9 +63,19 @@ public class TimeController : MonoBehaviour
         }
     }
 
-    public float GetTimeInSeconds()
+    private void OnEnable()
     {
-        return time;
+        VoiceLineManager.VoiceLinePlayed += VoiceLinePlayed;
+    }
+
+    private void OnDisable()
+    {
+        VoiceLineManager.VoiceLinePlayed -= VoiceLinePlayed;
+    }
+
+    public float GetTimeInSeconds(float timer)
+    {
+        return timer;
     }
 
     public bool TimeHasPassed(int mins, int secs)
@@ -122,18 +126,7 @@ public class TimeController : MonoBehaviour
         return TimeHasPassed(min1, sec1) && !TimeHasPassed(min2, sec2);
     }
 
-    private void TriggerEvents()
+    private void VoiceLinePlayed(VoiceLine vl)
     {
-        foreach (Transform eventTransform in scheduledEvents)
-        {
-            if (eventTransform.TryGetComponent(out TimedEvent e))
-            {
-                if(e.ShouldEventTrigger())
-                {
-                e.TriggerEvent();
-                e.hasBeenTriggered = true;
-                }
-            }
-        }
     }
 }
