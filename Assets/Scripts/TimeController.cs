@@ -57,10 +57,6 @@ public class TimeController : MonoBehaviour
                 getOnWithItTimer += Time.deltaTime;
             }
         }
-
-        Debug.Log("Time: " + time);
-        Debug.Log("Radio Message Timer: " + radioMessageTimer);
-        Debug.Log("Get On With It Timer: "+ getOnWithItTimer);
     }
 
     private void OnEnable()
