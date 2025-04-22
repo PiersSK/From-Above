@@ -16,9 +16,12 @@ MonoBehaviour:
   playOnTimeCondition: 1
   playOnPhaseTransition: 0
   playOnTaskCompletion: 0
-  timeConditionType: 2
+  timeConditionType: 3
   absoluteSecondsIntoPhase: 0
   absoluteSecondsBeforePhaseEnd: 0
   percentageThroughPhase: 0
-  secondsSinceLastVoiceLine: 240
+  secondsSinceLastVoiceLine: 0
+  secondsOfInactivity: 240
+  inactivityStartTask: {fileID: 11400000, guid: d0f6f520340b2b1439e392b531bd5bbc, type: 2}
+  inactivityEndTask: {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
   taskTrigger: {fileID: 0}

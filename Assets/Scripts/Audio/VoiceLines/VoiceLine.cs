@@ -22,7 +22,8 @@ public class VoiceLine : ScriptableObject
     public int percentageThroughPhase;
     public int secondsSinceLastVoiceLine;
     public int secondsOfInactivity;
-    public Task cutOffTask;
+    public Task inactivityStartTask;
+    public Task inactivityEndTask;
     
     [Header("Task Trigger Conditions")]
     public Task taskTrigger;
