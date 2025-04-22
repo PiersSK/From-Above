@@ -8,7 +8,6 @@ public class VoiceLineManager : MonoBehaviour
     private List<VoiceLine> playedVoiceLines = new List<VoiceLine>();
     public delegate void OnVoiceLinePlayed(VoiceLine vl);
     public static event OnVoiceLinePlayed VoiceLinePlayed;
-    private float timeSinceLastVoiceLine;
 
     private void Awake()
     {
@@ -89,7 +88,6 @@ public class VoiceLineManager : MonoBehaviour
             audioSource.resource = vl.clip;
             audioSource.Play();
             playedVoiceLines.Add(vl);
-            timeSinceLastVoiceLine = 0f;
             VoiceLinePlayed?.Invoke(vl);
         }
     }
@@ -105,10 +103,10 @@ public class VoiceLineManager : MonoBehaviour
             
             case VoiceLine.TimeConditionType.RelativeToLastVoiceLine:
                 if(vl.name == "Rapier 6 6 - Inactivity Chaser")
-                    if(vl.secondsSinceLastVoiceLine <= TimeController.Instance.getOnWithItTimer)
+                    if(vl.secondsSinceLastVoiceLine <= TimeController.Instance.inactivityTimer)
                         return true;
                     else return false;
-                else if (vl.secondsSinceLastVoiceLine <= TimeController.Instance.radioMessageTimer)   
+                else if (vl.secondsSinceLastVoiceLine <= TimeController.Instance.timeSinceLastVoiceLine)   
                         return true;
                 else return false;
 

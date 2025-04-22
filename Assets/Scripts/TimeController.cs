@@ -6,12 +6,12 @@ public class TimeController : MonoBehaviour
 {
     public static TimeController Instance { get; private set;}
     public float time = 0f;
-    public float radioMessageTimer = 0f;
-    public float getOnWithItTimer = 0f;
+    public float timeSinceLastVoiceLine = 0f;
+    public float inactivityTimer = 0f;
     private bool isTimeSet = false;
-    public bool isGetOnWithItTimerSet = false;
+    public bool isInactivityTimerSet = false;
     public bool isTimePaused = false;
-    public bool isGetOnWithItTimerPaused = false;
+    public bool isInactivityTimerPaused = false;
     public int radioMessagesPlayed = 0;
     public bool getOnWithItMessagePlayed = false;
 
@@ -47,14 +47,14 @@ public class TimeController : MonoBehaviour
             time += Time.deltaTime;
             if(!isTimePaused)
             {
-                radioMessageTimer += Time.deltaTime;
+                timeSinceLastVoiceLine += Time.deltaTime;
             }
         }
-        if (isGetOnWithItTimerSet)
+        if (isInactivityTimerSet)
         {
-            if(!isGetOnWithItTimerPaused)
+            if(!isInactivityTimerPaused)
             {
-                getOnWithItTimer += Time.deltaTime;
+                inactivityTimer += Time.deltaTime;
             }
         }
     }
@@ -96,15 +96,15 @@ public class TimeController : MonoBehaviour
 
     private void VoiceLinePlayed(VoiceLine vl)
     {
-        radioMessageTimer = 0f;
+        timeSinceLastVoiceLine = 0f;
 
         if (vl.name == "Rapier 6 2 - Weapon Warmup")
-            isGetOnWithItTimerSet = true;
+            isInactivityTimerSet = true;
         
         if (vl.name == "Rapier 6 3 - Pick up the pace" && TaskManager.Instance.phaseTwoTasksCompleted == 3)
-            getOnWithItTimer = 0f;
+            inactivityTimer = 0f;
 
         if (vl.name == "Rapier 6 4 - You are the weapon")
-            isGetOnWithItTimerPaused = true;
+            isInactivityTimerPaused = true;
     }
 }
