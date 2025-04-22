@@ -36,13 +36,17 @@ public class VoiceLineEditor : Editor
         EditorGUI.BeginDisabledGroup(voiceLine.timeConditionType != TimeConditionType.AbsoluteFromEnd);
         voiceLine.absoluteSecondsBeforePhaseEnd = EditorGUILayout.IntSlider("Seconds Before Phase End", voiceLine.absoluteSecondsBeforePhaseEnd, 1, 1000);
         EditorGUI.EndDisabledGroup();
+        EditorGUILayout.Space();
         EditorGUI.BeginDisabledGroup(voiceLine.timeConditionType != TimeConditionType.RelativeToLastVoiceLine);
+        EditorGUILayout.LabelField("Relative Time Condition Settings", EditorStyles.miniBoldLabel);
         voiceLine.secondsSinceLastVoiceLine = EditorGUILayout.IntSlider("Seconds Since Last Voice Line", voiceLine.secondsSinceLastVoiceLine, 1, 1000);
         EditorGUI.EndDisabledGroup();
+        EditorGUILayout.Space();
         EditorGUI.BeginDisabledGroup(voiceLine.timeConditionType != TimeConditionType.PeriodOfInactivity);
+        EditorGUILayout.LabelField("Inactivity Condition Settings", EditorStyles.miniBoldLabel);
         voiceLine.secondsOfInactivity = EditorGUILayout.IntSlider("Seconds of Inactivity", voiceLine.secondsOfInactivity, 1, 1000);
-        voiceLine.inactivityStartTask = (Task)EditorGUILayout.ObjectField("Task", voiceLine.inactivityStartTask, typeof(Task), false);
-        voiceLine.inactivityEndTask = (Task)EditorGUILayout.ObjectField("Task", voiceLine.inactivityEndTask, typeof(Task), false);
+        voiceLine.inactivityStartTask = (Task)EditorGUILayout.ObjectField("Inactivity Start Task", voiceLine.inactivityStartTask, typeof(Task), false);
+        voiceLine.inactivityEndTask = (Task)EditorGUILayout.ObjectField("Inactivity End Task", voiceLine.inactivityEndTask, typeof(Task), false);
         EditorGUI.EndDisabledGroup();
         EditorGUI.EndDisabledGroup();
 
