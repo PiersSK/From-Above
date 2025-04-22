@@ -152,6 +152,7 @@ public class TaskManager : MonoBehaviour
         }
 
         TaskCompleted?.Invoke(taskToComplete);
+        TimeController.Instance.inactivityTimer = 0f;
     }
 
     public void ToggleTaskPad()

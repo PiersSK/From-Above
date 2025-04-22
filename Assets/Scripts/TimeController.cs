@@ -9,9 +9,7 @@ public class TimeController : MonoBehaviour
     public float timeSinceLastVoiceLine = 0f;
     public float inactivityTimer = 0f;
     private bool isTimeSet = false;
-    public bool isInactivityTimerSet = false;
     public bool isTimePaused = false;
-    public bool isInactivityTimerPaused = false;
     public int radioMessagesPlayed = 0;
     public bool getOnWithItMessagePlayed = false;
 
@@ -48,12 +46,6 @@ public class TimeController : MonoBehaviour
             if(!isTimePaused)
             {
                 timeSinceLastVoiceLine += Time.deltaTime;
-            }
-        }
-        if (isInactivityTimerSet)
-        {
-            if(!isInactivityTimerPaused)
-            {
                 inactivityTimer += Time.deltaTime;
             }
         }
@@ -97,14 +89,5 @@ public class TimeController : MonoBehaviour
     private void VoiceLinePlayed(VoiceLine vl)
     {
         timeSinceLastVoiceLine = 0f;
-
-        if (vl.name == "Rapier 6 2 - Weapon Warmup")
-            isInactivityTimerSet = true;
-        
-        if (vl.name == "Rapier 6 3 - Pick up the pace" && TaskManager.Instance.phaseTwoTasksCompleted == 3)
-            inactivityTimer = 0f;
-
-        if (vl.name == "Rapier 6 4 - You are the weapon")
-            isInactivityTimerPaused = true;
     }
 }
