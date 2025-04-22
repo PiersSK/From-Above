@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class VoiceLineManager : MonoBehaviour
 {
@@ -112,6 +113,13 @@ public class VoiceLineManager : MonoBehaviour
 
             case VoiceLine.TimeConditionType.AbsoluteFromEnd:
                 if(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) <= vl.absoluteSecondsBeforePhaseEnd)
+                    return true;
+                else return false;
+            
+            case VoiceLine.TimeConditionType.PeriodOfInactivity:
+                if(TimeController.Instance.inactivityTimer >= vl.secondsOfInactivity
+                && TaskManager.Instance.completedTasks.Contains(vl.inactivityStartTask)
+                && !TaskManager.Instance.completedTasks.Contains(vl.inactivityEndTask))
                     return true;
                 else return false;
             default: return false;
