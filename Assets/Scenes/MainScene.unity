@@ -2619,11 +2619,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 0
-  radioMessageTimer: 0
-  getOnWithItTimer: 0
-  isGetOnWithItTimerSet: 0
+  timeSinceLastVoiceLine: 0
+  inactivityTimer: 0
   isTimePaused: 0
-  isGetOnWithItTimerPaused: 0
   radioMessagesPlayed: 0
   getOnWithItMessagePlayed: 0
   phase1TimeLimitMins: 10
