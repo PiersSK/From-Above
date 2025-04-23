@@ -10,6 +10,8 @@ public class Phase : ScriptableObject
     [SerializeField] public TextMeshProUGUI timer;
     [SerializeField] public List<Task> tasks;
     [SerializeField] public List<GameObject> taskBlocks;
+    [SerializeField] public Color HeaderColour;
+
 
     private List<Task> tasksCompleted;
 }

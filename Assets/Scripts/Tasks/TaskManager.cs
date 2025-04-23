@@ -26,7 +26,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private AudioClip padBeep;
     [SerializeField] private GameObject taskPadObj;
     [SerializeField] private GameObject taskPadTrigger;
-    [SerializeField] private TextMeshProUGUI taskPadHeader;
+    //[SerializeField] private TextMeshProUGUI taskPadHeader;
     [SerializeField] private TextMeshProUGUI phaseOneTaskCount;
     [SerializeField] private GameObject phaseOneTaskCountSentence;
     [SerializeField] private GameObject phase2TaskPadCanvas;
@@ -99,7 +99,7 @@ public class TaskManager : MonoBehaviour
         //phaseOneTaskCountSentence.SetActive(false);
         //phase2TaskPadCanvas.SetActive(true);
         phase2taskCount.text = "0/6 STEPS COMPLETED";
-        taskPadHeader.color = UIColors.terminalRed;
+        //taskPadHeader.color = UIColors.terminalRed;
 
         RefreshTaskListUI();
         PhaseChanged?.Invoke();
@@ -201,7 +201,7 @@ public class TaskManager : MonoBehaviour
         phaseOneTaskCount.gameObject.SetActive(true);
         phaseOneTaskCountSentence.SetActive(true);
         phase2TaskPadCanvas.SetActive(false);
-        taskPadHeader.color = UIColors.terminalGreen;
+        //taskPadHeader.color = UIColors.terminalGreen;
 
         RefreshTaskListUI();
         
