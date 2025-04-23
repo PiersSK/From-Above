@@ -4,7 +4,6 @@ using UnityEngine;
 public class VoiceLine : ScriptableObject
 {
     public AudioClip clip;
-    [Header("Trigger Conditions")]
     public bool playOnTimeCondition;
     public bool playOnPhaseTransition;
     public bool playOnTaskCompletion;
@@ -15,7 +14,6 @@ public class VoiceLine : ScriptableObject
         RelativeToLastVoiceLine,
         PeriodOfInactivity
     }
-    [Header("Time Trigger Conditions")]
     public TimeConditionType timeConditionType;
     public int absoluteSecondsIntoPhase;
     public int absoluteSecondsBeforePhaseEnd;
@@ -24,7 +22,5 @@ public class VoiceLine : ScriptableObject
     public int secondsOfInactivity;
     public Task inactivityStartTask;
     public Task inactivityEndTask;
-    
-    [Header("Task Trigger Conditions")]
     public Task taskTrigger;
 }
