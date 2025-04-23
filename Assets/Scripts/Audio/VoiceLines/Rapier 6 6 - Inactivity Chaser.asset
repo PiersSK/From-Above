@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67ff238ec2f04447832a2db48e1f8be, type: 3}
+  m_Name: Rapier 6 6 - Inactivity Chaser
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1722bf87fe70a814ba97342b7035f3ae, type: 3}
+  playOnTimeCondition: 1
+  playOnPhaseTransition: 0
+  playOnTaskCompletion: 0
+  timeConditionType: 3
+  absoluteSecondsIntoPhase: 0
+  absoluteSecondsBeforePhaseEnd: 0
+  percentageThroughPhase: 0
+  secondsSinceLastVoiceLine: 0
+  secondsOfInactivity: 240
+  inactivityStartTask: {fileID: 11400000, guid: d0f6f520340b2b1439e392b531bd5bbc, type: 2}
+  inactivityEndTask: {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
+  taskTrigger: {fileID: 0}
