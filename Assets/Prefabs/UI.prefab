@@ -4050,6 +4050,7 @@ MonoBehaviour:
   completedTaskPopup: {fileID: 1117955386154367464}
   pacifistEnding: {fileID: 2467190152366810468}
   pauseMenu: {fileID: 7945128761322996851}
+  pdSelectUI: {fileID: 8668088041115211935}
   buttonBeep: {fileID: 8300000, guid: 81ab7b9c22d37784c95181bbc3bda47e, type: 3}
 --- !u!114 &6536698555314734023
 MonoBehaviour:
@@ -9062,6 +9063,7 @@ GameObject:
   - component: {fileID: 8422080370443587864}
   - component: {fileID: 4441041511065372881}
   - component: {fileID: 9090277422746690986}
+  - component: {fileID: 8668088041115211935}
   m_Layer: 5
   m_Name: PDMenu
   m_TagString: Untagged
@@ -9129,6 +9131,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8668088041115211935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6074486570641303395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b629ead320564ef4eaacc10d23c70703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PDUIButtonContainer: {fileID: 4708642572910753131}
+  PDCancelBtn: {fileID: 6676272641336582460}
 --- !u!1 &6085298843821656159
 GameObject:
   m_ObjectHideFlags: 0
@@ -12419,8 +12435,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DataReader, Assembly-CSharp
+      - m_Target: {fileID: 8668088041115211935}
+        m_TargetAssemblyTypeName: PDSelectUI, Assembly-CSharp
         m_MethodName: UnlockPlayer
         m_Mode: 1
         m_Arguments:

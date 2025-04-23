@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pacifistEnding;
 
     [SerializeField] private GameObject pauseMenu;
+
+    [SerializeField] private PDSelectUI pdSelectUI;
     private bool taskPadVisible = false;
 
 
@@ -158,5 +161,11 @@ public class UIManager : MonoBehaviour
         navigation.selectOnRight = right;
 
         return navigation;
+    }
+
+    public void ShowPDSelectUI(Action<DataDrive> onClick)
+    {
+        pdSelectUI.ShowUI(onClick);
+        pdSelectUI.gameObject.SetActive(true);
     }
 }

@@ -1,6 +1,4 @@
-using NUnit;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +10,6 @@ public class DataReader : Interactable
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject visiblePD;
 
-
     [SerializeField] private GameObject defaultScreen;
     [SerializeField] private GameObject outputScreen;
     [SerializeField] private TextMeshProUGUI textOutput;
@@ -22,13 +19,8 @@ public class DataReader : Interactable
     [SerializeField] private AudioClip insertSfx;
     [SerializeField] private AudioClip audioDiscSfx;
 
-    [SerializeField] private GameObject PDUI;
-    [SerializeField] private Transform PDUIButtonContainer;
-    [SerializeField] private Button PDCancelBtn;
-
-    private Transform player;
     private const string NODISK = "NONE INSERTED";
-    private List<Button> pdButtons = new();
+
 
     public override bool CanInteract()
     {
@@ -43,84 +35,8 @@ public class DataReader : Interactable
 
     protected override void Interact(Transform p)
     {
-        player = p;
-        PlayerInventory inv = PlayerInventory.Instance;
-
-        if (insertedDrive != null)
-        {
-            UnloadDrive();
-        }
-        else
-        {
-            if(!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
-            InputManager.InputTypeChanged += InputChangedWhilstUIOpen;
-            player.GetComponent<PlayerMotor>().LockPlayer();
-            player.GetComponent<PlayerLook>().ToggleLookLock();
-            UIManager.Instance.ToggleCrosshairVisibility();
-
-            foreach (Transform t in PDUIButtonContainer) Destroy(t.gameObject);
-
-            pdButtons.Clear();
-            foreach (DataDrive d in inv.dataDrivesHeld)
-            {
-                Button b = Instantiate(Resources.Load<Button>("PDButton"), PDUIButtonContainer);
-                b.GetComponent<PDButton>().SetDrive(d, this);
-
-                pdButtons.Add(b);
-                if (inv.dataDrivesHeld.IndexOf(d) == 0 && InputManager.Instance.GamepadIsCurrentInput()) b.Select();
-            }
-
-            foreach(Button b in pdButtons)
-            {
-                int index = pdButtons.IndexOf(b);
-
-                Selectable up = index > 1 ? pdButtons[index - 2] : null;
-                Selectable down = index < pdButtons.Count - (2 - index % 2) ? pdButtons[index + 2 >= pdButtons.Count ? pdButtons.Count - 1 : index + 2] : PDCancelBtn;
-                Selectable left = index % 2 == 1 ? pdButtons[index - 1] : null;
-                Selectable right = index % 2 == 0 && index < pdButtons.Count - 1 ? pdButtons[index + 1] : null;
-
-                b.navigation = UIManager.Instance.CreateNewNavigation(up, down, left, right);
-            }
-
-            PDCancelBtn.navigation = UIManager.Instance.CreateNewNavigation(pdButtons.Count > 0 ? pdButtons[pdButtons.Count - 1] : null, null, null, null);
-
-            PDUI.SetActive(true);
-        }
-    }
-
-    private void InputChangedWhilstUIOpen(InputManager.LastInputType newType)
-    {
-        if (newType == InputManager.LastInputType.KeyboardMouse)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            UIManager.Instance.ClearSelectedUIObject();
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            if (pdButtons.Count > 0)
-                pdButtons[0].Select();
-            else
-                PDCancelBtn.Select();
-        }
-    }
-
-    public void UnlockPlayer()
-    {
-        Transform player = PlayerInventory.Instance.transform;
-
-        PDUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        player.GetComponent<PlayerMotor>().LockPlayer();
-        player.GetComponent<PlayerLook>().ToggleLookLock();
-        UIManager.Instance.ToggleCrosshairVisibility();
-        InputManager.InputTypeChanged -= InputChangedWhilstUIOpen;
-    }
-
-    public void DriveSelected(DataDrive drive)
-    {
-        UnlockPlayer();
-        LoadDrive(drive);
+        if (insertedDrive != null) UnloadDrive();
+        else UIManager.Instance.ShowPDSelectUI(LoadDrive);
     }
 
     public void UnloadDrive()
