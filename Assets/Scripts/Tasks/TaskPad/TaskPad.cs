@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Rendering;
+using TMPro;
 
-public class TaskPad : MonoBehaviour
+public class DailyTaskPad : ITaskPad
 {
+    [SerializeField] public TextMeshProUGUI taskPadHeader;
     [SerializeField] private List<GameObject> phaseCanvases;
     [SerializeField] private List<Phase> phaseData;
 
@@ -21,14 +23,13 @@ public class TaskPad : MonoBehaviour
         Debug.Log($"Phase Canvas count {phaseCanvases.Count}");
     }
 
-    private void updateTaskPadCanvas()
+    protected override void completeTask()
     {
-        phaseCanvases[currentPhaseIndex].gameObject.SetActive(true);
+        throw new NotImplementedException();
     }
 
-    public void MoveToNextPhsae()
+    protected override void updateTaskPadUI()
     {
-        currentPhaseIndex++;
-        updateTaskPadCanvas();
+        throw new NotImplementedException();
     }
 }
