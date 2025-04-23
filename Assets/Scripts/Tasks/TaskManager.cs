@@ -71,7 +71,7 @@ public class TaskManager : MonoBehaviour
         if(isPhaseTwo)
         {
             phase2taskCount.text = phaseTwoTasksCompleted + "/6 STEPS COMPLETED";
-            TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds());
+            TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
             p2Timer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
 
             foreach (GameObject t in phase2taskBlocks)
@@ -79,7 +79,7 @@ public class TaskManager : MonoBehaviour
                 if (phase2taskBlocks.IndexOf(t) < phaseTwoTasksCompleted && !t.activeSelf) t.SetActive(true);
             }
 
-            if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds() && !fireBtn.weaponFired)
+            if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && !fireBtn.weaponFired)
             {
                 PacifistEnding();
             }
@@ -152,6 +152,7 @@ public class TaskManager : MonoBehaviour
         }
 
         TaskCompleted?.Invoke(taskToComplete);
+        TimeController.Instance.inactivityTimer = 0f;
     }
 
     public void ToggleTaskPad()
