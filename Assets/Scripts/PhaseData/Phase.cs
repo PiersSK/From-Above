@@ -6,14 +6,9 @@ using UnityEngine;
 public class Phase : ScriptableObject
 {
     [SerializeField] public AudioClip taskBeep;
-    [SerializeField] public TextMeshProUGUI taskCount;
-    [SerializeField] public TextMeshProUGUI timer;
     [SerializeField] public List<Task> tasks;
-    [SerializeField] public List<GameObject> taskBlocks;
-    [SerializeField] public Color HeaderColour;
 
-
-    private List<Task> tasksCompleted;
+    public List<Task> completedTasks = new List<Task>();
 }
 
 //!!!Notes I am to delete later!!!

@@ -9753,6 +9753,30 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1012498887938938816, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
   m_PrefabInstance: {fileID: 4520452601124261174}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &87730031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87730030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b29ba9e361ea49be56da41b12b1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskPadHeader: {fileID: 1094740445}
+  phaseData: {fileID: 11400000, guid: 93561b666a0815d48803fb18ba6b7bc0, type: 2}
+  taskPadListParent: {fileID: 1857918106}
+  taskBlocksUI:
+  - {fileID: 526303115}
+  - {fileID: 360361802}
+  - {fileID: 2039882770}
+  - {fileID: 328281595}
+  - {fileID: 1808546882}
+  - {fileID: 1403516142}
+  taskCount: {fileID: 863753584}
+  timer: {fileID: 1903954861}
 --- !u!1 &89043884
 GameObject:
   m_ObjectHideFlags: 0
@@ -24301,17 +24325,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &298262890 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5800283411838455937, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
-  m_PrefabInstance: {fileID: 4520452601124261174}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &303377063
 GameObject:
   m_ObjectHideFlags: 0
@@ -34338,11 +34351,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &539936591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1144359261016457800, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
-  m_PrefabInstance: {fileID: 4520452601124261174}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &540215680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61181,13 +61189,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
   - {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
   completedTasks: []
-  phaseTwoTasks:
-  - {fileID: 11400000, guid: d0f6f520340b2b1439e392b531bd5bbc, type: 2}
-  - {fileID: 11400000, guid: 89240a06a4cf0b34da770d6223de8c8d, type: 2}
-  - {fileID: 11400000, guid: 8e0b4c009488d7443930b234c583aa9d, type: 2}
-  - {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
-  - {fileID: 11400000, guid: f4905a7e6614fa8489322f04643b5573, type: 2}
-  - {fileID: 11400000, guid: a39d6bd0373568842b5b1d216523763d, type: 2}
   isPhaseTwo: 0
   pacifistEndingReached: 0
   phaseTwoTasksCompleted: 0
@@ -61196,21 +61197,10 @@ MonoBehaviour:
   padBeep: {fileID: 8300000, guid: 126967ba65395c94994dfc1c7eff1d68, type: 3}
   taskPadObj: {fileID: 4520452601124261175}
   taskPadTrigger: {fileID: 113992632}
-  phaseOneTaskCount: {fileID: 298262890}
-  phaseOneTaskCountSentence: {fileID: 539936591}
-  phase2TaskPadCanvas: {fileID: 0}
-  phase2taskCount: {fileID: 863753584}
   p2Timer: {fileID: 1903954861}
-  phase2taskBlocks:
-  - {fileID: 526303115}
-  - {fileID: 360361802}
-  - {fileID: 2039882770}
-  - {fileID: 328281595}
-  - {fileID: 1808546882}
-  - {fileID: 1403516142}
   phases:
-  - {fileID: 11400000, guid: eb58bf63f69a4074e8b5e065b1d997a6, type: 2}
-  - {fileID: 11400000, guid: 93561b666a0815d48803fb18ba6b7bc0, type: 2}
+  - {fileID: 4520452601124261179}
+  - {fileID: 87730031}
   fireBtn: {fileID: 663069162}
   player: {fileID: 1250557289}
   pacifistSoundtrack: {fileID: 11400000, guid: 62653a9de25016446a78aad31b18de3a, type: 2}
@@ -92960,7 +92950,7 @@ PrefabInstance:
       objectReference: {fileID: 1368331533}
     - target: {fileID: 3788006165991897918, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_VersionIndex
-      value: 1216
+      value: 1219
       objectReference: {fileID: 0}
     - target: {fileID: 3869430885053537799, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_Name
@@ -92976,7 +92966,7 @@ PrefabInstance:
       objectReference: {fileID: 339547245}
     - target: {fileID: 4343767993267326447, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_VersionIndex
-      value: 865
+      value: 868
       objectReference: {fileID: 0}
     - target: {fileID: 4373348727616096029, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -92988,7 +92978,7 @@ PrefabInstance:
       objectReference: {fileID: 1802057522}
     - target: {fileID: 4567504064195909455, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_VersionIndex
-      value: 865
+      value: 868
       objectReference: {fileID: 0}
     - target: {fileID: 7612117292630957548, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_Mesh
@@ -133436,7 +133426,7 @@ PrefabInstance:
       objectReference: {fileID: 604302280}
     - target: {fileID: 525726324227998627, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1375
+      value: 1378
       objectReference: {fileID: 0}
     - target: {fileID: 916898657491349458, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -133444,19 +133434,27 @@ PrefabInstance:
       objectReference: {fileID: 1828977680}
     - target: {fileID: 916898657491349458, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1024
+      value: 1027
       objectReference: {fileID: 0}
     - target: {fileID: 993093963443648295, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1200293074}
+    - target: {fileID: 1012498887938938816, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: m_Name
+      value: WeaponTaskPad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012498887938938816, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1122059581148116338, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 767253219}
     - target: {fileID: 1122059581148116338, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1024
+      value: 1027
       objectReference: {fileID: 0}
     - target: {fileID: 1342519930052903901, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -133534,6 +133532,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1339805080}
+    - target: {fileID: 4175833895289748011, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: m_Name
+      value: DailyTaskPad
+      objectReference: {fileID: 0}
     - target: {fileID: 4621991467759699240, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -133554,6 +133556,10 @@ PrefabInstance:
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 1641273590}
+    - target: {fileID: 5363513017121031448, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5652793803996411498, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -133626,7 +133632,13 @@ PrefabInstance:
     - {fileID: 4991980085073537506, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1012498887938938816, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 87730031}
+    - targetCorrespondingSourceObject: {fileID: 4175833895289748011, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4520452601124261179}
   m_SourcePrefab: {fileID: 100100000, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
 --- !u!1 &4520452601124261175 stripped
 GameObject:
@@ -133638,6 +133650,39 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4175833895289748011, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
   m_PrefabInstance: {fileID: 4520452601124261174}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4520452601124261177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1951424976830588233, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+  m_PrefabInstance: {fileID: 4520452601124261174}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4520452601124261178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2733062044742600137, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+  m_PrefabInstance: {fileID: 4520452601124261174}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4520452601124261179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520452601124261176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b255120b404fdf49a50a868e4810ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskPadHeader: {fileID: 1094740445}
+  phaseData: {fileID: 11400000, guid: eb58bf63f69a4074e8b5e065b1d997a6, type: 2}
+  taskPadListParent: {fileID: 1857918106}
+  taskCounter: {fileID: 4520452601124261178}
+  taskCounterSentence: {fileID: 4520452601124261177}
 --- !u!1 &4520494197180661522
 GameObject:
   m_ObjectHideFlags: 0
