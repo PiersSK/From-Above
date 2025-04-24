@@ -14,26 +14,21 @@ public class TaskManager : MonoBehaviour
 
     public List<Task> tasks;
     public List<Task> completedTasks;
-    [SerializeField] private List<Task> phaseTwoTasks;
-    public bool isPhaseTwo = false;
-    public bool pacifistEndingReached = false;
+    public bool isPhaseTwo = false; //Remove From Other managers before deleting
+    public bool pacifistEndingReached = false; //Remove from other managers before deleting
     public int phaseTwoTasksCompleted = 0;
-    public bool DEBUG_startOnPhaseTwo = true;
+    public bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
-    private const string TASKUIOBJECT = "Task";
 
     private Animator taskPadAnim;
     [SerializeField] private AudioClip padBeep;
     [SerializeField] private GameObject taskPadObj;
     [SerializeField] private GameObject taskPadTrigger;
-    //[SerializeField] private TextMeshProUGUI taskPadHeader;
-    [SerializeField] private TextMeshProUGUI phaseOneTaskCount;
-    [SerializeField] private GameObject phaseOneTaskCountSentence;
-    [SerializeField] private GameObject phase2TaskPadCanvas;
-    [SerializeField] private TextMeshProUGUI phase2taskCount;
     [SerializeField] private TextMeshProUGUI p2Timer;
-    [SerializeField] private List<GameObject> phase2taskBlocks;
-    [SerializeField] private List<Phase> phases;
+
+    [SerializeField] private List<ITaskPad> phases;
+    private ITaskPad currentPhase;
+    private int currentPhaseIndex = 0;
 
     [SerializeField] private FireButton fireBtn;
     [SerializeField] private Transform player;
@@ -60,48 +55,28 @@ public class TaskManager : MonoBehaviour
 
     private void Start()
     {
+        currentPhaseIndex = DEBUG_startOnPhaseTwo ? 1 : 0;
+        currentPhase = phases[currentPhaseIndex];
+
         taskPadAnim = taskPadObj.GetComponent<Animator>();
-        if(DEBUG_startOnPhaseTwo) MoveToPhaseTwo();
         SoundtrackManager.SoundtrackChanged += OnSoundtrackChange;
     }
 
     private void Update()
-    {
-        if(isPhaseTwo)
+    {    
+        if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds() && !fireBtn.weaponFired)
         {
-            phase2taskCount.text = phaseTwoTasksCompleted + "/6 STEPS COMPLETED";
-            TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds());
-            p2Timer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
-
-            foreach (GameObject t in phase2taskBlocks)
-            {
-                if (phase2taskBlocks.IndexOf(t) < phaseTwoTasksCompleted && !t.activeSelf) t.SetActive(true);
-            }
-
-            if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds() && !fireBtn.weaponFired)
-            {
-                PacifistEnding();
-            }
+            PacifistEnding();
         }
     }
 
-    private void MoveToPhaseTwo()
+    private void MoveToNextPhase()
     {
-        isPhaseTwo = true;
-        completedTasks.AddRange(tasks);
-        tasks.Clear();
-        tasks.Add(phaseTwoTasks[0]);
-        phaseTwoTasks.RemoveAt(0);
+        currentPhaseIndex++;
+        currentPhase.EndCurrentPhase();
+        currentPhase = phases[currentPhaseIndex];
+        currentPhase.BeginCurrentPhase();
 
-        var taskPadScripot = taskPadObj.GetComponent<TaskPad>();
-        taskPadScripot.MoveToNextPhsae();
-        //phaseOneTaskCount.gameObject.SetActive(false);
-        //phaseOneTaskCountSentence.SetActive(false);
-        //phase2TaskPadCanvas.SetActive(true);
-        phase2taskCount.text = "0/6 STEPS COMPLETED";
-        //taskPadHeader.color = UIColors.terminalRed;
-
-        RefreshTaskListUI();
         PhaseChanged?.Invoke();
     }
 
@@ -111,52 +86,23 @@ public class TaskManager : MonoBehaviour
         player.GetComponent<PlayerMotor>().LockPlayer();
         taskPadObj.SetActive(true);
         taskPadTrigger.SetActive(true);
+
+        currentPhase.BeginCurrentPhase();
         ToggleTaskPad();
-        RefreshTaskListUI();
     }
-
-    private void refreshTaskPadPhaseData(int phaseIndex)
-    {
-        var phaseObj = phases[phaseIndex];
-
-        phaseOneTaskCount.text = phaseObj.taskCount.ToString();
-    }
-
-    private void RefreshTaskListUI()
-    {
-        phaseOneTaskCount.text = tasks.Count.ToString();
-
-        foreach (Transform task in taskPadListParent) Destroy(task.gameObject);
-
-        foreach (var task in tasks)
-        {
-            Transform taskUI = Instantiate<Transform>(Resources.Load<Transform>(TASKUIOBJECT), taskPadListParent);
-            taskUI.GetComponent<TaskPadTask>().SetTask(task);
-        }
-    }
-
 
     public void CompleteTask(Task taskToComplete)
     {
-        if (!tasks.Contains(taskToComplete)) return;
-
+        currentPhase.CompleteTask(taskToComplete);
         completedTasks.Add(taskToComplete);
-        tasks.Remove(taskToComplete);
 
-        if(isPhaseTwo) phaseTwoTasksCompleted++;
-        if (isPhaseTwo && phaseTwoTasks.Count > 0)
-        {
-            tasks.Add(phaseTwoTasks[0]);
-            phaseTwoTasks.RemoveAt(0);
-        }
-
-        RefreshTaskListUI();
+        currentPhase.UpdateTaskPadUI();
         UIManager.Instance.CompletedTaskPopup();
-        SoundManager.Instance.PlaySFXOneShot(isPhaseTwo ? phases[1].taskBeep : phases[0].taskBeep);
+        SoundManager.Instance.PlaySFXOneShot(currentPhase.phaseData.taskBeep);
 
-        if(!isPhaseTwo && tasks.Count == 0)
+        if(currentPhase.phaseData.tasks.Count == 0)
         {
-            MoveToPhaseTwo();
+            MoveToNextPhase();
         }
 
         TaskCompleted?.Invoke(taskToComplete);
@@ -181,10 +127,13 @@ public class TaskManager : MonoBehaviour
         if (newSoundtrack == pacifistSoundtrack)
         {
             if (pacifistEndingReached)
+            {
                 Invoke("ShowPacifistEnding", newSoundtrack.clip.length - 12f);
+            }
             else
+            {
                 SoundManager.Instance.PauseBgMusic();
-
+            }
 
             SoundtrackManager.SoundtrackChanged -= OnSoundtrackChange;
         }
@@ -197,15 +146,10 @@ public class TaskManager : MonoBehaviour
 
     private void PacifistEnding()
     {
-        tasks.Clear();
-        phaseOneTaskCount.gameObject.SetActive(true);
-        phaseOneTaskCountSentence.SetActive(true);
-        phase2TaskPadCanvas.SetActive(false);
-        //taskPadHeader.color = UIColors.terminalGreen;
-
-        RefreshTaskListUI();
+        currentPhase.EndCurrentPhase();
+        currentPhaseIndex = 0;
+        currentPhase.BeginCurrentPhase();
         
-        isPhaseTwo = false;
         pacifistEndingReached = true;
     }
 }
