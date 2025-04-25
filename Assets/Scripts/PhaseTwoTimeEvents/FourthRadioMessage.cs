@@ -5,12 +5,12 @@ public class FourthRadioMessage : TimedEvent
 {
      public override bool ShouldEventTrigger()
     {
-        return (!hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond)) ||
-        (!hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TaskManager.Instance.phaseTwoTasksCompleted == 4);
+        return (!hasBeenTriggered && TaskManager.Instance.isWeaponPhase && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond)) ||
+        (!hasBeenTriggered && TaskManager.Instance.isWeaponPhase && TaskManager.Instance.weaponPhaseCompletedTasks == 4);
     }
     public override void TriggerEvent()
     {
-        if(TaskManager.Instance.phaseTwoTasksCompleted == 4)
+        if(TaskManager.Instance.weaponPhaseCompletedTasks == 4)
         {
             TimeController.Instance.isGetOnWithItTimerPaused = true;
             TimeController.Instance.isTimePaused = false;

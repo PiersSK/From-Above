@@ -14,9 +14,9 @@ public class TaskManager : MonoBehaviour
 
     public List<Task> tasks;
     public List<Task> completedTasks;
-    public bool isPhaseTwo = false; //Remove From Other managers before deleting
+    public bool isWeaponPhase = false; //Remove From Other managers before deleting
     public bool pacifistEndingReached = false; //Remove from other managers before deleting
-    public int phaseTwoTasksCompleted = 0;
+    public int weaponPhaseCompletedTasks = 0;
     public bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
 
@@ -26,7 +26,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private GameObject taskPadTrigger;
     [SerializeField] private TextMeshProUGUI p2Timer;
 
-    [SerializeField] private List<ITaskPad> phases;
+    [SerializeField] public List<ITaskPad> phases;
     private ITaskPad currentPhase;
     private int currentPhaseIndex = 0;
 
@@ -73,6 +73,7 @@ public class TaskManager : MonoBehaviour
     private void MoveToNextPhase()
     {
         currentPhaseIndex++;
+        isWeaponPhase = currentPhaseIndex == 1;
         currentPhase.EndCurrentPhase();
         currentPhase = phases[currentPhaseIndex];
         currentPhase.BeginCurrentPhase();
@@ -99,6 +100,11 @@ public class TaskManager : MonoBehaviour
         currentPhase.UpdateTaskPadUI();
         UIManager.Instance.CompletedTaskPopup();
         SoundManager.Instance.PlaySFXOneShot(currentPhase.phaseData.taskBeep);
+
+        if(currentPhaseIndex == 1)
+        {
+            weaponPhaseCompletedTasks = currentPhase.phaseData.completedTasks.Count;
+        }
 
         if(currentPhase.phaseData.tasks.Count == 0)
         {

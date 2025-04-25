@@ -25,7 +25,7 @@ public class TimedEvent : MonoBehaviour
         TimeController.Instance.radioMessagesPlayed ++;
     } 
     public virtual bool ShouldEventTrigger(){
-        return !hasBeenTriggered && TaskManager.Instance.isPhaseTwo && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond);
+        return !hasBeenTriggered && TaskManager.Instance.isWeaponPhase && TimeController.Instance.RadioMessageTimeHasPassed(eventMinute, eventSecond);
     }
     
     public void SetEventStartTime(int min, int sec)

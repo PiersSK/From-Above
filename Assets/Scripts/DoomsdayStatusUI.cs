@@ -37,8 +37,8 @@ public class DoomsdayStatusUI : MonoBehaviour
 
     private void Update()
     {
-        authStatus.text = TaskManager.Instance.isPhaseTwo ? "WEAPON USE AUTHORISED" : "USE CURRENTLY UNAUTHORISED";
-        stepsUI.SetActive(TaskManager.Instance.isPhaseTwo && !fireIsReady);
+        authStatus.text = TaskManager.Instance.isWeaponPhase ? "WEAPON USE AUTHORISED" : "USE CURRENTLY UNAUTHORISED";
+        stepsUI.SetActive(TaskManager.Instance.isWeaponPhase && !fireIsReady);
 
         initiationStatus.text = warmedUp ? "WEAPON CORE WARMED UP" : "NOT STARTED";
         targetingStatus.text = calibrated.ToString() + "/2 CALIBRATED";

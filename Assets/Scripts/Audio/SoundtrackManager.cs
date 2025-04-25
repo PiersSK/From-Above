@@ -116,7 +116,7 @@ public class SoundtrackManager : MonoBehaviour
         // Checks for instant skips due to to criteria being met in the past
         if ((currentSoundtrack.progressOnTaskCompletion && TaskManager.Instance.completedTasks.Contains(currentSoundtrack.progressAfter)) // Task is completed
             || CheckSoundtrackShouldProgress() // Timer has already passed
-            || currentSoundtrack.progressOnPhaseTransition && TaskManager.Instance.isPhaseTwo) // Phase transition has already occurred
+            || currentSoundtrack.progressOnPhaseTransition && TaskManager.Instance.isWeaponPhase) // Phase transition has already occurred
         {
             MoveToNextSoundtrack();
         }

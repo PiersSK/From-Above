@@ -45,7 +45,7 @@ public class BridgeTerminal : Computer
 
     override protected void Update()
     {
-        if (phase1Screen.activeSelf && TaskManager.Instance.isPhaseTwo) ShowPhaseTwoScreen();
+        if (phase1Screen.activeSelf && TaskManager.Instance.isWeaponPhase) ShowPhaseTwoScreen();
         if (phase2Screen.activeSelf) PhaseTwoStatusUpdate();
         if (TaskManager.Instance.pacifistEndingReached)
         {
@@ -74,13 +74,15 @@ public class BridgeTerminal : Computer
 
     public void PhaseTwoStatusUpdate()
     {
-        p2TaskCounter.text = TaskManager.Instance.phaseTwoTasksCompleted + "/6 STEPS COMPLETED";
+        var weaponTasksCompleted = TaskManager.Instance.weaponPhaseCompletedTasks;
+
+        p2TaskCounter.text = weaponTasksCompleted + "/6 STEPS COMPLETED";
         TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins* 60 - TimeController.Instance.GetTimeInSeconds());
         p2Timer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
 
         foreach (GameObject t in phase2StatusBlocks)
         {
-            if (phase2StatusBlocks.IndexOf(t)  < TaskManager.Instance.phaseTwoTasksCompleted && !t.activeSelf) t.SetActive(true);
+            if (phase2StatusBlocks.IndexOf(t)  < weaponTasksCompleted && !t.activeSelf) t.SetActive(true);
         }
     }
 

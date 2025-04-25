@@ -9,7 +9,7 @@ public class ServerButton : Interactable
     public override bool CanInteract()
     {
 
-        return base.CanInteract() && (usableInPhaseOne || TaskManager.Instance.isPhaseTwo) && exe != null && exe.IsRunnable();
+        return base.CanInteract() && (usableInPhaseOne || TaskManager.Instance.isWeaponPhase) && exe != null && exe.IsRunnable();
     }
 
     protected override void Interact(Transform player)

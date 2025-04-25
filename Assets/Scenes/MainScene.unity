@@ -61189,9 +61189,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
   - {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
   completedTasks: []
-  isPhaseTwo: 0
+  isWeaponPhase: 0
   pacifistEndingReached: 0
-  phaseTwoTasksCompleted: 0
+  weaponPhaseCompletedTasks: 0
   DEBUG_startOnPhaseTwo: 0
   taskPadListParent: {fileID: 1857918106}
   padBeep: {fileID: 8300000, guid: 126967ba65395c94994dfc1c7eff1d68, type: 3}
@@ -122690,6 +122690,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1646619203}
+    - target: {fileID: 1802775513349088729, guid: 48b32517a83bb45339ccaf7c76dc562e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2087035032737093789, guid: 48b32517a83bb45339ccaf7c76dc562e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -122741,6 +122745,10 @@ PrefabInstance:
     - target: {fileID: 6870922300650883174, guid: 48b32517a83bb45339ccaf7c76dc562e, type: 3}
       propertyPath: m_Name
       value: BridgeTerminal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337635964796963137, guid: 48b32517a83bb45339ccaf7c76dc562e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575440741854930776, guid: 48b32517a83bb45339ccaf7c76dc562e, type: 3}
       propertyPath: PDUI
@@ -133536,6 +133544,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DailyTaskPad
       objectReference: {fileID: 0}
+    - target: {fileID: 4175833895289748011, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621991467759699240, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -133650,11 +133662,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4175833895289748011, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
   m_PrefabInstance: {fileID: 4520452601124261174}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4520452601124261177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1951424976830588233, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
-  m_PrefabInstance: {fileID: 4520452601124261174}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4520452601124261178 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2733062044742600137, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
@@ -133681,8 +133688,19 @@ MonoBehaviour:
   taskPadHeader: {fileID: 1094740445}
   phaseData: {fileID: 11400000, guid: eb58bf63f69a4074e8b5e065b1d997a6, type: 2}
   taskPadListParent: {fileID: 1857918106}
-  taskCounter: {fileID: 4520452601124261178}
-  taskCounterSentence: {fileID: 4520452601124261177}
+  taskCounter: {fileID: 4520452601124261180}
+  taskCounterSentence: {fileID: 4520452601124261178}
+--- !u!114 &4520452601124261180 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5800283411838455937, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+  m_PrefabInstance: {fileID: 4520452601124261174}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4520494197180661522
 GameObject:
   m_ObjectHideFlags: 0
