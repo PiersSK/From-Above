@@ -14,7 +14,7 @@ public class LimitedTimedEvent : TimedEvent
     public virtual void TriggerEventEnd() { }
     public virtual bool ShouldEventEndTrigger(int radioMessagesPlayed, float time, int weaponPhaseCompletedTasks)
     {
-        return hasBeenTriggered && !eventHasEnded && TimeController.Instance.TimeHasPassed(eventEndMinute, eventEndSecond) && TaskManager.Instance.isWeaponPhase;
+        return hasBeenTriggered && !eventHasEnded && TimeController.Instance.TimeHasPassed(time, eventEndMinute, eventEndSecond) && TaskManager.Instance.isWeaponPhase;
     }
 
     public void SetEventEndTime(int min, int sec)

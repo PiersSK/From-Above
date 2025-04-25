@@ -64,7 +64,7 @@ public class TaskManager : MonoBehaviour
 
     private void Update()
     {    
-        if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds() && !fireBtn.weaponFired)
+        if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && !fireBtn.weaponFired)
         {
             PacifistEnding();
         }
@@ -112,6 +112,7 @@ public class TaskManager : MonoBehaviour
         }
 
         TaskCompleted?.Invoke(taskToComplete);
+        TimeController.Instance.inactivityTimer = 0f;
     }
 
     public void ToggleTaskPad()

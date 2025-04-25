@@ -77,7 +77,7 @@ public class BridgeTerminal : Computer
         var weaponTasksCompleted = TaskManager.Instance.weaponPhaseCompletedTasks;
 
         p2TaskCounter.text = weaponTasksCompleted + "/6 STEPS COMPLETED";
-        TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins* 60 - TimeController.Instance.GetTimeInSeconds());
+        TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins* 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
         p2Timer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
 
         foreach (GameObject t in phase2StatusBlocks)
