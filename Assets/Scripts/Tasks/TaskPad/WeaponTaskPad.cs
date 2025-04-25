@@ -37,7 +37,14 @@ public class WeaponTaskPad : ITaskPad
 
     public override void UpdateTaskPadUI()
     {
-        base.UpdateTaskPadUI();
+        foreach (Transform task in taskPadListParent)
+        {
+            Destroy(task.gameObject);
+        }
+
+        Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
+        taskUI.GetComponent<TaskPadTask>().SetTask(phaseData.tasks[0]);
+        
     }
 
     public override void BeginCurrentPhase()

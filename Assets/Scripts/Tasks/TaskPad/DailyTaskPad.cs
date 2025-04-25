@@ -7,14 +7,12 @@ public class DailyTaskPad : ITaskPad
 {
     [Header("Canvas Items")]
     [SerializeField] private TextMeshProUGUI taskCounter;
-    [SerializeField] private GameObject taskCounterSentence;
-    
-
-    private int currentPhaseIndex = 0;
+    [SerializeField] private TextMeshProUGUI taskCounterSentence;
 
     public override void BeginCurrentPhase()
     {
         taskPadHeader.color = UIColors.terminalGreen;
+        taskCounterSentence.text = "You have       urgent commands REMAINING";
         UpdateTaskPadUI();
         base.BeginCurrentPhase();
     }
