@@ -20,7 +20,7 @@ public class WeaponTaskPad : ITaskPad
     // Update is called once per frame
     private void Update()
     {
-        TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase1TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds());
+        TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase1TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
         timer.text = $"{time.Minutes.ToString("00")}:{time.Seconds.ToString("00")}";
     }
 
