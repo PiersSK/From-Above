@@ -14,7 +14,7 @@ public class TaskStateChange : MonoBehaviour
 
     private void Update()
     {
-        if(TaskManager.Instance.tasks.Contains(task))
+        if(TaskManager.Instance.currentPhase.tasks.Contains(task))
         {
             if (type == ChangeType.Disappear) Destroy(gameObject);
             else if (type == ChangeType.Appear) GetComponent<Renderer>().enabled = true;

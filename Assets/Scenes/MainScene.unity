@@ -9835,8 +9835,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskPadHeader: {fileID: 1094740445}
-  phaseData: {fileID: 11400000, guid: 93561b666a0815d48803fb18ba6b7bc0, type: 2}
+  taskBeep: {fileID: 8300000, guid: 9655e5b53fccf3b4ab846fe5a4d5d065, type: 3}
+  tasks:
+  - {fileID: 11400000, guid: d0f6f520340b2b1439e392b531bd5bbc, type: 2}
+  - {fileID: 11400000, guid: 89240a06a4cf0b34da770d6223de8c8d, type: 2}
+  - {fileID: 11400000, guid: 8e0b4c009488d7443930b234c583aa9d, type: 2}
+  - {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
+  - {fileID: 11400000, guid: f4905a7e6614fa8489322f04643b5573, type: 2}
+  - {fileID: 11400000, guid: a39d6bd0373568842b5b1d216523763d, type: 2}
   taskPadListParent: {fileID: 1857918106}
+  completedTasks: []
   taskBlocksUI:
   - {fileID: 526303115}
   - {fileID: 360361802}
@@ -60978,13 +60986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a73a887b8ea104a86f9e06fe08296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tasks:
-  - {fileID: 11400000, guid: d084be36290300e4fb6dad21e6e3ff41, type: 2}
-  - {fileID: 11400000, guid: 7d63be8856f7dad40b0f0718bbe23513, type: 2}
-  - {fileID: 11400000, guid: 59cf49005981c9b4ca61aced8023cb71, type: 2}
-  - {fileID: 11400000, guid: be674cb2ee166e2499011f9abb6dc4fc, type: 2}
-  - {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
-  - {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
   completedTasks: []
   isWeaponPhase: 0
   pacifistEndingReached: 0
@@ -60998,6 +60999,7 @@ MonoBehaviour:
   phases:
   - {fileID: 4520452601124261179}
   - {fileID: 87730031}
+  currentPhase: {fileID: 0}
   fireBtn: {fileID: 663069162}
   player: {fileID: 1250557289}
   pacifistSoundtrack: {fileID: 11400000, guid: 62653a9de25016446a78aad31b18de3a, type: 2}
@@ -133262,8 +133264,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskPadHeader: {fileID: 1094740445}
-  phaseData: {fileID: 11400000, guid: eb58bf63f69a4074e8b5e065b1d997a6, type: 2}
+  taskBeep: {fileID: 8300000, guid: 02d82c2595760204ba17aba5071fabcc, type: 3}
+  tasks:
+  - {fileID: 11400000, guid: d084be36290300e4fb6dad21e6e3ff41, type: 2}
+  - {fileID: 11400000, guid: 7d63be8856f7dad40b0f0718bbe23513, type: 2}
+  - {fileID: 11400000, guid: 59cf49005981c9b4ca61aced8023cb71, type: 2}
+  - {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
+  - {fileID: 11400000, guid: be674cb2ee166e2499011f9abb6dc4fc, type: 2}
+  - {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
   taskPadListParent: {fileID: 1857918106}
+  completedTasks: []
   taskCounter: {fileID: 4520452601124261180}
   taskCounterSentence: {fileID: 4520452601124261178}
 --- !u!114 &4520452601124261180 stripped

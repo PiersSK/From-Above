@@ -29,7 +29,7 @@ public class DailyTaskPad : ITaskPad
 
     public override void UpdateTaskPadUI()
     {
-        taskCounter.text = phaseData.tasks.Count.ToString();
+        taskCounter.text = tasks.Count.ToString();
         base.UpdateTaskPadUI();
     }
 }

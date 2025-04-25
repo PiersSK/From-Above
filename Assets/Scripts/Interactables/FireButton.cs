@@ -15,16 +15,13 @@ public class FireButton : Interactable
 
     public bool weaponFired = false;
 
-    [SerializeField] List<AudioSource> commanderLines;
-
     public override bool CanInteract()
     {
-        return TaskManager.Instance.tasks.Contains(task);
+        return TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
     protected override void Interact(Transform player)
     {
-        foreach (AudioSource source in commanderLines) source.enabled = false;
 
         anim.SetTrigger("Press");
         TaskManager.Instance.CompleteTask(task);

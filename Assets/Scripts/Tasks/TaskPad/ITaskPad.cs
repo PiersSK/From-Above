@@ -1,11 +1,15 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public abstract class ITaskPad : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI taskPadHeader;
-    [SerializeField] public Phase phaseData;
+    [SerializeField] public AudioClip taskBeep;
+    [SerializeField] public List<Task> tasks;
     [SerializeField] protected Transform taskPadListParent;
+
+    public List<Task> completedTasks = new List<Task>();
 
     protected bool hasTimer = false;
     protected const string TASKUIOBJECT = "Task";
@@ -14,7 +18,7 @@ public abstract class ITaskPad : MonoBehaviour
     {
         foreach (Transform task in taskPadListParent) Destroy(task.gameObject);
 
-        foreach (var task in phaseData.tasks)
+        foreach (var task in tasks)
         {
             Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
             taskUI.GetComponent<TaskPadTask>().SetTask(task);
@@ -23,10 +27,10 @@ public abstract class ITaskPad : MonoBehaviour
 
     public virtual void CompleteTask(Task completedTask) 
     {
-        if (!phaseData.tasks.Contains(completedTask)) return;
+        if (!tasks.Contains(completedTask)) return;
 
-        phaseData.completedTasks.Add(completedTask);
-        phaseData.tasks.Remove(completedTask);
+        completedTasks.Add(completedTask);
+        tasks.Remove(completedTask);
     }
 
     public virtual void BeginCurrentPhase()
@@ -37,7 +41,6 @@ public abstract class ITaskPad : MonoBehaviour
     public virtual void EndCurrentPhase()
     {
         gameObject.SetActive(false);
-        phaseData.tasks = phaseData.completedTasks;
-        phaseData.completedTasks.Clear();
+        completedTasks.Clear();
     }
 }

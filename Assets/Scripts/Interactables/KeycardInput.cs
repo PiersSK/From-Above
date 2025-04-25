@@ -25,7 +25,7 @@ public class KeycardInput : Interactable
 
     public override bool CanInteract()
     {
-        return TaskManager.Instance.tasks.Contains(task) && !keyInserted
+        return TaskManager.Instance.currentPhase.tasks.Contains(task) && !keyInserted
             && ((key == KeyCardRequired.One && PlayerInventory.Instance.hasKeycard1)
                || (key == KeyCardRequired.Two && PlayerInventory.Instance.hasKeycard2));
     }
@@ -42,7 +42,7 @@ public class KeycardInput : Interactable
 
     public override string GetRequirementMessage()
     {
-        if (TaskManager.Instance.tasks.Contains(task) && !keyInserted)
+        if (TaskManager.Instance.currentPhase.tasks.Contains(task) && !keyInserted)
         {
             if (key == KeyCardRequired.One)
                 return KEYCARD1NEEDED;

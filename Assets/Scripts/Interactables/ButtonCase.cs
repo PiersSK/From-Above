@@ -9,7 +9,7 @@ public class ButtonCase : Interactable
 
     public override bool CanInteract()
     {
-        return !isUp && TaskManager.Instance.tasks.Contains(task);
+        return !isUp && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
     protected override void Interact(Transform player)

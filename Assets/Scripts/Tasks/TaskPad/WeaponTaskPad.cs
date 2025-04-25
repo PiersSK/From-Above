@@ -14,7 +14,7 @@ public class WeaponTaskPad : ITaskPad
 
     private void Awake()
     {
-        totalTaskCount = phaseData.tasks.Count;
+        totalTaskCount = tasks.Count;
     }
 
     // Update is called once per frame
@@ -27,11 +27,11 @@ public class WeaponTaskPad : ITaskPad
     public override void CompleteTask(Task completedTask)
     {
         base.CompleteTask(completedTask);
-        taskCount.text = $"{phaseData.completedTasks.Count}/{totalTaskCount} STEPS COMPLETED";
+        taskCount.text = $"{completedTasks.Count}/{totalTaskCount} STEPS COMPLETED";
 
         foreach (GameObject t in taskBlocksUI)
         {
-            if (taskBlocksUI.IndexOf(t) < phaseData.completedTasks.Count && !t.activeSelf) t.SetActive(true);
+            if (taskBlocksUI.IndexOf(t) < completedTasks.Count && !t.activeSelf) t.SetActive(true);
         }
     }
 
@@ -43,13 +43,13 @@ public class WeaponTaskPad : ITaskPad
         }
 
         Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
-        taskUI.GetComponent<TaskPadTask>().SetTask(phaseData.tasks[0]);
+        taskUI.GetComponent<TaskPadTask>().SetTask(tasks[0]);
         
     }
 
     public override void BeginCurrentPhase()
     {
-        taskCount.text = $"{phaseData.completedTasks.Count}/{totalTaskCount} STEPS COMPLETED";
+        taskCount.text = $"{completedTasks.Count}/{totalTaskCount} STEPS COMPLETED";
         taskPadHeader.color = UIColors.terminalRed;
         UpdateTaskPadUI();
         base.BeginCurrentPhase();
