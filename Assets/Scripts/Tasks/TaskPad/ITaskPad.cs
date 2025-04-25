@@ -37,5 +37,7 @@ public abstract class ITaskPad : MonoBehaviour
     public virtual void EndCurrentPhase()
     {
         gameObject.SetActive(false);
+        phaseData.tasks = phaseData.completedTasks;
+        phaseData.completedTasks.Clear();
     }
 }

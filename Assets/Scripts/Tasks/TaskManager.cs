@@ -156,6 +156,8 @@ public class TaskManager : MonoBehaviour
         currentPhaseIndex = 0;
         currentPhase.BeginCurrentPhase();
         
+
+        isWeaponPhase = false;
         pacifistEndingReached = true;
     }
 }
