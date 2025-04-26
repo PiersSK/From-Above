@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using System;
 
-public class WeaponTaskPad : ITaskPad
+public class WeaponTaskPhase : IPhase
 {
     [Header("Canvas Items")]
     [SerializeField] private List<GameObject> taskBlocksUI;
     [SerializeField] private TextMeshProUGUI taskCount;
     [SerializeField] private TextMeshProUGUI timer;
+
+
+    private void Awake()
+    {
+        sequentialTaskPhase = true;
+    }
 
     // Update is called once per frame
     private void Update()
@@ -44,6 +50,7 @@ public class WeaponTaskPad : ITaskPad
     {
         taskCount.text = $"{completedTasks.Count}/{tasks.Count + completedTasks.Count} STEPS COMPLETED";
         taskPadHeader.color = UIColors.terminalRed;
+
         UpdateTaskPadUI();
         base.BeginCurrentPhase();
     }

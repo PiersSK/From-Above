@@ -25,8 +25,8 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private GameObject taskPadTrigger;
     [SerializeField] private TextMeshProUGUI p2Timer;
 
-    [SerializeField] public List<ITaskPad> phases;
-    public ITaskPad currentPhase;
+    [SerializeField] public List<IPhase> phases;
+    public IPhase currentPhase;
     private int currentPhaseIndex = 0;
 
     [SerializeField] private FireButton fireBtn;
@@ -154,6 +154,7 @@ public class TaskManager : MonoBehaviour
     {
         currentPhase.EndCurrentPhase();
         currentPhaseIndex = 0;
+        currentPhase = phases[0];
         currentPhase.BeginCurrentPhase();
         
 

@@ -3,7 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class DailyTaskPad : ITaskPad
+public class DailyTaskPhase : IPhase
 {
     [Header("Canvas Items")]
     [SerializeField] private TextMeshProUGUI taskCounter;

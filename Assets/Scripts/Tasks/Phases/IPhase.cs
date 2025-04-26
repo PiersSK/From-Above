@@ -2,13 +2,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class ITaskPad : MonoBehaviour
+public abstract class IPhase : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI taskPadHeader;
     [SerializeField] public AudioClip taskBeep;
     [SerializeField] public List<Task> tasks;
     [SerializeField] protected Transform taskPadListParent;
 
+    [SerializeField] protected bool sequentialTaskPhase = false;
+
+    protected List<Task> sequentialTaskHolder;
     public List<Task> completedTasks = new List<Task>();
 
     protected bool hasTimer = false;
@@ -31,10 +34,25 @@ public abstract class ITaskPad : MonoBehaviour
 
         completedTasks.Add(completedTask);
         tasks.Remove(completedTask);
+
+        if (sequentialTaskPhase) 
+        { 
+            tasks.Clear();
+            tasks.Add(sequentialTaskHolder[0]);
+            sequentialTaskHolder.RemoveAt(0);
+        }
     }
 
     public virtual void BeginCurrentPhase()
     {
+        if(sequentialTaskPhase)
+        {
+            sequentialTaskHolder = tasks;
+            tasks.Clear();
+            tasks.Add(sequentialTaskHolder[0]);
+            sequentialTaskHolder.RemoveAt(0);
+        }
+
         gameObject.SetActive(true);
     }
 
