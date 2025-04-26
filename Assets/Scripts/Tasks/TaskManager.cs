@@ -54,7 +54,7 @@ public class TaskManager : MonoBehaviour
 
     private void Start()
     {
-        currentPhaseIndex = DEBUG_startOnPhaseTwo ? 1 : 0;
+        currentPhaseIndex = 0;
         currentPhase = phases[currentPhaseIndex];
 
         taskPadAnim = taskPadObj.GetComponent<Animator>();
@@ -71,7 +71,13 @@ public class TaskManager : MonoBehaviour
 
     private void MoveToNextPhase()
     {
-        currentPhaseIndex = currentPhaseIndex <= (phases.Count - 1) ? ++currentPhaseIndex : currentPhaseIndex;
+        if(currentPhaseIndex == phases.Count - 1)
+        {
+            //We about to end the game / level so what phase you gonna fucking move to?
+            return;
+        }
+
+        ++currentPhaseIndex;
         isWeaponPhase = currentPhaseIndex == 1;
         currentPhase.EndCurrentPhase();
         currentPhase = phases[currentPhaseIndex];
@@ -89,6 +95,14 @@ public class TaskManager : MonoBehaviour
 
         currentPhase.BeginCurrentPhase();
         ToggleTaskPad();
+
+        if (DEBUG_startOnPhaseTwo)
+        {
+            currentPhase.completedTasks.AddRange(currentPhase.tasks);
+            currentPhase.tasks.Clear();
+
+            MoveToNextPhase();
+        }
     }
 
     public void CompleteTask(Task taskToComplete)
@@ -155,8 +169,6 @@ public class TaskManager : MonoBehaviour
         currentPhase.EndCurrentPhase();
         currentPhaseIndex = 0;
         currentPhase = phases[0];
-        currentPhase.BeginCurrentPhase();
-        
 
         isWeaponPhase = false;
         pacifistEndingReached = true;

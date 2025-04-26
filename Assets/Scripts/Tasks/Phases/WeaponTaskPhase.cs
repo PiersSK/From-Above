@@ -10,12 +10,6 @@ public class WeaponTaskPhase : IPhase
     [SerializeField] private TextMeshProUGUI taskCount;
     [SerializeField] private TextMeshProUGUI timer;
 
-
-    private void Awake()
-    {
-        sequentialTaskPhase = true;
-    }
-
     // Update is called once per frame
     private void Update()
     {
@@ -41,15 +35,18 @@ public class WeaponTaskPhase : IPhase
             Destroy(task.gameObject);
         }
 
-        Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
-        taskUI.GetComponent<TaskPadTask>().SetTask(tasks[0]);
-        
+        if(tasks.Count > 0)
+        {
+            Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
+            taskUI.GetComponent<TaskPadTask>().SetTask(tasks[0]);
+        }
     }
 
     public override void BeginCurrentPhase()
     {
         taskCount.text = $"{completedTasks.Count}/{tasks.Count + completedTasks.Count} STEPS COMPLETED";
         taskPadHeader.color = UIColors.terminalRed;
+        sequentialTaskPhase = true;
 
         UpdateTaskPadUI();
         base.BeginCurrentPhase();

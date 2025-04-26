@@ -6,13 +6,12 @@ public abstract class IPhase : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI taskPadHeader;
     [SerializeField] public AudioClip taskBeep;
-    [SerializeField] public List<Task> tasks;
     [SerializeField] protected Transform taskPadListParent;
 
-    [SerializeField] protected bool sequentialTaskPhase = false;
-
-    protected List<Task> sequentialTaskHolder;
+    [SerializeField] public List<Task> tasks;
     public List<Task> completedTasks = new List<Task>();
+    [SerializeField] protected bool sequentialTaskPhase = false;
+    protected List<Task> sequentialTaskHolder = new List<Task>();
 
     protected bool hasTimer = false;
     protected const string TASKUIOBJECT = "Task";
@@ -35,7 +34,7 @@ public abstract class IPhase : MonoBehaviour
         completedTasks.Add(completedTask);
         tasks.Remove(completedTask);
 
-        if (sequentialTaskPhase) 
+        if (sequentialTaskPhase && sequentialTaskHolder.Count > 0)
         { 
             tasks.Clear();
             tasks.Add(sequentialTaskHolder[0]);
@@ -47,7 +46,7 @@ public abstract class IPhase : MonoBehaviour
     {
         if(sequentialTaskPhase)
         {
-            sequentialTaskHolder = tasks;
+            sequentialTaskHolder.AddRange(tasks);
             tasks.Clear();
             tasks.Add(sequentialTaskHolder[0]);
             sequentialTaskHolder.RemoveAt(0);
