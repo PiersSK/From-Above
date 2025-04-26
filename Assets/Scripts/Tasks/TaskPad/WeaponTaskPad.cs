@@ -10,13 +10,6 @@ public class WeaponTaskPad : ITaskPad
     [SerializeField] private TextMeshProUGUI taskCount;
     [SerializeField] private TextMeshProUGUI timer;
 
-    private int totalTaskCount;
-
-    private void Awake()
-    {
-        totalTaskCount = tasks.Count;
-    }
-
     // Update is called once per frame
     private void Update()
     {
@@ -27,7 +20,7 @@ public class WeaponTaskPad : ITaskPad
     public override void CompleteTask(Task completedTask)
     {
         base.CompleteTask(completedTask);
-        taskCount.text = $"{completedTasks.Count}/{totalTaskCount} STEPS COMPLETED";
+        taskCount.text = $"{completedTasks.Count}/{tasks.Count + completedTasks.Count} STEPS COMPLETED";
 
         foreach (GameObject t in taskBlocksUI)
         {
@@ -49,7 +42,7 @@ public class WeaponTaskPad : ITaskPad
 
     public override void BeginCurrentPhase()
     {
-        taskCount.text = $"{completedTasks.Count}/{totalTaskCount} STEPS COMPLETED";
+        taskCount.text = $"{completedTasks.Count}/{tasks.Count + completedTasks.Count} STEPS COMPLETED";
         taskPadHeader.color = UIColors.terminalRed;
         UpdateTaskPadUI();
         base.BeginCurrentPhase();
