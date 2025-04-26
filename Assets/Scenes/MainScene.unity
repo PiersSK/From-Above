@@ -9836,6 +9836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskPadHeader: {fileID: 1094740445}
   taskBeep: {fileID: 8300000, guid: 9655e5b53fccf3b4ab846fe5a4d5d065, type: 3}
+  taskPadListParent: {fileID: 1857918106}
   tasks:
   - {fileID: 11400000, guid: d0f6f520340b2b1439e392b531bd5bbc, type: 2}
   - {fileID: 11400000, guid: 89240a06a4cf0b34da770d6223de8c8d, type: 2}
@@ -9843,7 +9844,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
   - {fileID: 11400000, guid: f4905a7e6614fa8489322f04643b5573, type: 2}
   - {fileID: 11400000, guid: a39d6bd0373568842b5b1d216523763d, type: 2}
-  taskPadListParent: {fileID: 1857918106}
   completedTasks: []
   taskBlocksUI:
   - {fileID: 526303115}
@@ -60980,9 +60980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completedTasks: []
-  isWeaponPhase: 0
   pacifistEndingReached: 0
-  weaponPhaseCompletedTasks: 0
   DEBUG_startOnPhaseTwo: 0
   taskPadListParent: {fileID: 1857918106}
   padBeep: {fileID: 8300000, guid: 126967ba65395c94994dfc1c7eff1d68, type: 3}
@@ -133258,6 +133256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskPadHeader: {fileID: 1094740445}
   taskBeep: {fileID: 8300000, guid: 02d82c2595760204ba17aba5071fabcc, type: 3}
+  taskPadListParent: {fileID: 1857918106}
   tasks:
   - {fileID: 11400000, guid: d084be36290300e4fb6dad21e6e3ff41, type: 2}
   - {fileID: 11400000, guid: 7d63be8856f7dad40b0f0718bbe23513, type: 2}
@@ -133265,7 +133264,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
   - {fileID: 11400000, guid: be674cb2ee166e2499011f9abb6dc4fc, type: 2}
   - {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
-  taskPadListParent: {fileID: 1857918106}
   completedTasks: []
   taskCounter: {fileID: 4520452601124261180}
   taskCounterSentence: {fileID: 4520452601124261178}

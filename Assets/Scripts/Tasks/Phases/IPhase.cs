@@ -10,7 +10,7 @@ public abstract class IPhase : MonoBehaviour
 
     [SerializeField] public List<Task> tasks;
     public List<Task> completedTasks = new List<Task>();
-    [SerializeField] protected bool sequentialTaskPhase = false;
+    protected bool sequentialTaskPhase = false;
     protected List<Task> sequentialTaskHolder = new List<Task>();
 
     protected bool hasTimer = false;
