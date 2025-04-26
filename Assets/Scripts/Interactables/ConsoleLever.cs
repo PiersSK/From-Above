@@ -32,6 +32,6 @@ public class ConsoleLever : Interactable
 
     public override bool CanInteract()
     {
-        return TaskManager.Instance.isWeaponPhase && !isFlipped && TaskManager.Instance.currentPhase.tasks.Contains(task);
+        return TaskManager.Instance.currentPhase is WeaponTaskPhase && !isFlipped && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 }

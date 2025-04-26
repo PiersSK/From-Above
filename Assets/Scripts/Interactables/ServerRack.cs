@@ -31,7 +31,7 @@ public class ServerRack : MonoBehaviour
         bool diskPresent = GetComponentInChildren<ServerDiscStorage>().driveInDock;
         leftLight.material = Resources.Load<Material>(hasDisk && diskPresent ? LEDGreen : LEDRed);
 
-        bool inPhase = GetComponentInChildren<ServerButton>().usableInPhaseOne || TaskManager.Instance.isWeaponPhase;
+        bool inPhase = GetComponentInChildren<ServerButton>().usableInPhaseOne || TaskManager.Instance.currentPhase is WeaponTaskPhase;
         rightLight.material = Resources.Load<Material>(isUsable && !GetComponentInChildren<ServerButton>().exe.hasRun && inPhase ? LEDBlue : LEDRed);
 
         spotlight.enabled = spotLightOn;

@@ -13,9 +13,9 @@ public class TaskManager : MonoBehaviour
     private bool taskPadObtained = false;
 
     public List<Task> completedTasks;
-    public bool isWeaponPhase = false; //Remove From Other managers before deleting
+
     public bool pacifistEndingReached = false; //Remove from other managers before deleting
-    public int weaponPhaseCompletedTasks = 0;
+
     public bool DEBUG_startOnPhaseTwo = false;
     [SerializeField] private Transform taskPadListParent;
 
@@ -78,7 +78,6 @@ public class TaskManager : MonoBehaviour
         }
 
         ++currentPhaseIndex;
-        isWeaponPhase = currentPhaseIndex == 1;
         currentPhase.EndCurrentPhase();
         currentPhase = phases[currentPhaseIndex];
         currentPhase.BeginCurrentPhase();
@@ -113,11 +112,6 @@ public class TaskManager : MonoBehaviour
         currentPhase.UpdateTaskPadUI();
         UIManager.Instance.CompletedTaskPopup();
         SoundManager.Instance.PlaySFXOneShot(currentPhase.taskBeep);
-
-        if(currentPhaseIndex == 1)
-        {
-            weaponPhaseCompletedTasks = currentPhase.completedTasks.Count;
-        }
 
         if(currentPhase.tasks.Count == 0)
         {
@@ -170,7 +164,6 @@ public class TaskManager : MonoBehaviour
         currentPhaseIndex = 0;
         currentPhase = phases[0];
 
-        isWeaponPhase = false;
         pacifistEndingReached = true;
     }
 }
