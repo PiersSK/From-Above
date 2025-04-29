@@ -37,7 +37,7 @@ public class TimeController : MonoBehaviour
 
     private void Update()
     {
-        if(!isTimeSet && TaskManager.Instance.isPhaseTwo)
+        if(!isTimeSet && TaskManager.Instance.currentPhase is WeaponTaskPhase)
         {
             isTimeSet = true;
         } else if(isTimeSet)

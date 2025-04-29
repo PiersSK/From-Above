@@ -14,7 +14,7 @@ public class Lever : Interactable
 
     public override bool CanInteract()
     {
-        return !leverIsUp && TaskManager.Instance.tasks.Contains(task);
+        return !leverIsUp && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
     protected override void Interact(Transform player)
