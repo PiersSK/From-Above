@@ -57,7 +57,7 @@ public class VoiceLineManager : MonoBehaviour
 
             bool shouldPlay = false;
 
-            if (vl.playOnPhaseTransition && TaskManager.Instance.isPhaseTwo)
+            if (vl.playOnPhaseTransition && TaskManager.Instance.currentPhase is WeaponTaskPhase)
             {
                 shouldPlay = true;
             }
