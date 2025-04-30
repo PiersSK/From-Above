@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SwordInitiation : ServerEXE
+public class SwordInitiation : LegacyServerExe
 {
     private bool initiationDone = false;
     [SerializeField] private AudioClip warmupSfx;

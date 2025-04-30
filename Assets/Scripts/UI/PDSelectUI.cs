@@ -40,7 +40,7 @@ public class PDSelectUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void ShowUI(Action<DataDrive> onClick)
+    public void ShowUI(Action<IServerDataObject> onClick, List<IServerDataObject> inventory)
     {
         if (!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
         InputManager.InputTypeChanged += InputChangedWhilstUIOpen;
@@ -51,14 +51,14 @@ public class PDSelectUI : MonoBehaviour
         foreach (Transform t in PDUIButtonContainer) Destroy(t.gameObject);
 
         pdButtons.Clear();
-        foreach (DataDrive d in PlayerInventory.Instance.dataDrivesHeld)
+        foreach (IServerDataObject d in inventory)
         {
             Button b = Instantiate(Resources.Load<Button>("PDButton"), PDUIButtonContainer);
             b.onClick.AddListener(UnlockPlayer);
             b.GetComponent<PDButton>().SetDrive(d, onClick);
 
             pdButtons.Add(b);
-            if (PlayerInventory.Instance.dataDrivesHeld.IndexOf(d) == 0 && InputManager.Instance.GamepadIsCurrentInput()) b.Select();
+            if (inventory.IndexOf(d) == 0 && InputManager.Instance.GamepadIsCurrentInput()) b.Select();
         }
 
         foreach (Button b in pdButtons)

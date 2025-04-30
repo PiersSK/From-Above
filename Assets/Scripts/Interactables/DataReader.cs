@@ -30,13 +30,13 @@ public class DataReader : Interactable
     public override string GetPrompt()
     {
         string addPrefix = audioOutput != null ? "Place" : "Insert";
-        return insertedDrive != null ? "Take " + insertedDrive.DiskName + " PD" : addPrefix + "PD";
+        return insertedDrive != null ? "Take " + insertedDrive.objectName + " PD" : addPrefix + "PD";
     }
 
     protected override void Interact(Transform p)
     {
         if (insertedDrive != null) UnloadDrive();
-        else UIManager.Instance.ShowPDSelectUI(LoadDrive);
+        else UIManager.Instance.ShowPDSelectUI(LoadDrive, PlayerInventory.Instance.dataDrivesHeld);
     }
 
     public void UnloadDrive()
@@ -57,11 +57,11 @@ public class DataReader : Interactable
         if (visiblePD != null) visiblePD.SetActive(false);
     }
 
-    private void LoadDrive(DataDrive drive)
+    private void LoadDrive(IServerDataObject drive)
     {
-        insertedDrive = drive;
+        insertedDrive = (DataDrive)drive;
         PlayerInventory.Instance.dataDrivesHeld.Remove(drive);
-        insertedDriveName.text = insertedDrive.DiskName;
+        insertedDriveName.text = insertedDrive.objectName;
         if (anim != null) anim.SetTrigger("Insert");
         SoundManager.Instance.PlaySFXOneShot(audioOutput == null ? insertSfx : audioDiscSfx, 0, 0.3f);
         if (visiblePD != null) visiblePD.SetActive(true);

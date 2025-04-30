@@ -43,8 +43,8 @@ public class MusicPlayer : Interactable
         if (drive != null)
         {
             //Load audio if first play
-            if (audioSource.resource == null & drive.DiskAudioContent != null)
-                audioSource.resource = drive.DiskAudioContent;
+            if (audioSource.resource == null & drive.audioContent != null)
+                audioSource.resource = drive.audioContent;
 
             if (audioSource.resource != null && !audioSource.isPlaying)
             {

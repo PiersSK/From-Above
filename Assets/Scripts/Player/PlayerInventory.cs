@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory Instance { get; private set; }
-    public List<DataDrive> dataDrivesHeld;
+    public List<IServerDataObject> dataDrivesHeld;
+    public List<IServerDataObject> exesHeld;
     [SerializeField] private DataDrive stripedPD;
     [SerializeField] private GameObject stripedPDObj;
     private int drivesLastHeld = 0;

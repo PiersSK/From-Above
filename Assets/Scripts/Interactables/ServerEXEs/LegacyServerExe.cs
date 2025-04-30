@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ServerEXE : MonoBehaviour
+public class LegacyServerExe : MonoBehaviour
 {
     public Task task;
     public bool hasRun = false;

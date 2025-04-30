@@ -2,80 +2,35 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PDStorage : MonoBehaviour
+public class PDStorage : IServerHubStorage
 {
-    public List<DataDrive> pDsStored;
-    [SerializeField] private Transform pDsObjects;
-    public int currentPDIndex = 0;
-
-    [Header("PD UI Elements")]
-    [SerializeField] private TextMeshProUGUI selectedPDName;
-
-    private const string NOPDMESSAGE = "<i>No PentaDiscs in Storage</i>";
-
-    public delegate void OnPDStorageChange();
-    public static event OnPDStorageChange PDStorageChanged;
-
-    private void Start()
+    public static event OnServerStorageObjectChange PDStorageChanged;
+    protected override void UpdateVisualObjects()
     {
-        UpdatePDVisibleState();
-    }
-
-    private void UpdatePDVisibleState()
-    {
-        selectedPDName.text = pDsStored.Count > 0 ? pDsStored[currentPDIndex].DiskName : NOPDMESSAGE;
-        UpdatePDRackModel();
-    }
-
-    private void UpdatePDRackModel()
-    {
-        foreach (Transform PD in pDsObjects) PD.gameObject.SetActive(false);
-        for (int i = 0; i < pDsStored.Count; i++)
+        foreach (Transform obj in visualObjects) obj.gameObject.SetActive(false);
+        for (int i = 0; i < objectsStored.Count; i++)
         {
-            Transform pdObj = pDsObjects.GetChild(i);
-            pdObj.gameObject.SetActive(true);
-            pdObj.localPosition = new Vector3(
-                pdObj.localPosition.x,
-                i == currentPDIndex ? 0.1f : 0f,
-                pdObj.localPosition.z
+            Transform obj = visualObjects.GetChild(i);
+            obj.gameObject.SetActive(true);
+            obj.localPosition = new Vector3(
+                obj.localPosition.x,
+                i == currentIndex ? 0.1f : 0f,
+                obj.localPosition.z
             );
         }
     }
 
-    public void SelectNextPD()
+    public override void AddNewObjectToStorage(IServerDataObject newObj)
     {
-        currentPDIndex++;
-        if(currentPDIndex >= pDsStored.Count) currentPDIndex = 0;
-
-        UpdatePDVisibleState();
-    }
-
-    public void SelectPreviousPD()
-    {
-        currentPDIndex--;
-        if(currentPDIndex < 0) currentPDIndex = pDsStored.Count - 1;
-
-        UpdatePDVisibleState();
-    }
-
-    public void AddPD(DataDrive newPD)
-    {
-        pDsStored.Add(newPD);
-        UpdatePDVisibleState();
-        PlayerInventory.Instance.dataDrivesHeld.Remove(newPD);
+        base.AddNewObjectToStorage(newObj);
+        PlayerInventory.Instance.dataDrivesHeld.Remove((DataDrive)newObj);
         PDStorageChanged?.Invoke();
     }
 
-    public void EjectPD()
+    public override void EjectObject()
     {
-        if (pDsStored.Count > 0)
-        {
-            PlayerInventory.Instance.dataDrivesHeld.Add(pDsStored[currentPDIndex]);
-            pDsStored.RemoveAt(currentPDIndex);
-            if (currentPDIndex >= pDsStored.Count) currentPDIndex = 0;
-
-            UpdatePDVisibleState();
-            PDStorageChanged?.Invoke();
-        }
+        if (objectsStored.Count > 0) PlayerInventory.Instance.dataDrivesHeld.Add((DataDrive)objectsStored[currentIndex]);
+        base.EjectObject();
+        PDStorageChanged?.Invoke();
     }
 }

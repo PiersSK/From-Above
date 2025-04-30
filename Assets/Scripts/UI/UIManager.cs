@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -163,9 +164,9 @@ public class UIManager : MonoBehaviour
         return navigation;
     }
 
-    public void ShowPDSelectUI(Action<DataDrive> onClick)
+    public void ShowPDSelectUI(Action<IServerDataObject> onClick, List<IServerDataObject> inventory)
     {
-        pdSelectUI.ShowUI(onClick);
+        pdSelectUI.ShowUI(onClick, inventory);
         pdSelectUI.gameObject.SetActive(true);
     }
 }
