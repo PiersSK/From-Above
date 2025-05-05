@@ -98,21 +98,23 @@ public class RapierTerminal : Computer
             }
         }
 
-        if (overrideServer.driveInDock && !overrideBtn.gameObject.activeSelf)
-        {
-            overrideBtn.gameObject.SetActive(true);
-            AdjustButtonNavigation();
-        }
-        else if (!overrideServer.driveInDock && overrideBtn.gameObject.activeSelf)
-        {
-            overrideBtn.gameObject.SetActive(false);
-            if (overrideScreen.activeSelf)
-            {
-                overrideScreen.SetActive(false);
-                mainScreen.SetActive(true);
-            }
-            AdjustButtonNavigation();
-        }
+        //TODO: Disabled until Server Terminal Rework
+        //if (overrideServer.driveInDock && !overrideBtn.gameObject.activeSelf)
+        //{
+        //    overrideBtn.gameObject.SetActive(true);
+        //    AdjustButtonNavigation();
+        //}
+
+        //else if (!overrideServer.driveInDock && overrideBtn.gameObject.activeSelf)
+        //{
+        //    overrideBtn.gameObject.SetActive(false);
+        //    if (overrideScreen.activeSelf)
+        //    {
+        //        overrideScreen.SetActive(false);
+        //        mainScreen.SetActive(true);
+        //    }
+        //    AdjustButtonNavigation();
+        //}
 
         if (playerAtComputer && InputManager.Instance.GamepadIsCurrentInput())
             UIManager.Instance.ShowBackoutText(mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);

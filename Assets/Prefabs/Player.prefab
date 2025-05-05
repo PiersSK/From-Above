@@ -678,8 +678,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7077255998840905418}
+  - component: {fileID: 2313462267319647220}
   m_Layer: 5
-  m_Name: Phase2 (1)
+  m_Name: WeaponTaskPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,6 +711,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -3.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2313462267319647220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012498887938938816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085b29ba9e361ea49be56da41b12b1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskPadHeader: {fileID: 123873586549741245}
+  taskBeep: {fileID: 8300000, guid: 9655e5b53fccf3b4ab846fe5a4d5d065, type: 3}
+  taskPadListParent: {fileID: 8937685394331117610}
+  tasks:
+  - {fileID: 11400000, guid: d0f6f520340b2b1439e392b531bd5bbc, type: 2}
+  - {fileID: 11400000, guid: 89240a06a4cf0b34da770d6223de8c8d, type: 2}
+  - {fileID: 11400000, guid: 8e0b4c009488d7443930b234c583aa9d, type: 2}
+  - {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
+  - {fileID: 11400000, guid: f4905a7e6614fa8489322f04643b5573, type: 2}
+  - {fileID: 11400000, guid: a39d6bd0373568842b5b1d216523763d, type: 2}
+  completedTasks: []
+  taskBlocksUI:
+  - {fileID: 2753672100404219060}
+  - {fileID: 8019364948157670722}
+  - {fileID: 4621991467759699240}
+  - {fileID: 3698528217973400245}
+  - {fileID: 5127289067761141230}
+  - {fileID: 2727013835814972005}
+  taskCount: {fileID: 7554760293304299645}
+  timer: {fileID: 6501437057670502071}
 --- !u!1 &1144359261016457800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,13 +2656,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2835717627171911971}
+  - component: {fileID: 5117945891382137778}
   m_Layer: 5
-  m_Name: Phase1
+  m_Name: DailyTaskPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2835717627171911971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2651,6 +2685,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5117945891382137778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4175833895289748011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b255120b404fdf49a50a868e4810ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskPadHeader: {fileID: 123873586549741245}
+  taskBeep: {fileID: 8300000, guid: 02d82c2595760204ba17aba5071fabcc, type: 3}
+  taskPadListParent: {fileID: 8937685394331117610}
+  tasks:
+  - {fileID: 11400000, guid: d084be36290300e4fb6dad21e6e3ff41, type: 2}
+  - {fileID: 11400000, guid: 7d63be8856f7dad40b0f0718bbe23513, type: 2}
+  - {fileID: 11400000, guid: 59cf49005981c9b4ca61aced8023cb71, type: 2}
+  - {fileID: 11400000, guid: be674cb2ee166e2499011f9abb6dc4fc, type: 2}
+  - {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
+  - {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
+  completedTasks: []
+  taskCounter: {fileID: 5800283411838455937}
+  taskCounterSentence: {fileID: 2733062044742600137}
 --- !u!1 &4621991467759699240
 GameObject:
   m_ObjectHideFlags: 0
@@ -5010,11 +5069,11 @@ PrefabInstance:
       objectReference: {fileID: -4000152134489898754, guid: 9a84d682bf5d4024695bd2841034e5be, type: 2}
     - target: {fileID: 3788006165991897918, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_VersionIndex
-      value: 1297
+      value: 1393
       objectReference: {fileID: 0}
     - target: {fileID: 3869430885053537799, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_Name
-      value: TaskPad
+      value: PlayerTaskPad
       objectReference: {fileID: 0}
     - target: {fileID: 3869430885053537799, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_Layer
@@ -5022,7 +5081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4343767993267326447, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_VersionIndex
-      value: 946
+      value: 1042
       objectReference: {fileID: 0}
     - target: {fileID: 4373348727616096029, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -5030,7 +5089,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e608dbd0b8d1727429c712952d593917, type: 2}
     - target: {fileID: 4567504064195909455, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_VersionIndex
-      value: 946
+      value: 1042
       objectReference: {fileID: 0}
     - target: {fileID: 4825354972886320239, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
       propertyPath: m_Name
@@ -5064,7 +5123,8 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7e918d2c9b76af1469af6935aadeb574, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5958254555486745555, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6207129678608957352, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
     - {fileID: 5247573508987991244, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
@@ -5098,6 +5158,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2932581282257503461}
   m_SourcePrefab: {fileID: 100100000, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
+--- !u!114 &123873586549741245 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3630574859468729888, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
+  m_PrefabInstance: {fileID: 3736425043073251485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &461768650891437722 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3869430885053537799, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
@@ -5133,6 +5204,11 @@ Transform:
 --- !u!224 &4239958531414673462 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 652222696865329323, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
+  m_PrefabInstance: {fileID: 3736425043073251485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8937685394331117610 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5752076683705094327, guid: 70c4162192da82940bd183fcaf6ef013, type: 3}
   m_PrefabInstance: {fileID: 3736425043073251485}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7372591246574972130
