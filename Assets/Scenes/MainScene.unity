@@ -120489,8 +120489,6 @@ MonoBehaviour:
   promptMessage: Pickup TaskPad
   requirementsNotMetMessage: 
   isInteractable: 1
-  tidy: {fileID: 5084858987780146413}
-  sfx: {fileID: 8300000, guid: 29c571417dd50654899bc8b6ea1e840b, type: 3}
   taskManager: {fileID: 1092394212}
 --- !u!4 &1570180745 stripped
 Transform:
@@ -218417,6 +218415,10 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1938501010}
+    - target: {fileID: 4126048204707519641, guid: c28348567fa0f244580a111523dd6e99, type: 3}
+      propertyPath: commanderVLSource
+      value: 
+      objectReference: {fileID: 33616799}
     - target: {fileID: 4126048204707519641, guid: c28348567fa0f244580a111523dd6e99, type: 3}
       propertyPath: gameOverActivistUI
       value: 
