@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class DiscSlotContent : ScriptableObject
 {
@@ -11,4 +12,7 @@ public abstract class DiscSlotContent : ScriptableObject
         Gamma
     }
     public DecipherType decipherType;
+
+    public abstract Sprite GetIcon();
+    public abstract string GetDisplayType();
 }

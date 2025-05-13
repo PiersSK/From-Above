@@ -20,6 +20,18 @@ public class PDStorage : IServerHubStorage
         }
     }
 
+    public override void SelectNext()
+    {
+        base.SelectNext();
+        PDStorageChanged?.Invoke();
+    }
+
+    public override void SelectPrevious()
+    {
+        base.SelectPrevious();
+        PDStorageChanged?.Invoke();
+    }
+
     public override void AddNewObjectToStorage(IServerDataObject newObj)
     {
         base.AddNewObjectToStorage(newObj);

@@ -19,9 +19,6 @@ public class ServerStorageButton : Interactable
     [SerializeField] private StorageInteraction interactionType;
     [SerializeField] private IServerHubStorage storage;
 
-    [SerializeField] private Material interactableMaterial;
-    [SerializeField] private Material nonInteractableMaterial;
-
     private const string NEXTPD = "Select Next ";
     private const string PREVPD = "Select Previous ";
     private const string EJECTPD = "Eject Current ";
@@ -31,15 +28,6 @@ public class ServerStorageButton : Interactable
         if (interactionType == StorageInteraction.NextPD) promptMessage = NEXTPD + linkedStorageType.ToString();
         else if (interactionType == StorageInteraction.PreviousPD) promptMessage = PREVPD + linkedStorageType.ToString();
         else if (interactionType == StorageInteraction.Eject) promptMessage = EJECTPD + linkedStorageType.ToString();
-
-        PDStorage.PDStorageChanged += OnPDStorageChanged;
-    }
-
-    private void OnPDStorageChanged()
-    {
-        GetComponent<Renderer>().material = CanInteract() ? interactableMaterial : nonInteractableMaterial;
-        foreach(Renderer renderer in transform.GetComponentsInChildren<Renderer>())
-            renderer.material = CanInteract() ? interactableMaterial : nonInteractableMaterial;
     }
 
     public override bool CanInteract()

@@ -37,7 +37,7 @@ public abstract class IServerHubStorage : MonoBehaviour
         }
     }
 
-    public void SelectNext()
+    public virtual void SelectNext()
     {
         currentIndex++;
         if (currentIndex >= objectsStored.Count) currentIndex = 0;
@@ -45,7 +45,7 @@ public abstract class IServerHubStorage : MonoBehaviour
         UpdateVisibleState();
     }
 
-    public void SelectPrevious()
+    public virtual void SelectPrevious()
     {
         currentIndex--;
         if (currentIndex < 0) currentIndex = objectsStored.Count - 1;

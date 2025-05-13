@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewRemoteLocationContent", menuName = "Disc Slot Content/Remote Location")]
 public class RemoteContent : DiscSlotContent
@@ -19,4 +20,16 @@ public class RemoteContent : DiscSlotContent
     public RemoteLocations content;
 
     public List<DiscSlotContent> remoteContent = new();
+
+    private const string REMOTEICON = "DataIcons/RemoteIconBW";
+    private const string REMOTETYPE = "Remote Data";
+    public override Sprite GetIcon()
+    {
+        return Resources.Load<Sprite>(REMOTEICON);
+    }
+
+    public override string GetDisplayType()
+    {
+        return REMOTETYPE;
+    }
 }

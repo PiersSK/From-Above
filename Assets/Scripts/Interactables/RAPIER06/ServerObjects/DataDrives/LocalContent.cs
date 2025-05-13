@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewLocalLocationContent", menuName = "Disc Slot Content/Local Location")]
 public class LocalContent : DiscSlotContent
@@ -16,4 +17,16 @@ public class LocalContent : DiscSlotContent
     }
 
     public LocalLocations content;
+
+    private const string LOCALICON = "DataIcons/LocalIconBW";
+    private const string LOCALTYPE = "Local Data";
+    public override Sprite GetIcon()
+    {
+        return Resources.Load<Sprite>(LOCALICON);
+    }
+
+    public override string GetDisplayType()
+    {
+        return LOCALTYPE;
+    }
 }
