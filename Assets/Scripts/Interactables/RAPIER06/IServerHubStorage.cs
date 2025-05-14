@@ -10,9 +10,9 @@ public abstract class IServerHubStorage : MonoBehaviour
     public int currentIndex = 0;
 
     [Header("UI Elements")]
-    [SerializeField] private TextMeshProUGUI screenDisplay;
+    [SerializeField] protected TextMeshProUGUI screenDisplay;
 
-    private const string EMPTYMESSAGE = "<i>Nothing in Storage</i>";
+    protected const string EMPTYMESSAGE = "<i>Nothing in Storage</i>";
 
     public delegate void OnServerStorageObjectChange();
 
@@ -21,7 +21,7 @@ public abstract class IServerHubStorage : MonoBehaviour
         UpdateVisibleState();
     }
 
-    private void UpdateVisibleState()
+    protected virtual void UpdateVisibleState()
     {
         screenDisplay.text = objectsStored.Count > 0 ? objectsStored[currentIndex].objectName : EMPTYMESSAGE;
         UpdateVisualObjects();

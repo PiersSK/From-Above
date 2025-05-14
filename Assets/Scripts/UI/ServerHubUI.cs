@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ServerHubUI : MonoBehaviour
 {
@@ -10,25 +11,38 @@ public class ServerHubUI : MonoBehaviour
     [SerializeField] private Transform foreground;
 
     [Header("PD UI Objects")]
-    [SerializeField] private GameObject PDButtons;
-    [SerializeField] private Transform PDSelector;
+    [SerializeField] private GameObject pdButtons;
+    [SerializeField] private Transform pdSelector;
 
     [SerializeField] private PDStorage pdStorage;
     [SerializeField] private Transform pdSelectorRow;
 
     [Header("Data UI Objects")]
+    [SerializeField] private Transform dataInspectorContainer;
     [SerializeField] private Transform dataRow;
+    [SerializeField] private GameObject selectedPdContainer;
+    [SerializeField] private ServerHubDataObjectUI selectedPd;
 
     [Header("FC UI Objects")]
-    [SerializeField] private GameObject FCButtons;
-    [SerializeField] private Transform FCSelector;
+    [SerializeField] private GameObject fcButtonContainer;
+    [SerializeField] private Transform fcSelector;
+    [SerializeField] private Button fcPrevButton;
+    [SerializeField] private Button fcNextButton;
+    [SerializeField] private Button fcConfirmButton;
+
+    [SerializeField] private TextMeshProUGUI fcPreview;
 
     [SerializeField] private EXEStorage fcStorage;
     [SerializeField] private Transform fcSelectorRow;
 
+    private List<IServerDataObject> applicableExes = new();
+
     private void Start()
     {
         PDStorage.PDStorageChanged += RefreshUIState;
+        EXEStorage.EXEStorageChanged += RefreshUIState;
+        fcNextButton.onClick.AddListener(() => fcStorage.SelectNextFiltered(applicableExes));
+        fcPrevButton.onClick.AddListener(() => fcStorage.SelectPreviousFiltered(applicableExes));
         RefreshUIState();
     }
 
@@ -40,6 +54,28 @@ public class ServerHubUI : MonoBehaviour
 
         UpdateDataUI();
         UpdateFuncCardRow();
+
+        UpdateFCPreview();
+        UpdateFCConfirmButtonState();
+    }
+
+    private void UpdateFCConfirmButtonState()
+    {
+        ServerExe currentFc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
+
+        fcConfirmButton.interactable = fcStorage.objectsStored.Contains(currentFc);
+    }
+
+    private void UpdateFCPreview()
+    {
+        if (fcSelector.parent == foreground)
+        {
+            ServerExe currentFc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
+            fcPreview.text = fcStorage.objectsStored.Contains(currentFc) ? currentFc.terminalPreview : "???";
+        } else
+        {
+            fcPreview.text = string.Empty;
+        }
     }
 
     private void UpdateSelectorRow(Transform row, List<IServerDataObject> data, int indexSelected, List<IServerDataObject> accessibleList = null)
@@ -67,13 +103,33 @@ public class ServerHubUI : MonoBehaviour
         {
             ServerHubDataObjectUI dataDisplayObject = dataRow.GetChild(i).GetComponent<ServerHubDataObjectUI>();
             dataDisplayObject.SetDataObject(drive.slots[i]);
+
+            bool isRelevant = ShouldHighlightData(drive.slots[i]);
+            dataDisplayObject.SetHighlightState(isRelevant);
         }
+
+        if (selectedPdContainer.activeSelf) {
+            ServerExe currentFc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
+            selectedPd.SetHighlightState(currentFc.PDIsRelevantToFunction(drive) && fcStorage.objectsStored.Contains(currentFc));
+        }
+    }
+
+    private bool ShouldHighlightData(DiscSlotContent data)
+    {
+        ServerExe currentFc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
+
+        if (fcSelector.parent != foreground) return false;
+        else if (data == null) return false;
+        else if (data.decipherType != DiscSlotContent.DecipherType.None && currentFc is not DecipherExe) return false;
+        else if (!fcStorage.objectsStored.Contains(currentFc)) return false;
+
+        return currentFc.DataIsRelevantToFunction(data);
     }
 
     private void UpdateFuncCardRow()
     {
         DataDrive drive = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
-        List<IServerDataObject> applicableExes = new();
+        applicableExes = new();
 
         foreach (ServerExe exe in fcStorage.allExeReference)
         {
@@ -81,7 +137,12 @@ public class ServerHubUI : MonoBehaviour
         }
 
         foreach (Transform fcIcon in fcSelectorRow) fcIcon.gameObject.SetActive(false);
-        UpdateSelectorRow(fcSelectorRow, applicableExes, 0, fcStorage.objectsStored);
+
+        int selectedIndex = applicableExes.Contains(fcStorage.allExeReference[fcStorage.currentIndex])
+            ? applicableExes.IndexOf(fcStorage.allExeReference[fcStorage.currentIndex])
+            : 0;
+
+        UpdateSelectorRow(fcSelectorRow, applicableExes, selectedIndex, fcStorage.objectsStored);
     }
 
     private IEnumerator SmoothRailSlideRotate(RectTransform obj, Vector2 targetPosition)
@@ -103,12 +164,40 @@ public class ServerHubUI : MonoBehaviour
 
     public void ConfirmPDSelection()
     {
-        PDSelector.SetParent(background);
-        FCSelector.SetParent(foreground);
+        pdSelector.SetParent(background);
+        fcSelector.SetParent(foreground);
 
-        PDButtons.SetActive(false);
-        FCButtons.SetActive(true);
+        pdButtons.SetActive(false);
+        fcButtonContainer.SetActive(true);
 
+        selectedPdContainer.SetActive(true);
+        selectedPd.dataName.text = pdStorage.objectsStored[pdStorage.currentIndex].objectName;
 
+        UpdateDataUI();
+        UpdateFCPreview();
+    }
+
+    public void BackToPDSelection()
+    {
+        pdSelector.SetParent(foreground);
+        fcSelector.SetParent(background);
+
+        pdButtons.SetActive(true);
+        fcButtonContainer.SetActive(false);
+        selectedPdContainer.SetActive(false);
+
+        UpdateDataUI();
+        UpdateFCPreview();
+    }
+
+    public void ConfirmFCSelection()
+    {
+        fcSelector.SetParent(background);
+        dataInspectorContainer.SetParent(background);
+        fcButtonContainer.SetActive(false);
+        selectedPdContainer.SetActive(false);
+
+        UpdateDataUI();
+        UpdateFCPreview();
     }
 }

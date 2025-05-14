@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: "Decipher \u03B3"
   fileName: gamma.func
+  terminalPreview: 'DECIPHER || Decipher: ENCRYPTED'
   specificDataOnly: 1
+  fullPDOperation: 0
   applicableDataTypes: 
   applicableData:
   - {fileID: 11400000, guid: a2c2d1ce6661d214bb81838715d6bd09, type: 2}
@@ -23,4 +25,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfb73c13d1e3dcd4388d52816f1b6ce6, type: 2}
   - {fileID: 11400000, guid: 690a2d2d4d117784ab9ed26d08087444, type: 2}
   - {fileID: 11400000, guid: 3a6499b6f016722418f0923cae8a24de, type: 2}
+  specificPdsOnly: 0
+  applicablePds: []
   decipherType: 3

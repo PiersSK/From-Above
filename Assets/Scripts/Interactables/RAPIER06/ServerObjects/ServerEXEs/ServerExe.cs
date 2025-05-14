@@ -7,6 +7,9 @@ using static DiscSlotContent;
 public abstract class ServerExe : IServerDataObject
 {
     public string fileName;
+    [TextArea(5, 10)]
+    public string terminalPreview;
+
     public bool specificDataOnly = false;
     public bool fullPDOperation = false;
 
@@ -17,6 +20,26 @@ public abstract class ServerExe : IServerDataObject
     public List<DataDrive> applicablePds = new();
 
     public abstract void Perform(DiscSlotContent content);
+
+    public bool PDIsRelevantToFunction(DataDrive pd)
+    {
+        if (!fullPDOperation) return false;
+        if (fullPDOperation && !specificPdsOnly) return true;
+        if (fullPDOperation && specificPdsOnly && applicablePds.Contains(pd)) return true;
+
+        return false;
+    }
+
+    public bool DataIsRelevantToFunction(DiscSlotContent data)
+    {
+        if (data != null)
+        {
+            if (specificDataOnly && applicableData.Contains(data)) return true;
+            else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) return true;
+        }
+
+        return false;
+    }
 
     public List<DiscSlotContent> RelevantDataOnDisc(DataDrive drive)
     {

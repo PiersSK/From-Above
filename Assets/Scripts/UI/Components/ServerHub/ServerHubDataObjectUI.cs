@@ -6,7 +6,7 @@ public class ServerHubDataObjectUI : MonoBehaviour
 {
     [SerializeField] private Image dataTypeIcon;
     [SerializeField] private Image highlightBackground;
-    [SerializeField] private TextMeshProUGUI dataName;
+    public TextMeshProUGUI dataName;
     [SerializeField] private TextMeshProUGUI dataType;
 
     private const string EMPTY = "Empty";

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: "Decipher \u03B1"
   fileName: alpha.func
+  terminalPreview: 'DECIPHER || Decipher: ENCRYPTED'
   specificDataOnly: 1
+  fullPDOperation: 0
   applicableDataTypes: 
   applicableData:
   - {fileID: 11400000, guid: 57cf9bcdece631a42b3b9b63b7d5acd9, type: 2}
@@ -23,4 +25,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a356f63818c4d7742870bada2b414935, type: 2}
   - {fileID: 11400000, guid: 98b0226f1d5ceb94c848d0a1a8a456c6, type: 2}
   - {fileID: 11400000, guid: 8ef943ad239910c4299088b874ec93f5, type: 2}
+  specificPdsOnly: 0
+  applicablePds: []
   decipherType: 1
