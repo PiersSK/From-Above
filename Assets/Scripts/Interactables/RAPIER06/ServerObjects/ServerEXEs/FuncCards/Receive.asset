@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf037cb24fda634b8c5af6bd62dbd06, type: 3}
-  m_Name: DecipherC
+  m_Script: {fileID: 11500000, guid: 72d083fc9d99dac43acc417afdb2da81, type: 3}
+  m_Name: Receive
   m_EditorClassIdentifier: 
-  objectName: DECIPHER_GAMMA.exe
+  objectName: Receive Data
+  fileName: receive.func
+  specificDataOnly: 0
+  fullPDOperation: 0
+  applicableDataTypes: 04000000
+  applicableData: []

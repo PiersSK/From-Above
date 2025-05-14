@@ -5,12 +5,18 @@ using UnityEngine.UI;
 public class ServerHubDataObjectUI : MonoBehaviour
 {
     [SerializeField] private Image dataTypeIcon;
+    [SerializeField] private Image highlightBackground;
     [SerializeField] private TextMeshProUGUI dataName;
     [SerializeField] private TextMeshProUGUI dataType;
 
     private const string EMPTY = "Empty";
     private const string NOTYPE = "-";
     private const string ENCRYPTEDICON = "DataIcons/EncryptedIcon";
+
+    public void SetHighlightState(bool state)
+    {
+        highlightBackground.enabled = state;
+    }
 
     public void SetDataObject(DiscSlotContent slotContent)
     {

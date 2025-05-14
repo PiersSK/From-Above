@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewRemoteLocationContent", menuName = "Disc Slot Content/Remote Location")]
 public class RemoteContent : DiscSlotContent
@@ -31,5 +30,10 @@ public class RemoteContent : DiscSlotContent
     public override string GetDisplayType()
     {
         return REMOTETYPE;
+    }
+
+    public override DataTypeSimple GetSimpleType()
+    {
+        return DataTypeSimple.Remote;
     }
 }

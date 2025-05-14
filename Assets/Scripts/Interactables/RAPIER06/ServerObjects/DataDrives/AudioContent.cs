@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewAudioContent", menuName = "Disc Slot Content/Audio")]
 public class AudioContent : DiscSlotContent
@@ -16,5 +15,10 @@ public class AudioContent : DiscSlotContent
     public override string GetDisplayType()
     {
         return AUDIOTYPE;
+    }
+
+    public override DataTypeSimple GetSimpleType()
+    {
+        return DataTypeSimple.Audio;
     }
 }

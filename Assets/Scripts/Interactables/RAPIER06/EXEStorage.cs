@@ -5,6 +5,7 @@ using UnityEngine;
 public class EXEStorage : IServerHubStorage
 {
     public static event OnServerStorageObjectChange EXEStorageChanged;
+    public List<IServerDataObject> allExeReference = new();
 
     protected override void UpdateVisualObjects()
     {

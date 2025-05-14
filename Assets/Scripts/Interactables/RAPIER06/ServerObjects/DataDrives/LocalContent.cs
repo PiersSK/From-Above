@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewLocalLocationContent", menuName = "Disc Slot Content/Local Location")]
 public class LocalContent : DiscSlotContent
@@ -28,5 +27,10 @@ public class LocalContent : DiscSlotContent
     public override string GetDisplayType()
     {
         return LOCALTYPE;
+    }
+
+    public override DataTypeSimple GetSimpleType()
+    {
+        return DataTypeSimple.Local;
     }
 }

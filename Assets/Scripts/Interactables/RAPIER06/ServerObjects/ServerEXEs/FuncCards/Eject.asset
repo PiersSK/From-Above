@@ -9,7 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf037cb24fda634b8c5af6bd62dbd06, type: 3}
-  m_Name: Open
+  m_Script: {fileID: 11500000, guid: 095035fe5b4aba84baa701a16c2b0eb5, type: 3}
+  m_Name: Eject
   m_EditorClassIdentifier: 
-  objectName: OPEN.exe
+  objectName: Eject
+  fileName: eject.func
+  specificDataOnly: 1
+  fullPDOperation: 1
+  applicableDataTypes: 
+  applicableData:
+  - {fileID: 11400000, guid: a356f63818c4d7742870bada2b414935, type: 2}

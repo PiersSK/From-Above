@@ -9,7 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf037cb24fda634b8c5af6bd62dbd06, type: 3}
+  m_Script: {fileID: 11500000, guid: df64d6884de13184e8a00079eac6aedf, type: 3}
   m_Name: Transmit
   m_EditorClassIdentifier: 
-  objectName: TRANSMIT.exe
+  objectName: Transmit To Command
+  fileName: transmit.fun
+  specificDataOnly: 0
+  fullPDOperation: 0
+  applicableDataTypes: 000000000100000002000000
+  applicableData: []
+  specificPdsOnly: 0
+  applicablePds: []

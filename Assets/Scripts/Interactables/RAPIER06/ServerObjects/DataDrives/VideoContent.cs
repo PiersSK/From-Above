@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Video;
 
 [CreateAssetMenu(fileName = "NewVideoContent", menuName = "Disc Slot Content/Video")]
@@ -17,5 +16,10 @@ public class VideoContent : DiscSlotContent
     public override string GetDisplayType()
     {
         return VIDEOTYPE;
+    }
+
+    public override DataTypeSimple GetSimpleType()
+    {
+        return DataTypeSimple.Video;
     }
 }

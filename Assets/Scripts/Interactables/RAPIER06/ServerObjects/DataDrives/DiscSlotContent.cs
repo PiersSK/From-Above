@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class DiscSlotContent : ScriptableObject
 {
@@ -13,6 +12,16 @@ public abstract class DiscSlotContent : ScriptableObject
     }
     public DecipherType decipherType;
 
+    public enum DataTypeSimple
+    {
+        Text,
+        Audio,
+        Video,
+        Local,
+        Remote
+    }
+
     public abstract Sprite GetIcon();
     public abstract string GetDisplayType();
+    public abstract DataTypeSimple GetSimpleType();
 }

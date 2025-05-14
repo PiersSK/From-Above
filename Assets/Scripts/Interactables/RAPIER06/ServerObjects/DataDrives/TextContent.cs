@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewTextContent", menuName = "Disc Slot Content/Text")]
 public class TextContent : DiscSlotContent
@@ -17,5 +16,10 @@ public class TextContent : DiscSlotContent
     public override string GetDisplayType()
     {
         return TEXTTYPE;
+    }
+
+    public override DataTypeSimple GetSimpleType()
+    {
+        return DataTypeSimple.Text;
     }
 }
