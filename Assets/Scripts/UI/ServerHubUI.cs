@@ -35,6 +35,10 @@ public class ServerHubUI : MonoBehaviour
     [SerializeField] private EXEStorage fcStorage;
     [SerializeField] private Transform fcSelectorRow;
 
+    [SerializeField] private Transform functionWindow;
+    [SerializeField] private Animator TempAnim;
+
+
     private List<IServerDataObject> applicableExes = new();
 
     private void Start()
@@ -197,7 +201,14 @@ public class ServerHubUI : MonoBehaviour
         fcButtonContainer.SetActive(false);
         selectedPdContainer.SetActive(false);
 
+        functionWindow.gameObject.SetActive(true);
+
         UpdateDataUI();
         UpdateFCPreview();
+    }
+
+    public void Decrypt()
+    {
+        TempAnim.SetTrigger("Decrypt");
     }
 }
