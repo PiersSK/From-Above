@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ServerHubUI : MonoBehaviour
 {
+    public static ServerHubUI Instance { get; private set; }
+
     [Header("UI Containers")]
     [SerializeField] private Transform background;
     [SerializeField] private Transform foreground;
@@ -35,12 +37,24 @@ public class ServerHubUI : MonoBehaviour
     [SerializeField] private EXEStorage fcStorage;
     [SerializeField] private Transform fcSelectorRow;
 
-    [SerializeField] private Transform functionWindow;
-    [SerializeField] private Animator TempAnim;
-
+    [SerializeField] private Transform functionWindows;
+    [SerializeField] private GameObject outputWindow;
 
     private List<IServerDataObject> applicableExes = new();
 
+    private const string ENCRYPTEDICON = "DataIcons/EncryptedIcon";
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         PDStorage.PDStorageChanged += RefreshUIState;
@@ -124,7 +138,7 @@ public class ServerHubUI : MonoBehaviour
 
         if (fcSelector.parent != foreground) return false;
         else if (data == null) return false;
-        else if (data.decipherType != DiscSlotContent.DecipherType.None && currentFc is not DecipherExe) return false;
+        else if (!IsContentDecrypted(data) && currentFc is not DecipherExe) return false;
         else if (!fcStorage.objectsStored.Contains(currentFc)) return false;
 
         return currentFc.DataIsRelevantToFunction(data);
@@ -183,8 +197,14 @@ public class ServerHubUI : MonoBehaviour
 
     public void BackToPDSelection()
     {
+        Debug.Log("BackToPDSelection");
+
         pdSelector.SetParent(foreground);
+        dataInspectorContainer.SetParent(foreground);
         fcSelector.SetParent(background);
+
+        foreach(Transform functionWindow in functionWindows) functionWindow.gameObject.SetActive(false);
+        outputWindow.SetActive(false);
 
         pdButtons.SetActive(true);
         fcButtonContainer.SetActive(false);
@@ -196,19 +216,52 @@ public class ServerHubUI : MonoBehaviour
 
     public void ConfirmFCSelection()
     {
+        Debug.Log("ConfirmFCSelection");
         fcSelector.SetParent(background);
         dataInspectorContainer.SetParent(background);
         fcButtonContainer.SetActive(false);
         selectedPdContainer.SetActive(false);
 
-        functionWindow.gameObject.SetActive(true);
-
         UpdateDataUI();
         UpdateFCPreview();
+
+        List<DiscSlotContent> relevantContent = new();
+        DataDrive pd = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
+        ServerExe fc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
+        foreach (DiscSlotContent content in pd.slots)
+        {
+            if (content != null && fc.DataIsRelevantToFunction(content))
+                relevantContent.Add(content);
+        }
+
+        pd = fc.PDIsRelevantToFunction(pd) ? pd : null;
+
+        functionWindows.Find(fc.name).GetComponent<FuncCardUI>().OpenFuncUI(relevantContent, pd);
+
     }
 
-    public void Decrypt()
+    public bool IsContentDecrypted(DiscSlotContent content)
     {
-        TempAnim.SetTrigger("Decrypt");
+        return content.decipherType == DiscSlotContent.DecipherType.None || pdStorage.encryptedContent.Contains(content);
+    }
+
+    public string GetFormattedDataSlotName(DiscSlotContent content)
+    {
+        return !IsContentDecrypted(content) ? TextEncryption.EncryptToBase64(content.displayName, content.decipherType) : content.displayName;
+    }
+
+    public string GetFormattedDataSlotType(DiscSlotContent content)
+    {
+        return !IsContentDecrypted(content) ? TextEncryption.EncryptToBase64(content.GetDisplayType(), content.decipherType) : content.GetDisplayType();
+    }
+
+    public Sprite GetFormattedDataSlotIcon(DiscSlotContent content)
+    {
+        return !IsContentDecrypted(content) ? Resources.Load<Sprite>(ENCRYPTEDICON) : content.GetIcon();
+    }
+
+    public void LogContentAsDecrypted(DiscSlotContent content)
+    {
+        pdStorage.encryptedContent.Add(content);
     }
 }

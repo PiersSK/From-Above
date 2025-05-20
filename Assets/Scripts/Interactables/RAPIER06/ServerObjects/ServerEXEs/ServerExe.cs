@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static DiscSlotContent;
 
@@ -9,6 +8,9 @@ public abstract class ServerExe : IServerDataObject
     public string fileName;
     [TextArea(5, 10)]
     public string terminalPreview;
+    public Sprite functionImage;
+    [TextArea(5, 10)]
+    public string functionFlavourText;
 
     public bool specificDataOnly = false;
     public bool fullPDOperation = false;
@@ -30,7 +32,7 @@ public abstract class ServerExe : IServerDataObject
         return false;
     }
 
-    public bool DataIsRelevantToFunction(DiscSlotContent data)
+    public virtual bool DataIsRelevantToFunction(DiscSlotContent data)
     {
         if (data != null)
         {
@@ -41,7 +43,7 @@ public abstract class ServerExe : IServerDataObject
         return false;
     }
 
-    public List<DiscSlotContent> RelevantDataOnDisc(DataDrive drive)
+    public virtual List<DiscSlotContent> RelevantDataOnDisc(DataDrive drive)
     {
         List<DiscSlotContent> relevantData = new();
 

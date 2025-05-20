@@ -24,10 +24,10 @@ public class ServerHubDataObjectUI : MonoBehaviour
         {
             bool encrypted = slotContent.decipherType != DiscSlotContent.DecipherType.None;
 
-            dataName.text = encrypted ? TextEncryption.EncryptToBase64(slotContent.displayName, slotContent.decipherType) : slotContent.displayName;
+            dataName.text = ServerHubUI.Instance.GetFormattedDataSlotName(slotContent);
             dataName.color = UIColors.white;
-            dataType.text = encrypted ? TextEncryption.EncryptToBase64(slotContent.GetDisplayType(), slotContent.decipherType) : slotContent.GetDisplayType();
-            dataTypeIcon.sprite = encrypted ? Resources.Load<Sprite>(ENCRYPTEDICON) : slotContent.GetIcon();
+            dataType.text = ServerHubUI.Instance.GetFormattedDataSlotType(slotContent);
+            dataTypeIcon.sprite = ServerHubUI.Instance.GetFormattedDataSlotIcon(slotContent);
             dataTypeIcon.color = UIColors.terminalGreen;
         } else
         {

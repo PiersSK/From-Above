@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class PDStorage : IServerHubStorage
 {
     public static event OnServerStorageObjectChange PDStorageChanged;
+    public List<DiscSlotContent> encryptedContent = new();
+
     protected override void UpdateVisualObjects()
     {
         foreach (Transform obj in visualObjects) obj.gameObject.SetActive(false);
