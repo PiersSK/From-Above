@@ -85,10 +85,11 @@ public class Door : Interactable
     public void UnlockAndOpenDoor()
     {
         UnlockDoor();
-
+        bool playSound = !isOpen;
         isOpen = true;
+
         doorAnimator.SetBool(ANIMISOPEN, isOpen);
-        SoundManager.Instance.PlaySFXOneShot(doorSfx, 0, 0.5f);
+        if(playSound) SoundManager.Instance.PlaySFXOneShot(doorSfx, 0, 0.5f);
         UpdatePromptMessage();
         if (twinButton != null && hasButton) twinButton.SyncToTwinButton();
     }
