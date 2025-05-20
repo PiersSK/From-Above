@@ -225,14 +225,9 @@ public class ServerHubUI : MonoBehaviour
         UpdateDataUI();
         UpdateFCPreview();
 
-        List<DiscSlotContent> relevantContent = new();
         DataDrive pd = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
         ServerExe fc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
-        foreach (DiscSlotContent content in pd.slots)
-        {
-            if (content != null && fc.DataIsRelevantToFunction(content))
-                relevantContent.Add(content);
-        }
+        List<DiscSlotContent> relevantContent = fc.RelevantDataOnDisc(pd);
 
         pd = fc.PDIsRelevantToFunction(pd) ? pd : null;
 

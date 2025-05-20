@@ -34,7 +34,7 @@ public abstract class ServerExe : IServerDataObject
 
     public virtual bool DataIsRelevantToFunction(DiscSlotContent data)
     {
-        if (data != null)
+        if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
         {
             if (specificDataOnly && applicableData.Contains(data)) return true;
             else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) return true;
@@ -49,7 +49,7 @@ public abstract class ServerExe : IServerDataObject
 
         foreach (DiscSlotContent data in drive.slots)
         {
-            if (data != null)
+            if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
             {
                 if (specificDataOnly && applicableData.Contains(data)) relevantData.Add(data);
                 else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) relevantData.Add(data);
