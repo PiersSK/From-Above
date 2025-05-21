@@ -54,6 +54,13 @@ public class Door : Interactable
         Invoke("TakeOffCooldown", interactionCooldown);
     }
 
+    public void CloseDoor()
+    {
+        if(isOpen) SoundManager.Instance.PlaySFXOneShot(doorSfx, 0, 0.5f);
+        isOpen = false;
+        doorAnimator.SetBool(ANIMISOPEN, false);
+    }
+
     private void TakeOffCooldown()
     {
         isInteractable = true;

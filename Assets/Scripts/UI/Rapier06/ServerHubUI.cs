@@ -16,7 +16,7 @@ public class ServerHubUI : MonoBehaviour
     [SerializeField] private GameObject pdButtons;
     [SerializeField] private Transform pdSelector;
 
-    [SerializeField] private PDStorage pdStorage;
+    [SerializeField] public PDStorage pdStorage;
     [SerializeField] private Transform pdSelectorRow;
 
     [Header("Data UI Objects")]

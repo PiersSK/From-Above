@@ -13,6 +13,7 @@ public class FuncDecipherUI : FuncCardUI
 
     protected override void ConfirmExecution()
     {
+        returnButton.interactable = false;
         confirmButton.interactable = false;
         outputTitle.gameObject.SetActive(false);
         outputTitle.text = selectedContent.displayName;

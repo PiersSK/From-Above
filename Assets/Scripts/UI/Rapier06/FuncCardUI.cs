@@ -6,32 +6,33 @@ using UnityEngine.UI;
 public class FuncCardUI : MonoBehaviour
 {
     [Header("Function Information")]
-    [SerializeField] private ServerExe connectedExe;
+    [SerializeField] protected ServerExe connectedExe;
 
-    [SerializeField] private TextMeshProUGUI tabTitle;
-    [SerializeField] private TextMeshProUGUI funcName;
-    [SerializeField] private Image funcLogo;
-    [SerializeField] private TextMeshProUGUI functionDescription;
+    [SerializeField] protected TextMeshProUGUI tabTitle;
+    [SerializeField] protected TextMeshProUGUI funcName;
+    [SerializeField] protected Image funcLogo;
+    [SerializeField] protected TextMeshProUGUI functionDescription;
 
     [Header("Data Information")]
-    [SerializeField] private TextMeshProUGUI inputTitle;
-    [SerializeField] private Image inputFileIcon;
+    [SerializeField] protected TextMeshProUGUI inputTitle;
+    [SerializeField] protected Image inputFileIcon;
     [SerializeField] protected TextMeshProUGUI outputTitle;
     [SerializeField] protected Image outputFileIcon;
 
     [Header("Buttons Information")]
-    [SerializeField] private Button prevButton;
-    [SerializeField] private Button nextButton;
+    [SerializeField] protected Button prevButton;
+    [SerializeField] protected Button nextButton;
     [SerializeField] protected Button confirmButton;
+    [SerializeField] protected Button returnButton;
 
     [Header("Output")]
     [SerializeField] protected GameObject functionOutput;
 
-    private List<DiscSlotContent> validContentToApplyTo;
-    private DataDrive relevantPd;
+    protected List<DiscSlotContent> validContentToApplyTo;
+    protected DataDrive relevantPd;
     protected DiscSlotContent selectedContent;
 
-    private void Start()
+    protected virtual void Start()
     {
         prevButton.onClick.AddListener(SelectPrevious);
         nextButton.onClick.AddListener(SelectNext);
@@ -45,7 +46,7 @@ public class FuncCardUI : MonoBehaviour
 
         gameObject.SetActive(false);
     }
-    public void OpenFuncUI(List<DiscSlotContent> validContent, DataDrive pd = null)
+    public virtual void OpenFuncUI(List<DiscSlotContent> validContent, DataDrive pd = null)
     {
         validContentToApplyTo = validContent;
         relevantPd = pd;
@@ -64,7 +65,7 @@ public class FuncCardUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void SetSelectedFile(DiscSlotContent content)
+    protected void SetSelectedFile(DiscSlotContent content)
     {
         selectedContent = content;
         inputTitle.text = ServerHubUI.Instance.GetFormattedDataSlotName(selectedContent);
@@ -91,5 +92,6 @@ public class FuncCardUI : MonoBehaviour
     {
         gameObject.SetActive(false);
         functionOutput.SetActive(true);
+        returnButton.interactable = true;
     }
 }

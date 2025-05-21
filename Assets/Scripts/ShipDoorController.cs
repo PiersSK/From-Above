@@ -41,4 +41,34 @@ public class ShipDoorController : MonoBehaviour
         }
                 
     }
+
+    public void RemoteClose(LocalLocations location)
+    {
+        switch (location)
+        {
+            case LocalLocations.Bridge:
+                bridgeDoor.CloseDoor();
+                return;
+            case LocalLocations.LivingQuartersOne:
+                lq1Door.CloseDoor();
+                return;
+            case LocalLocations.LivingQuartersTwo:
+                lq2Door.CloseDoor();
+                return;
+            case LocalLocations.Health:
+                healthDoor.CloseDoor();
+                return;
+            case LocalLocations.Utility:
+                utilityDoor.CloseDoor();
+                return;
+            case LocalLocations.EngineRoom:
+                engineDoor.CloseDoor();
+                return;
+            case LocalLocations.DoomsdayRoom:
+                doomsdayDoor.CloseDoor();
+                return;
+            default:
+                return;
+        }
+    }
 }
