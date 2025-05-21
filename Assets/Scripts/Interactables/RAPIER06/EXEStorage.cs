@@ -84,7 +84,7 @@ public class EXEStorage : IServerHubStorage
             currentIndex = allExeReference.IndexOf(filterList[indexInFilter]);
         } else
         {
-            currentIndex = 0;
+            currentIndex = allExeReference.IndexOf(filterList[0]); ;
         }
 
         Debug.Log("EXE Filtered (Next) selected: " + allExeReference[currentIndex].objectName);

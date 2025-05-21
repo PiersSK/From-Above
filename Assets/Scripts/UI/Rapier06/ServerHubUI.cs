@@ -156,9 +156,15 @@ public class ServerHubUI : MonoBehaviour
 
         foreach (Transform fcIcon in fcSelectorRow) fcIcon.gameObject.SetActive(false);
 
-        int selectedIndex = applicableExes.Contains(fcStorage.allExeReference[fcStorage.currentIndex])
-            ? applicableExes.IndexOf(fcStorage.allExeReference[fcStorage.currentIndex])
-            : 0;
+        int selectedIndex = 0;
+
+        if(applicableExes.Contains(fcStorage.allExeReference[fcStorage.currentIndex]))
+        {
+            selectedIndex = applicableExes.IndexOf(fcStorage.allExeReference[fcStorage.currentIndex]);
+        } else
+        {
+            fcStorage.currentIndex = fcStorage.allExeReference.IndexOf(applicableExes[0]);
+        }
 
         UpdateSelectorRow(fcSelectorRow, applicableExes, selectedIndex, fcStorage.objectsStored);
     }
@@ -183,7 +189,10 @@ public class ServerHubUI : MonoBehaviour
     public void ConfirmPDSelection()
     {
         pdSelector.SetParent(background);
+        dataInspectorContainer.SetParent(foreground);
         fcSelector.SetParent(foreground);
+        foreach (Transform functionWindow in functionWindows) functionWindow.gameObject.SetActive(false);
+        outputWindow.SetActive(false);
 
         pdButtons.SetActive(false);
         fcButtonContainer.SetActive(true);
@@ -191,18 +200,16 @@ public class ServerHubUI : MonoBehaviour
         selectedPdContainer.SetActive(true);
         selectedPd.dataName.text = pdStorage.objectsStored[pdStorage.currentIndex].objectName;
 
-        UpdateDataUI();
-        UpdateFCPreview();
+        fcPrevButton.Select();
+
+        RefreshUIState();
     }
 
     public void BackToPDSelection()
     {
-        Debug.Log("BackToPDSelection");
-
         pdSelector.SetParent(foreground);
         dataInspectorContainer.SetParent(foreground);
         fcSelector.SetParent(background);
-
         foreach(Transform functionWindow in functionWindows) functionWindow.gameObject.SetActive(false);
         outputWindow.SetActive(false);
 
@@ -210,20 +217,16 @@ public class ServerHubUI : MonoBehaviour
         fcButtonContainer.SetActive(false);
         selectedPdContainer.SetActive(false);
 
-        UpdateDataUI();
-        UpdateFCPreview();
+        RefreshUIState();
     }
 
     public void ConfirmFCSelection()
     {
-        Debug.Log("ConfirmFCSelection");
         fcSelector.SetParent(background);
         dataInspectorContainer.SetParent(background);
         fcButtonContainer.SetActive(false);
         selectedPdContainer.SetActive(false);
-
-        UpdateDataUI();
-        UpdateFCPreview();
+        outputWindow.SetActive(false);
 
         DataDrive pd = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
         ServerExe fc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
@@ -233,6 +236,7 @@ public class ServerHubUI : MonoBehaviour
 
         functionWindows.Find(fc.name).GetComponent<FuncCardUI>().OpenFuncUI(relevantContent, pd);
 
+        RefreshUIState();
     }
 
     public bool IsContentDecrypted(DiscSlotContent content)
