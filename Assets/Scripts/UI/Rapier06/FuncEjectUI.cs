@@ -20,7 +20,7 @@ public class FuncEjectUI : FuncCardUI
 
     private const string UNKNOWN = "???";
     private const string AIRLOCKBUTTON = "EJECT AIRLOCK AREA";
-    private const string PDEJECT = ": Successfully ejected and returned to crewmate";
+    private const string PDEJECT = "</b></color>: Successfully ejected and returned to crewmate";
     private const string AIRLOCKEJECT = "Airlock has been opened and closed to eject any loose content in the adjacent room. To maintain ship system integrity, repeat use of this function is unavailable for the next 24 hours";
 
     protected override void Start()
@@ -55,7 +55,7 @@ public class FuncEjectUI : FuncCardUI
         ServerHubUI.Instance.pdStorage.SelectNext();
         PlayerInventory.Instance.dataDrivesHeld.Add(relevantPd);
 
-        functionOutput.GetComponent<FunctionOutputUI>().SetOutput(relevantPd.objectName + PDEJECT);
+        functionOutput.GetComponent<FunctionOutputUI>().SetOutput("<b><color=white>" + relevantPd.objectName + PDEJECT);
         base.ConfirmExecution();
     }
 

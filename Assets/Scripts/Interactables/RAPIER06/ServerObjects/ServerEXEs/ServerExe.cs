@@ -23,7 +23,7 @@ public abstract class ServerExe : IServerDataObject
 
     public abstract void Perform(DiscSlotContent content);
 
-    public bool PDIsRelevantToFunction(DataDrive pd)
+    public virtual bool PDIsRelevantToFunction(DataDrive pd)
     {
         if (!fullPDOperation) return false;
         if (fullPDOperation && !specificPdsOnly) return true;
@@ -36,8 +36,8 @@ public abstract class ServerExe : IServerDataObject
     {
         if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
         {
-            if (specificDataOnly && applicableData.Contains(data)) return true;
-            else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) return true;
+            if (specificDataOnly && applicableData.Contains(data) && ServerHubUI.Instance.IsContentDecrypted(data)) return true;
+            else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType()) && ServerHubUI.Instance.IsContentDecrypted(data)) return true;
         }
 
         return false;
@@ -46,21 +46,21 @@ public abstract class ServerExe : IServerDataObject
     public virtual List<DiscSlotContent> RelevantDataOnDisc(DataDrive drive)
     {
         List<DiscSlotContent> relevantData = new();
-        List<DiscSlotContent> slots = ServerHubUI.Instance.pdStorage.receivedPDs.Contains(drive) ? drive.receivedSlots : drive.slots;
+        List<DiscSlotContent> slots = ServerHubUI.Instance.pdStorage.GetPDSlots(drive);
 
         foreach (DiscSlotContent data in slots)
         {
             if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
             {
-                if (specificDataOnly && applicableData.Contains(data)) relevantData.Add(data);
-                else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) relevantData.Add(data);
+                if (specificDataOnly && applicableData.Contains(data) && ServerHubUI.Instance.IsContentDecrypted(data)) relevantData.Add(data);
+                else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType()) && ServerHubUI.Instance.IsContentDecrypted(data)) relevantData.Add(data);
             }
         }
 
         return relevantData;
     }
 
-    public bool IsApplicablePD(DataDrive drive)
+    public virtual bool IsApplicablePD(DataDrive drive)
     {
         return fullPDOperation && (!specificPdsOnly || applicablePds.Contains(drive));
     }

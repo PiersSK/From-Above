@@ -118,7 +118,7 @@ public class ServerHubUI : MonoBehaviour
     private void UpdateDataUI()
     {
         DataDrive drive = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
-        List<DiscSlotContent> slots = pdStorage.receivedPDs.Contains(drive) ? drive.receivedSlots : drive.slots;
+        List<DiscSlotContent> slots = pdStorage.GetPDSlots(drive);
 
         for(int i = 0; i< dataRow.childCount; i++)
         {

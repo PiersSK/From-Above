@@ -6,6 +6,7 @@ public class PDStorage : IServerHubStorage
     public static event OnServerStorageObjectChange PDStorageChanged;
     public List<DiscSlotContent> encryptedContent = new();
     public List<DataDrive> receivedPDs = new();
+    public List<DataDrive> revertedPDs = new();
 
     protected override void UpdateVisualObjects()
     {
@@ -46,5 +47,12 @@ public class PDStorage : IServerHubStorage
         if (objectsStored.Count > 0) PlayerInventory.Instance.dataDrivesHeld.Add((DataDrive)objectsStored[currentIndex]);
         base.EjectObject();
         PDStorageChanged?.Invoke();
+    }
+
+    public List<DiscSlotContent> GetPDSlots(DataDrive pd)
+    {
+        if (receivedPDs.Contains(pd)) return pd.receivedSlots;
+        else if (revertedPDs.Contains(pd)) return pd.revertSlots;
+        else return pd.slots;
     }
 }

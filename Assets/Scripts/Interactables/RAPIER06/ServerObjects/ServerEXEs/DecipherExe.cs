@@ -10,7 +10,7 @@ public class DecipherExe : ServerExe
     public override List<DiscSlotContent> RelevantDataOnDisc(DataDrive drive)
     {
         List<DiscSlotContent> relevantData = new();
-        List<DiscSlotContent> slots = ServerHubUI.Instance.pdStorage.receivedPDs.Contains(drive) ? drive.receivedSlots : drive.slots;
+        List<DiscSlotContent> slots = ServerHubUI.Instance.pdStorage.GetPDSlots(drive);
 
         foreach (DiscSlotContent data in slots)
         {
