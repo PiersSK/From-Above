@@ -14,6 +14,8 @@ public class FuncDecipherUI : FuncCardUI
     protected override void ConfirmExecution()
     {
         returnButton.interactable = false;
+        prevButton.interactable = false;
+        nextButton.interactable = false;
         confirmButton.interactable = false;
         outputTitle.gameObject.SetActive(false);
         outputTitle.text = selectedContent.displayName;
@@ -32,6 +34,10 @@ public class FuncDecipherUI : FuncCardUI
 
         functionOutput.GetComponent<FunctionOutputUI>().SetOutput(output);
         base.ConfirmExecution();
+
+        prevButton.interactable = true;
+        nextButton.interactable = true;
         confirmButton.interactable = true;
+        outputTitle.text = "???";
     }
 }

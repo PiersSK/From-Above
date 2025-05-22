@@ -5,6 +5,7 @@ public class PDStorage : IServerHubStorage
 {
     public static event OnServerStorageObjectChange PDStorageChanged;
     public List<DiscSlotContent> encryptedContent = new();
+    public List<DataDrive> receivedPDs = new();
 
     protected override void UpdateVisualObjects()
     {

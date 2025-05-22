@@ -54,12 +54,12 @@ public class FuncCardUI : MonoBehaviour
         SetSelectedFile(validContentToApplyTo[0]);
         if(validContentToApplyTo.Count <= 1)
         {
-            prevButton.interactable = false;
-            nextButton.interactable = false;
+            prevButton.gameObject.SetActive(false);
+            nextButton.gameObject.SetActive(false);
         } else
         {
-            prevButton.interactable = true;
-            nextButton.interactable = true;
+            prevButton.gameObject.SetActive(true);
+            nextButton.gameObject.SetActive(true);
         }
 
         gameObject.SetActive(true);

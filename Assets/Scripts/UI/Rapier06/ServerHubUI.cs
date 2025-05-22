@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -117,12 +118,14 @@ public class ServerHubUI : MonoBehaviour
     private void UpdateDataUI()
     {
         DataDrive drive = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
+        List<DiscSlotContent> slots = pdStorage.receivedPDs.Contains(drive) ? drive.receivedSlots : drive.slots;
+
         for(int i = 0; i< dataRow.childCount; i++)
         {
             ServerHubDataObjectUI dataDisplayObject = dataRow.GetChild(i).GetComponent<ServerHubDataObjectUI>();
-            dataDisplayObject.SetDataObject(drive.slots[i]);
+            dataDisplayObject.SetDataObject(slots[i]);
 
-            bool isRelevant = ShouldHighlightData(drive.slots[i]);
+            bool isRelevant = ShouldHighlightData(slots[i]);
             dataDisplayObject.SetHighlightState(isRelevant);
         }
 
@@ -232,7 +235,7 @@ public class ServerHubUI : MonoBehaviour
         ServerExe fc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
         List<DiscSlotContent> relevantContent = fc.RelevantDataOnDisc(pd);
 
-        pd = fc.PDIsRelevantToFunction(pd) ? pd : null;
+        //pd = fc.PDIsRelevantToFunction(pd) ? pd : null;
 
         functionWindows.Find(fc.name).GetComponent<FuncCardUI>().OpenFuncUI(relevantContent, pd);
 

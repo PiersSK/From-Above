@@ -8,6 +8,7 @@ public class DataDrive : IServerDataObject
     public List<DiscSlotContent> slots = new(new DiscSlotContent[5]);
     public bool revertable = false;
     public List<DiscSlotContent> revertSlots = new();
+    public List<DiscSlotContent> receivedSlots = new();
 
     [Header("LEGACY FIELDS")]
     [TextArea(15,20)]

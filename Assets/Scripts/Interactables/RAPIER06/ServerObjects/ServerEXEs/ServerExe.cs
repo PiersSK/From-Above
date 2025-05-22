@@ -46,8 +46,9 @@ public abstract class ServerExe : IServerDataObject
     public virtual List<DiscSlotContent> RelevantDataOnDisc(DataDrive drive)
     {
         List<DiscSlotContent> relevantData = new();
+        List<DiscSlotContent> slots = ServerHubUI.Instance.pdStorage.receivedPDs.Contains(drive) ? drive.receivedSlots : drive.slots;
 
-        foreach (DiscSlotContent data in drive.slots)
+        foreach (DiscSlotContent data in slots)
         {
             if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
             {
