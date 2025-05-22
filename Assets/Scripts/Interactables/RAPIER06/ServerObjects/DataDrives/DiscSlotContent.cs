@@ -21,6 +21,9 @@ public abstract class DiscSlotContent : ScriptableObject
         Remote
     }
 
+    [TextArea(15, 20)]
+    public string commandResponseMessage;
+
     public abstract Sprite GetIcon();
     public abstract string GetDisplayType();
     public abstract DataTypeSimple GetSimpleType();

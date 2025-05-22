@@ -23,8 +23,8 @@ public class FuncReceiveUI : FuncCardUI
         receivingMessage.text = "...receiving " + contentCount + (contentCount > 1 ? " files" : " file") + " from remote";
         receivingMessage.gameObject.SetActive(true);
 
-        outputTitle.text = remote.remoteContent[0].displayName;
-        outputFileIcon.sprite = remote.remoteContent[0].GetIcon();
+        outputTitle.text = ServerHubUI.Instance.GetFormattedDataSlotName(remote.remoteContent[0]);
+        outputFileIcon.sprite = ServerHubUI.Instance.GetFormattedDataSlotIcon(remote.remoteContent[0]);
 
         ServerHubUI.Instance.pdStorage.receivedPDs.Add(relevantPd);
 

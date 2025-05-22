@@ -36,8 +36,8 @@ public abstract class ServerExe : IServerDataObject
     {
         if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
         {
-            if (specificDataOnly && applicableData.Contains(data) && ServerHubUI.Instance.IsContentDecrypted(data)) return true;
-            else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType()) && ServerHubUI.Instance.IsContentDecrypted(data)) return true;
+            if (specificDataOnly && applicableData.Contains(data)) return true;
+            else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) return true;
         }
 
         return false;
@@ -52,8 +52,8 @@ public abstract class ServerExe : IServerDataObject
         {
             if (data != null && ServerHubUI.Instance.IsContentDecrypted(data))
             {
-                if (specificDataOnly && applicableData.Contains(data) && ServerHubUI.Instance.IsContentDecrypted(data)) relevantData.Add(data);
-                else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType()) && ServerHubUI.Instance.IsContentDecrypted(data)) relevantData.Add(data);
+                if (specificDataOnly && applicableData.Contains(data)) relevantData.Add(data);
+                else if (!specificDataOnly && applicableDataTypes.Contains(data.GetSimpleType())) relevantData.Add(data);
             }
         }
 

@@ -141,7 +141,7 @@ public class ServerHubUI : MonoBehaviour
 
         if (fcSelector.parent != foreground) return false;
         else if (data == null) return false;
-        else if (!IsContentDecrypted(data) && currentFc is not DecipherExe) return false;
+        else if (!IsContentDecrypted(data) && currentFc is not DecipherExe && currentFc is not TransmitExe) return false;
         else if (!fcStorage.objectsStored.Contains(currentFc)) return false;
 
         return currentFc.DataIsRelevantToFunction(data);

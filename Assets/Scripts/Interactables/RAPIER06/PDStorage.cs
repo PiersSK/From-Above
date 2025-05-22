@@ -5,6 +5,8 @@ public class PDStorage : IServerHubStorage
 {
     public static event OnServerStorageObjectChange PDStorageChanged;
     public List<DiscSlotContent> encryptedContent = new();
+    public List<DiscSlotContent> transmittedContent = new();
+    public List<DiscSlotContent> transmittedEncryptedContent = new();
     public List<DataDrive> receivedPDs = new();
     public List<DataDrive> revertedPDs = new();
 
