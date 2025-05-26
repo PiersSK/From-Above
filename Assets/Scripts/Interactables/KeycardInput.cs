@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class KeycardInput : Interactable
 {
@@ -15,6 +18,7 @@ public class KeycardInput : Interactable
     [SerializeField] private AudioClip unlockConfirmLine;
     [SerializeField] private AudioClip confirmBeep;
     [SerializeField] private AudioClip sfx;
+    [SerializeField] private List<KeycardTerminal> terminals;
 
     private bool keyInserted = false;
 
@@ -32,7 +36,7 @@ public class KeycardInput : Interactable
 
     public override string GetPrompt()
     {
-        if(key == KeyCardRequired.One)
+        if (key == KeyCardRequired.One)
             return KEYCARD1INSERT;
         else if (key == KeyCardRequired.Two)
             return KEYCARD2INSERT;
@@ -55,6 +59,7 @@ public class KeycardInput : Interactable
 
     protected override void Interact(Transform player)
     {
+        bool isFirstKey = DoomsdayStatusUI.Instance.keycardsInserted == 0;
         if (key == KeyCardRequired.One && PlayerInventory.Instance.hasKeycard1)
         {
             SoundManager.Instance.PlaySFXOneShot(sfx);
@@ -62,6 +67,10 @@ public class KeycardInput : Interactable
             PlayerInventory.Instance.hasKeycard1 = false;
             DoomsdayStatusUI.Instance.keycardsInserted++;
             keyInserted = true;
+            if (isFirstKey)
+                TimeController.Instance.StartKeycardTimer(OnTimerExpired);
+
+
         }
         if (key == KeyCardRequired.Two && PlayerInventory.Instance.hasKeycard2)
         {
@@ -70,13 +79,34 @@ public class KeycardInput : Interactable
             PlayerInventory.Instance.hasKeycard2 = false;
             DoomsdayStatusUI.Instance.keycardsInserted++;
             keyInserted = true;
+            if (isFirstKey)
+                TimeController.Instance.StartKeycardTimer(OnTimerExpired);
         }
 
-        if(DoomsdayStatusUI.Instance.keycardsInserted == 2)
+        if (DoomsdayStatusUI.Instance.keycardsInserted == 2)
         {
+            TimeController.Instance.StopKeycardTimer();
             TaskManager.Instance.CompleteTask(task);
             SoundManager.Instance.PlaySFXOneShot(confirmBeep);
             SoundManager.Instance.PlayShipPALine(unlockConfirmLine);
+            foreach (KeycardTerminal terminal in terminals)
+                terminal.ShowUnlockMessage();
         }
+    }
+
+    private void OnTimerExpired()
+    {
+        if (keyInserted)
+            keyObj.SetActive(false);
+        keyInserted = false;
+
+        if (key == KeyCardRequired.One)
+            PlayerInventory.Instance.hasKeycard1 = true;
+        else if (key == KeyCardRequired.Two)
+            PlayerInventory.Instance.hasKeycard2 = true;
+
+        DoomsdayStatusUI.Instance.keycardsInserted = 0;
+        foreach (KeycardTerminal terminal in terminals)
+            terminal.ShowFailureMessage();
     }
 }
