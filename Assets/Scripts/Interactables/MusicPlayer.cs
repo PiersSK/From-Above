@@ -42,9 +42,18 @@ public class MusicPlayer : Interactable
         DataDrive drive = dataReader.insertedDrive;
         if (drive != null)
         {
+            AudioContent audio = null;
+            foreach (DiscSlotContent dsc in ServerHubUI.Instance.pdStorage.GetPDSlots(drive))
+            {
+                if (dsc is AudioContent a)
+                {
+                    audio = a;
+                    break;
+                }
+            }
             //Load audio if first play
-            if (audioSource.resource == null & drive.audioContent != null)
-                audioSource.resource = drive.audioContent;
+            if (audioSource.resource == null & audio != null)
+                audioSource.resource = audio.content;
 
             if (audioSource.resource != null && !audioSource.isPlaying)
             {

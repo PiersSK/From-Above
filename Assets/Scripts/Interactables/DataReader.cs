@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,8 +36,10 @@ public class DataReader : Interactable
 
     protected override void Interact(Transform p)
     {
+        List<IServerDataObject> pds = audioOutput != null ? PlayerInventory.Instance.AudioDrivesHeld() : PlayerInventory.Instance.dataDrivesHeld;
+
         if (insertedDrive != null) UnloadDrive();
-        else UIManager.Instance.ShowPDSelectUI(LoadDrive, PlayerInventory.Instance.dataDrivesHeld);
+        else UIManager.Instance.ShowPDSelectUI(LoadDrive, pds);
     }
 
     public void UnloadDrive()

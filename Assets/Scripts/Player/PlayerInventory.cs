@@ -55,4 +55,19 @@ public class PlayerInventory : MonoBehaviour
         keycard2.SetActive(hasKeycard2);
         serverPassword.SetActive(hasServerPassword);
     }
+
+    public List<IServerDataObject> AudioDrivesHeld()
+    {
+        List<IServerDataObject> audioDrives = new();
+        foreach(IServerDataObject dataDrive in dataDrivesHeld)
+        {
+            DataDrive d = (DataDrive)dataDrive;
+            foreach(DiscSlotContent dsc in ServerHubUI.Instance.pdStorage.GetPDSlots(d))
+            {
+                if (dsc is AudioContent a) audioDrives.Add(d);
+            }
+        }
+
+        return audioDrives;
+    }
 }
