@@ -9,8 +9,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private DataDrive stripedPD;
     [SerializeField] private GameObject stripedPDObj;
     private int drivesLastHeld = 0;
+    private int exesLastHeld = 0;
 
     [SerializeField] private Transform PDHolder;
+    [SerializeField] private Transform FCHolder;
     [SerializeField] private GameObject keycard1;
     [SerializeField] private GameObject keycard2;
     [SerializeField] private GameObject serverPassword;
@@ -44,10 +46,24 @@ public class PlayerInventory : MonoBehaviour
             {
                 if (drive != stripedPD)
                 {
-                    int i = dataDrivesHeld.IndexOf(drive);
+                    int i = dataDrivesHeld.IndexOf(drive) % 5;
+                    int j = Mathf.FloorToInt(dataDrivesHeld.IndexOf(drive) / 5);
                     Transform t = Instantiate(Resources.Load<Transform>("PD"), PDHolder);
-                    t.localPosition = new Vector3(i * 0.01f, i * 0.1f, 0f);
+                    t.localPosition = new Vector3(i * 0.01f + j * 0.05f, i * 0.1f, j * -0.1f);
                 }
+            }
+        }
+
+        if (exesHeld.Count != exesLastHeld)
+        {
+            exesLastHeld = exesHeld.Count;
+
+            foreach (Transform t in FCHolder) Destroy(t.gameObject);
+            foreach (ServerExe exe in exesHeld)
+            {
+                int i = exesHeld.IndexOf(exe);
+                Transform t = Instantiate(Resources.Load<Transform>("FC"), FCHolder);
+                t.localPosition = new Vector3(i * 0.01f, i * 0.05f, 1.234f + i * 0.01f);
             }
         }
 

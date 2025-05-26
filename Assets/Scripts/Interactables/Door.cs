@@ -89,7 +89,7 @@ public class Door : Interactable
         if (twinButton != null && hasButton) twinButton.SyncToTwinButton();
     }
 
-    public void UnlockAndOpenDoor()
+    public virtual void UnlockAndOpenDoor()
     {
         UnlockDoor();
         bool playSound = !isOpen;

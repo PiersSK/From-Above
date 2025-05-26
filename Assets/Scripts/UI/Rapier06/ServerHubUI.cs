@@ -16,8 +16,10 @@ public class ServerHubUI : MonoBehaviour
     [Header("PD UI Objects")]
     [SerializeField] private GameObject pdButtons;
     [SerializeField] private Button pdPrevButton;
+    [SerializeField] private Button pdNextButton;
+    [SerializeField] private Button pdConfirmButton;
     [SerializeField] private Transform pdSelector;
-
+    [SerializeField] private GameObject pdEmptyMessage;
     [SerializeField] public PDStorage pdStorage;
     [SerializeField] private Transform pdSelectorRow;
 
@@ -25,6 +27,7 @@ public class ServerHubUI : MonoBehaviour
     [SerializeField] private Transform dataInspectorContainer;
     [SerializeField] private Transform dataRow;
     [SerializeField] private GameObject selectedPdContainer;
+    [SerializeField] private GameObject inspectorEmptyMessage;
     [SerializeField] private ServerHubDataObjectUI selectedPd;
 
     [Header("FC UI Objects")]
@@ -64,7 +67,7 @@ public class ServerHubUI : MonoBehaviour
     }
     private void Start()
     {
-        PDStorage.PDStorageChanged += RefreshUIState;
+        PDStorage.PDStorageChanged += PDStateChange;
         EXEStorage.EXEStorageChanged += RefreshUIState;
         fcNextButton.onClick.AddListener(() => fcStorage.SelectNextFiltered(applicableExes));
         fcPrevButton.onClick.AddListener(() => fcStorage.SelectPreviousFiltered(applicableExes));
@@ -86,19 +89,42 @@ public class ServerHubUI : MonoBehaviour
         else return BACKTOPD;
     }
 
+    private void PDStateChange()
+    {
+        if (pdStorage.objectsStored.Count == 0) BackToPDSelection();
+        RefreshUIState();
+    }
+
+    private void SetNoPDState()
+    {
+        bool pdsInStorage = pdStorage.objectsStored.Count > 0;
+
+        pdPrevButton.interactable = pdsInStorage;
+        pdNextButton.interactable = pdsInStorage;
+        pdConfirmButton.interactable = pdsInStorage;
+
+        pdEmptyMessage.SetActive(!pdsInStorage);
+        inspectorEmptyMessage.SetActive(!pdsInStorage);
+        dataRow.gameObject.SetActive(pdsInStorage);
+        pdSelectorRow.gameObject.SetActive(pdsInStorage);
+    }
+
     private void RefreshUIState()
     {
         foreach (Transform obj in pdSelectorRow) obj.gameObject.SetActive(false);
 
-        if (pdStorage.objectsStored.Count > 0) UpdateSelectorRow(pdSelectorRow, pdStorage.objectsStored, pdStorage.currentIndex);
+        if (pdStorage.objectsStored.Count > 0)
+        {
+            UpdateSelectorRow(pdSelectorRow, pdStorage.objectsStored, pdStorage.currentIndex);
+            UpdateDataUI();
+            UpdateFuncCardRow();
+            UpdateFCPreview();
+            UpdateFCConfirmButtonState();
+        }
 
-        UpdateDataUI();
-        UpdateFuncCardRow();
+        SetNoPDState();
 
-        UpdateFCPreview();
-        UpdateFCConfirmButtonState();
-
-        if(InputManager.Instance.GamepadIsCurrentInput()) UIManager.Instance.ShowBackoutText(GetGamepadBackoutPrompt());
+        if (InputManager.Instance.GamepadIsCurrentInput()) UIManager.Instance.ShowBackoutText(GetGamepadBackoutPrompt());
     }
 
     private void UpdateFCConfirmButtonState()
@@ -140,6 +166,8 @@ public class ServerHubUI : MonoBehaviour
 
     private void UpdateDataUI()
     {
+        if (pdStorage.objectsStored.Count == 0) return;
+
         DataDrive drive = (DataDrive)pdStorage.objectsStored[pdStorage.currentIndex];
         List<DiscSlotContent> slots = pdStorage.GetPDSlots(drive);
 
