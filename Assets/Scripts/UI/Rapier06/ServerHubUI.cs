@@ -15,6 +15,7 @@ public class ServerHubUI : MonoBehaviour
 
     [Header("PD UI Objects")]
     [SerializeField] private GameObject pdButtons;
+    [SerializeField] private Button pdPrevButton;
     [SerializeField] private Transform pdSelector;
 
     [SerializeField] public PDStorage pdStorage;
@@ -42,8 +43,13 @@ public class ServerHubUI : MonoBehaviour
     [SerializeField] private GameObject outputWindow;
 
     private List<IServerDataObject> applicableExes = new();
+    public FuncCardUI currentFcUi = null;
+    public bool longerAnimationPlaying = false;
 
     private const string ENCRYPTEDICON = "DataIcons/EncryptedIcon";
+    protected const string EXITTERMINAL = "Exit Terminal";
+    private const string BACKTOPD = "Return to PD Select";
+    private const string BACKTOFC = "Retrun to FC Select";
 
     private void Awake()
     {
@@ -64,6 +70,21 @@ public class ServerHubUI : MonoBehaviour
         fcPrevButton.onClick.AddListener(() => fcStorage.SelectPreviousFiltered(applicableExes));
         RefreshUIState();
     }
+    public void SelectRelevantStartButton()
+    {
+        if (pdSelector.parent == foreground) pdPrevButton.Select();
+        else if (fcSelector.parent == foreground) fcPrevButton.Select();
+        else if (currentFcUi != null && !outputWindow.activeSelf) currentFcUi.confirmButton.Select();
+        else outputWindow.GetComponent<FunctionOutputUI>().dismissButton.Select();
+    }
+
+    public string GetGamepadBackoutPrompt()
+    {
+        if (pdSelector.parent == foreground) return EXITTERMINAL;
+        else if (fcSelector.parent == foreground) return BACKTOPD;
+        else if (currentFcUi != null && !outputWindow.activeSelf) return BACKTOFC;
+        else return BACKTOPD;
+    }
 
     private void RefreshUIState()
     {
@@ -76,6 +97,8 @@ public class ServerHubUI : MonoBehaviour
 
         UpdateFCPreview();
         UpdateFCConfirmButtonState();
+
+        if(InputManager.Instance.GamepadIsCurrentInput()) UIManager.Instance.ShowBackoutText(GetGamepadBackoutPrompt());
     }
 
     private void UpdateFCConfirmButtonState()
@@ -189,6 +212,36 @@ public class ServerHubUI : MonoBehaviour
         obj.anchoredPosition = targetPosition;
     }
 
+    public void SetServerHubAnimationLock(bool isLocked)
+    {
+        longerAnimationPlaying = isLocked;
+        if (longerAnimationPlaying) UIManager.Instance.HideBackoutText();
+        else UIManager.Instance.ShowBackoutText(InputManager.Instance.GamepadIsCurrentInput() ? GetGamepadBackoutPrompt() : EXITTERMINAL);
+    }
+
+    public bool GamepadReturnPressed()
+    {
+        if (longerAnimationPlaying) return false;
+
+        if (fcSelector.parent == foreground)
+        {
+            BackToPDSelection();
+            return true;
+        }
+        else if (currentFcUi != null && !outputWindow.activeSelf)
+        {
+            ConfirmPDSelection();
+            return true;
+        }
+        else if (outputWindow.activeSelf)
+        {
+            BackToPDSelection();
+            return true;
+        }
+
+        return false;
+    }
+
     public void ConfirmPDSelection()
     {
         pdSelector.SetParent(background);
@@ -196,6 +249,7 @@ public class ServerHubUI : MonoBehaviour
         fcSelector.SetParent(foreground);
         foreach (Transform functionWindow in functionWindows) functionWindow.gameObject.SetActive(false);
         outputWindow.SetActive(false);
+        currentFcUi = null;
 
         pdButtons.SetActive(false);
         fcButtonContainer.SetActive(true);
@@ -215,10 +269,13 @@ public class ServerHubUI : MonoBehaviour
         fcSelector.SetParent(background);
         foreach(Transform functionWindow in functionWindows) functionWindow.gameObject.SetActive(false);
         outputWindow.SetActive(false);
+        currentFcUi = null;
 
         pdButtons.SetActive(true);
         fcButtonContainer.SetActive(false);
         selectedPdContainer.SetActive(false);
+
+        pdPrevButton.Select();
 
         RefreshUIState();
     }
@@ -235,9 +292,9 @@ public class ServerHubUI : MonoBehaviour
         ServerExe fc = (ServerExe)fcStorage.allExeReference[fcStorage.currentIndex];
         List<DiscSlotContent> relevantContent = fc.RelevantDataOnDisc(pd);
 
-        //pd = fc.PDIsRelevantToFunction(pd) ? pd : null;
-
-        functionWindows.Find(fc.name).GetComponent<FuncCardUI>().OpenFuncUI(relevantContent, pd);
+        currentFcUi = functionWindows.Find(fc.name).GetComponent<FuncCardUI>();
+        currentFcUi.OpenFuncUI(relevantContent, pd);
+        currentFcUi.confirmButton.Select();
 
         RefreshUIState();
     }

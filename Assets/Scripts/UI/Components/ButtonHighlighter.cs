@@ -27,6 +27,7 @@ public class ButtonHighlighter : MonoBehaviour
     private void OnEnable()
     {
         InputManager.InputTypeChanged += UpdateForInputType;
+        if(InputManager.Instance != null && button != null) UpdateForInputType(InputManager.Instance.lastInputType);
     }
 
     private void OnDisable()

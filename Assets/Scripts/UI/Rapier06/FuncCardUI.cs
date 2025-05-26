@@ -22,7 +22,7 @@ public class FuncCardUI : MonoBehaviour
     [Header("Buttons Information")]
     [SerializeField] protected Button prevButton;
     [SerializeField] protected Button nextButton;
-    [SerializeField] protected Button confirmButton;
+    public Button confirmButton;
     [SerializeField] protected Button returnButton;
 
     [Header("Output")]
@@ -56,10 +56,14 @@ public class FuncCardUI : MonoBehaviour
         {
             prevButton.gameObject.SetActive(false);
             nextButton.gameObject.SetActive(false);
+
+            confirmButton.navigation = UIManager.Instance.CreateNewNavigation(returnButton, null, null, null);
         } else
         {
             prevButton.gameObject.SetActive(true);
             nextButton.gameObject.SetActive(true);
+
+            confirmButton.navigation = UIManager.Instance.CreateNewNavigation(prevButton, null, null, null);
         }
 
         gameObject.SetActive(true);
@@ -92,6 +96,7 @@ public class FuncCardUI : MonoBehaviour
     {
         gameObject.SetActive(false);
         functionOutput.SetActive(true);
+        functionOutput.GetComponent<FunctionOutputUI>().dismissButton.Select();
         returnButton.interactable = true;
     }
 }

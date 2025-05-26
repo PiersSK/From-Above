@@ -21,7 +21,8 @@ public class FuncDecipherUI : FuncCardUI
         outputTitle.text = selectedContent.displayName;
         outputFileIcon.sprite = selectedContent.GetIcon();
         ServerHubUI.Instance.LogContentAsDecrypted(selectedContent);
-        
+        ServerHubUI.Instance.SetServerHubAnimationLock(true);
+
         anim.SetTrigger(DECRYPTANIM);
 
         float animLength = anim.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name == DECRYPTANIM.ToLower()).length;
@@ -39,5 +40,6 @@ public class FuncDecipherUI : FuncCardUI
         nextButton.interactable = true;
         confirmButton.interactable = true;
         outputTitle.text = "???";
+        ServerHubUI.Instance.SetServerHubAnimationLock(false);
     }
 }
