@@ -5572,10 +5572,11 @@ MonoBehaviour:
   isTimePaused: 0
   radioMessagesPlayed: 0
   getOnWithItMessagePlayed: 0
-  keycardTaskTimer: 15
+  keycardTaskTimeLeft: 0
   isKeyCardTimerRunning: 0
   phase1TimeLimitMins: 10
   phase2TimeLimitMins: 10
+  keyCardTaskTimerMax: 15
   scheduledEvents: {fileID: 0}
   completeEvents: []
 --- !u!1 &47147612
@@ -13687,6 +13688,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8061785521228243173, guid: 98f4621ac7eadcf4296e89a2b3eb59fa, type: 3}
   m_PrefabInstance: {fileID: 107774344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &111355218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7120528954219165048, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+  m_PrefabInstance: {fileID: 1388787276}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &112063282
 PrefabInstance:
@@ -49342,6 +49348,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593433944}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &593673977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7120528954219165048, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+  m_PrefabInstance: {fileID: 1338581681}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &593673978 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6743798211885268804, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
@@ -88229,7 +88240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completedTasks: []
   pacifistEndingReached: 0
-  DEBUG_startOnPhaseTwo: 1
+  DEBUG_startOnPhaseTwo: 0
   taskPadListParent: {fileID: 1857918106}
   padBeep: {fileID: 8300000, guid: 126967ba65395c94994dfc1c7eff1d68, type: 3}
   taskPadObj: {fileID: 4520452601124261175}
@@ -109349,6 +109360,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3898671444864621522, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+      propertyPath: m_Name
+      value: BlankScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898671444864621522, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4075029171253920467, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
@@ -109408,6 +109427,10 @@ PrefabInstance:
     - target: {fileID: 7049700865011561532, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: m_Name
       value: Insert Header
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120528954219165048, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7216993252375303568, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: outputScreen
@@ -109499,6 +109522,9 @@ PrefabInstance:
     - {fileID: 4507260297556868975, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
     - {fileID: 1314613775496163997, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
     - {fileID: 4398752507499067626, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+    - {fileID: 5530678726789857156, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+    - {fileID: 9113070635772286239, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+    - {fileID: 3898671444864621522, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6743798211885268804, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       insertIndex: 1
@@ -109547,10 +109573,11 @@ MonoBehaviour:
   lockPoint: {fileID: 0}
   defaultSelectable: {fileID: 0}
   initiationSound: {fileID: 0}
-  Header: {fileID: 1338581683}
+  header: {fileID: 1338581683}
   keycardInput: {fileID: 1859753469627750500}
-  Countdown: {fileID: 1338581686}
-  CountdownHeader: {fileID: 1576350076}
+  countdown: {fileID: 1338581686}
+  countdownHeader: {fileID: 1576350076}
+  screen: {fileID: 593673977}
 --- !u!114 &1338581686 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7633104383952602756, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
@@ -113381,6 +113408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Keycard Terminal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2568057359832740983, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2947678784215068365, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -113453,6 +113484,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3898671444864621522, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+      propertyPath: m_Name
+      value: BlankScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 4075029171253920467, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
@@ -113512,6 +113547,10 @@ PrefabInstance:
     - target: {fileID: 7049700865011561532, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: m_Name
       value: Insert Header
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120528954219165048, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7216993252375303568, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       propertyPath: outputScreen
@@ -113603,6 +113642,8 @@ PrefabInstance:
     - {fileID: 4507260297556868975, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
     - {fileID: 1314613775496163997, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
     - {fileID: 4398752507499067626, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+    - {fileID: 5530678726789857156, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
+    - {fileID: 9113070635772286239, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6743798211885268804, guid: ef772a0a98d964fde9e19d48e82ec666, type: 3}
       insertIndex: 1
@@ -113667,10 +113708,11 @@ MonoBehaviour:
   lockPoint: {fileID: 0}
   defaultSelectable: {fileID: 0}
   initiationSound: {fileID: 0}
-  Header: {fileID: 1388787280}
+  header: {fileID: 1388787280}
   keycardInput: {fileID: 4019724719763598029}
-  Countdown: {fileID: 1388787279}
-  CountdownHeader: {fileID: 2006646538}
+  countdown: {fileID: 1388787279}
+  countdownHeader: {fileID: 2006646538}
+  screen: {fileID: 111355218}
 --- !u!1001 &1389412032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218375,7 +218417,7 @@ PrefabInstance:
       objectReference: {fileID: 177934916}
     - target: {fileID: 2563200994287787746, guid: 5d9f22ce3af32944eb1de3279b94a516, type: 3}
       propertyPath: m_VersionIndex
-      value: 191
+      value: 194
       objectReference: {fileID: 0}
     - target: {fileID: 4557433582619417657, guid: 5d9f22ce3af32944eb1de3279b94a516, type: 3}
       propertyPath: terminalUI
@@ -218399,7 +218441,7 @@ PrefabInstance:
       objectReference: {fileID: 2127416356}
     - target: {fileID: 4600069758120276096, guid: 5d9f22ce3af32944eb1de3279b94a516, type: 3}
       propertyPath: m_VersionIndex
-      value: 330
+      value: 333
       objectReference: {fileID: 0}
     - target: {fileID: 4648520836244256562, guid: 5d9f22ce3af32944eb1de3279b94a516, type: 3}
       propertyPath: m_Mesh

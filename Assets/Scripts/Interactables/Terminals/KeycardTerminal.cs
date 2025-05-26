@@ -5,10 +5,11 @@ using UnityEngine;
 public class KeycardTerminal : Computer
 {
     [Header("Object References")]
-    [SerializeField] private TextMeshProUGUI Header;
+    [SerializeField] private TextMeshProUGUI header;
     [SerializeField] private KeycardInput keycardInput;
-    [SerializeField] private TextMeshProUGUI Countdown;
-    [SerializeField] private TextMeshProUGUI CountdownHeader;
+    [SerializeField] private TextMeshProUGUI countdown;
+    [SerializeField] private TextMeshProUGUI countdownHeader;
+    [SerializeField] private GameObject screen;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class KeycardTerminal : Computer
 
     override protected void Update()
     {
+        screen.SetActive(TaskManager.Instance.currentPhase is WeaponTaskPhase);
+
         if (TimeController.Instance.isKeyCardTimerRunning)
             UpdateCountdownUI(TimeController.Instance.keycardTaskTimeLeft);
     }
@@ -25,25 +28,25 @@ public class KeycardTerminal : Computer
     {
         int seconds = Mathf.FloorToInt(timeRemaining % 60f);
         int fraction = Mathf.FloorToInt(timeRemaining * 100f % 100);
-        Header.gameObject.SetActive(false);
-        CountdownHeader.gameObject.SetActive(true);
-        Countdown.gameObject.SetActive(true);
-        Countdown.text = $"{seconds:00}:{fraction:00}";
+        header.gameObject.SetActive(false);
+        countdownHeader.gameObject.SetActive(true);
+        countdown.gameObject.SetActive(true);
+        countdown.text = $"{seconds:00}:{fraction:00}";
     }
 
     public void ShowFailureMessage()
     {
-        Countdown.gameObject.SetActive(false);
-        CountdownHeader.gameObject.SetActive(false);
-        Header.gameObject.SetActive(true);
-        Header.text = "UNLOCK FAILED.\n TRY AGAIN.";
+        countdown.gameObject.SetActive(false);
+        countdownHeader.gameObject.SetActive(false);
+        header.gameObject.SetActive(true);
+        header.text = "UNLOCK FAILED.\n TRY AGAIN.";
     }
 
     public void ShowUnlockMessage()
     {
-        Countdown.gameObject.SetActive(false);
-        CountdownHeader.gameObject.SetActive(false);
-        Header.gameObject.SetActive(true);
-        Header.text = "WEAPON UNLOCKED";
+        countdown.gameObject.SetActive(false);
+        countdownHeader.gameObject.SetActive(false);
+        header.gameObject.SetActive(true);
+        header.text = "WEAPON UNLOCKED";
     }
 }
