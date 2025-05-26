@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7026748714886188407}
+  - component: {fileID: 2312378750090014122}
   m_Layer: 0
   m_Name: Deploy Wheel
   m_TagString: Untagged
@@ -39,6 +40,28 @@ Transform:
   - {fileID: 2379160070157811893}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2312378750090014122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636224742983878746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8ccb8d665d8f04889f7b1673758cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Position RAPIER Arm Right
+  requirementsNotMetMessage: 
+  isInteractable: 1
+  anim: {fileID: 0}
+  task: {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
+  look: {fileID: 0}
+  weaponAnim: {fileID: 0}
+  sfx: {fileID: 8300000, guid: 90709b8139c73364ebca7642aa01eb42, type: 3}
+  deploySound: {fileID: 8300000, guid: e4cb0006b44882e449efab57f43ab75e, type: 3}
+  confirmVoice: {fileID: 8300000, guid: 48937a16618ea6d4ab9e0cc2862b9d86, type: 3}
 --- !u!1 &1510406956661222788
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +405,7 @@ GameObject:
   - component: {fileID: 4437845594671372101}
   - component: {fileID: 794582732683171606}
   m_Layer: 0
-  m_Name: Hub
+  m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
