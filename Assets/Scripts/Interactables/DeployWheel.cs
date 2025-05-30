@@ -5,6 +5,7 @@ public class DeployWheel : Interactable
     [SerializeField] private Animator anim;
     [SerializeField] private Task task;
     [SerializeField] private PlayerLook look;
+    [SerializeField] private GameObject wheel;
     private bool fullTurnComplete = false;
 
     [SerializeField] private Animator weaponAnim;
@@ -19,18 +20,23 @@ public class DeployWheel : Interactable
 
     protected override void Interact(Transform player)
     {
-        fullTurnComplete = true;
-        anim.SetBool("FullTurnComplete", fullTurnComplete);
-        DoomsdayStatusUI.Instance.weaponLeversPulled++;
-        SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
+        weaponAnim.SetTrigger("Deploy");
 
-        if(DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
+        if (wheel.transform.rotation.z == 360)
         {
-            TaskManager.Instance.CompleteTask(task);
-            weaponAnim.SetTrigger("Deploy");
-            SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
-            SoundManager.Instance.PlayShipPALine(confirmVoice);
+            fullTurnComplete = true;
+            anim.SetBool("FullTurnComplete", fullTurnComplete);
+            DoomsdayStatusUI.Instance.weaponLeversPulled++;
+            SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
+
+            if (DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
+            {
+                TaskManager.Instance.CompleteTask(task); 
+                SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
+                SoundManager.Instance.PlayShipPALine(confirmVoice);
+            }
         }
+
         
     }
 }
