@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DeployWheel : Interactable
+public class DeployWheel : HoldInteractable
 {
     [SerializeField] private Animator anim;
     [SerializeField] private Task task;
@@ -18,25 +18,38 @@ public class DeployWheel : Interactable
         return !fullTurnComplete && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
-    protected override void Interact(Transform player)
+    private void Update()
     {
-        weaponAnim.SetTrigger("Deploy");
-
-        if (wheel.transform.rotation.z == 360)
+        if (wheel.transform.rotation.z == 360 && !fullTurnComplete)
         {
             fullTurnComplete = true;
-            anim.SetBool("FullTurnComplete", fullTurnComplete);
             DoomsdayStatusUI.Instance.weaponLeversPulled++;
             SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
 
             if (DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
             {
-                TaskManager.Instance.CompleteTask(task); 
+                TaskManager.Instance.CompleteTask(task);
                 SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
                 SoundManager.Instance.PlayShipPALine(confirmVoice);
+                InputManager.Instance.ClearInteractHooks(this);
             }
         }
+    }
 
-        
+    protected override void Interact(Transform player)
+    {
+        weaponAnim.SetTrigger("Deploy");
+        anim.SetBool("WheelTurning", true);
+
+        weaponAnim.speed = 1;
+        anim.speed = 1;
+    }
+
+    protected override void CancelInteract(Transform player)
+    {
+        weaponAnim.speed = 0;
+        anim.speed = 0;
+
+        base.CancelInteract(player);
     }
 }

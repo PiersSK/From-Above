@@ -39,11 +39,23 @@ public class PlayerInteract : MonoBehaviour
                     {
                         interactable.BaseInteract(transform);
                     }
+                    if(interactable is HoldInteractable)
+                    {
+                        var temp = interactable as HoldInteractable;
+                        InputManager.Instance.playerActions.Interact.canceled += ctx => temp.baseCancelInteract(transform);
+                    }
+
                 } else
                 {
                     promptText.color = UIColors.terminalRed;
                     promptText.text = interactable.GetRequirementMessage();
                 }
+            }
+
+            //TODO: remove this after debugging is done
+           if (hitInfo.collider.GetComponent<HoldInteractable>() != null)
+            {
+                Debug.Log("You looking at a HoldInteractable");
             }
         }
 
