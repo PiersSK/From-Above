@@ -39,7 +39,7 @@ public class DeployWheel : HoldInteractable
     protected override void Interact(Transform player)
     {
         weaponAnim.SetTrigger("Deploy");
-        anim.SetBool("WheelTurning", true);
+        anim.SetTrigger("TurnWheel");
 
         weaponAnim.speed = 1;
         anim.speed = 1;
@@ -47,6 +47,7 @@ public class DeployWheel : HoldInteractable
 
     protected override void CancelInteract(Transform player)
     {
+        Debug.Log("WEAPON DEPLOY WHEEL INTERACT CANCELLING");
         weaponAnim.speed = 0;
         anim.speed = 0;
 
