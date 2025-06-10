@@ -151,8 +151,10 @@ public class ServerHubUI : MonoBehaviour
 
     private void UpdateSelectorRow(Transform row, List<IServerDataObject> data, int indexSelected, List<IServerDataObject> accessibleList = null)
     {
-        Vector3 SelectedPostition = row.GetComponent<RectTransform>().anchoredPosition;
+        Vector3 selectedPosition = row.GetComponent<RectTransform>().anchoredPosition;
         float containerWidth = row.GetComponent<RectTransform>().sizeDelta.x;
+        float iconWidth = row.GetChild(0).GetComponent<RectTransform>().sizeDelta.x;
+        float iconSpacing = row.GetComponent<HorizontalLayoutGroup>().spacing;
 
         for (int i = 0; i < data.Count; i++)
         {
@@ -163,8 +165,11 @@ public class ServerHubUI : MonoBehaviour
             icon.GetComponentInChildren<TextMeshProUGUI>().color = i == indexSelected ? UIColors.white : UIColors.grey;
         }
 
-        SelectedPostition.x = containerWidth / 2f - row.GetChild(indexSelected).GetComponent<RectTransform>().anchoredPosition.x;
-        StartCoroutine(SmoothRailSlideRotate(row.GetComponent<RectTransform>(), SelectedPostition));
+        float spacingFactor = (data.Count + 1) * 0.5f - indexSelected - 1f;
+        selectedPosition.x = spacingFactor * (iconWidth + iconSpacing);
+
+        //selectedPosition.x = containerWidth / 2f - row.GetChild(indexSelected).GetComponent<RectTransform>().anchoredPosition.x;
+        StartCoroutine(SmoothRailSlideRotate(row.GetComponent<RectTransform>(), selectedPosition));
     }
 
     private void UpdateDataUI()
