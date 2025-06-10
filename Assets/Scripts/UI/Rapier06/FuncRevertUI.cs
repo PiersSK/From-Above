@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
 
 public class FuncRevertUI : FuncCardUI
 {
