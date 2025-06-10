@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +57,9 @@ public class ServerHubUI : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if(Instance!=null) Debug.Log("SERVERHUB: Instance = " + Instance.name + " | IsDestroyed(): " + Instance.IsDestroyed());
+
+        if (Instance != null && Instance != this && !Instance.IsDestroyed())
         {
             Destroy(this);
         }
