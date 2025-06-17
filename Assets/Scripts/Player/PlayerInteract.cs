@@ -35,14 +35,13 @@ public class PlayerInteract : MonoBehaviour
                     promptText.text = interactable.GetPrompt();
                     buttonPromptObject.SetActive(true);
 
-                    if (InputManager.Instance.playerActions.Interact.triggered)
+                    if (InputManager.Instance.playerActions.Interact.IsPressed())
                     {
                         interactable.BaseInteract(transform);
                     }
-                    if(interactable is HoldInteractable)
+                    else if(interactable is HoldInteractable)
                     {
-                        var temp = interactable as HoldInteractable;
-                        InputManager.Instance.playerActions.Interact.canceled += ctx => temp.baseCancelInteract(transform);
+                        (interactable as HoldInteractable).baseCancelInteract(transform);
                     }
 
                 } else
