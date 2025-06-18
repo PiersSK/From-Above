@@ -7,6 +7,7 @@ public class DeployWheel : HoldInteractable
     [SerializeField] private PlayerLook look;
     [SerializeField] private GameObject wheel;
     private bool fullTurnComplete = false;
+    private bool animTriggered = false;
 
     [SerializeField] private Animator weaponAnim;
     [SerializeField] private AudioClip sfx;
@@ -15,7 +16,8 @@ public class DeployWheel : HoldInteractable
 
     public override bool CanInteract()
     {
-        return !fullTurnComplete && TaskManager.Instance.currentPhase.tasks.Contains(task);
+        return true; //DEBUG PURPOSES DON@T MERGE THIS IN IDIOT
+        //return !fullTurnComplete && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
     private void Update()
@@ -38,9 +40,13 @@ public class DeployWheel : HoldInteractable
 
     protected override void Interact(Transform player)
     {
-        weaponAnim.SetTrigger("Deploy");
-        anim.SetTrigger("TurnWheel");
-
+        if(!animTriggered)
+        {
+            animTriggered = true; 
+            weaponAnim?.SetTrigger("Deploy");
+            anim?.SetBool("TurnWheel", animTriggered);
+        }
+        
         weaponAnim.speed = 1;
         anim.speed = 1;
     }
