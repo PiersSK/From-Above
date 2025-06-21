@@ -54,6 +54,13 @@ public class Door : Interactable
         Invoke("TakeOffCooldown", interactionCooldown);
     }
 
+    public void CloseDoor()
+    {
+        if(isOpen) SoundManager.Instance.PlaySFXOneShot(doorSfx, 0, 0.5f);
+        isOpen = false;
+        doorAnimator.SetBool(ANIMISOPEN, false);
+    }
+
     private void TakeOffCooldown()
     {
         isInteractable = true;
@@ -82,13 +89,14 @@ public class Door : Interactable
         if (twinButton != null && hasButton) twinButton.SyncToTwinButton();
     }
 
-    public void UnlockAndOpenDoor()
+    public virtual void UnlockAndOpenDoor()
     {
         UnlockDoor();
-
+        bool playSound = !isOpen;
         isOpen = true;
+
         doorAnimator.SetBool(ANIMISOPEN, isOpen);
-        SoundManager.Instance.PlaySFXOneShot(doorSfx, 0, 0.5f);
+        if(playSound) SoundManager.Instance.PlaySFXOneShot(doorSfx, 0, 0.5f);
         UpdatePromptMessage();
         if (twinButton != null && hasButton) twinButton.SyncToTwinButton();
     }

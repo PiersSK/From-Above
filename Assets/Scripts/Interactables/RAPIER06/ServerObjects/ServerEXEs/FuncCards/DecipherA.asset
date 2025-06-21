@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db4cb8411ecae94ca7247224f921c38, type: 3}
+  m_Name: DecipherA
+  m_EditorClassIdentifier: 
+  objectName: "Decipher \u03B1"
+  fileName: alpha.func
+  terminalPreview: 'DECIPHER || Decipher: ENCRYPTED'
+  functionImage: {fileID: 21300000, guid: f89636eed55d3344bad4ce66209d9b38, type: 3}
+  functionFlavourText: Make the unintelligble telligible with DECIPHER A! It is your
+    responsibility to ensure this is used with caution. All encrypted data will recrypt
+    24 hours after use of this software.
+  specificDataOnly: 1
+  fullPDOperation: 0
+  applicableDataTypes: 
+  applicableData:
+  - {fileID: 11400000, guid: 57cf9bcdece631a42b3b9b63b7d5acd9, type: 2}
+  - {fileID: 11400000, guid: a25c632791d12884fbd2138c47d22c73, type: 2}
+  - {fileID: 11400000, guid: 39a5ea618d48434489998a2e4aec2cc5, type: 2}
+  - {fileID: 11400000, guid: a356f63818c4d7742870bada2b414935, type: 2}
+  - {fileID: 11400000, guid: 98b0226f1d5ceb94c848d0a1a8a456c6, type: 2}
+  - {fileID: 11400000, guid: 8ef943ad239910c4299088b874ec93f5, type: 2}
+  specificPdsOnly: 0
+  applicablePds: []
+  decipherType: 1

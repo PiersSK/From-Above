@@ -143,6 +143,14 @@ public class PlayerMotor : MonoBehaviour
         controller.enabled = true;
     }
 
+    public void ForcePlayerToPoint(Vector3 position, Quaternion rotation)
+    {
+        controller.enabled = false;
+        transform.position = position;
+        transform.rotation = rotation;
+        controller.enabled = true;
+    }
+
     public void LockPlayer(bool preventPause = true)
     {
         movementOverridden = !movementOverridden;

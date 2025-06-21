@@ -20,14 +20,14 @@ public class ServerDiscStorage : Interactable
     {
         if (driveStored != null)
         {
-            inDockPrompt = "Take " + driveStored.DiskName + " PD";
-            outDockPrompt = "Return " + driveStored.DiskName + " PD";
+            inDockPrompt = "Take " + driveStored.objectName + " PD";
+            outDockPrompt = "Return " + driveStored.objectName + " PD";
         }
     }
 
     public override bool CanInteract()
     {
-        List<DataDrive> playerDrives = PlayerInventory.Instance.dataDrivesHeld;
+        List<IServerDataObject> playerDrives = PlayerInventory.Instance.dataDrivesHeld;
         ServerRack rack = GetComponentInParent<ServerRack>();
         return (driveStored != null && !playerDrives.Contains(driveStored) && driveInDock && rack.hasDisk) || (playerDrives.Contains(driveStored) && !driveInDock);
     }

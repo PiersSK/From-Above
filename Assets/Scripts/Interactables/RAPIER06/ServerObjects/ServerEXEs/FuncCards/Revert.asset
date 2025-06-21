@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203c728623bda9147a0dcfa1be411444, type: 3}
+  m_Name: Revert
+  m_EditorClassIdentifier: 
+  objectName: Revert To Backup
+  fileName: revert.func
+  terminalPreview: REVERT || Revert PentaDisc to previous back-up status
+  functionImage: {fileID: 21300000, guid: 8eec2bd8f44322c4b8bf437b92efa5cb, type: 3}
+  functionFlavourText: 'Though we estimate less than a 0.034% chance of an error
+    being present in any data file sent to RAPIER06 we know that humans still do
+    make mistakes (fix hopefully coming soon) and as such, please use this FuncCard
+    to restore a recent local backup if one is present. NOTE: Backups will be wiped
+    on receiving any new data.'
+  specificDataOnly: 0
+  fullPDOperation: 1
+  applicableDataTypes: 
+  applicableData: []
+  specificPdsOnly: 1
+  applicablePds:
+  - {fileID: 11400000, guid: 5440b4c69ac623445a0454b0115b84ec, type: 2}
+  - {fileID: 11400000, guid: ae845c3cac7976f4b9970ad46bc8f86a, type: 2}

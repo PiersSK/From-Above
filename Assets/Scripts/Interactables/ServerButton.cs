@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ServerButton : Interactable
 {
-    public ServerEXE exe;
+    public LegacyServerExe exe;
     public bool usableInPhaseOne = false;
     [SerializeField] private AudioClip sfx;
 
