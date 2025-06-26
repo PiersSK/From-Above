@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7026748714886188407}
   - component: {fileID: 5012088918169141092}
   - component: {fileID: 7794808796418645591}
+  - component: {fileID: 36346161439605560}
   m_Layer: 6
   m_Name: Deploy Wheel
   m_TagString: Untagged
@@ -51,10 +52,8 @@ MonoBehaviour:
   promptMessage: TURN ME
   requirementsNotMetMessage: DON'T TOUCH ME
   isInteractable: 1
-  anim: {fileID: 835401764195614152}
   task: {fileID: 11400000, guid: a7bcba3c892bfd24ba6e4aedea95f583, type: 2}
   look: {fileID: 0}
-  wheel: {fileID: 3588581908019068152}
   weaponAnim: {fileID: 0}
   sfx: {fileID: 8300000, guid: 90709b8139c73364ebca7642aa01eb42, type: 3}
   deploySound: {fileID: 8300000, guid: e4cb0006b44882e449efab57f43ab75e, type: 3}
@@ -82,6 +81,28 @@ CapsuleCollider:
   m_Height: 1.69
   m_Direction: 1
   m_Center: {x: -0.23, y: -0.33, z: -0.11}
+--- !u!95 &36346161439605560
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636224742983878746}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5cb6c130f820b024ca84f5498bbaeed9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1510406956661222788
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +370,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6870859224880288605}
-  - component: {fileID: 835401764195614152}
   m_Layer: 6
   m_Name: WheelParent
   m_TagString: Untagged
@@ -378,28 +398,6 @@ Transform:
   - {fileID: 1183443869081205728}
   m_Father: {fileID: 7026748714886188407}
   m_LocalEulerAnglesHint: {x: 0, y: 125.5, z: 0}
---- !u!95 &835401764195614152
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3588581908019068152}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5cb6c130f820b024ca84f5498bbaeed9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4494329624005379058
 GameObject:
   m_ObjectHideFlags: 0

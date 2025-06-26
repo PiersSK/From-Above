@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class DeployWheel : HoldInteractable
 {
-    [SerializeField] private Animator anim;
+    private Animator anim;
     [SerializeField] private Task task;
     [SerializeField] private PlayerLook look;
-    [SerializeField] private GameObject wheel;
-    private bool fullTurnComplete = false;
+
     private bool animTriggered = false;
 
     [SerializeField] private Animator weaponAnim;
@@ -20,21 +19,22 @@ public class DeployWheel : HoldInteractable
         //return !fullTurnComplete && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
-    private void Update()
+    private void Awake()
     {
-        if (wheel.transform.rotation.z == 360 && !fullTurnComplete)
-        {
-            fullTurnComplete = true;
-            DoomsdayStatusUI.Instance.weaponLeversPulled++;
-            SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
+        anim = GetComponent<Animator>();
+    }
 
-            if (DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
-            {
-                TaskManager.Instance.CompleteTask(task);
-                SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
-                SoundManager.Instance.PlayShipPALine(confirmVoice);
-                InputManager.Instance.ClearInteractHooks(this);
-            }
+    public void WheelTurnComplete() 
+    {
+        DoomsdayStatusUI.Instance.weaponLeversPulled++;
+        SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
+
+        if (DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
+        {
+            TaskManager.Instance.CompleteTask(task);
+            SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
+            SoundManager.Instance.PlayShipPALine(confirmVoice);
+            InputManager.Instance.ClearInteractHooks(this);
         }
     }
 
