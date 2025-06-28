@@ -88171,7 +88171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completedTasks: []
   pacifistEndingReached: 0
-  DEBUG_startOnPhaseTwo: 1
+  DEBUG_startOnPhaseTwo: 0
   taskPadListParent: {fileID: 1857918106}
   padBeep: {fileID: 8300000, guid: 126967ba65395c94994dfc1c7eff1d68, type: 3}
   taskPadObj: {fileID: 4520452601124261175}
@@ -121588,6 +121588,14 @@ PrefabInstance:
       propertyPath: weaponAnim
       value: 
       objectReference: {fileID: 2027259796}
+    - target: {fileID: 5012088918169141092, guid: 1e1f4748f4b8f1a4a95bff2d5a94561e, type: 3}
+      propertyPath: promptMessage
+      value: Deploy Port Side Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012088918169141092, guid: 1e1f4748f4b8f1a4a95bff2d5a94561e, type: 3}
+      propertyPath: requirementsNotMetMessage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7026748714886188407, guid: 1e1f4748f4b8f1a4a95bff2d5a94561e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.459999
@@ -213275,6 +213283,14 @@ PrefabInstance:
       propertyPath: weaponAnim
       value: 
       objectReference: {fileID: 1889214111}
+    - target: {fileID: 5012088918169141092, guid: 1e1f4748f4b8f1a4a95bff2d5a94561e, type: 3}
+      propertyPath: promptMessage
+      value: Deploy Starboard side Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012088918169141092, guid: 1e1f4748f4b8f1a4a95bff2d5a94561e, type: 3}
+      propertyPath: requirementsNotMetMessage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7026748714886188407, guid: 1e1f4748f4b8f1a4a95bff2d5a94561e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.08

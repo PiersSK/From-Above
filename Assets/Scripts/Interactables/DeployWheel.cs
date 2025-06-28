@@ -54,7 +54,6 @@ public class DeployWheel : HoldInteractable
 
     protected override void CancelInteract(Transform player)
     {
-        Debug.Log("WEAPON DEPLOY WHEEL INTERACT CANCELLING");
         weaponAnim.speed = 0;
         anim.speed = 0;
 
