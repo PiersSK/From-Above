@@ -35,7 +35,11 @@ public class PlayerInteract : MonoBehaviour
                     promptText.text = interactable.GetPrompt();
                     buttonPromptObject.SetActive(true);
 
-                    if (InputManager.Instance.playerActions.Interact.IsPressed())
+                    bool triggerCheck = interactable is HoldInteractable ?
+                        InputManager.Instance.playerActions.Interact.IsPressed() :
+                        InputManager.Instance.playerActions.Interact.triggered;
+
+                    if (triggerCheck)
                     {
                         interactable.BaseInteract(transform);
                     }
@@ -49,12 +53,6 @@ public class PlayerInteract : MonoBehaviour
                     promptText.color = UIColors.terminalRed;
                     promptText.text = interactable.GetRequirementMessage();
                 }
-            }
-
-            //TODO: remove this after debugging is done
-           if (hitInfo.collider.GetComponent<HoldInteractable>() != null)
-            {
-                Debug.Log("You looking at a HoldInteractable");
             }
         }
 
