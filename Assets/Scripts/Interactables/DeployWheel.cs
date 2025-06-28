@@ -7,6 +7,7 @@ public class DeployWheel : HoldInteractable
     [SerializeField] private PlayerLook look;
 
     private bool animTriggered = false;
+    private bool fullTurnComplete = false;
 
     [SerializeField] private Animator weaponAnim;
     [SerializeField] private AudioClip sfx;
@@ -15,8 +16,7 @@ public class DeployWheel : HoldInteractable
 
     public override bool CanInteract()
     {
-        return true; //DEBUG PURPOSES DON@T MERGE THIS IN IDIOT
-        //return !fullTurnComplete && TaskManager.Instance.currentPhase.tasks.Contains(task);
+        return !fullTurnComplete && TaskManager.Instance.currentPhase.tasks.Contains(task);
     }
 
     private void Awake()
@@ -27,6 +27,7 @@ public class DeployWheel : HoldInteractable
     public void WheelTurnComplete() 
     {
         DoomsdayStatusUI.Instance.weaponLeversPulled++;
+        fullTurnComplete = true;
         SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
 
         if (DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
