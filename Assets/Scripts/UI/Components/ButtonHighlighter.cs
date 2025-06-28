@@ -20,13 +20,14 @@ public class ButtonHighlighter : MonoBehaviour
         {
             UpdateForInputType(InputManager.Instance.lastInputType);
 
-            textStandardColor = buttonText.color;
+            textStandardColor = buttonText != null ? buttonText.color : UIColors.terminalGreen;
         }
     }
 
     private void OnEnable()
     {
         InputManager.InputTypeChanged += UpdateForInputType;
+        if(InputManager.Instance != null && button != null) UpdateForInputType(InputManager.Instance.lastInputType);
     }
 
     private void OnDisable()
@@ -53,13 +54,17 @@ public class ButtonHighlighter : MonoBehaviour
 
     private void Update()
     {
-        if (UIManager.Instance.IsObjectSelected(button.gameObject) 
-            && InputManager.Instance.GamepadIsCurrentInput())
+        if (buttonText != null)
         {
-            buttonText.color = UIColors.white;
-        } else
-        {
-            buttonText.color = textStandardColor;
+            if (UIManager.Instance.IsObjectSelected(button.gameObject)
+                && InputManager.Instance.GamepadIsCurrentInput())
+            {
+                buttonText.color = UIColors.white;
+            }
+            else
+            {
+                buttonText.color = textStandardColor;
+            }
         }
     }
 

@@ -230,8 +230,8 @@ public class RapierTerminal : Computer
     {
         if (dataReader.insertedDrive != null)
         {
-            PDNameTitle.text = dataReader.insertedDrive.DiskName;
-            PDContent.text = dataReader.insertedDrive.DiskTextContent;
+            PDNameTitle.text = dataReader.insertedDrive.objectName;
+            PDContent.text = dataReader.insertedDrive.textContent;
         }
         else
         {

@@ -11,6 +11,9 @@ public class Computer : Interactable
 
     [SerializeField] protected AudioClip initiationSound;
 
+    private Vector3 initialPos;
+    private Quaternion initialRotation;
+
     protected const string EXITTERMINAL = "Exit Terminal";
 
     private void OnEnable()
@@ -65,6 +68,9 @@ public class Computer : Interactable
 
         isInteractable = false;
 
+        initialPos = player.transform.position;
+        initialRotation = player.transform.rotation;
+
         motor.ForcePlayerToPoint(lockPoint, true);
         motor.LockPlayer();
 
@@ -85,6 +91,7 @@ public class Computer : Interactable
 
     protected virtual void ReleasePlayer()
     {
+        motor.ForcePlayerToPoint(initialPos, initialRotation);
         motor.LockPlayer();
         Cursor.lockState = CursorLockMode.Locked;
         look.ToggleLookLock();
