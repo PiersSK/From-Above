@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: UnlockWeapon
   m_EditorClassIdentifier: 
   taskName: Unlock Weapon Terminal
-  taskLocation: Doomsday Room
   taskNumber: x3
   taskType: 1
+  stepLocations:
+  - Doomsday Room
+  taskSteps:
+  - Both crewmates must insert their keycards simultaneously to release weapon lock

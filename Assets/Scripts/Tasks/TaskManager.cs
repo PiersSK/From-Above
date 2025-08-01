@@ -110,7 +110,6 @@ public class TaskManager : MonoBehaviour
 
             currentPhase.UpdateTaskPadUI();
             UIManager.Instance.CompletedTaskPopup();
-            SoundManager.Instance.PlaySFXOneShot(currentPhase.taskBeep);
 
             if (currentPhase.tasks.Count == 0)
             {
@@ -118,8 +117,12 @@ public class TaskManager : MonoBehaviour
             }
 
             TaskCompleted?.Invoke(taskToComplete);
+        } else
+        {
+            UIManager.Instance.ProgressTaskPopup();
         }
 
+        SoundManager.Instance.PlaySFXOneShot(currentPhase.taskBeep);
         TimeController.Instance.inactivityTimer = 0f; //TODO: Should this be reset every step or only on full completion?
     }
 

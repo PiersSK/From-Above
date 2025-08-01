@@ -12,6 +12,8 @@ public static class UIColors
     public static Color terminalGreen = new Color(0.2f, 0.69f, 0.2f);
     public static Color terminalGreenTransparent = new Color(0.2f, 0.69f, 0.2f, 0.2f);
 
+    public static Color terminalBlue = new Color(0.1f, 0.7f, 0.85f);
+
     public enum SubtitleColor
     {
         White,

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: CalibrateWeapon
   m_EditorClassIdentifier: 
   taskName: Calibrate Weapon Targeting
-  taskLocation: Bridge
   taskNumber: x2
   taskType: 1
+  stepLocations:
+  - Bridge
+  taskSteps:
+  - Ensure targeting system aligns with instructed co-ordinates

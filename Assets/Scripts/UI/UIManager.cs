@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textPopUpText;
     [SerializeField] private GameObject menuPrompt;
     [SerializeField] private Animation completedTaskPopup;
+    [SerializeField] private Animation progressTaskPopup;
 
     [SerializeField] private GameObject pacifistEnding;
 
@@ -58,6 +59,11 @@ public class UIManager : MonoBehaviour
     public void CompletedTaskPopup()
     {
         completedTaskPopup.Play();
+    }
+
+    public void ProgressTaskPopup()
+    {
+        progressTaskPopup.Play();
     }
 
     public void HideTaskPadPrompt()
