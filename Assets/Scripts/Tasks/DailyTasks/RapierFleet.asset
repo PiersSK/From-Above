@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680c671505ae7d84d8f183fafe0aaf02, type: 3}
   m_Name: RapierFleet
   m_EditorClassIdentifier: 
-  taskName: Upload Rapier Fleet Status
+  taskName: RAPIER Status Request
   taskLocation: Server Room/Bridge
   taskNumber: 04
   taskType: 0
+  taskSteps:
+  - Retrieve RAPIER status data PentaDisc
+  - Upload RAPIER fleet status to command

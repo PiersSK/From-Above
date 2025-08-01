@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class IPhase : MonoBehaviour
 {
-    [SerializeField] public TextMeshProUGUI taskPadHeader;
+    [SerializeField] public Image taskPadHeader;
     [SerializeField] public AudioClip taskBeep;
     [SerializeField] protected Transform taskPadListParent;
 

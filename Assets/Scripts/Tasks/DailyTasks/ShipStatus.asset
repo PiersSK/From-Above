@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680c671505ae7d84d8f183fafe0aaf02, type: 3}
   m_Name: ShipStatus
   m_EditorClassIdentifier: 
-  taskName: Upload Ship Status
+  taskName: RAPIER06 Status Request
   taskLocation: Server Room
   taskNumber: 05
   taskType: 0
+  taskSteps:
+  - Relay RAPIER06 status to command

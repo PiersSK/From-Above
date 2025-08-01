@@ -7,12 +7,12 @@ public class DailyTaskPhase : IPhase
 {
     [Header("Canvas Items")]
     [SerializeField] private TextMeshProUGUI taskCounter;
-    [SerializeField] private TextMeshProUGUI taskCounterSentence;
 
     public override void BeginCurrentPhase()
     {
-        taskPadHeader.color = UIColors.terminalGreen;
-        taskCounterSentence.text = "You have       urgent commands REMAINING";
+        Color c = UIColors.terminalGreen;
+        c.a = 0.5f;
+        taskPadHeader.color = c;
         UpdateTaskPadUI();
         base.BeginCurrentPhase();
     }

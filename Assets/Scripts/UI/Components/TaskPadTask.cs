@@ -7,11 +7,15 @@ public class TaskPadTask : MonoBehaviour
     public Task task;
 
     [SerializeField] private TextMeshProUGUI taskTitle;
-    [SerializeField] private TextMeshProUGUI locationPrefix;
     [SerializeField] private TextMeshProUGUI taskLocation;
     [SerializeField] private TextMeshProUGUI taskNumber;
-    [SerializeField] private Image taskNumberBackground;
-    [SerializeField] private Image taskBorder;
+    [SerializeField] private TextMeshProUGUI taskDescription;
+
+    [SerializeField] private Image numberBackground;
+    [SerializeField] private Image locationBackground;
+    [SerializeField] private Image titleBackground;
+
+    private const string MISSINGSTEP = "No task details provided";
 
     public void SetTask(Task t)
     {
@@ -20,6 +24,7 @@ public class TaskPadTask : MonoBehaviour
         taskTitle.text = task.taskName;
         taskLocation.text = task.taskLocation;
         taskNumber.text = task.taskNumber;
+        taskDescription.text = task.taskSteps.Count > 0 ? task.taskSteps[0] : MISSINGSTEP;
 
         if (task.taskType == Task.TaskType.Daily)
             SetUIColors(UIColors.terminalGreen);
@@ -29,10 +34,8 @@ public class TaskPadTask : MonoBehaviour
 
     private void SetUIColors(Color color)
     {
-        taskTitle.color = color;
-        locationPrefix.color = color;
-        taskLocation.color = color;
-        taskNumberBackground.color = color;
-        taskBorder.color = color;
+        numberBackground.color = color;
+        locationBackground.color = color;
+        titleBackground.color = new Color(color.r, color.g, color.b, 0.5f);
     }
 }
