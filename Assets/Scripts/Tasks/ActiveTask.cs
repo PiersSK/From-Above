@@ -2,9 +2,9 @@ public class ActiveTask
 {
     public int currentStep = 0;
     public bool isCompleted = false;
-    public Task task;
+    public TaskData task;
 
-    public ActiveTask(Task task)
+    public ActiveTask(TaskData task)
     {
         this.task = task;
     }

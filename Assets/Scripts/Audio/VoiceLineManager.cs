@@ -38,7 +38,7 @@ public class VoiceLineManager : MonoBehaviour
         TaskManager.PhaseChanged -= PhaseChanged;
     }
 
-    private void TaskCompleted(Task task)
+    private void TaskCompleted(TaskData task)
     {
         EvaluateVoiceLines();
     }

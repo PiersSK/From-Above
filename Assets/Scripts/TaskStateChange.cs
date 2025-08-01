@@ -11,7 +11,7 @@ public class TaskStateChange : MonoBehaviour
     }
     [SerializeField] private ChangeType type;
 
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
 
     [SerializeField] private Interactable interactable;
     [SerializeField] private string interactableFunctionToInvoke;

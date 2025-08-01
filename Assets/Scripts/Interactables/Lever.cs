@@ -3,7 +3,7 @@ using UnityEngine;
 public class Lever : Interactable
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private PlayerLook look;
     private bool leverIsUp = false;
 

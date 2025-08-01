@@ -7,7 +7,7 @@ public class RoomTidyCounter : MonoBehaviour
     [SerializeField] private int objectsToRemove = 2;
 
     private bool completed = false;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
 
     private void Update()
     {

@@ -13,8 +13,8 @@ public class DailyTaskPhase : IPhase
         Color c = UIColors.terminalGreen;
         c.a = 0.5f;
         taskPadHeader.color = c;
-        UpdateTaskPadUI();
         base.BeginCurrentPhase();
+        UpdateTaskPadUI();
     }
 
     public override void EndCurrentPhase()
@@ -22,7 +22,7 @@ public class DailyTaskPhase : IPhase
         base.EndCurrentPhase();
     }
 
-    public override void CompleteTask(Task completedTask)
+    public override void CompleteTask(TaskData completedTask)
     {
         base.CompleteTask(completedTask);
     }

@@ -13,7 +13,7 @@ public class DiaryTerminal : Computer
     [SerializeField] private Transform lookoutPoint;
 
     [Header("Progression Settings")]
-    [SerializeField] Task task;
+    [SerializeField] TaskData task;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip keysoundLight;

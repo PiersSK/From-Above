@@ -75,7 +75,7 @@ public class SoundtrackManager : MonoBehaviour
         return false;
     }
 
-    private void TaskCompleted(Task task)
+    private void TaskCompleted(TaskData task)
     {
         if (currentSoundtrack.progressOnTaskCompletion && currentSoundtrack.progressAfter == task)
         {

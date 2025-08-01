@@ -12,7 +12,7 @@ public class KeycardInput : Interactable
     }
 
     [SerializeField] private KeyCardRequired key;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private GameObject keyObj;
 
     [SerializeField] private AudioClip unlockConfirmLine;

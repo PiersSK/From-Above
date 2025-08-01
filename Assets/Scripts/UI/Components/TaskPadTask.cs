@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TaskPadTask : MonoBehaviour
 {
-    public Task task;
+    public TaskData task;
 
     [SerializeField] private TextMeshProUGUI taskTitle;
     [SerializeField] private TextMeshProUGUI taskLocation;
@@ -16,19 +16,20 @@ public class TaskPadTask : MonoBehaviour
     [SerializeField] private Image titleBackground;
 
     private const string MISSINGSTEP = "No task details provided";
+    private const string MISSINGLOCATION = "???";
 
-    public void SetTask(Task t)
+    public void SetTask(ActiveTask t)
     {
-        task = t;
+        task = t.task;
 
         taskTitle.text = task.taskName;
-        taskLocation.text = task.taskLocation;
+        taskLocation.text = task.stepLocations.Count > 0 ? task.stepLocations[t.currentStep] : MISSINGLOCATION;
         taskNumber.text = task.taskNumber;
-        taskDescription.text = task.taskSteps.Count > 0 ? task.taskSteps[0] : MISSINGSTEP;
+        taskDescription.text = task.taskSteps.Count > 0 ? task.taskSteps[t.currentStep] : MISSINGSTEP;
 
-        if (task.taskType == Task.TaskType.Daily)
+        if (task.taskType == TaskData.TaskType.Daily)
             SetUIColors(UIColors.terminalGreen);
-        else if (task.taskType == Task.TaskType.Weapon)
+        else if (task.taskType == TaskData.TaskType.Weapon)
             SetUIColors(UIColors.terminalRed);
     }
 

@@ -7,7 +7,7 @@ public class MusicPlayer : Interactable
 
     private bool taskCompleted = false;
     [SerializeField] private DataDrive wellnessTape;
-    [SerializeField] private Task wellnessTask;
+    [SerializeField] private TaskData wellnessTask;
 
     [SerializeField] private AudioClip playSfx;
 

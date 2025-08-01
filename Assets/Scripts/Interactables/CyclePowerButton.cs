@@ -22,7 +22,7 @@ public class CyclePowerButton : Interactable
     [SerializeField] private AudioClip buttonSfx;
     [SerializeField] private AudioClip cycleSequenceSfx;
 
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
 
     private void Start()
     {

@@ -23,7 +23,7 @@ public class VoiceLineEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Task Trigger Conditions", EditorStyles.boldLabel);
         EditorGUI.BeginDisabledGroup(!voiceLine.playOnTaskCompletion);
-        voiceLine.taskTrigger = (Task)EditorGUILayout.ObjectField("Task", voiceLine.taskTrigger, typeof(Task), false);
+        voiceLine.taskTrigger = (TaskData)EditorGUILayout.ObjectField("Task", voiceLine.taskTrigger, typeof(TaskData), false);
         EditorGUI.EndDisabledGroup();
 
         EditorGUILayout.Space();
@@ -45,8 +45,8 @@ public class VoiceLineEditor : Editor
         EditorGUI.BeginDisabledGroup(voiceLine.timeConditionType != TimeConditionType.PeriodOfInactivity);
         EditorGUILayout.LabelField("Inactivity Condition Settings", EditorStyles.miniBoldLabel);
         voiceLine.secondsOfInactivity = EditorGUILayout.IntSlider("Seconds of Inactivity", voiceLine.secondsOfInactivity, 1, 1000);
-        voiceLine.inactivityStartTask = (Task)EditorGUILayout.ObjectField("Inactivity Start Task", voiceLine.inactivityStartTask, typeof(Task), false);
-        voiceLine.inactivityEndTask = (Task)EditorGUILayout.ObjectField("Inactivity End Task", voiceLine.inactivityEndTask, typeof(Task), false);
+        voiceLine.inactivityStartTask = (TaskData)EditorGUILayout.ObjectField("Inactivity Start Task", voiceLine.inactivityStartTask, typeof(TaskData), false);
+        voiceLine.inactivityEndTask = (TaskData)EditorGUILayout.ObjectField("Inactivity End Task", voiceLine.inactivityEndTask, typeof(TaskData), false);
         EditorGUI.EndDisabledGroup();
         EditorGUI.EndDisabledGroup();
 

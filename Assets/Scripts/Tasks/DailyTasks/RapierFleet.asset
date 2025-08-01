@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: RapierFleet
   m_EditorClassIdentifier: 
   taskName: RAPIER Status Request
-  taskLocation: Server Room/Bridge
   taskNumber: 04
   taskType: 0
+  stepLocations:
+  - Server Room
+  - Bridge
   taskSteps:
   - Retrieve RAPIER status data PentaDisc
   - Upload RAPIER fleet status to command

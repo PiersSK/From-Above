@@ -17,7 +17,7 @@ public class WeaponTaskPhase : IPhase
         timer.text = $"{time.Minutes.ToString("00")}:{time.Seconds.ToString("00")}";
     }
 
-    public override void CompleteTask(Task completedTask)
+    public override void CompleteTask(TaskData completedTask)
     {
         base.CompleteTask(completedTask);
         taskCount.text = $"{completedTasks.Count}/{tasks.Count + completedTasks.Count} STEPS COMPLETED";
@@ -38,7 +38,7 @@ public class WeaponTaskPhase : IPhase
         if(tasks.Count > 0)
         {
             Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
-            taskUI.GetComponent<TaskPadTask>().SetTask(tasks[0]);
+            taskUI.GetComponent<TaskPadTask>().SetTask(GetActiveTask(tasks[0]));
         }
     }
 

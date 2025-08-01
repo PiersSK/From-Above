@@ -44,7 +44,7 @@ public class RapierTerminal : Computer
     [SerializeField] private DataReader dataReader;
 
     [Header("Progression Settings")]
-    [SerializeField] private Task shipStatusTask;
+    [SerializeField] private TaskData shipStatusTask;
 
     [Header("Admin Access Settings")]
     [SerializeField] private Button adminReturnBtn;

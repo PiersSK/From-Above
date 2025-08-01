@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ShipStatus
   m_EditorClassIdentifier: 
   taskName: RAPIER06 Status Request
-  taskLocation: Server Room
   taskNumber: 05
   taskType: 0
+  stepLocations:
+  - Server Room
   taskSteps:
   - Relay RAPIER06 status to command

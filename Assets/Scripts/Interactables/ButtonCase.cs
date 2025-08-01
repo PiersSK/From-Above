@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ButtonCase : Interactable
 {
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private AudioClip safetyOffLine;
     [SerializeField] private AudioClip sfx;
     private bool isUp = false;

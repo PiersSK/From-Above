@@ -9,11 +9,11 @@ public abstract class IPhase : MonoBehaviour
     [SerializeField] public AudioClip taskBeep;
     [SerializeField] protected Transform taskPadListParent;
 
-    [SerializeField] public List<Task> tasks;
+    [SerializeField] public List<TaskData> tasks;
     protected List<ActiveTask> activeTasks = new();
-    public List<Task> completedTasks = new List<Task>();
+    public List<TaskData> completedTasks = new List<TaskData>();
     protected bool sequentialTaskPhase = false;
-    protected List<Task> sequentialTaskHolder = new List<Task>();
+    protected List<TaskData> sequentialTaskHolder = new List<TaskData>();
 
     protected bool hasTimer = false;
     protected const string TASKUIOBJECT = "Task";
@@ -25,23 +25,25 @@ public abstract class IPhase : MonoBehaviour
         foreach (var task in tasks)
         {
             Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
-            taskUI.GetComponent<TaskPadTask>().SetTask(task);
+            taskUI.GetComponent<TaskPadTask>().SetTask(GetActiveTask(task));
         }
     }
 
-    public virtual bool ProgressTask(Task task)
+    public virtual bool ProgressTask(TaskData task)
     {
-        ActiveTask activeTask = activeTasks.Find(x => x.task == task);
+        ActiveTask activeTask = GetActiveTask(task);
         bool taskCompleted = activeTask.ProgressTask();
         if (taskCompleted)
         {
             CompleteTask(task);
         }
 
+        UpdateTaskPadUI();
+
         return taskCompleted;
     }
 
-    public virtual void CompleteTask(Task completedTask) 
+    public virtual void CompleteTask(TaskData completedTask) 
     {
         if (!tasks.Contains(completedTask)) return;
 
@@ -58,6 +60,9 @@ public abstract class IPhase : MonoBehaviour
 
     public virtual void BeginCurrentPhase()
     {
+        activeTasks.Clear();
+        foreach(var task in tasks) activeTasks.Add(new ActiveTask(task));
+
         if(sequentialTaskPhase)
         {
             sequentialTaskHolder.AddRange(tasks);
@@ -73,5 +78,10 @@ public abstract class IPhase : MonoBehaviour
     {
         gameObject.SetActive(false);
         completedTasks.Clear();
+    }
+
+    protected ActiveTask GetActiveTask(TaskData t)
+    {
+        return activeTasks.Find(x => x.task == t);
     }
 }

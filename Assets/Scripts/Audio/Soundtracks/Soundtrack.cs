@@ -27,5 +27,5 @@ public class Soundtrack : ScriptableObject
     public int absoluteSecondsBeforePhaseEnd;
     public int percentageThroughPhase;
 
-    public Task progressAfter;
+    public TaskData progressAfter;
 }

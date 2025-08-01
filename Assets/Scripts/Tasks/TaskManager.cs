@@ -10,7 +10,7 @@ public class TaskManager : MonoBehaviour
     private bool taskPadVisible = false;
     private bool taskPadObtained = false;
 
-    public List<Task> completedTasks;
+    public List<TaskData> completedTasks;
 
     public bool pacifistEndingReached = false; //Remove from other managers before deleting
 
@@ -32,7 +32,7 @@ public class TaskManager : MonoBehaviour
 
     [SerializeField] private Soundtrack pacifistSoundtrack;
 
-    public delegate void OnTaskComplete(Task task);
+    public delegate void OnTaskComplete(TaskData task);
     public static event OnTaskComplete TaskCompleted;
 
     public delegate void OnPhaseChange();
@@ -102,7 +102,7 @@ public class TaskManager : MonoBehaviour
         }
     }
 
-    public void ProgressTask(Task taskToComplete)
+    public void ProgressTask(TaskData taskToComplete)
     {
         if (currentPhase.ProgressTask(taskToComplete))
         {

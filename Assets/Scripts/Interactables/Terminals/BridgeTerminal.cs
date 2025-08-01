@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static BridgeTerminal;
 
 public class BridgeTerminal : Computer
 {
@@ -27,7 +28,10 @@ public class BridgeTerminal : Computer
     [SerializeField] private DataDrive fleetData;
 
     [Header("Progression Settings")]
-    [SerializeField] private Task fleetDataTask;
+    [SerializeField] private TaskData fleetDataTask;
+
+    public delegate void OnDataUploaded(DataDrive drive);
+    public static event OnDataUploaded DataUploaded;
 
     private bool fleetDataUploaded = false;
     private const string UPLOADSUCCESS = "[UPLOAD OF DATA COMPLETE]";
@@ -98,7 +102,8 @@ public class BridgeTerminal : Computer
                 {
                     btnResponse.text = UPLOADSUCCESS;
                     fleetDataUploaded = true;
-                    TaskManager.Instance.ProgressTask(fleetDataTask);
+                    DataUploaded?.Invoke(dataReader.insertedDrive);
+                    //TaskManager.Instance.ProgressTask(fleetDataTask);
                     rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);
                 }
                 else

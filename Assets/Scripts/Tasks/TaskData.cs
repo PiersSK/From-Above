@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Task", menuName = "Scriptable Objects/Task")]
-public class Task : ScriptableObject
+[CreateAssetMenu(fileName = "NewTaskData", menuName = "Scriptable Objects/Task Data")]
+public class TaskData : ScriptableObject
 {
     public enum TaskType
     {
@@ -11,9 +11,9 @@ public class Task : ScriptableObject
     }
 
     public string taskName;
-    public string taskLocation;
     public string taskNumber;
     public TaskType taskType;
 
+    public List<string> stepLocations = new List<string>();
     public List<string> taskSteps = new List<string>();
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FireButton : Interactable
 {
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject gameOverActivistUI;
     [SerializeField] private AudioClip fireCountdown;
