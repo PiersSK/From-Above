@@ -32,6 +32,9 @@ public class FuncCardUI : MonoBehaviour
     protected DataDrive relevantPd;
     protected DiscSlotContent selectedContent;
 
+    public delegate void OnFunctionExecuted(FuncCardUI func, IServerDataObject pd, DiscSlotContent content);
+    public static event OnFunctionExecuted FunctionExecuted;
+
     protected virtual void Start()
     {
         prevButton.onClick.AddListener(SelectPrevious);
@@ -98,5 +101,11 @@ public class FuncCardUI : MonoBehaviour
         functionOutput.SetActive(true);
         functionOutput.GetComponent<FunctionOutputUI>().dismissButton.Select();
         returnButton.interactable = true;
+        TriggerFunctionExecuted();
+    }
+
+    protected void TriggerFunctionExecuted()
+    {
+        FunctionExecuted?.Invoke(this, relevantPd, selectedContent);
     }
 }

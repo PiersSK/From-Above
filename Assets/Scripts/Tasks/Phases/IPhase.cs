@@ -80,7 +80,7 @@ public abstract class IPhase : MonoBehaviour
         completedTasks.Clear();
     }
 
-    protected ActiveTask GetActiveTask(TaskData t)
+    public ActiveTask GetActiveTask(TaskData t)
     {
         return activeTasks.Find(x => x.task == t);
     }

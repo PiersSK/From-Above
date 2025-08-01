@@ -28,27 +28,27 @@ public class PDStorage : IServerHubStorage
     public override void SelectNext()
     {
         base.SelectNext();
-        PDStorageChanged?.Invoke();
+        PDStorageChanged?.Invoke(null);
     }
 
     public override void SelectPrevious()
     {
         base.SelectPrevious();
-        PDStorageChanged?.Invoke();
+        PDStorageChanged?.Invoke(null);
     }
 
     public override void AddNewObjectToStorage(IServerDataObject newObj)
     {
         base.AddNewObjectToStorage(newObj);
         PlayerInventory.Instance.dataDrivesHeld.Remove((DataDrive)newObj);
-        PDStorageChanged?.Invoke();
+        PDStorageChanged?.Invoke(newObj);
     }
 
     public override void EjectObject()
     {
         if (objectsStored.Count > 0) PlayerInventory.Instance.dataDrivesHeld.Add((DataDrive)objectsStored[currentIndex]);
         base.EjectObject();
-        PDStorageChanged?.Invoke();
+        PDStorageChanged?.Invoke(null);
     }
 
     public List<DiscSlotContent> GetPDSlots(DataDrive pd)

@@ -48,8 +48,8 @@ public class WeaponTaskPhase : IPhase
         taskPadHeader.color = UIColors.terminalRed;
         sequentialTaskPhase = true;
 
-        UpdateTaskPadUI();
         base.BeginCurrentPhase();
+        UpdateTaskPadUI();
     }
 
     public override void EndCurrentPhase()

@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 680c671505ae7d84d8f183fafe0aaf02, type: 3}
-  m_Name: ShipStatus
+  m_Name: ShareMaintainance
   m_EditorClassIdentifier: 
-  taskName: RAPIER06 Status Request
+  taskName: RAPIER Maintenance Logs Request
   taskNumber: 05
   taskType: 0
   stepLocations:
   - Server Room
+  - Server Room
+  - Server Room
+  - Server Room
   taskSteps:
-  - Relay RAPIER06 status to command
+  - Load 'Receive FC' and 'RAPIER Project PD' into server hub
+  - Receive data from RAPIER02
+  - Load 'Transmit FC' into server hub
+  - Transmit data received from RAPIER02 to command

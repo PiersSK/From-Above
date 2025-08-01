@@ -4,21 +4,14 @@ public class ProcessFleetDataProgressor : TaskProgressor
 {
     [SerializeField] private DataDrive rapierFleetDrive;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         ServerDiscStorage.PDEjected += FleetDataEjected;
         BridgeTerminal.DataUploaded += FleetDataUploaded;
-        TaskManager.TaskCompleted += IsTaskCompleted;
     }
 
-    private void IsTaskCompleted(TaskData task)
-    {
-        if(this.task == task)
-        {
-            TaskManager.TaskCompleted -= IsTaskCompleted;
-            Destroy(gameObject);
-        }
-    }
+    
 
     private void FleetDataEjected(DataDrive drive)
     {
@@ -32,10 +25,10 @@ public class ProcessFleetDataProgressor : TaskProgressor
         BridgeTerminal.DataUploaded -= FleetDataUploaded;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         ServerDiscStorage.PDEjected -= FleetDataEjected;
         BridgeTerminal.DataUploaded -= FleetDataUploaded;
-        TaskManager.TaskCompleted -= IsTaskCompleted;
     }
 }
