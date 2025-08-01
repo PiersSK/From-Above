@@ -27,7 +27,7 @@ public class FireButton : Interactable
         commanderVLSource.Stop();
 
         anim.SetTrigger("Press");
-        TaskManager.Instance.CompleteTask(task);
+        TaskManager.Instance.ProgressTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         SoundManager.Instance.PlayShipPALine(fireCountdown);
         weaponFired = true;

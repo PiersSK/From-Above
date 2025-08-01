@@ -219,7 +219,7 @@ public class RapierTerminal : Computer
 
             ClearNotif(Notifications.ShipStatus);
 
-            TaskManager.Instance.CompleteTask(shipStatusTask);
+            TaskManager.Instance.ProgressTask(shipStatusTask);
         } else
         {
             mainScreenResponse.text = UPLOADREJECT;

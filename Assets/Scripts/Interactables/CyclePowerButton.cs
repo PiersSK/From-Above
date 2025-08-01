@@ -74,7 +74,7 @@ public class CyclePowerButton : Interactable
 
         lightFlicker.Play();
         playerLook.CameraShake(5f, 2.5f * timesCycledInRange, true);
-        TaskManager.Instance.CompleteTask(task);
+        TaskManager.Instance.ProgressTask(task);
         cycleNotif.SetActive(false);
         SoundManager.Instance.PlayShipPALine(cycleSequenceSfx, 1 - 0.05f * (timesCycledInRange-1), 0.2f + (0.1f * timesCycledInRange));
 

@@ -13,7 +13,7 @@ public class RoomTidyCounter : MonoBehaviour
     {
         if (swept && objectsRemoved == objectsToRemove && !completed)
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             completed = true;
         }
     }

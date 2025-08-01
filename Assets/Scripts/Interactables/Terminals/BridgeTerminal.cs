@@ -98,7 +98,7 @@ public class BridgeTerminal : Computer
                 {
                     btnResponse.text = UPLOADSUCCESS;
                     fleetDataUploaded = true;
-                    TaskManager.Instance.CompleteTask(fleetDataTask);
+                    TaskManager.Instance.ProgressTask(fleetDataTask);
                     rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);
                 }
                 else

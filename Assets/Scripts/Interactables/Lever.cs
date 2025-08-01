@@ -26,7 +26,7 @@ public class Lever : Interactable
 
         if(DoomsdayStatusUI.Instance.weaponLeversPulled == 3)
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             weaponAnim.SetTrigger("Deploy");
             SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
             SoundManager.Instance.PlayShipPALine(confirmVoice);

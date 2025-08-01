@@ -102,22 +102,25 @@ public class TaskManager : MonoBehaviour
         }
     }
 
-    public void CompleteTask(Task taskToComplete)
+    public void ProgressTask(Task taskToComplete)
     {
-        currentPhase.CompleteTask(taskToComplete);
-        completedTasks.Add(taskToComplete);
-
-        currentPhase.UpdateTaskPadUI();
-        UIManager.Instance.CompletedTaskPopup();
-        SoundManager.Instance.PlaySFXOneShot(currentPhase.taskBeep);
-
-        if(currentPhase.tasks.Count == 0)
+        if (currentPhase.ProgressTask(taskToComplete))
         {
-            MoveToNextPhase();
+            completedTasks.Add(taskToComplete);
+
+            currentPhase.UpdateTaskPadUI();
+            UIManager.Instance.CompletedTaskPopup();
+            SoundManager.Instance.PlaySFXOneShot(currentPhase.taskBeep);
+
+            if (currentPhase.tasks.Count == 0)
+            {
+                MoveToNextPhase();
+            }
+
+            TaskCompleted?.Invoke(taskToComplete);
         }
 
-        TaskCompleted?.Invoke(taskToComplete);
-        TimeController.Instance.inactivityTimer = 0f;
+        TimeController.Instance.inactivityTimer = 0f; //TODO: Should this be reset every step or only on full completion?
     }
 
     public void ToggleTaskPad()

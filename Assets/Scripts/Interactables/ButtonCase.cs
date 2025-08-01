@@ -19,6 +19,6 @@ public class ButtonCase : Interactable
         SoundManager.Instance.PlaySFXOneShot(sfx);
         isUp = true;
         DoomsdayStatusUI.Instance.safetyOff = true;
-        TaskManager.Instance.CompleteTask(task);
+        TaskManager.Instance.ProgressTask(task);
     }
 }

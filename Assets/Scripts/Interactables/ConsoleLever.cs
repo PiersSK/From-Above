@@ -19,7 +19,7 @@ public class ConsoleLever : Interactable
 
         if (otherLever.isFlipped)
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             Invoke("PlayConfirm", 1f);
             SoundManager.Instance.PlaySFXOneShot(slidingDoor, 0, 1f);
         }

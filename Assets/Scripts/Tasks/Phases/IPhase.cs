@@ -9,6 +9,7 @@ public abstract class IPhase : MonoBehaviour
     [SerializeField] protected Transform taskPadListParent;
 
     [SerializeField] public List<Task> tasks;
+    protected List<ActiveTask> activeTasks = new();
     public List<Task> completedTasks = new List<Task>();
     protected bool sequentialTaskPhase = false;
     protected List<Task> sequentialTaskHolder = new List<Task>();
@@ -25,6 +26,18 @@ public abstract class IPhase : MonoBehaviour
             Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
             taskUI.GetComponent<TaskPadTask>().SetTask(task);
         }
+    }
+
+    public virtual bool ProgressTask(Task task)
+    {
+        ActiveTask activeTask = activeTasks.Find(x => x.task == task);
+        bool taskCompleted = activeTask.ProgressTask();
+        if (taskCompleted)
+        {
+            CompleteTask(task);
+        }
+
+        return taskCompleted;
     }
 
     public virtual void CompleteTask(Task completedTask) 

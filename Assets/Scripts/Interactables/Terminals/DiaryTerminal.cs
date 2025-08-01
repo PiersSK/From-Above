@@ -130,7 +130,7 @@ public class DiaryTerminal : Computer
         }
         else
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             footer.SetActive(true);
         }
     }

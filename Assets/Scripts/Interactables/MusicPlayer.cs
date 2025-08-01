@@ -62,7 +62,7 @@ public class MusicPlayer : Interactable
                 SoundManager.Instance.PlaySFXOneShot(playSfx, 0, 0.3f);
                 if (drive == wellnessTape && !taskCompleted)
                 {
-                    TaskManager.Instance.CompleteTask(wellnessTask);
+                    TaskManager.Instance.ProgressTask(wellnessTask);
                     taskCompleted = true;
                 }
             }
