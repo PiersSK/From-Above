@@ -98,6 +98,15 @@ public class PlayerLook : MonoBehaviour
         }
     }
 
+    public void SetLookLock(bool lockstate, bool resetCamera = true)
+    {
+        lookLocked = lockstate;
+        if (resetCamera)
+        {
+            cam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
     public void CameraShake(float timer, float intensity = 5f, bool ascending = false)
     {
         cameraShakeIntensity = intensity;

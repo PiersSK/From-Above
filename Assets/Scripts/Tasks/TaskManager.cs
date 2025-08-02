@@ -86,7 +86,7 @@ public class TaskManager : MonoBehaviour
     public void ObtainTaskpad()
     {
         taskPadObtained = true;
-        player.GetComponent<PlayerMotor>().LockPlayer();
+        player.GetComponent<PlayerMotor>().TogglePlayerLock();
         taskPadObj.SetActive(true);
         taskPadTrigger.SetActive(true);
 

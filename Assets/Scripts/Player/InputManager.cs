@@ -58,6 +58,16 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void ClearInteractHooks(Interactable interactable)
+    {
+        InputManager.Instance.playerActions.Interact.started -= ctx => interactable.BaseInteract(transform);
+        if (interactable is HoldInteractable)
+        {
+            var temp = interactable as HoldInteractable;
+            InputManager.Instance.playerActions.Interact.canceled -= ctx => temp.baseCancelInteract(transform);
+        }
+    }
+
     private void OnAnyInputDetected(InputControl control)
     {
         LastInputType newInputType = DetectInputDevice(control.device);
