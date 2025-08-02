@@ -7,7 +7,7 @@ public class SwordInitiation : LegacyServerExe
 
     public override void RunExe()
     {
-        TaskManager.Instance.CompleteTask(task);
+        TaskManager.Instance.ProgressTask(task);
         DoomsdayStatusUI.Instance.warmedUp = true;
         initiationDone = true;
         SoundManager.Instance.PlayShipPALine(warmupSfx);

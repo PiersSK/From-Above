@@ -7,7 +7,7 @@ public class MusicPlayer : Interactable
 
     private bool taskCompleted = false;
     [SerializeField] private DataDrive wellnessTape;
-    [SerializeField] private Task wellnessTask;
+    [SerializeField] private TaskData wellnessTask;
 
     [SerializeField] private AudioClip playSfx;
 
@@ -62,7 +62,7 @@ public class MusicPlayer : Interactable
                 SoundManager.Instance.PlaySFXOneShot(playSfx, 0, 0.3f);
                 if (drive == wellnessTape && !taskCompleted)
                 {
-                    TaskManager.Instance.CompleteTask(wellnessTask);
+                    TaskManager.Instance.ProgressTask(wellnessTask);
                     taskCompleted = true;
                 }
             }

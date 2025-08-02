@@ -12,7 +12,7 @@ public class KeycardInput : Interactable
     }
 
     [SerializeField] private KeyCardRequired key;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private GameObject keyObj;
 
     [SerializeField] private AudioClip unlockConfirmLine;
@@ -86,7 +86,7 @@ public class KeycardInput : Interactable
         if (DoomsdayStatusUI.Instance.keycardsInserted == 2)
         {
             TimeController.Instance.StopKeycardTimer();
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             SoundManager.Instance.PlaySFXOneShot(confirmBeep);
             SoundManager.Instance.PlayShipPALine(unlockConfirmLine);
             foreach (KeycardTerminal terminal in terminals)

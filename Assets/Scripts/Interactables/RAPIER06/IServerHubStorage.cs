@@ -14,7 +14,7 @@ public abstract class IServerHubStorage : MonoBehaviour
 
     protected const string EMPTYMESSAGE = "<i>Nothing in Storage</i>";
 
-    public delegate void OnServerStorageObjectChange();
+    public delegate void OnServerStorageObjectChange(IServerDataObject dataObj);
 
     private void Start()
     {

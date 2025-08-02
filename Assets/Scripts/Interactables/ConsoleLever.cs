@@ -5,7 +5,7 @@ public class ConsoleLever : Interactable
     public bool isFlipped = false;
 
     [SerializeField] private ConsoleLever otherLever;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private AudioClip sfx;
     [SerializeField] private AudioClip taskCompleteLine;
     [SerializeField] private AudioClip slidingDoor;
@@ -19,7 +19,7 @@ public class ConsoleLever : Interactable
 
         if (otherLever.isFlipped)
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             Invoke("PlayConfirm", 1f);
             SoundManager.Instance.PlaySFXOneShot(slidingDoor, 0, 1f);
         }

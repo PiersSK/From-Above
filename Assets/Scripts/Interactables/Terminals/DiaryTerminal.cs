@@ -13,7 +13,7 @@ public class DiaryTerminal : Computer
     [SerializeField] private Transform lookoutPoint;
 
     [Header("Progression Settings")]
-    [SerializeField] Task task;
+    [SerializeField] TaskData task;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip keysoundLight;
@@ -130,7 +130,7 @@ public class DiaryTerminal : Computer
         }
         else
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             footer.SetActive(true);
         }
     }

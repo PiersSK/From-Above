@@ -3,7 +3,7 @@ using UnityEngine;
 public class DeployWheel : HoldInteractable
 {
     private Animator anim;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private PlayerLook look;
 
     private bool animTriggered = false;
@@ -34,7 +34,7 @@ public class DeployWheel : HoldInteractable
 
         if (DoomsdayStatusUI.Instance.weaponLeversPulled == 2)
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
             SoundManager.Instance.PlayShipPALine(confirmVoice);
             InputManager.Instance.ClearInteractHooks(this);

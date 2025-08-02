@@ -48,7 +48,7 @@ public class SoundtrackEditor : Editor
         EditorGUILayout.Space();
         EditorGUI.BeginDisabledGroup(!soundtrack.progressOnTaskCompletion);
         EditorGUILayout.LabelField("Task Condition Settings", EditorStyles.boldLabel);
-        soundtrack.progressAfter = (Task)EditorGUILayout.ObjectField("Progress After", soundtrack.progressAfter, typeof(Task), false);
+        soundtrack.progressAfter = (TaskData)EditorGUILayout.ObjectField("Progress After", soundtrack.progressAfter, typeof(TaskData), false);
         EditorGUI.EndDisabledGroup();
 
         EditorUtility.SetDirty(soundtrack);

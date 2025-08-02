@@ -7,14 +7,14 @@ public class DailyTaskPhase : IPhase
 {
     [Header("Canvas Items")]
     [SerializeField] private TextMeshProUGUI taskCounter;
-    [SerializeField] private TextMeshProUGUI taskCounterSentence;
 
     public override void BeginCurrentPhase()
     {
-        taskPadHeader.color = UIColors.terminalGreen;
-        taskCounterSentence.text = "You have       urgent commands REMAINING";
-        UpdateTaskPadUI();
+        Color c = UIColors.terminalGreen;
+        c.a = 0.5f;
+        taskPadHeader.color = c;
         base.BeginCurrentPhase();
+        UpdateTaskPadUI();
     }
 
     public override void EndCurrentPhase()
@@ -22,7 +22,7 @@ public class DailyTaskPhase : IPhase
         base.EndCurrentPhase();
     }
 
-    public override void CompleteTask(Task completedTask)
+    public override void CompleteTask(TaskData completedTask)
     {
         base.CompleteTask(completedTask);
     }

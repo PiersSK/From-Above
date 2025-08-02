@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class IPhase : MonoBehaviour
 {
-    [SerializeField] public TextMeshProUGUI taskPadHeader;
+    [SerializeField] public Image taskPadHeader;
     [SerializeField] public AudioClip taskBeep;
     [SerializeField] protected Transform taskPadListParent;
 
-    [SerializeField] public List<Task> tasks;
-    public List<Task> completedTasks = new List<Task>();
+    [SerializeField] public List<TaskData> tasks;
+    protected List<ActiveTask> activeTasks = new();
+    public List<TaskData> completedTasks = new List<TaskData>();
     protected bool sequentialTaskPhase = false;
-    protected List<Task> sequentialTaskHolder = new List<Task>();
+    protected List<TaskData> sequentialTaskHolder = new List<TaskData>();
 
     protected bool hasTimer = false;
     protected const string TASKUIOBJECT = "Task";
@@ -23,11 +25,25 @@ public abstract class IPhase : MonoBehaviour
         foreach (var task in tasks)
         {
             Transform taskUI = Instantiate(Resources.Load<Transform>("Task"), taskPadListParent);
-            taskUI.GetComponent<TaskPadTask>().SetTask(task);
+            taskUI.GetComponent<TaskPadTask>().SetTask(GetActiveTask(task));
         }
     }
 
-    public virtual void CompleteTask(Task completedTask) 
+    public virtual bool ProgressTask(TaskData task)
+    {
+        ActiveTask activeTask = GetActiveTask(task);
+        bool taskCompleted = activeTask.ProgressTask();
+        if (taskCompleted)
+        {
+            CompleteTask(task);
+        }
+
+        UpdateTaskPadUI();
+
+        return taskCompleted;
+    }
+
+    public virtual void CompleteTask(TaskData completedTask) 
     {
         if (!tasks.Contains(completedTask)) return;
 
@@ -44,6 +60,9 @@ public abstract class IPhase : MonoBehaviour
 
     public virtual void BeginCurrentPhase()
     {
+        activeTasks.Clear();
+        foreach(var task in tasks) activeTasks.Add(new ActiveTask(task));
+
         if(sequentialTaskPhase)
         {
             sequentialTaskHolder.AddRange(tasks);
@@ -59,5 +78,10 @@ public abstract class IPhase : MonoBehaviour
     {
         gameObject.SetActive(false);
         completedTasks.Clear();
+    }
+
+    public ActiveTask GetActiveTask(TaskData t)
+    {
+        return activeTasks.Find(x => x.task == t);
     }
 }

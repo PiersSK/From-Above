@@ -43,7 +43,7 @@ public class EXEStorage : IServerHubStorage
     {
         base.AddNewObjectToStorage(newObj);
         PlayerInventory.Instance.exesHeld.Remove(newObj);
-        EXEStorageChanged?.Invoke();
+        EXEStorageChanged?.Invoke(newObj);
     }
 
     protected override void UpdateVisibleState()
@@ -59,7 +59,7 @@ public class EXEStorage : IServerHubStorage
         if (currentIndex >= allExeReference.Count) currentIndex = 0;
 
         UpdateVisibleState();
-        EXEStorageChanged?.Invoke();
+        EXEStorageChanged?.Invoke(null);
 
     }
 
@@ -69,7 +69,7 @@ public class EXEStorage : IServerHubStorage
         if (currentIndex < 0) currentIndex = allExeReference.Count - 1;
 
         UpdateVisibleState();
-        EXEStorageChanged?.Invoke();
+        EXEStorageChanged?.Invoke(null);
 
     }
 
@@ -90,7 +90,7 @@ public class EXEStorage : IServerHubStorage
         Debug.Log("EXE Filtered (Next) selected: " + allExeReference[currentIndex].objectName);
 
         UpdateVisibleState();
-        EXEStorageChanged?.Invoke();
+        EXEStorageChanged?.Invoke(null);
 
     }
 
@@ -111,7 +111,7 @@ public class EXEStorage : IServerHubStorage
         Debug.Log("EXE Filtered (Prev) selected: " + allExeReference[currentIndex].objectName);
 
         UpdateVisibleState();
-        EXEStorageChanged?.Invoke();
+        EXEStorageChanged?.Invoke(null);
 
     }
 }

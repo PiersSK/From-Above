@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SwordPower
   m_EditorClassIdentifier: 
   taskName: Cycle The Sword's Power
-  taskLocation: Doomsday Room
   taskNumber: x0
   taskType: 1
+  stepLocations:
+  - Doomsday Room
+  taskSteps:
+  - Perform regular weapon core cycling

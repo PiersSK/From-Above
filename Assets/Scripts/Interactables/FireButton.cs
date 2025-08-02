@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FireButton : Interactable
 {
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject gameOverActivistUI;
     [SerializeField] private AudioClip fireCountdown;
@@ -27,7 +27,7 @@ public class FireButton : Interactable
         commanderVLSource.Stop();
 
         anim.SetTrigger("Press");
-        TaskManager.Instance.CompleteTask(task);
+        TaskManager.Instance.ProgressTask(task);
         SoundManager.Instance.PlaySFXOneShot(sfx);
         SoundManager.Instance.PlayShipPALine(fireCountdown);
         weaponFired = true;

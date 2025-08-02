@@ -92,7 +92,7 @@ public class ServerHubUI : MonoBehaviour
         else return BACKTOPD;
     }
 
-    private void PDStateChange()
+    private void PDStateChange(IServerDataObject d)
     {
         if (pdStorage.objectsStored.Count == 0) BackToPDSelection();
         RefreshUIState();
@@ -112,7 +112,7 @@ public class ServerHubUI : MonoBehaviour
         pdSelectorRow.gameObject.SetActive(pdsInStorage);
     }
 
-    private void RefreshUIState()
+    private void RefreshUIState(IServerDataObject d = null)
     {
         foreach (Transform obj in pdSelectorRow) obj.gameObject.SetActive(false);
 

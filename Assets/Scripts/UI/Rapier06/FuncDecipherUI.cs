@@ -27,6 +27,7 @@ public class FuncDecipherUI : FuncCardUI
 
         float animLength = anim.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name == DECRYPTANIM.ToLower()).length;
         Invoke("GoToOutput", animLength);
+        TriggerFunctionExecuted();
     }
 
     private void GoToOutput()

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DeployWeapon
   m_EditorClassIdentifier: 
   taskName: Deploy The SWORD
-  taskLocation: Bridge / Server / Hallway
   taskNumber: x4
   taskType: 1
-  weaponStatusMessage: 
+  stepLocations:
+  - DoomsdayRoom
+  taskSteps:
+  - Release weapon lock to enable fire

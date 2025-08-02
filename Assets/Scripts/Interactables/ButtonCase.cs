@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ButtonCase : Interactable
 {
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private AudioClip safetyOffLine;
     [SerializeField] private AudioClip sfx;
     private bool isUp = false;
@@ -19,6 +19,6 @@ public class ButtonCase : Interactable
         SoundManager.Instance.PlaySFXOneShot(sfx);
         isUp = true;
         DoomsdayStatusUI.Instance.safetyOff = true;
-        TaskManager.Instance.CompleteTask(task);
+        TaskManager.Instance.ProgressTask(task);
     }
 }

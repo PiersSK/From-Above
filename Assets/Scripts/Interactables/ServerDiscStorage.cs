@@ -1,7 +1,6 @@
-using NUnit;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using static TaskManager;
 
 public class ServerDiscStorage : Interactable
 {
@@ -15,6 +14,9 @@ public class ServerDiscStorage : Interactable
 
     private string inDockPrompt;
     private string outDockPrompt;
+
+    public delegate void OnPDEject(DataDrive drive);
+    public static event OnPDEject PDEjected;
 
     private void Start()
     {
@@ -47,6 +49,7 @@ public class ServerDiscStorage : Interactable
             driveInDock = false;
             serverAnim.SetTrigger("Eject");
             SoundManager.Instance.PlaySFXOneShot(ejectSfx, 0, 0.3f);
+            PDEjected?.Invoke(driveStored);
         } else if (inv.dataDrivesHeld.Contains(driveStored) && !driveInDock)
         {
             inv.dataDrivesHeld.Remove(driveStored);

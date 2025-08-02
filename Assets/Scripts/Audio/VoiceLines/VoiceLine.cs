@@ -20,7 +20,7 @@ public class VoiceLine : ScriptableObject
     public int percentageThroughPhase;
     public int secondsSinceLastVoiceLine;
     public int secondsOfInactivity;
-    public Task inactivityStartTask;
-    public Task inactivityEndTask;
-    public Task taskTrigger;
+    public TaskData inactivityStartTask;
+    public TaskData inactivityEndTask;
+    public TaskData taskTrigger;
 }

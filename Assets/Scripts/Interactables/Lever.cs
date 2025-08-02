@@ -3,7 +3,7 @@ using UnityEngine;
 public class Lever : Interactable
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private Task task;
+    [SerializeField] private TaskData task;
     [SerializeField] private PlayerLook look;
     private bool leverIsUp = false;
 
@@ -26,7 +26,7 @@ public class Lever : Interactable
 
         if(DoomsdayStatusUI.Instance.weaponLeversPulled == 3)
         {
-            TaskManager.Instance.CompleteTask(task);
+            TaskManager.Instance.ProgressTask(task);
             InputManager.Instance.ClearInteractHooks(this);
             weaponAnim.SetTrigger("Deploy");
             SoundManager.Instance.PlaySFXOneShot(deploySound, 0, 0.5f);
