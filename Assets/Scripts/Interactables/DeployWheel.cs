@@ -53,17 +53,13 @@ public class DeployWheel : HoldInteractable
         weaponAnim.speed = 1;
         anim.speed = 1;
 
-        PlayerMotor.Instance.SetPlayerLock(true);
-        PlayerLook.Instance.SetLookLock(true, false);
+        base.Interact(player);
     }
 
     protected override void CancelInteract(Transform player)
     {
         weaponAnim.speed = 0;
         anim.speed = 0;
-
-        PlayerMotor.Instance.SetPlayerLock(false);
-        PlayerLook.Instance.SetLookLock(false, false);
 
         base.CancelInteract(player);
     }
