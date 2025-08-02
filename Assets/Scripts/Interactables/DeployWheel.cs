@@ -26,6 +26,8 @@ public class DeployWheel : HoldInteractable
 
     public void WheelTurnComplete() 
     {
+        PlayerMotor.Instance.SetPlayerLock(false);
+        PlayerLook.Instance.SetLookLock(false, false);
         DoomsdayStatusUI.Instance.weaponLeversPulled++;
         fullTurnComplete = true;
         SoundManager.Instance.PlaySFXOneShot(sfx, 0, 0.3f);
@@ -50,12 +52,18 @@ public class DeployWheel : HoldInteractable
         
         weaponAnim.speed = 1;
         anim.speed = 1;
+
+        PlayerMotor.Instance.SetPlayerLock(true);
+        PlayerLook.Instance.SetLookLock(true, false);
     }
 
     protected override void CancelInteract(Transform player)
     {
         weaponAnim.speed = 0;
         anim.speed = 0;
+
+        PlayerMotor.Instance.SetPlayerLock(false);
+        PlayerLook.Instance.SetLookLock(false, false);
 
         base.CancelInteract(player);
     }

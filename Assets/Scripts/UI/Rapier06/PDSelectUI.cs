@@ -32,7 +32,7 @@ public class PDSelectUI : MonoBehaviour
     public void UnlockPlayer()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        PlayerMotor.Instance.LockPlayer();
+        PlayerMotor.Instance.TogglePlayerLock();
         PlayerLook.Instance.ToggleLookLock();
         UIManager.Instance.ToggleCrosshairVisibility();
         InputManager.InputTypeChanged -= InputChangedWhilstUIOpen;
@@ -44,7 +44,7 @@ public class PDSelectUI : MonoBehaviour
     {
         if (!InputManager.Instance.GamepadIsCurrentInput()) Cursor.lockState = CursorLockMode.None;
         InputManager.InputTypeChanged += InputChangedWhilstUIOpen;
-        PlayerMotor.Instance.LockPlayer();
+        PlayerMotor.Instance.TogglePlayerLock();
         PlayerLook.Instance.ToggleLookLock();
         UIManager.Instance.ToggleCrosshairVisibility();
 
