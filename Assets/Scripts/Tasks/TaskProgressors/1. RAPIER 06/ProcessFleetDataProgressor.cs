@@ -11,18 +11,22 @@ public class ProcessFleetDataProgressor : TaskProgressor
         BridgeTerminal.DataUploaded += FleetDataUploaded;
     }
 
-    
-
     private void FleetDataEjected(DataDrive drive)
     {
-        if (drive == rapierFleetDrive) TaskManager.Instance.ProgressTask(task);
-        ServerDiscStorage.PDEjected -= FleetDataEjected;
+        if (drive == rapierFleetDrive)
+        {
+            TaskManager.Instance.ProgressTask(task);
+            ServerDiscStorage.PDEjected -= FleetDataEjected;
+        }
     }
 
     private void FleetDataUploaded(DataDrive drive)
     {
-        if (drive == rapierFleetDrive) TaskManager.Instance.ProgressTask(task);
-        BridgeTerminal.DataUploaded -= FleetDataUploaded;
+        if (drive == rapierFleetDrive)
+        {
+            TaskManager.Instance.ProgressTask(task);
+            BridgeTerminal.DataUploaded -= FleetDataUploaded;
+        }
     }
 
     protected override void OnDisable()
