@@ -45,7 +45,7 @@ public class FocusPickup : Interactable
 
         if(sfx != null) SoundManager.Instance.PlaySFXOneShot(sfx);
 
-        motor.LockPlayer();
+        motor.TogglePlayerLock();
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();
@@ -59,7 +59,7 @@ public class FocusPickup : Interactable
 
     public virtual void ReleasePlayer()
     {
-        motor.LockPlayer();
+        motor.TogglePlayerLock();
         Cursor.lockState = CursorLockMode.Locked;
         look.ToggleLookLock();
         isInteractable = true;

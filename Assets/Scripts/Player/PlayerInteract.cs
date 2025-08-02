@@ -35,10 +35,19 @@ public class PlayerInteract : MonoBehaviour
                     promptText.text = interactable.GetPrompt();
                     buttonPromptObject.SetActive(true);
 
-                    if (InputManager.Instance.playerActions.Interact.triggered)
+                    bool triggerCheck = interactable is HoldInteractable ?
+                        InputManager.Instance.playerActions.Interact.IsPressed() :
+                        InputManager.Instance.playerActions.Interact.triggered;
+
+                    if (triggerCheck)
                     {
                         interactable.BaseInteract(transform);
                     }
+                    else if(interactable is HoldInteractable)
+                    {
+                        (interactable as HoldInteractable).baseCancelInteract(transform);
+                    }
+
                 } else
                 {
                     promptText.color = UIColors.terminalRed;

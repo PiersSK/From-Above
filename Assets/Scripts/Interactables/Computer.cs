@@ -72,7 +72,7 @@ public class Computer : Interactable
         initialRotation = player.transform.rotation;
 
         motor.ForcePlayerToPoint(lockPoint, true);
-        motor.LockPlayer();
+        motor.TogglePlayerLock();
 
         if (!InputManager.Instance.GamepadIsCurrentInput())
             Cursor.lockState = CursorLockMode.None;
@@ -92,7 +92,7 @@ public class Computer : Interactable
     protected virtual void ReleasePlayer()
     {
         motor.ForcePlayerToPoint(initialPos, initialRotation);
-        motor.LockPlayer();
+        motor.TogglePlayerLock();
         Cursor.lockState = CursorLockMode.Locked;
         look.ToggleLookLock();
         isInteractable = true;
