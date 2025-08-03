@@ -17,6 +17,7 @@ public class DiaryTerminal : Computer
 
     private int questionsAnswered = 0;
     private bool isLookingOut = false;
+    public bool logCompleted = false;
 
     private const string LOOKOUTWINDOW = "To look out the window";
     private const string RETURNTODIARY = "To enter your observations";
@@ -87,7 +88,7 @@ public class DiaryTerminal : Computer
         }
         else
         {
-            TaskManager.Instance.ProgressTask(task);
+            logCompleted = true;
             footer.SetActive(true);
         }
     }
