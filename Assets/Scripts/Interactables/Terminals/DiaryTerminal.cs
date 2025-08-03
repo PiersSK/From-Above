@@ -12,8 +12,9 @@ public class DiaryTerminal : Computer
     [SerializeField] private GameObject footer;
     [SerializeField] private Transform lookoutPoint;
 
-    [Header("Progression Settings")]
-    [SerializeField] TaskData task;
+    [Header("Terminal & Data Settings")]
+    [SerializeField] private DataReader dataReader;
+    [SerializeField] private DataDrive logsDrive;
 
     private int questionsAnswered = 0;
     private bool isLookingOut = false;
@@ -89,6 +90,7 @@ public class DiaryTerminal : Computer
         else
         {
             logCompleted = true;
+            dataReader.insertedDrive = logsDrive;
             footer.SetActive(true);
         }
     }

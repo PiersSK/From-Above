@@ -20,12 +20,14 @@ public class DataReader : Interactable
     [SerializeField] private AudioClip insertSfx;
     [SerializeField] private AudioClip audioDiscSfx;
 
+    public bool canInsert = true;
+
     private const string NODISK = "NONE INSERTED";
 
 
     public override bool CanInteract()
     {
-        return PlayerInventory.Instance.dataDrivesHeld.Count > 0 || insertedDrive != null;
+        return (PlayerInventory.Instance.dataDrivesHeld.Count > 0 && canInsert) || insertedDrive != null;
     }
 
     public override string GetPrompt()
@@ -46,7 +48,7 @@ public class DataReader : Interactable
     {
         PlayerInventory.Instance.dataDrivesHeld.Add(insertedDrive);
         insertedDrive = null;
-        insertedDriveName.text = NODISK;
+        if(insertedDriveName != null) insertedDriveName.text = NODISK;
 
         if (textOutput != null) textOutput.text = string.Empty;
         if (outputScreen != null)
@@ -57,14 +59,14 @@ public class DataReader : Interactable
         if (audioOutput != null) audioOutput.DiskRemoved();
         if (anim != null) anim.SetTrigger("Eject");
         SoundManager.Instance.PlaySFXOneShot(audioOutput == null ? ejectSfx : audioDiscSfx, 0, 0.3f);
-        if (visiblePD != null) visiblePD.SetActive(false);
+        //if (visiblePD != null) visiblePD.SetActive(false);
     }
 
     private void LoadDrive(IServerDataObject drive)
     {
         insertedDrive = (DataDrive)drive;
         PlayerInventory.Instance.dataDrivesHeld.Remove(drive);
-        insertedDriveName.text = insertedDrive.objectName;
+        if (insertedDriveName != null) insertedDriveName.text = insertedDrive.objectName;
         if (anim != null) anim.SetTrigger("Insert");
         SoundManager.Instance.PlaySFXOneShot(audioOutput == null ? insertSfx : audioDiscSfx, 0, 0.3f);
         if (visiblePD != null) visiblePD.SetActive(true);
