@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ public class CyclePowerButton : Interactable
             }
         }
 
-        if (timesCycledInRange == 3 && !overloaded)
+        if (timesCycledInRange == 3 && !overloaded && TaskManager.Instance.completedTasks.Any(task => task.taskName == "Unlock Weapon Terminal"))
         {
             overloaded = true;
             overloadMsg.SetActive(true);
