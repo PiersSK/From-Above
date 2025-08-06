@@ -7,6 +7,7 @@ public class PDSelectUI : MonoBehaviour
 {
     [SerializeField] private Transform PDUIButtonContainer;
     [SerializeField] private Button PDCancelBtn;
+    [SerializeField] private GridLayoutGroup buttonGrid;
     private List<Button> pdButtons = new();
 
     public delegate void OnPDSelected(DataDrive drive);
@@ -65,10 +66,12 @@ public class PDSelectUI : MonoBehaviour
         {
             int index = pdButtons.IndexOf(b);
 
-            Selectable up = index > 1 ? pdButtons[index - 2] : null;
-            Selectable down = index < pdButtons.Count - (2 - index % 2) ? pdButtons[index + 2 >= pdButtons.Count ? pdButtons.Count - 1 : index + 2] : PDCancelBtn;
-            Selectable left = index % 2 == 1 ? pdButtons[index - 1] : null;
-            Selectable right = index % 2 == 0 && index < pdButtons.Count - 1 ? pdButtons[index + 1] : null;
+            int l = buttonGrid.constraintCount; //grid row length
+
+            Selectable up = index > (l-1) ? pdButtons[index - l] : null;
+            Selectable down = index < pdButtons.Count - (l - index % l) ? pdButtons[index + l >= pdButtons.Count ? pdButtons.Count - 1 : index + l] : PDCancelBtn;
+            Selectable left = index % l >= 1 ? pdButtons[index - 1] : null;
+            Selectable right = index % l <= 1 && index < pdButtons.Count - 1 ? pdButtons[index + 1] : null;
 
             b.navigation = UIManager.Instance.CreateNewNavigation(up, down, left, right);
         }

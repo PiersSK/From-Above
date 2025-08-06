@@ -62,6 +62,7 @@ public class ShareMaintenanceProgressor : TaskProgressor
         base.OnDisable();
         EXEStorage.EXEStorageChanged -= RequiredExesLoaded;
         PDStorage.PDStorageChanged -= RapierDriveLoaded;
+        FuncCardUI.FunctionExecuted -= FunctionsExecuted;
     }
 
     private void RapierDriveLoaded(IServerDataObject dataObj)
