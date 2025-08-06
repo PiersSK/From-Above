@@ -218,8 +218,6 @@ public class RapierTerminal : Computer
             shipStatusDetailsSubtitle.text = SUBTITLEPOSTUPLOADTIMER; // update details screen state
 
             ClearNotif(Notifications.ShipStatus);
-
-            //TaskManager.Instance.ProgressTask(shipStatusTask);
         } else
         {
             mainScreenResponse.text = UPLOADREJECT;

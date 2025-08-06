@@ -103,7 +103,6 @@ public class BridgeTerminal : Computer
                     btnResponse.text = UPLOADSUCCESS;
                     fleetDataUploaded = true;
                     DataUploaded?.Invoke(dataReader.insertedDrive);
-                    //TaskManager.Instance.ProgressTask(fleetDataTask);
                     rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);
                 }
                 else

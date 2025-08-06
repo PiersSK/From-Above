@@ -59,7 +59,6 @@ public class DataReader : Interactable
         if (audioOutput != null) audioOutput.DiskRemoved();
         if (anim != null) anim.SetTrigger("Eject");
         SoundManager.Instance.PlaySFXOneShot(audioOutput == null ? ejectSfx : audioDiscSfx, 0, 0.3f);
-        //if (visiblePD != null) visiblePD.SetActive(false);
     }
 
     private void LoadDrive(IServerDataObject drive)
