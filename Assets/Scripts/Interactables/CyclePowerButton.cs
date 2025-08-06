@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ public class CyclePowerButton : Interactable
             }
         }
 
-        if (timesCycledInRange == 3 && !overloaded)
+        if (timesCycledInRange == 3 && !overloaded && TaskManager.Instance.completedTasks.Any(task => task.taskName == "Unlock Weapon Terminal"))
         {
             overloaded = true;
             overloadMsg.SetActive(true);
@@ -74,7 +75,8 @@ public class CyclePowerButton : Interactable
 
         lightFlicker.Play();
         playerLook.CameraShake(5f, 2.5f * timesCycledInRange, true);
-        TaskManager.Instance.ProgressTask(task);
+        if(!TaskManager.Instance.completedTasks.Contains(task))
+            TaskManager.Instance.ProgressTask(task);
         cycleNotif.SetActive(false);
         SoundManager.Instance.PlayShipPALine(cycleSequenceSfx, 1 - 0.05f * (timesCycledInRange-1), 0.2f + (0.1f * timesCycledInRange));
 
