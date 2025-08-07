@@ -20,6 +20,16 @@ public class CalibrationUI : MonoBehaviour
 
     [SerializeField] private float mapMoveSpeed = 10f;
 
+    private Vector2 maxMapPosition;
+
+    private void Start()
+    {
+        maxMapPosition = new Vector2(
+            map.sizeDelta.x/2 - mapMask.sizeDelta.x/2,
+            map.sizeDelta.y/2 - mapMask.sizeDelta.y/2    
+        );
+    }
+
     private void Update()
     {
         UpdateDamageNumber();
@@ -76,23 +86,34 @@ public class CalibrationUI : MonoBehaviour
 
     public void MoveMap(CalibrationButton.ButtonDirection d)
     {
+        float x = map.anchoredPosition.x;
+        float y = map.anchoredPosition.y;
         switch(d)
         {
             case CalibrationButton.ButtonDirection.Left:
-                map.anchoredPosition+= new Vector2(mapMoveSpeed, 0);
+                x += mapMoveSpeed;
                 break;
             case CalibrationButton.ButtonDirection.Right:
-                map.anchoredPosition += new Vector2(-mapMoveSpeed, 0);
+                x -= mapMoveSpeed;
                 break;
             case CalibrationButton.ButtonDirection.Up:
-                map.anchoredPosition += new Vector2(0, -mapMoveSpeed);
+                y -= mapMoveSpeed;
                 break;
             case CalibrationButton.ButtonDirection.Down:
-                map.anchoredPosition += new Vector2(0, mapMoveSpeed);
+                y += mapMoveSpeed;
                 break;
             default:
                 break;
         }
+        x = Mathf.Clamp(x, -maxMapPosition.x, maxMapPosition.x);
+        y = Mathf.Clamp(y, -maxMapPosition.y, maxMapPosition.y);
+        map.anchoredPosition = new Vector2(x, y);
     }
 
+    public void MoveMap(Vector2 moveInput)
+    {
+        float x = Mathf.Clamp(map.anchoredPosition.x + (moveInput.x * mapMoveSpeed), -maxMapPosition.x, maxMapPosition.x);
+        float y = Mathf.Clamp(map.anchoredPosition.y + (moveInput.y * mapMoveSpeed), -maxMapPosition.y, maxMapPosition.y);
+        map.anchoredPosition = new Vector2(x, y);
+    }
 }

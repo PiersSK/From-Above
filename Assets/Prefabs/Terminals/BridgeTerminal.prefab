@@ -3157,7 +3157,8 @@ GameObject:
   - component: {fileID: 4805221279092858313}
   - component: {fileID: 4268641066972977171}
   - component: {fileID: 1736808637702336670}
-  m_Layer: 0
+  - component: {fileID: 6808295177755973221}
+  m_Layer: 6
   m_Name: Calibration Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3177,6 +3178,7 @@ Transform:
   m_LocalScale: {x: 1.1, y: 0.61875, z: 0.034375}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 4242748709509752343}
   - {fileID: 5429867387326692445}
   m_Father: {fileID: 6057829412922675932}
   m_LocalEulerAnglesHint: {x: 23.077, y: -25.034, z: 0}
@@ -3248,12 +3250,31 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0.00000023841858, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.9999999, z: 4.921956}
+  m_Center: {x: 0.00000021421423, y: -7.0464234e-10, z: -1.9609823}
+--- !u!114 &6808295177755973221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044748778708813401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acaeff598257aa469f99c4a46724151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Begin Calibration
+  requirementsNotMetMessage: 
+  isInteractable: 1
+  lockPoint: {fileID: 4242748709509752343}
+  defaultSelectable: {fileID: 0}
+  initiationSound: {fileID: 8300000, guid: 7a6f2516850864b0a991bae0772627e7, type: 3}
+  cal: {fileID: 6659537970020877761}
 --- !u!1 &6101871951583583220
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,6 +4287,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7240632634636721680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4242748709509752343}
+  m_Layer: 0
+  m_Name: Main Screen Pos (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4242748709509752343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240632634636721680}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.014925376, y: 0.0023878813, z: -0.00097566843, w: 0.9998853}
+  m_LocalPosition: {x: -0.03346882, y: -1.0486133, z: -21.293419}
+  m_LocalScale: {x: 0.9113037, y: 1.6176776, z: 28.051664}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3897941809981215863}
+  m_LocalEulerAnglesHint: {x: 21.367, y: 32.392, z: 0}
 --- !u!1 &7337635964796963137
 GameObject:
   m_ObjectHideFlags: 0
@@ -5430,6 +5482,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3897941809981215863}
     m_Modifications:
+    - target: {fileID: 61469189376569849, guid: 7ed94df5e92a37b4f92b8199480a8632, type: 3}
+      propertyPath: mapMoveSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1496234308349200462, guid: 7ed94df5e92a37b4f92b8199480a8632, type: 3}
       propertyPath: m_Name
       value: CalibrationUI
