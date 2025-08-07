@@ -26,34 +26,32 @@ public class DynamicButton : MonoBehaviour
     {
         if (type == InputManager.LastInputType.KeyboardMouse)
         {
-            DefaultButton(newPrompt);
+            if (staticKeyboardImage) SetImage(KEYBOARDMOUSEFPATH, newPrompt);
+            else DefaultButton(newPrompt);
         } else if (type == InputManager.LastInputType.Playstation)
         {
-            Sprite buttonImage = Resources.Load<Sprite>(BUTTONPROMPTFPATH + PLAYSTATIONFPATH + newPrompt);
-            if (buttonImage != null)
-            {
-                promptBackground.sprite = buttonImage;
-                buttonText.text = string.Empty;
-            }
-            else
-                DefaultButton(newPrompt);
+            SetImage(PLAYSTATIONFPATH, newPrompt);
         } else
         {
-            Sprite buttonImage = Resources.Load<Sprite>(BUTTONPROMPTFPATH + XBOXPATH + newPrompt);
-            if (buttonImage != null)
-            {
-                promptBackground.sprite = buttonImage;
-                buttonText.text = string.Empty;
-            }
-            else
-                DefaultButton(newPrompt);
+            SetImage(XBOXPATH, newPrompt);
+
         }
     }
 
-    private void DefaultButton(string newPrompt, bool staticKeyboardImage = false)
+    private void SetImage(string inputPath, string newPrompt)
     {
-        if (staticKeyboardImage) return;
+        Sprite buttonImage = Resources.Load<Sprite>(BUTTONPROMPTFPATH + inputPath + newPrompt);
+        if (buttonImage != null)
+        {
+            promptBackground.sprite = buttonImage;
+            buttonText.text = string.Empty;
+        }
+        else
+            DefaultButton(newPrompt);
+    }
 
+    private void DefaultButton(string newPrompt)
+    {
         string keyShape = newPrompt.Length > 1 ? KEYRECTANGLE : KEYSQUARE;
         promptBackground.sprite = Resources.Load<Sprite>(BUTTONPROMPTFPATH + KEYBOARDMOUSEFPATH + keyShape);
         buttonText.text = newPrompt;

@@ -50,7 +50,7 @@ public class Computer : Interactable
     protected virtual void SwitchToGamepad()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        defaultSelectable.Select();
+        defaultSelectable?.Select();
     }
 
     protected virtual void Update()
