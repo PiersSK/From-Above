@@ -3275,6 +3275,9 @@ MonoBehaviour:
   defaultSelectable: {fileID: 0}
   initiationSound: {fileID: 8300000, guid: 7a6f2516850864b0a991bae0772627e7, type: 3}
   cal: {fileID: 6659537970020877761}
+  scrubbingSound: {fileID: 8300000, guid: 81ab7b9c22d37784c95181bbc3bda47e, type: 3}
+  scrubbingSoundFrequency: 20
+  soundCooldown: 0
 --- !u!1 &6101871951583583220
 GameObject:
   m_ObjectHideFlags: 0
@@ -5482,10 +5485,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3897941809981215863}
     m_Modifications:
-    - target: {fileID: 61469189376569849, guid: 7ed94df5e92a37b4f92b8199480a8632, type: 3}
-      propertyPath: mapMoveSpeed
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1496234308349200462, guid: 7ed94df5e92a37b4f92b8199480a8632, type: 3}
       propertyPath: m_Name
       value: CalibrationUI
