@@ -26,15 +26,17 @@ public class ButtonPromptManager : MonoBehaviour
     private const string NAVIGATE = "Navigate";
     private const string LEFT = "Left";
     private const string RIGHT = "Right";
+    private const string MOVE = "Move";
 
 
-    [SerializeField] private ButtonPrompt interactPrompt;
-    [SerializeField] private ButtonPrompt taskPrompt;
-    [SerializeField] private ButtonPrompt togglePrompt;
-    [SerializeField] private ButtonPrompt backoutPrompt;
-    [SerializeField] private ButtonPrompt confirmPrompt;
-    [SerializeField] private ButtonPrompt leftPrompt;
-    [SerializeField] private ButtonPrompt rightPrompt;
+    [SerializeField] private DynamicButton interactPrompt;
+    [SerializeField] private DynamicButton taskPrompt;
+    [SerializeField] private DynamicButton togglePrompt;
+    [SerializeField] private DynamicButton backoutPrompt;
+    [SerializeField] private DynamicButton confirmPrompt;
+    [SerializeField] private DynamicButton leftPrompt;
+    [SerializeField] private DynamicButton rightPrompt;
+    [SerializeField] private DynamicButton movePrompt;
 
     private void OnEnable()
     {
@@ -61,6 +63,7 @@ public class ButtonPromptManager : MonoBehaviour
         confirmPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(CONFIRM), newType), newType);
         leftPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(NAVIGATE, LEFT), newType), newType);
         rightPrompt.UpdatePrompt(GetAltText(input.GetCurrentBinding(NAVIGATE, RIGHT), newType), newType);
+        movePrompt.UpdatePrompt(MOVE, newType, true);
     }
 
     private string GetAltText(string assignment, InputManager.LastInputType type)

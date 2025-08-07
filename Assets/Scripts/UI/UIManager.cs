@@ -14,6 +14,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject backoutObj;
     [SerializeField] private GameObject confirmObj;
     [SerializeField] private GameObject lRObj;
+
+    public enum ButtonPromptType
+    {
+        TaskPad,
+        BackOut,
+        Confirm,
+        LeftRight,
+        Toggle,
+        Move,
+        Interact
+    }
+    [SerializeField] private List<ButtonPromptType> promptOrder = new();
+    [SerializeField] private List<ButtonPrompt> prompts = new();
+    private Dictionary<ButtonPromptType, ButtonPrompt> promptDict = new();
+
     [SerializeField] private TextMeshProUGUI toggleText;
     [SerializeField] private TextMeshProUGUI backoutText;
     [SerializeField] private TextMeshProUGUI confirmText;
@@ -51,9 +66,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowTaskPadPrompt()
+    private void Start()
     {
-        menuPrompt.SetActive(true);
+        for(int i = 0; i < promptOrder.Count; i++)
+        {
+            if (i >= prompts.Count)
+            {
+                Debug.LogWarning("Prompt referencing shorter than order list. Check to ensure all references have been made correctly");
+                break;
+            }
+            promptDict.Add(promptOrder[i], prompts[i]);
+        }
+    }
+
+    public void ShowButtonPrompt(ButtonPromptType type, string message, bool updateMessage = true)
+    {
+        if(updateMessage) promptDict[type].UpdatePromptMessage(message);
+        promptDict[type].gameObject.SetActive(true);
+    }
+
+    public void HideButtonPrompt(ButtonPromptType type)
+    {
+        promptDict[type].gameObject.SetActive(false);
     }
 
     public void CompletedTaskPopup()
@@ -66,64 +100,9 @@ public class UIManager : MonoBehaviour
         progressTaskPopup.Play();
     }
 
-    public void HideTaskPadPrompt()
-    {
-        menuPrompt.SetActive(false);
-    }
-
-    public void ToggleMenuPromptStatus()
-    {
-        taskPadVisible = !taskPadVisible;
-        menuPrompt.GetComponentInChildren<TextMeshProUGUI>().text = taskPadVisible ? "Hide TaskPad" : "View TaskPad";
-    }
-
     public void ToggleCrosshairVisibility()
     {
         crosshair.SetActive(!crosshair.activeSelf);
-    }
-
-    public void ShowBackoutText(string message)
-    {
-        backoutText.text = message;
-        backoutObj.SetActive(true);
-    }
-
-    public void ShowToggleText(string message)
-    {
-        toggleText.text = message;
-        toggleObj.SetActive(true);
-    }
-
-    public void ShowConfirmText(string message)
-    {
-        confirmText.text = message;
-        confirmObj.SetActive(true);
-    }
-
-    public void ShowLRText(string message)
-    {
-        lRText.text = message;
-        lRObj.SetActive(true);
-    }
-
-    public void HideBackoutText()
-    {
-        backoutObj.SetActive(false);
-    }
-
-    public void HideToggleText()
-    {
-        toggleObj.SetActive(false);
-    }
-
-    public void HideConfirmText()
-    {
-        confirmObj.SetActive(false);
-    }
-
-    public void HideLRText()
-    {
-        lRObj.SetActive(false);
     }
 
     public void ShowPopupText(string message)

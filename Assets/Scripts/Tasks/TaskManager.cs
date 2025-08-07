@@ -38,6 +38,9 @@ public class TaskManager : MonoBehaviour
     public delegate void OnPhaseChange();
     public static event OnPhaseChange PhaseChanged;
 
+    private const string HIDETASKPADPROMPT = "Hide TaskPad";
+    private const string SHOWTASKPADPROMPT = "Show TaskPad";
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -134,7 +137,9 @@ public class TaskManager : MonoBehaviour
         PlayerMotor.Instance.controller.radius = taskPadVisible ? 0.6f : 0.5f;
         taskPadTrigger.layer = taskPadVisible ? 7 : 0;
 
-        UIManager.Instance.ToggleMenuPromptStatus();
+        if (taskPadVisible) UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.TaskPad, HIDETASKPADPROMPT);
+        else UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.TaskPad, SHOWTASKPADPROMPT);
+
         UIManager.Instance.ToggleCrosshairVisibility();
         taskPadAnim.SetBool("IsUp", taskPadVisible);
         if(taskPadVisible) SoundManager.Instance.PlaySFXOneShot(padBeep);

@@ -50,8 +50,8 @@ public class FocusPickup : Interactable
 
         UIManager.Instance.ToggleCrosshairVisibility();
 
-        if (hasText) UIManager.Instance.ShowToggleText(READUI);
-        UIManager.Instance.ShowBackoutText(ESCAPEUI);
+        if (hasText) UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Toggle, READUI);
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, ESCAPEUI);
 
         transform.position = player.position + new Vector3(0f, 0.6f, 0f) + player.forward * 0.5f;
         transform.eulerAngles = new Vector3(0f, 180f + player.eulerAngles.y, 0f);
@@ -65,8 +65,8 @@ public class FocusPickup : Interactable
         isInteractable = true;
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.HideBackoutText();
-        UIManager.Instance.HideToggleText();
+        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
+        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Toggle);
         UIManager.Instance.HidePopupText();
         textPopupVisible = false;
 

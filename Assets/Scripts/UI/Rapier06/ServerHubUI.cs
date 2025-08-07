@@ -127,7 +127,7 @@ public class ServerHubUI : MonoBehaviour
 
         SetNoPDState();
 
-        if (InputManager.Instance.GamepadIsCurrentInput()) UIManager.Instance.ShowBackoutText(GetGamepadBackoutPrompt());
+        if (InputManager.Instance.GamepadIsCurrentInput()) UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, GetGamepadBackoutPrompt());
     }
 
     private void UpdateFCConfirmButtonState()
@@ -251,8 +251,8 @@ public class ServerHubUI : MonoBehaviour
     public void SetServerHubAnimationLock(bool isLocked)
     {
         longerAnimationPlaying = isLocked;
-        if (longerAnimationPlaying) UIManager.Instance.HideBackoutText();
-        else UIManager.Instance.ShowBackoutText(InputManager.Instance.GamepadIsCurrentInput() ? GetGamepadBackoutPrompt() : EXITTERMINAL);
+        if (longerAnimationPlaying) UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
+        else UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, InputManager.Instance.GamepadIsCurrentInput() ? GetGamepadBackoutPrompt() : EXITTERMINAL);
     }
 
     public bool GamepadReturnPressed()

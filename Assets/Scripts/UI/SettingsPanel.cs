@@ -31,8 +31,8 @@ public class SettingsPanel : MonoBehaviour
             if(lastSelectedOption != null) lastSelectedOption.Select();
             else selectableOptions[0].Select();
 
-            UIManager.Instance.ShowBackoutText(BACKOUTMESSAGE);
-            UIManager.Instance.ShowLRText(CHANGEVALUE);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, BACKOUTMESSAGE);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.LeftRight, CHANGEVALUE);
         }
     }
 
@@ -41,7 +41,7 @@ public class SettingsPanel : MonoBehaviour
         if (InputManager.Instance.GamepadIsCurrentInput())
         {
             PauseManager.Instance.CloseAllSettingsPanels();
-            UIManager.Instance.HideLRText();
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.LeftRight);
 
             mainNavigationButton.Select();
             lastSelectedOption = null;

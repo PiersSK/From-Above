@@ -62,8 +62,8 @@ public class PauseManager : MonoBehaviour
         if (gameObject.activeSelf && InputManager.Instance.GamepadIsCurrentInput())
         {
 
-            if (activePanel != null) UIManager.Instance.HideConfirmText();
-            else UIManager.Instance.ShowConfirmText(MENUSELECT);
+            if (activePanel != null) UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
+            else UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Confirm, MENUSELECT);
 
             if (InputManager.Instance.playerActions.Escape.triggered)
             {
@@ -108,7 +108,7 @@ public class PauseManager : MonoBehaviour
 
         if(InputManager.Instance.GamepadIsCurrentInput())
         {
-            UIManager.Instance.ShowBackoutText(CANCELEXIT);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, CANCELEXIT);
             cancelExitGame.Select();
         }
     }
@@ -119,7 +119,7 @@ public class PauseManager : MonoBehaviour
 
         if (InputManager.Instance.GamepadIsCurrentInput())
         {
-            UIManager.Instance.ShowBackoutText(BACKOUTMESSAGE);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, BACKOUTMESSAGE);
             exitGameFirstButton.Select();
         }
     }
@@ -154,9 +154,9 @@ public class PauseManager : MonoBehaviour
             SoundManager.Instance.UnpauseAllPausedSound();
 
             UIManager.Instance.ClearSelectedUIObject();
-            UIManager.Instance.HideBackoutText();
-            UIManager.Instance.HideConfirmText();
-            UIManager.Instance.HideLRText();
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.LeftRight);
             confirmExitScreen.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
@@ -167,14 +167,14 @@ public class PauseManager : MonoBehaviour
     {
         if (inputType == InputManager.LastInputType.KeyboardMouse)
         {
-            UIManager.Instance.HideConfirmText();
-            UIManager.Instance.HideBackoutText();
-            UIManager.Instance.HideLRText();
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
+            UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.LeftRight);
         }
         else
         {
-            UIManager.Instance.ShowConfirmText(MENUSELECT);
-            UIManager.Instance.ShowBackoutText(confirmExitScreen.activeSelf ? CANCELEXIT : BACKOUTMESSAGE);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Confirm, MENUSELECT);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, confirmExitScreen.activeSelf ? CANCELEXIT : BACKOUTMESSAGE);
         }
     }
 

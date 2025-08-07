@@ -41,7 +41,7 @@ public class DiaryTerminal : Computer
     protected override void Interact(Transform player)
     {
         base.Interact(player);
-        UIManager.Instance.ShowToggleText(LOOKOUTWINDOW);
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Toggle, LOOKOUTWINDOW);
         if (questionsAnswered < questionBlocks.Count)
             questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().answerButtons[0].Select();
     }
@@ -66,12 +66,12 @@ public class DiaryTerminal : Computer
         {
             motor.ForcePlayerToPoint(lookoutPoint, true);
             Cursor.lockState = CursorLockMode.Locked;
-            UIManager.Instance.ShowToggleText(RETURNTODIARY);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Toggle, RETURNTODIARY);
         } else
         {
             motor.ForcePlayerToPoint(lockPoint, true);
             Cursor.lockState = CursorLockMode.None;
-            UIManager.Instance.ShowToggleText(LOOKOUTWINDOW);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Toggle, LOOKOUTWINDOW);
             if (questionsAnswered < questionBlocks.Count)
                 questionBlocks[questionsAnswered].GetComponent<DiaryQABlock>().answerButtons[0].Select();
         }
@@ -98,6 +98,6 @@ public class DiaryTerminal : Computer
     protected override void ReleasePlayer()
     {
         base.ReleasePlayer();
-        UIManager.Instance.HideToggleText();
+        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Toggle);
     }
 }
