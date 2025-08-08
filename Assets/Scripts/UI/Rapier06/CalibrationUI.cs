@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class CalibrationUI : MonoBehaviour
@@ -13,6 +14,9 @@ public class CalibrationUI : MonoBehaviour
     [SerializeField] private RectTransform mapMask;
     [SerializeField] private RectTransform crosshair;
 
+    [SerializeField] private RectTransform playerMarker;
+    [SerializeField] private RectTransform targetMarker;
+
     [SerializeField] private GameObject chevronR;
     [SerializeField] private GameObject chevronL;
     [SerializeField] private GameObject chevronU;
@@ -20,6 +24,7 @@ public class CalibrationUI : MonoBehaviour
 
     [SerializeField] private List<RectTransform> locations;
     [SerializeField] private RectTransform targetlocation;
+    [SerializeField] private Image completionBar;
 
     [SerializeField] private float mapMoveSpeed = 10f;
     [SerializeField] private float crosshairSnapDuration = 1f;
@@ -30,6 +35,25 @@ public class CalibrationUI : MonoBehaviour
     private RectTransform currentLocation;
     private const string NOLOCATION = "???";
     private bool crosshairSnapping = false;
+
+    private float targetStay = 2f;
+    [Header("Target Minigame Settings")]
+    public float targetSnap = 0.1f;
+    public float targetStayMin = 0.2f;
+    public float targetStayMax = 1f;
+    public float targetJitter = 0.5f;
+    public float targetMinMove = 30f;
+    public float targetMaxMove = 200f;
+
+    private float targetCounter = 0f;
+    private bool targetInPlace = false;
+    private Vector3 targetStart;
+    private Vector3 targetEnd;
+
+    public float depletionRate = 0.01f;
+    public float addRate = 0.03f;
+    public float completionValue = 0.2f;
+
 
     private void Start()
     {
@@ -45,6 +69,59 @@ public class CalibrationUI : MonoBehaviour
         UpdateLocationName();
         UpdateChevrons();
         UpdateCrosshairColor();
+    }
+
+    public void UpdateCalibrationMinigame()
+    {
+        UpdatePlayerMarker();
+
+        if (!targetInPlace)
+        {
+            targetStart = targetMarker.localEulerAngles;
+            targetStay = Random.Range(targetStayMin, targetStayMax);
+            targetCounter = 0f;
+            targetInPlace = true;
+            float currentRot = targetMarker.localEulerAngles.z;
+            targetEnd = new Vector3(0, 0, targetStart.z + Random.Range(30f, 240f));
+        }
+        else
+        {
+            targetCounter += Time.deltaTime;
+            if (targetCounter > targetStay)
+            {
+                targetInPlace = false;
+            }
+            else if (targetCounter < targetSnap)
+            {
+                targetMarker.localEulerAngles = Vector3.Lerp(targetStart, targetEnd, targetCounter / targetSnap);
+            } else
+            {
+                targetMarker.localEulerAngles += new Vector3(0, 0, Random.Range(-targetJitter, targetJitter));
+            }
+        }
+
+        completionValue -= (depletionRate / 1000f);
+        completionValue = Mathf.Clamp(completionValue, 0, 1);
+        completionBar.fillAmount = completionValue;
+    }
+
+    private void UpdatePlayerMarker()
+    {
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            GetComponent<RectTransform>(),
+            Input.mousePosition,
+            Camera.main,
+            out Vector2 localMousePos))
+        {
+            Vector2 localArrowPos = playerMarker.localPosition;
+            Vector2 direction = localMousePos - localArrowPos;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+            playerMarker.localRotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        float matchValue = Mathf.Abs(playerMarker.localEulerAngles.z - targetMarker.localEulerAngles.z);
+        playerMarker.GetComponentInChildren<Image>().color = matchValue < 20f ? UIColors.terminalGreen : UIColors.terminalRed;
+        if (matchValue < 20f) completionValue += (addRate / 1000f);
     }
 
     public void CheckCrosshairSnapping(Vector2 currentInput)
@@ -144,6 +221,11 @@ public class CalibrationUI : MonoBehaviour
     private Vector2 CanvasPosition(RectTransform r)
     {
         return GetComponent<RectTransform>().InverseTransformPoint(r.position);
+    }
+
+    private Vector2 CanvasPosition(Vector3 r)
+    {
+        return GetComponent<RectTransform>().InverseTransformPoint(r);
     }
 
     public void MoveMap(CalibrationButton.ButtonDirection d)
