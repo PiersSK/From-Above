@@ -71,9 +71,9 @@ public class CalibrationUI : MonoBehaviour
         UpdateCrosshairColor();
     }
 
-    public void UpdateCalibrationMinigame()
+    public void UpdateCalibrationMinigame(Vector2 playerInput)
     {
-        UpdatePlayerMarker();
+        UpdatePlayerMarker(playerInput);
 
         if (!targetInPlace)
         {
@@ -105,11 +105,21 @@ public class CalibrationUI : MonoBehaviour
         completionBar.fillAmount = completionValue;
     }
 
-    private void UpdatePlayerMarker()
+    private void UpdatePlayerMarker(Vector2 playerInput)
     {
-        Vector2 localMousePos = UIManager.Instance.GetComponent<RectTransform>().InverseTransformPoint(Input.mousePosition);
-        Vector2 direction = localMousePos - (Vector2)playerMarker.localPosition;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        float angle;
+        Vector2 direction;
+        if (InputManager.Instance.GamepadIsCurrentInput()) //TODO: Actually test this :)
+        {
+            direction = playerInput;
+        }
+        else
+        {
+            Vector2 localMousePos = UIManager.Instance.GetComponent<RectTransform>().InverseTransformPoint(Input.mousePosition);
+            direction = localMousePos - (Vector2)playerMarker.localPosition;
+        }
+
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         playerMarker.localRotation = Quaternion.Euler(0, 0, angle);
 
         float matchValue = Mathf.Abs(playerMarker.localEulerAngles.z - targetMarker.localEulerAngles.z);

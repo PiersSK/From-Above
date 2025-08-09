@@ -19,7 +19,7 @@ public class CalibrationTerminal : Computer
             Vector2 moveInput = InputManager.Instance.playerActions.Move.ReadValue<Vector2>();
             cal.MoveMap(-moveInput);
             cal.CheckCrosshairSnapping(moveInput);
-            cal.UpdateCalibrationMinigame();
+            cal.UpdateCalibrationMinigame(moveInput);
 
             if(moveInput != Vector2.zero)
             {
