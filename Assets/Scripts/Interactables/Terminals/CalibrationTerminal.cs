@@ -53,10 +53,14 @@ public class CalibrationTerminal : Computer
             }
             else
             {
-                bool failed = cal.UpdateCalibrationMinigame(moveInput);
-                if(failed)
+                float completionVal = cal.UpdateCalibrationMinigame(moveInput);
+                if(completionVal == 0)
                 {
                     Invoke("UnlockTarget", cal.cooldownLength);
+                    lockedOut = true;
+                    ReleasePlayer();
+                } else if (completionVal == 1)
+                {
                     lockedOut = true;
                     ReleasePlayer();
                 }
@@ -83,6 +87,11 @@ public class CalibrationTerminal : Computer
             yield return null;
         }
         soundCooldown = false;
+    }
+
+    public void InitialEnable()
+    {
+        isInteractable = true;
     }
 
     protected override void Interact(Transform player)

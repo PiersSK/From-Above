@@ -32,8 +32,13 @@ public class CalibrationUI : MonoBehaviour
     [SerializeField] private AudioClip locationSnapSound;
 
     [SerializeField] private GameObject cooldownScreen;
+    [SerializeField] private GameObject successScreen;
     [SerializeField] private GameObject minigameComponents;
     [SerializeField] private TextMeshProUGUI cooldownDisplayText;
+
+    [SerializeField] private GameObject startScreen;
+    [SerializeField] private Image authStatus;
+    [SerializeField] private Image warmupStatus;
 
     private Vector2 maxMapPosition;
     private RectTransform currentLocation;
@@ -63,6 +68,9 @@ public class CalibrationUI : MonoBehaviour
     private float cooldownTimer = 0f;
     public float cooldownLength = 15f;
 
+    private bool calibrationUnlocked = false;
+    public bool calibrationCompleted = false;
+
 
     private void Start()
     {
@@ -72,22 +80,37 @@ public class CalibrationUI : MonoBehaviour
         );
     }
 
+    public void ConfirmTargetStatus()
+    {
+        authStatus.color = UIColors.terminalGreen;
+        authStatus.GetComponentInChildren<TextMeshProUGUI>().text = "TRUE";
+    }
+
+    public void EnableWeaponCalibration()
+    {
+        startScreen.SetActive(false);
+        calibrationUnlocked = true;
+    }
+
     private void Update()
     {
-        UpdateDamageNumber();
-        UpdateLocationName();
-        UpdateChevrons();
-        UpdateCrosshairColor();
-
-        if(cooldownScreen.activeSelf)
+        if (calibrationUnlocked)
         {
-            cooldownTimer += Time.deltaTime;
-            cooldownDisplayText.text = (cooldownLength - cooldownTimer).ToString("0.00");
-            if (cooldownTimer >= cooldownLength) cooldownScreen.SetActive(false);
+            UpdateDamageNumber();
+            UpdateLocationName();
+            UpdateChevrons();
+            UpdateCrosshairColor();
+
+            if (cooldownScreen.activeSelf)
+            {
+                cooldownTimer += Time.deltaTime;
+                cooldownDisplayText.text = (cooldownLength - cooldownTimer).ToString("0.00");
+                if (cooldownTimer >= cooldownLength) cooldownScreen.SetActive(false);
+            }
         }
     }
 
-    public bool UpdateCalibrationMinigame(Vector2 playerInput)
+    public float UpdateCalibrationMinigame(Vector2 playerInput)
     {
         if (!minigameActive) minigameComponents.SetActive(true);
 
@@ -122,9 +145,17 @@ public class CalibrationUI : MonoBehaviour
         completionBar.fillAmount = completionValue;
 
         bool gameFailed = completionValue == 0;
-        if (gameFailed) GoToCooldownScreen();
+        if (completionValue == 0) GoToCooldownScreen();
+        else if (completionValue == 1) GoToSuccessScreen();
 
-        return gameFailed;
+        return completionValue;
+    }
+
+    private void GoToSuccessScreen()
+    {
+        successScreen.SetActive(true);
+        minigameComponents.SetActive(false);
+        calibrationCompleted = true;
     }
 
     public void GoToCooldownScreen()
