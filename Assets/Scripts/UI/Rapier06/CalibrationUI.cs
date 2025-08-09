@@ -31,6 +31,10 @@ public class CalibrationUI : MonoBehaviour
 
     [SerializeField] private AudioClip locationSnapSound;
 
+    [SerializeField] private GameObject cooldownScreen;
+    [SerializeField] private GameObject minigameComponents;
+    [SerializeField] private TextMeshProUGUI cooldownDisplayText;
+
     private Vector2 maxMapPosition;
     private RectTransform currentLocation;
     private const string NOLOCATION = "???";
@@ -49,10 +53,15 @@ public class CalibrationUI : MonoBehaviour
     private bool targetInPlace = false;
     private Vector3 targetStart;
     private Vector3 targetEnd;
+    private bool minigameActive = false;
 
     public float depletionRate = 0.01f;
     public float addRate = 0.03f;
     public float completionValue = 0.2f;
+
+    private bool onCooldown = false;
+    private float cooldownTimer = 0f;
+    public float cooldownLength = 15f;
 
 
     private void Start()
@@ -69,10 +78,19 @@ public class CalibrationUI : MonoBehaviour
         UpdateLocationName();
         UpdateChevrons();
         UpdateCrosshairColor();
+
+        if(cooldownScreen.activeSelf)
+        {
+            cooldownTimer += Time.deltaTime;
+            cooldownDisplayText.text = (cooldownLength - cooldownTimer).ToString("0.00");
+            if (cooldownTimer >= cooldownLength) cooldownScreen.SetActive(false);
+        }
     }
 
-    public void UpdateCalibrationMinigame(Vector2 playerInput)
+    public bool UpdateCalibrationMinigame(Vector2 playerInput)
     {
+        if (!minigameActive) minigameComponents.SetActive(true);
+
         UpdatePlayerMarker(playerInput);
 
         if (!targetInPlace)
@@ -81,7 +99,6 @@ public class CalibrationUI : MonoBehaviour
             targetStay = Random.Range(targetStayMin, targetStayMax);
             targetCounter = 0f;
             targetInPlace = true;
-            float currentRot = targetMarker.localEulerAngles.z;
             targetEnd = new Vector3(0, 0, targetStart.z + Random.Range(30f, 240f));
         }
         else
@@ -103,6 +120,23 @@ public class CalibrationUI : MonoBehaviour
         completionValue -= (depletionRate / 1000f);
         completionValue = Mathf.Clamp(completionValue, 0, 1);
         completionBar.fillAmount = completionValue;
+
+        bool gameFailed = completionValue == 0;
+        if (gameFailed) GoToCooldownScreen();
+
+        return gameFailed;
+    }
+
+    public void GoToCooldownScreen()
+    {
+        minigameComponents.SetActive(false);
+        cooldownScreen.SetActive(true);
+        cooldownTimer = 0f;
+        completionValue = 0.5f;
+        map.anchoredPosition += new Vector2(
+            Random.Range(mapMoveSpeed * 50, mapMoveSpeed * 100),
+            Random.Range(mapMoveSpeed * 50, mapMoveSpeed * 100)
+        );
     }
 
     private void UpdatePlayerMarker(Vector2 playerInput)
@@ -226,9 +260,9 @@ public class CalibrationUI : MonoBehaviour
         return GetComponent<RectTransform>().InverseTransformPoint(r.position);
     }
 
-    private Vector2 CanvasPosition(Vector3 r)
+    public bool CorrectTargetFound()
     {
-        return GetComponent<RectTransform>().InverseTransformPoint(r);
+        return currentLocation == targetlocation;
     }
 
     public void MoveMap(CalibrationButton.ButtonDirection d)

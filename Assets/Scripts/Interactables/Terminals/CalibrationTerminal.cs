@@ -7,30 +7,69 @@ public class CalibrationTerminal : Computer
     [SerializeField] private AudioClip scrubbingSound;
 
     [SerializeField] private float scrubbingSoundFrequency = 5f;
+
     private bool soundCooldown = false;
+    private bool locationLocked = false;
+    private bool lockedOut = false;
 
     private const string SCROLLMAP = "To Scroll Map";
+    private const string LOCKTARGET = "Confirm Authorised Target Lost";
 
     protected override void Update()
     {
-        base.Update();
         if(playerAtComputer)
         {
             Vector2 moveInput = InputManager.Instance.playerActions.Move.ReadValue<Vector2>();
-            cal.MoveMap(-moveInput);
-            cal.CheckCrosshairSnapping(moveInput);
-            cal.UpdateCalibrationMinigame(moveInput);
 
-            if(moveInput != Vector2.zero)
+            if (!locationLocked)
             {
-                if (!soundCooldown)
+                cal.MoveMap(-moveInput);
+                cal.CheckCrosshairSnapping(moveInput);
+                if(moveInput != Vector2.zero)
                 {
-                    SoundManager.Instance.PlaySFXOneShot(scrubbingSound, 0, 0.05f);
-                    soundCooldown = true;
-                    StartCoroutine(StartCooldown());
+                    if (!soundCooldown)
+                    {
+                        SoundManager.Instance.PlaySFXOneShot(scrubbingSound, 0, 0.05f);
+                        soundCooldown = true;
+                        StartCoroutine(StartCooldown());
+                    }
+                }
+
+                if (cal.CorrectTargetFound()) UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Confirm, LOCKTARGET);
+                else UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
+
+                if(InputManager.Instance.playerActions.Interact.triggered && cal.CorrectTargetFound())
+                {
+                    locationLocked = true;
+                    UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Move);
+                    UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
+                    UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
+                }
+
+                if (!isInteractable && InputManager.Instance.playerActions.Escape.triggered)
+                {
+                    ReleasePlayer();
                 }
             }
+            else
+            {
+                bool failed = cal.UpdateCalibrationMinigame(moveInput);
+                if(failed)
+                {
+                    Invoke("UnlockTarget", cal.cooldownLength);
+                    lockedOut = true;
+                    ReleasePlayer();
+                }
+            }
+
         }
+    }
+
+    private void UnlockTarget()
+    {
+        locationLocked = false;
+        lockedOut = false;
+        isInteractable = true;
     }
 
     private IEnumerator StartCooldown()
@@ -55,6 +94,8 @@ public class CalibrationTerminal : Computer
     protected override void ReleasePlayer()
     {
         base.ReleasePlayer();
+        if(lockedOut) isInteractable = false;
         UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Move);
+        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
     }
 }
