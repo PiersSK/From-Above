@@ -107,17 +107,10 @@ public class CalibrationUI : MonoBehaviour
 
     private void UpdatePlayerMarker()
     {
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            GetComponent<RectTransform>(),
-            Input.mousePosition,
-            Camera.main,
-            out Vector2 localMousePos))
-        {
-            Vector2 localArrowPos = playerMarker.localPosition;
-            Vector2 direction = localMousePos - localArrowPos;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-            playerMarker.localRotation = Quaternion.Euler(0, 0, angle);
-        }
+        Vector2 localMousePos = UIManager.Instance.GetComponent<RectTransform>().InverseTransformPoint(Input.mousePosition);
+        Vector2 direction = localMousePos - (Vector2)playerMarker.localPosition;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        playerMarker.localRotation = Quaternion.Euler(0, 0, angle);
 
         float matchValue = Mathf.Abs(playerMarker.localEulerAngles.z - targetMarker.localEulerAngles.z);
         playerMarker.GetComponentInChildren<Image>().color = matchValue < 20f ? UIColors.terminalGreen : UIColors.terminalRed;

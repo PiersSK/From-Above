@@ -383,7 +383,10 @@ MonoBehaviour:
   targetSnap: 0.4
   targetStayMin: 1.5
   targetStayMax: 3
-  depletionRate: 2
+  targetJitter: 0.5
+  targetMinMove: 30
+  targetMaxMove: 200
+  depletionRate: 1.75
   addRate: 3
   completionValue: 0.5
 --- !u!1 &1750409780726263921
