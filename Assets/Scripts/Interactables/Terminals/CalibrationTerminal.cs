@@ -58,6 +58,7 @@ public class CalibrationTerminal : Computer
                 {
                     Invoke("UnlockTarget", cal.cooldownLength);
                     lockedOut = true;
+                    locationLocked = false;
                     ReleasePlayer();
                 } else if (completionVal == 1)
                 {
@@ -71,7 +72,6 @@ public class CalibrationTerminal : Computer
 
     private void UnlockTarget()
     {
-        locationLocked = false;
         lockedOut = false;
         isInteractable = true;
     }

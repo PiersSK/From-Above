@@ -112,7 +112,12 @@ public class CalibrationUI : MonoBehaviour
 
     public float UpdateCalibrationMinigame(Vector2 playerInput)
     {
-        if (!minigameActive) minigameComponents.SetActive(true);
+        if (!minigameActive)
+        {
+            minigameComponents.SetActive(true);
+            minigameActive = true;
+            completionValue = 0.5f;
+        }
 
         UpdatePlayerMarker(playerInput);
 
@@ -144,9 +149,14 @@ public class CalibrationUI : MonoBehaviour
         completionValue = Mathf.Clamp(completionValue, 0, 1);
         completionBar.fillAmount = completionValue;
 
-        bool gameFailed = completionValue == 0;
-        if (completionValue == 0) GoToCooldownScreen();
-        else if (completionValue == 1) GoToSuccessScreen();
+        if (completionValue == 0)
+        {
+            GoToCooldownScreen();
+        }
+        else if (completionValue == 1)
+        {
+            GoToSuccessScreen();
+        }
 
         return completionValue;
     }
@@ -161,9 +171,9 @@ public class CalibrationUI : MonoBehaviour
     public void GoToCooldownScreen()
     {
         minigameComponents.SetActive(false);
+        minigameActive = false;
         cooldownScreen.SetActive(true);
         cooldownTimer = 0f;
-        completionValue = 0.5f;
         map.anchoredPosition += new Vector2(
             Random.Range(mapMoveSpeed * 50, mapMoveSpeed * 100),
             Random.Range(mapMoveSpeed * 50, mapMoveSpeed * 100)
