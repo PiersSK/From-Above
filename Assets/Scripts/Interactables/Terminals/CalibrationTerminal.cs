@@ -31,7 +31,7 @@ public class CalibrationTerminal : Computer
                     {
                         SoundManager.Instance.PlaySFXOneShot(scrubbingSound, 0, 0.05f);
                         soundCooldown = true;
-                        StartCoroutine(StartCooldown());
+                        StartCoroutine(StartCooldown(1 / scrubbingSoundFrequency));
                     }
                 }
 
@@ -65,6 +65,13 @@ public class CalibrationTerminal : Computer
                     lockedOut = true;
                     ReleasePlayer();
                 }
+
+                if (!soundCooldown)
+                {
+                    SoundManager.Instance.PlaySFXOneShotSetPitchAndVolume(scrubbingSound, completionVal, 0.2f);
+                    soundCooldown = true;
+                    StartCoroutine(StartCooldown(Mathf.Clamp((1 - completionVal), 0.1f, 1)));
+                }
             }
 
         }
@@ -76,12 +83,11 @@ public class CalibrationTerminal : Computer
         isInteractable = true;
     }
 
-    private IEnumerator StartCooldown()
+    private IEnumerator StartCooldown(float length)
     {
-        float end = 1 / scrubbingSoundFrequency;
         float elapsed = 0f;
 
-        while(elapsed < end)
+        while(elapsed < length)
         {
             elapsed += Time.deltaTime;
             yield return null;
