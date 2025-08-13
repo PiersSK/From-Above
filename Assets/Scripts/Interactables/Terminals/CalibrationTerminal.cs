@@ -13,6 +13,7 @@ public class CalibrationTerminal : Computer
     private bool lockedOut = false;
 
     private const string SCROLLMAP = "To Scroll Map";
+    private const string CALIBRATEWHEEL = "To Control Calibration Wheel";
     private const string LOCKTARGET = "Confirm Authorised Target Lost";
 
     protected override void Update()
@@ -38,10 +39,13 @@ public class CalibrationTerminal : Computer
                 if (cal.CorrectTargetFound()) UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Confirm, LOCKTARGET);
                 else UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
 
-                if(InputManager.Instance.playerActions.Interact.triggered && cal.CorrectTargetFound())
+                if(InputManager.Instance.playerActions.Confirm.triggered && cal.CorrectTargetFound())
                 {
                     locationLocked = true;
-                    UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Move);
+                    if(InputManager.Instance.GamepadIsCurrentInput())
+                        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Move, CALIBRATEWHEEL);
+                    else
+                        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Move);
                     UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
                     UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
                 }
@@ -112,5 +116,18 @@ public class CalibrationTerminal : Computer
         if(lockedOut) isInteractable = false;
         UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Move);
         UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Confirm);
+    }
+
+    protected override void SwitchToGamepad()
+    {
+        base.SwitchToGamepad();
+        if (locationLocked) UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.Move, CALIBRATEWHEEL);
+    }
+
+    protected override void SwitchToMouseKeyboard()
+    {
+        base.SwitchToMouseKeyboard();
+        if (locationLocked) UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.Move);
+
     }
 }
