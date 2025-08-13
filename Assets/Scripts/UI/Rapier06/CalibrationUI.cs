@@ -48,6 +48,7 @@ public class CalibrationUI : MonoBehaviour
     private float targetStay = 2f;
     [Header("Target Minigame Settings")]
     public float targetSnap = 0.1f;
+    public float matchDegrees = 25f;
     public float targetStayMin = 0.2f;
     public float targetStayMax = 1f;
     public float targetJitter = 0.5f;
@@ -78,6 +79,9 @@ public class CalibrationUI : MonoBehaviour
             map.sizeDelta.x/2 - mapMask.sizeDelta.x/2,
             map.sizeDelta.y/2 - mapMask.sizeDelta.y/2    
         );
+
+        playerMarker.GetComponentInChildren<Image>().fillAmount = (matchDegrees*2) / 360f;
+        playerMarker.GetChild(0).localEulerAngles = new Vector3(0, 0, matchDegrees);
     }
 
     public void ConfirmTargetStatus()
@@ -198,7 +202,7 @@ public class CalibrationUI : MonoBehaviour
         playerMarker.localRotation = Quaternion.Euler(0, 0, angle);
 
         float matchValue = Mathf.Abs(playerMarker.localEulerAngles.z - targetMarker.localEulerAngles.z);
-        playerMarker.GetComponentInChildren<Image>().color = matchValue < 20f ? UIColors.terminalGreen : UIColors.terminalRed;
+        playerMarker.GetComponentInChildren<Image>().color = matchValue <= matchDegrees ? UIColors.terminalGreen : UIColors.terminalRed;
         if (matchValue < 20f) completionValue += (addRate / 1000f);
     }
 

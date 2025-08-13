@@ -803,7 +803,7 @@ MonoBehaviour:
   - {fileID: 8519592408467794231}
   targetlocation: {fileID: 3474198144724545762}
   completionBar: {fileID: 681248520161203044}
-  mapMoveSpeed: 2
+  mapMoveSpeed: 2.5
   crosshairSnapDuration: 0.1
   locationSnapSound: {fileID: 8300000, guid: 126967ba65395c94994dfc1c7eff1d68, type: 3}
   cooldownScreen: {fileID: 8246772840042349181}
@@ -814,6 +814,7 @@ MonoBehaviour:
   authStatus: {fileID: 675709128795372780}
   warmupStatus: {fileID: 2697007489352449201}
   targetSnap: 0.4
+  matchDegrees: 25
   targetStayMin: 1.5
   targetStayMax: 3
   targetJitter: 0.5
@@ -2428,17 +2429,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4423421919180442658}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2164396, w: 0.97629607}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6280875615874705028}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
-  m_SizeDelta: {x: 90, y: 22.796}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 275, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1685829177109579302
 CanvasRenderer:
@@ -2468,14 +2469,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 725871d0306bc1943988afccd4641227, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0.1388888
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4547362704556103090
@@ -2502,7 +2503,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4547362704556103090}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
