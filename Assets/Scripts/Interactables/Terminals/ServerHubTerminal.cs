@@ -29,6 +29,6 @@ public class ServerHubTerminal : Computer
     {
         Cursor.lockState = CursorLockMode.Locked;
         ServerHubUI.Instance.SelectRelevantStartButton();
-        UIManager.Instance.ShowBackoutText(ServerHubUI.Instance.GetGamepadBackoutPrompt());
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, ServerHubUI.Instance.GetGamepadBackoutPrompt());
     }
 }

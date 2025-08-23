@@ -50,7 +50,7 @@ public class Computer : Interactable
     protected virtual void SwitchToGamepad()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        defaultSelectable.Select();
+        defaultSelectable?.Select();
     }
 
     protected virtual void Update()
@@ -76,14 +76,14 @@ public class Computer : Interactable
 
         if (!InputManager.Instance.GamepadIsCurrentInput())
             Cursor.lockState = CursorLockMode.None;
-        else
+        else if (defaultSelectable != null)
             defaultSelectable.Select();
 
         look.ToggleLookLock();
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.ShowBackoutText(EXITTERMINAL);
-        UIManager.Instance.HideTaskPadPrompt();
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, EXITTERMINAL);
+        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.TaskPad);
         playerAtComputer = true;
 
         SoundManager.Instance.PlaySFXOneShot(initiationSound, 0f, 0.1f, 0f);
@@ -98,8 +98,8 @@ public class Computer : Interactable
         isInteractable = true;
 
         UIManager.Instance.ToggleCrosshairVisibility();
-        UIManager.Instance.HideBackoutText();
-        UIManager.Instance.ShowTaskPadPrompt();
+        UIManager.Instance.HideButtonPrompt(UIManager.ButtonPromptType.BackOut);
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.TaskPad, string.Empty, false);
         UIManager.Instance.ClearSelectedUIObject();
         playerAtComputer = false;
     }

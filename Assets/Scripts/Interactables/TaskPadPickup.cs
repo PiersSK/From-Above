@@ -8,7 +8,7 @@ public class TaskPadPickup : Interactable
     {
         taskManager.ObtainTaskpad(); 
         gameObject.SetActive(false);
-        UIManager.Instance.ShowTaskPadPrompt();
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.TaskPad, string.Empty, false);
         base.Interact(player);
     }
 }

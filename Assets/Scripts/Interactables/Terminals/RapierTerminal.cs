@@ -117,7 +117,7 @@ public class RapierTerminal : Computer
         //}
 
         if (playerAtComputer && InputManager.Instance.GamepadIsCurrentInput())
-            UIManager.Instance.ShowBackoutText(mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
+            UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
 
         if (!isInteractable && InputManager.Instance.playerActions.Escape.triggered)
         {
@@ -163,14 +163,14 @@ public class RapierTerminal : Computer
     protected override void SwitchToMouseKeyboard()
     {
         base.SwitchToMouseKeyboard();
-        UIManager.Instance.ShowBackoutText(EXITTERMINAL);
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, EXITTERMINAL);
     }
 
     protected override void SwitchToGamepad()
     {
         Cursor.lockState = CursorLockMode.Locked;
         SelectAppropriateButton();
-        UIManager.Instance.ShowBackoutText(mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
+        UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.BackOut, mainScreen.activeSelf ? EXITTERMINAL : BACKTOMAINSCREEN);
     }
 
     private void SelectAppropriateButton()

@@ -14,8 +14,7 @@ public class PlayerInteract : MonoBehaviour
         cam = GetComponent<PlayerLook>().cam;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         promptText.text = string.Empty;
         buttonPromptObject.SetActive(false);
