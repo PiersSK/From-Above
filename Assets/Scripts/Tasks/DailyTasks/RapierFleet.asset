@@ -17,7 +17,13 @@ MonoBehaviour:
   taskType: 0
   stepLocations:
   - Server Room
-  - Bridge
+  - Server Room
+  - Server Room
+  - Server Room
+  - Server Room
   taskSteps:
-  - Retrieve RAPIER status data PentaDisc
-  - Upload RAPIER fleet status to command
+  - Retrieve 'Rapier Fleet Data PentaDisc'
+  - Load PentaDisc and 'Decipher-Alpha FC' into server hub
+  - Decipher encrypted data on RAPIER status disc
+  - Load 'Transmit FC' into server hub
+  - Transmit decrypted data to command
