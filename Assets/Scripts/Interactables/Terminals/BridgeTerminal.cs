@@ -9,12 +9,8 @@ using static BridgeTerminal;
 public class BridgeTerminal : Computer
 {
     [Header("Object References")]
-    [SerializeField] private TextMeshProUGUI Header;
-    [SerializeField] private TextMeshProUGUI Subheader;
-    [SerializeField] private Button commanderBtn;
-    [SerializeField] private TextMeshProUGUI commanderSubtitle;
-    [SerializeField] private Button sendDataBtn;
-    [SerializeField] private TextMeshProUGUI btnResponse;
+    [SerializeField] private TextMeshProUGUI clockTime;
+   
     [SerializeField] private GameObject phase1Screen;
     [SerializeField] private GameObject phase2Screen;
     [SerializeField] private GameObject overrideImg;
@@ -22,33 +18,13 @@ public class BridgeTerminal : Computer
     [SerializeField] private TextMeshProUGUI p2Timer;
     [SerializeField] private List<GameObject> phase2StatusBlocks;
 
-    [Header("Terminal & Data Settings")]
-    [SerializeField] private RapierTerminal rapierTerminal;
-    [SerializeField] private DataReader dataReader;
-    [SerializeField] private DataDrive fleetData;
-
-    [Header("Progression Settings")]
-    [SerializeField] private TaskData fleetDataTask;
-
     public delegate void OnDataUploaded(DataDrive drive);
     public static event OnDataUploaded DataUploaded;
 
-    private bool fleetDataUploaded = false;
-    private const string UPLOADSUCCESS = "[UPLOAD OF DATA COMPLETE]";
-    private const string UPLOADREPEATEDMESSAGE = "DATA ALREADY UPLOADED. PLEASE RETURN DATA TO STORAGE";
-    private const string UPLOADDATAREJECT = "NO REQUEST FOUND FOR INSERTED DATA DRIVE. PLEASE RETURN DATA TO STORAGE IMMEDIATELY";
-
-    private const string READDATAREJECT = "NO DATA DRIVE INSERTED";
-    private const string COMMSREJECTION = "DENIED. Command status set to ENGAGED. Try again later.";
-
-    private void Start()
-    {
-        commanderBtn.onClick.AddListener(TalkToCommand);
-        sendDataBtn.onClick.AddListener(SendData);
-    }
-
     override protected void Update()
     {
+        clockTime.text = TimeController.Instance.GetClockTime().ToString(@"hh\:mm\:ss");
+
         if (phase1Screen.activeSelf && TaskManager.Instance.currentPhase is WeaponTaskPhase) ShowPhaseTwoScreen();
         if (phase2Screen.activeSelf) PhaseTwoStatusUpdate();
         if (TaskManager.Instance.pacifistEndingReached)
@@ -57,11 +33,6 @@ public class BridgeTerminal : Computer
             ShowPhaseOneScreen();
         }
         base.Update();
-    }
-
-    private void TalkToCommand()
-    {
-        btnResponse.text = COMMSREJECTION;
     }
 
     public void ShowPhaseTwoScreen()
@@ -90,29 +61,5 @@ public class BridgeTerminal : Computer
         {
             if (phase2StatusBlocks.IndexOf(t)  < weaponTasksCompleted && !t.activeSelf) t.SetActive(true);
         }
-    }
-
-    private void SendData()
-    {
-        if (dataReader.insertedDrive != null)
-        {
-            if (dataReader.insertedDrive == fleetData)
-            {
-                if (!fleetDataUploaded)
-                {
-                    btnResponse.text = UPLOADSUCCESS;
-                    fleetDataUploaded = true;
-                    DataUploaded?.Invoke(dataReader.insertedDrive);
-                    rapierTerminal.ClearNotif(RapierTerminal.Notifications.RapierFleetStatus);
-                }
-                else
-                    btnResponse.text = UPLOADREPEATEDMESSAGE;
-            } else
-            {
-                btnResponse.text = UPLOADDATAREJECT;
-            }
-        }
-        else
-            btnResponse.text = READDATAREJECT;
     }
 }

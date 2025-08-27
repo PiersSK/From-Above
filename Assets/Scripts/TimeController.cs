@@ -16,6 +16,9 @@ public class TimeController : MonoBehaviour
     public bool isKeyCardTimerRunning = false;
     public Action onTimerExpiredCallback;
 
+    public int startHours = 9;
+    private float clockTimer = 0f;
+
     [Header("Time Settings")]
     [Range(0, 20)]
     public int phase1TimeLimitMins = 10;
@@ -64,6 +67,8 @@ public class TimeController : MonoBehaviour
                 onTimerExpiredCallback?.Invoke();
             }
         }
+
+        clockTimer += Time.deltaTime;
     }
 
     private void OnEnable()
@@ -89,6 +94,11 @@ public class TimeController : MonoBehaviour
     public bool TimeHasPassed(float timer, TimeSpan timeToCompare)
     {
         return CurrentTime(timer) >= timeToCompare;
+    }
+
+    public TimeSpan GetClockTime()
+    {
+        return TimeSpan.FromSeconds(clockTimer) + TimeSpan.FromHours(startHours);
     }
 
     public TimeSpan CurrentTime(float timer)
