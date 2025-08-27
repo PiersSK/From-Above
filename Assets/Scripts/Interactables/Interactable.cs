@@ -7,6 +7,9 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected string requirementsNotMetMessage;
     [SerializeField] protected bool isInteractable = true;
 
+    public delegate void OnInteract(Interactable interactable);
+    public static event OnInteract PlayerInteracted;
+
     public void BaseInteract(Transform player)
     {
         Interact(player);
@@ -27,5 +30,8 @@ public abstract class Interactable : MonoBehaviour
         return isInteractable;
     }
 
-    protected virtual void Interact(Transform player) {}
+    protected virtual void Interact(Transform player)
+    {
+        PlayerInteracted?.Invoke(this);
+    }
 }

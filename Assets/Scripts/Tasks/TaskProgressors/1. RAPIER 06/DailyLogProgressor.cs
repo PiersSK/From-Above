@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DailyLogProgressor : TaskProgressor
+public class DailyLogProgressor: TaskProgressor
 {
     [SerializeField] private DataDrive logDrive;
     [SerializeField] private ServerExe transmitExe;
