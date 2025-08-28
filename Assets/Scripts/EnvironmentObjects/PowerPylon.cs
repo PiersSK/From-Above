@@ -13,6 +13,19 @@ public class PowerPylon : MonoBehaviour
     [SerializeField] private float maxWarmupEmission = 5f;
     [SerializeField] private float emissionFlicker = 1f;
 
+    [Header("It's Spreading Easter Egg")]
+    [SerializeField] private DataDrive itsSpreadingDrive;
+    private bool easterEggActive = false;
+    private MusicPlayer mp;
+
+    private void Update()
+    {
+        if(easterEggActive && mp != null)
+        {
+            easterEggActive = mp.audioSource.isPlaying;
+        }
+    }
+
     private void OnEnable()
     {
         Interactable.PlayerInteracted += ButtonPressed;
@@ -28,6 +41,10 @@ public class PowerPylon : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(WarmupCoil());
+        } else if (interactable is MusicPlayer)
+        {
+            mp = (MusicPlayer)interactable;
+            easterEggActive = mp.dataReader.insertedDrive == itsSpreadingDrive && mp.audioSource.isPlaying;
         }
     }
 
@@ -55,7 +72,7 @@ public class PowerPylon : MonoBehaviour
             i += Random.Range(-i/2, i/2);
             i = Mathf.Clamp(i, 0, maxCycleEmission);
 
-            //Color randomColor = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.8f, 1f);
+            if(easterEggActive) glowColour = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.8f, 1f);
 
             glowMat.SetColor("_EmissionColor", glowColour * (i * maxCycleEmission));
             glowMat.EnableKeyword("_EMISSION");
