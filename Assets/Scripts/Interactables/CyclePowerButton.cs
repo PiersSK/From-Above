@@ -82,6 +82,7 @@ public class CyclePowerButton : Interactable
 
         inProgress = true;
         Invoke("EndCycle", 7f);
+        base.Interact(player);
     }
 
     private void EndCycle()
