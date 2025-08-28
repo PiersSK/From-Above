@@ -100,13 +100,10 @@ public class PowerPylon : MonoBehaviour
             elapsed += Time.deltaTime;
             i = elapsed / cycleDuration;
             i *= maxWarmupEmission;
-            glowMat.SetColor("_EmissionColor", glowColour * i);
+            glowMat.SetColor("_EmissionColor", glowColour * (i * maxWarmupEmission));
             glowMat.EnableKeyword("_EMISSION");
 
             yield return null;
         }
-
-        glowMat.SetColor("_EmissionColor", glowColour * maxWarmupEmission);
-        glowMat.EnableKeyword("_EMISSION");
     }
 }
