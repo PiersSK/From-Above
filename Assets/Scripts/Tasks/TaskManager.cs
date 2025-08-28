@@ -107,6 +107,8 @@ public class TaskManager : MonoBehaviour
 
     public void ProgressTask(TaskData taskToComplete)
     {
+        if (!currentPhase.tasks.Contains(taskToComplete)) return; //TODO: Throw an error here?
+
         if (currentPhase.ProgressTask(taskToComplete))
         {
             completedTasks.Add(taskToComplete);

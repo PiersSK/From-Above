@@ -9,7 +9,8 @@ public class PowerPylon : MonoBehaviour
 
     [SerializeField] private float cycleDuration = 15f;
     [SerializeField] private float cycleRampupTime = 3f;
-    [SerializeField] private float maxEmission = 7f;
+    [SerializeField] private float maxCycleEmission = 7f;
+    [SerializeField] private float maxWarmupEmission = 5f;
     [SerializeField] private float emissionFlicker = 1f;
 
     private void OnEnable()
@@ -23,13 +24,17 @@ public class PowerPylon : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(CyclePower());
+        } else if (interactable is WarmupButton)
+        {
+            StopAllCoroutines();
+            StartCoroutine(WarmupCoil());
         }
     }
 
     private IEnumerator CyclePower()
     {
         Material[] mats = coilRenderer.materials;
-        Material glowMat = new(blueGlowMaterial);
+        Material glowMat = new(TaskManager.Instance.currentPhase is WeaponTaskPhase ? redGlowMaterial : blueGlowMaterial);
         Material nonglowMat = mats[1];
         Color glowColour = glowMat.color;
         mats[1] = glowMat;
@@ -46,16 +51,45 @@ public class PowerPylon : MonoBehaviour
             else if (elapsed > (cycleDuration - cycleRampupTime)) i = 1 - ((elapsed - (cycleDuration - cycleRampupTime)) / cycleRampupTime);
             else i = 1;
 
-            i += Random.Range(-emissionFlicker, emissionFlicker);
-            i = Mathf.Clamp(i, 0, 1);
-            glowMat.SetColor("_EmissionColor", glowColour * (i * maxEmission));
+            i *= maxCycleEmission;
+            i += Random.Range(-i/2, i/2);
+            i = Mathf.Clamp(i, 0, maxCycleEmission);
+
+            //Color randomColor = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.8f, 1f);
+
+            glowMat.SetColor("_EmissionColor", glowColour * (i * maxCycleEmission));
             glowMat.EnableKeyword("_EMISSION");
-            //mats[1] = glowMat;
-            //coilRenderer.materials = mats;
+
             yield return null;
         }
 
         mats[1] = nonglowMat;
         coilRenderer.materials = mats;
+    }
+
+    private IEnumerator WarmupCoil()
+    {
+        Material[] mats = coilRenderer.materials;
+        Material glowMat = new(redGlowMaterial);
+        Color glowColour = glowMat.color;
+        mats[1] = glowMat;
+        coilRenderer.materials = mats;
+
+        float elapsed = 0f;
+        float i;
+
+        while (elapsed < cycleDuration)
+        {
+            elapsed += Time.deltaTime;
+            i = elapsed / cycleDuration;
+            i *= maxWarmupEmission;
+            glowMat.SetColor("_EmissionColor", glowColour * i);
+            glowMat.EnableKeyword("_EMISSION");
+
+            yield return null;
+        }
+
+        glowMat.SetColor("_EmissionColor", glowColour * maxWarmupEmission);
+        glowMat.EnableKeyword("_EMISSION");
     }
 }

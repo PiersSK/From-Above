@@ -107,10 +107,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coilRenderer: {fileID: 8411060505498220369}
   blueGlowMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
-  redGlowMaterial: {fileID: 2100000, guid: 69f8d76edd87d2b448a809440d0bd948, type: 2}
-  cycleDuration: 5
+  redGlowMaterial: {fileID: 2100000, guid: 07edc448555faad468535f9ecac29cd1, type: 2}
+  cycleDuration: 6
   cycleRampupTime: 1
-  maxEmission: 10
+  maxCycleEmission: 8
+  maxWarmupEmission: 7
   emissionFlicker: 1
 --- !u!23 &8411060505498220369 stripped
 MeshRenderer:
