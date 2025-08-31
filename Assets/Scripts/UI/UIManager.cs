@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance {  get; private set; }
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private RectTransform intButton;
 
     [SerializeField] private GameObject toggleObj;
     [SerializeField] private GameObject backoutObj;
@@ -77,6 +78,21 @@ public class UIManager : MonoBehaviour
             }
             promptDict.Add(promptOrder[i], prompts[i]);
         }
+    }
+
+    public void HideIntButton()
+    {
+        intButton.gameObject.SetActive(false);
+    }
+
+    public void MoveIntButton(Transform obj)
+    {
+        intButton.gameObject.SetActive(true);
+
+        Vector3 pos = obj.position + obj.GetComponent<BoxCollider>().center;
+        //pos.x += obj.GetComponent<BoxCollider>().size.x;
+
+        intButton.position = Camera.main.WorldToScreenPoint(pos);
     }
 
     public void ShowButtonPrompt(ButtonPromptType type, string message, bool updateMessage = true)

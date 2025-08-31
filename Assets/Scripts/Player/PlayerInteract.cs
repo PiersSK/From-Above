@@ -17,6 +17,7 @@ public class PlayerInteract : MonoBehaviour
     private void Update()
     {
         promptText.text = string.Empty;
+        UIManager.Instance.HideIntButton();
         buttonPromptObject.SetActive(false);
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
@@ -33,6 +34,7 @@ public class PlayerInteract : MonoBehaviour
                     promptText.color = UIColors.white;
                     promptText.text = interactable.GetPrompt();
                     buttonPromptObject.SetActive(true);
+                    UIManager.Instance.MoveIntButton(hitInfo.collider.transform);
 
                     bool triggerCheck = interactable is HoldInteractable ?
                         InputManager.Instance.playerActions.Interact.IsPressed() :
