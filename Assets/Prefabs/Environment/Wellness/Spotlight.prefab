@@ -139,7 +139,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7043652, y: -0.062207006, z: -0.062207006, w: 0.7043652}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.76076007, y: 0.25649256, z: 0.27641603}
+  m_LocalScale: {x: 0.7, y: 0.25649256, z: 0.27641603}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3058189139715703789}
@@ -248,7 +248,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7043652, y: -0.062207006, z: -0.062207006, w: 0.7043652}
   m_LocalPosition: {x: -0.036000013, y: 0.0059998035, z: 0}
-  m_LocalScale: {x: -0.76076007, y: 0.32415682, z: 0.35}
+  m_LocalScale: {x: 0.7, y: 0.32415682, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 204476083736779418}
@@ -336,6 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204476083736779418}
+  - component: {fileID: 7416353435648110573}
   m_Layer: 0
   m_Name: Spotlight
   m_TagString: Untagged
@@ -361,6 +362,26 @@ Transform:
   - {fileID: 6008267597251991025}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7416353435648110573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2711906399744208957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b720287905bcd41b68e71aaafdd904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightRenderers:
+  - {fileID: 5085151582936063250}
+  lightSources:
+  - {fileID: 5105141126501320231}
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  emissiveValue: 3.5
+  lightIsOn: 1
+  lightStateCanBeChanged: 1
 --- !u!1 &6658926156891391837
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,13 +408,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6658926156891391837}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.700787, z: 0, w: 0.7133707}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.5976252, z: 0, w: 0.80177563}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6008267597251991025}
-  m_LocalEulerAnglesHint: {x: 0, y: -88.98, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 73.4, z: 0}
 --- !u!108 &5105141126501320231
 Light:
   m_ObjectHideFlags: 0

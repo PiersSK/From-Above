@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MusicPlayer : Interactable
 {
-    [SerializeField] private DataReader dataReader;
-    [SerializeField] private AudioSource audioSource;
+    public DataReader dataReader;
+    public AudioSource audioSource;
 
     private bool taskCompleted = false;
     [SerializeField] private DataDrive wellnessTape;
@@ -71,9 +71,8 @@ public class MusicPlayer : Interactable
                 SoundManager.Instance.RestartBgMusic();
                 audioSource.Pause();
             }
-
-
         }
+        base.Interact(player);
     }
 
     public void DiskRemoved()
