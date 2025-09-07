@@ -64,7 +64,7 @@ public class TaskManager : MonoBehaviour
 
     private void Update()
     {
-        if (TimeController.Instance.downTimePhsaeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && currentPhase.GetType() == typeof(DownTimePhase))
+        if (TimeController.Instance.downTimePhsaeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && currentPhase is DownTimePhase)
         {
             MoveToNextPhase();
         }
