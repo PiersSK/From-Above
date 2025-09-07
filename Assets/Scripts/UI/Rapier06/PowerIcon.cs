@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,20 +16,28 @@ public class PowerIcon : MonoBehaviour
         UpdateUIState();
     }
 
+    public Image GetRelevantBlock()
+    {
+        if (allocated && locked) return allocatedLockedBlock;
+        else if (allocated && !locked) return allocateBlock;
+        else if (!allocated && locked) return unallocatedUnlockedBlock;
+
+        return allocateBlock;
+    }
+
     private void UpdateUIState()
     {
         allocateBlock.gameObject.SetActive(false);
         allocatedLockedBlock.gameObject.SetActive(false);
         unallocatedUnlockedBlock.gameObject.SetActive(false);
 
-        if (allocated && locked) allocatedLockedBlock.gameObject.SetActive(true);
-        else if (allocated && !locked) allocateBlock.gameObject.SetActive(true);
-        else if (!allocated && locked) unallocatedUnlockedBlock.gameObject.SetActive(true);
+        GetRelevantBlock().gameObject.SetActive(true);
     }
 
     public void SetAllocatedState(bool state)
     {
         allocated = state;
+        StartCoroutine(ChangeBatteryPower(state));
         UpdateUIState();
     }
 
@@ -38,4 +47,26 @@ public class PowerIcon : MonoBehaviour
         UpdateUIState();
     }
 
+    private IEnumerator ChangeBatteryPower(bool increase = true)
+    {
+        float timer = 0f;
+        float timeToChange = PowerRouterController.Instance.powerChangeTransitionTime;
+        PowerRouterController.Instance.onCooldown = true;
+
+        while (timer < timeToChange)
+        {
+            float p = timer / timeToChange;
+            timer += Time.deltaTime;
+
+            if (!increase) p = 1 - p;
+
+            GetRelevantBlock().fillAmount = p;
+
+            yield return null;
+        }
+
+        GetRelevantBlock().fillAmount = increase ? 1 : 0;
+        PowerRouterController.Instance.onCooldown = false;
+
+    }
 }

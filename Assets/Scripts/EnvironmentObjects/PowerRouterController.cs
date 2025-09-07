@@ -1,11 +1,21 @@
+using System.Collections;
 using UnityEngine;
 
 public class PowerRouterController : MonoBehaviour
 {
-
+    public static PowerRouterController Instance;
     [SerializeField] private PowerCategory lifePower;
     [SerializeField] private PowerCategory shipPower;
     [SerializeField] private PowerCategory rapierPower;
+
+    public float powerChangeTransitionTime = 3f;
+
+    public bool onCooldown = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void IncreasePowerLevel(PowerCategory cat)
     {

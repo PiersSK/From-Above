@@ -11,32 +11,37 @@ public class PowerCategory : MonoBehaviour
 
     private void Start()
     {
+        foreach (PowerIcon b in batteries) b.SetAllocatedState(false);
+
+        for (int i = 0; i < powerLevel; i++)
+        {
+            batteries[i].SetAllocatedState(true);
+        }
         UpdateUIState();
     }
 
     private void UpdateUIState()
     {
-        foreach (PowerIcon b in batteries) b.SetAllocatedState(false);
-
-        for(int i = 0; i < powerLevel; i++)
-        {
-            batteries[i].SetAllocatedState(true);
-        }
-
         textLevel.text = powerLevel.ToString();
     }
 
     public void LowerPowerLevel()
     {
-        powerLevel--;
-        powerLevel = Mathf.Clamp(powerLevel, 0, 3);
-        UpdateUIState();
+        if (powerLevel > 0)
+        {
+            powerLevel--;
+            batteries[powerLevel].SetAllocatedState(false);
+            UpdateUIState();
+        }
     }
 
     public void IncreasePowerLevel()
     {
-        powerLevel++;
-        powerLevel = Mathf.Clamp(powerLevel, 0, 3);
-        UpdateUIState();
+        if (powerLevel < 3)
+        {
+            powerLevel++;
+            batteries[powerLevel - 1].SetAllocatedState(true);
+            UpdateUIState();
+        }
     }
 }
