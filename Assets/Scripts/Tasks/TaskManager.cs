@@ -63,7 +63,12 @@ public class TaskManager : MonoBehaviour
     }
 
     private void Update()
-    {    
+    {
+        if (TimeController.Instance.downTimePhsaeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && currentPhase.GetType() == typeof(DownTimePhase))
+        {
+            MoveToNextPhase();
+        }
+
         if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && !fireBtn.weaponFired)
         {
             PacifistEnding();

@@ -14,7 +14,7 @@ public class WeaponTaskPhase : IPhase
     private void Update()
     {
         TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase1TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
-        timer.text = $"{time.Minutes.ToString("00")}:{time.Seconds.ToString("00")}";
+        timer.text = $"{time.Minutes:00}:{time.Seconds:00}";
     }
 
     public override void CompleteTask(TaskData completedTask)
