@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using System;
 
-public class WeaponTaskPhase : IPhase
+public class WeaponTaskPhase : TimedPhase
 {
     [Header("Canvas Items")]
     [SerializeField] private List<GameObject> taskBlocksUI;
@@ -13,7 +13,7 @@ public class WeaponTaskPhase : IPhase
     // Update is called once per frame
     private void Update()
     {
-        TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase1TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
+        var time = GetRemainingTime();
         timer.text = $"{time.Minutes:00}:{time.Seconds:00}";
     }
 

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 
-public class DownTimePhase : IPhase
+public class DownTimePhase : TimedPhase
 {
 
   [Header("Canvas Items")]
@@ -13,7 +13,7 @@ public class DownTimePhase : IPhase
 
   public void Update()
   {
-    TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.downTimePhsaeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
+    var time = GetRemainingTime();
     timer.text = $"{time.Minutes:00}:{time.Seconds:00}";
   }
   public override void BeginCurrentPhase()
