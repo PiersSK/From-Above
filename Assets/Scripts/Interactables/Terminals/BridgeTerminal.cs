@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,10 +52,12 @@ public class BridgeTerminal : Computer
     {
         if (TaskManager.Instance.currentPhase is not WeaponTaskPhase) return;
 
-        var weaponTasksCompleted = TaskManager.Instance.currentPhase.completedTasks.Count;
+        var weaponsPhase = TaskManager.Instance.currentPhase as WeaponTaskPhase;
+
+        var weaponTasksCompleted = weaponsPhase.completedTasks.Count;
 
         p2TaskCounter.text = weaponTasksCompleted + "/6 STEPS COMPLETED";
-        TimeSpan time = TimeSpan.FromSeconds(TimeController.Instance.phase2TimeLimitMins* 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time));
+        TimeSpan time = TimeSpan.FromSeconds(weaponsPhase.timeLimitMins* 60 - TimeController.Instance.GetTimeInSeconds(weaponsPhase.phaseTimer));
         p2Timer.text = time.Minutes.ToString("00") + ":" + time.Seconds.ToString("00");
 
         foreach (GameObject t in phase2StatusBlocks)

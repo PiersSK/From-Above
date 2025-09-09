@@ -64,15 +64,22 @@ public class TaskManager : MonoBehaviour
 
     private void Update()
     {
-        if (TimeController.Instance.downTimePhsaeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && currentPhase is DownTimePhase)
+        if (currentPhase is DownTimePhase)
         {
-            MoveToNextPhase();
+            if ((currentPhase as DownTimePhase).timeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds((currentPhase as DownTimePhase).phaseTimer) && currentPhase is DownTimePhase)
+            {
+                MoveToNextPhase();
+            }
         }
 
-        if (TimeController.Instance.phase2TimeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) && !fireBtn.weaponFired)
+        if (currentPhase is WeaponTaskPhase)
         {
-            PacifistEnding();
+            if ((currentPhase as WeaponTaskPhase).timeLimitMins * 60 <= TimeController.Instance.GetTimeInSeconds((currentPhase as WeaponTaskPhase).phaseTimer) && !fireBtn.weaponFired)
+                {
+                    PacifistEnding();
+                }
         }
+        
     }
 
     private void MoveToNextPhase()
