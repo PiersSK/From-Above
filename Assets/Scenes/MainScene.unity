@@ -22188,9 +22188,6 @@ MonoBehaviour:
   keycardTaskTimeLeft: 0
   isKeyCardTimerRunning: 0
   startHours: 9
-  phase1TimeLimitMins: 10
-  phase2TimeLimitMins: 10
-  downTimePhsaeLimitMins: 2
   keyCardTaskTimerMax: 15
   scheduledEvents: {fileID: 0}
   completeEvents: []
@@ -60735,6 +60732,8 @@ MonoBehaviour:
   tasks:
   - {fileID: 11400000, guid: bfb0c75828701a648bf7d1e2831b0a0b, type: 2}
   completedTasks: []
+  phaseTimer: 0
+  timeLimitMins: 0
   taskCount: {fileID: 0}
   timer: {fileID: 1609501767}
 --- !u!43 &374194944
@@ -86319,6 +86318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b720287905bcd41b68e71aaafdd904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightRenderers: []
+  lightSources: []
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  emissiveValue: 3.5
+  lightIsOn: 0
+  lightStateCanBeChanged: 1
 --- !u!43 &622378972
 Mesh:
   m_ObjectHideFlags: 0
@@ -112819,6 +112824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599073349440f4340bfbe1aede0a3a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  servers: []
 --- !u!43 &872000641
 Mesh:
   m_ObjectHideFlags: 0
@@ -207450,6 +207456,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b720287905bcd41b68e71aaafdd904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightRenderers: []
+  lightSources: []
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  emissiveValue: 3.5
+  lightIsOn: 0
+  lightStateCanBeChanged: 1
 --- !u!43 &1713631280
 Mesh:
   m_ObjectHideFlags: 0
@@ -287938,7 +287950,7 @@ PrefabInstance:
       objectReference: {fileID: 849578181}
     - target: {fileID: 525726324227998627, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1612
+      value: 1615
       objectReference: {fileID: 0}
     - target: {fileID: 916898657491349458, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -287946,7 +287958,7 @@ PrefabInstance:
       objectReference: {fileID: 964362628}
     - target: {fileID: 916898657491349458, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1261
+      value: 1264
       objectReference: {fileID: 0}
     - target: {fileID: 993093963443648295, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -287962,7 +287974,7 @@ PrefabInstance:
       objectReference: {fileID: 1174504059}
     - target: {fileID: 1122059581148116338, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1261
+      value: 1264
       objectReference: {fileID: 0}
     - target: {fileID: 1342519930052903901, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
@@ -293763,6 +293775,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459d6061511884745a3d192ef91b082b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bridgeDoor: {fileID: 0}
+  lq1Door: {fileID: 0}
+  lq2Door: {fileID: 0}
+  healthDoor: {fileID: 0}
+  utilityDoor: {fileID: 0}
+  engineDoor: {fileID: 0}
+  doomsdayDoor: {fileID: 0}
 --- !u!114 &6342697610393057445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306345,6 +306364,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b69093e68f98e54bb996866eb13f9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offMaterial: {fileID: 0}
+  onMaterial: {fileID: 0}
+  lightRenderer: {fileID: 0}
+  lightSource: {fileID: 0}
+  minFlickersPerSecond: 0
+  flickerDuration: 0
 --- !u!136 &8580364809623430812
 CapsuleCollider:
   m_ObjectHideFlags: 0
