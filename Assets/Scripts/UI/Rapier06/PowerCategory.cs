@@ -9,7 +9,7 @@ public class PowerCategory : MonoBehaviour
     [Range(0,3)]
     public int powerLevel = 2;
 
-    private void Start()
+    protected virtual void Start()
     {
         foreach (PowerIcon b in batteries) b.SetAllocatedState(false);
 
@@ -20,28 +20,40 @@ public class PowerCategory : MonoBehaviour
         UpdateUIState();
     }
 
-    private void UpdateUIState()
+    protected void UpdateUIState()
     {
         textLevel.text = powerLevel.ToString();
     }
 
-    public void LowerPowerLevel()
+    public virtual void LowerPowerLevel()
     {
         if (powerLevel > 0)
         {
-            powerLevel--;
-            batteries[powerLevel].SetAllocatedState(false);
-            UpdateUIState();
+            batteries[powerLevel - 1].SetAllocatedState(false);
+            Invoke("PowerMinusOne", PowerRouterController.Instance.powerChangeTransitionTime);
+            Invoke("CommitPowerLevelChange", PowerRouterController.Instance.powerChangeTransitionTime + 0.1f);
         }
     }
 
-    public void IncreasePowerLevel()
+    public virtual void IncreasePowerLevel()
     {
         if (powerLevel < 3)
         {
-            powerLevel++;
-            batteries[powerLevel - 1].SetAllocatedState(true);
-            UpdateUIState();
+            batteries[powerLevel].SetAllocatedState(true);
+            Invoke("PowerAddOne", PowerRouterController.Instance.powerChangeTransitionTime);
+            Invoke("CommitPowerLevelChange", PowerRouterController.Instance.powerChangeTransitionTime + 0.1f);
+
         }
     }
+
+    private void PowerAddOne() {
+        powerLevel++;
+        UpdateUIState();
+    }
+
+    private void PowerMinusOne() {
+        powerLevel--;
+        UpdateUIState();
+    }
+    protected virtual void CommitPowerLevelChange() { }
 }

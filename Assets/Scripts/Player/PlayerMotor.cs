@@ -12,7 +12,7 @@ public class PlayerMotor : MonoBehaviour
     private bool isMoving;
     public bool movementOverridden = true;
 
-    private bool sprinting = false;
+    public bool sprinting = false;
 
     private bool crouching = false;
     private bool lerpCrouch = false;
@@ -72,8 +72,9 @@ public class PlayerMotor : MonoBehaviour
         if (isMoving && isGrounded)
         {
             footstepTimer += Time.deltaTime;
-            float spacing = sprinting ? 0.35f : 0.55f;
-            if(footstepTimer >= spacing)
+            //float spacing = sprinting ? 0.35f : 0.55f;
+            float spacing = 1.75f / currentSpeed;
+            if (footstepTimer >= spacing)
             {
                 FootstepSound();
                 footstepTimer = 0f;

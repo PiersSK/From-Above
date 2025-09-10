@@ -1739,9 +1739,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b62047791ae044fa93af8a0ed9c2e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifePower: {fileID: 4106349029287568780}
+  lifePower: {fileID: 72948587070055579}
   shipPower: {fileID: 6171656874433951207}
   rapierPower: {fileID: 2345494572067798200}
+  powerChangeTransitionTime: 3
+  onCooldown: 0
 --- !u!1 &2822791124947619534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,8 +2071,7 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerController: {fileID: 5368583487249994091}
-  powerCat: {fileID: 4106349029287568780}
+  powerCat: {fileID: 72948587070055579}
   increasePower: 1
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
   uninteractableMaterial: {fileID: 2100000, guid: 3d020efd8153f1845be6bae464491e9c, type: 2}
@@ -3222,7 +3223,6 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerController: {fileID: 5368583487249994091}
   powerCat: {fileID: 2345494572067798200}
   increasePower: 0
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
@@ -3830,8 +3830,7 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerController: {fileID: 5368583487249994091}
-  powerCat: {fileID: 4106349029287568780}
+  powerCat: {fileID: 72948587070055579}
   increasePower: 0
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
   uninteractableMaterial: {fileID: 2100000, guid: 3d020efd8153f1845be6bae464491e9c, type: 2}
@@ -3844,7 +3843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2469003786216524087}
-  - component: {fileID: 4106349029287568780}
+  - component: {fileID: 72948587070055579}
   m_Layer: 5
   m_Name: Life Support
   m_TagString: Untagged
@@ -3877,7 +3876,7 @@ RectTransform:
   m_AnchoredPosition: {x: -17, y: 10}
   m_SizeDelta: {x: 19.039999, y: 10.710001}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4106349029287568780
+--- !u!114 &72948587070055579
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3886,7 +3885,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5488124118145981524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5b127894868456b87f60bf84cbb882, type: 3}
+  m_Script: {fileID: 11500000, guid: e60ffce424c2f4c2eb36685b8bed592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteries:
@@ -3895,6 +3894,7 @@ MonoBehaviour:
   - {fileID: 4849502039666526279}
   textLevel: {fileID: 440533664057478968}
   powerLevel: 2
+  fanSource: {fileID: 0}
 --- !u!1 &5726384036871600568
 GameObject:
   m_ObjectHideFlags: 0
@@ -4440,7 +4440,6 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerController: {fileID: 5368583487249994091}
   powerCat: {fileID: 6171656874433951207}
   increasePower: 1
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
@@ -5590,7 +5589,6 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerController: {fileID: 5368583487249994091}
   powerCat: {fileID: 2345494572067798200}
   increasePower: 1
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
@@ -6571,7 +6569,6 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerController: {fileID: 5368583487249994091}
   powerCat: {fileID: 6171656874433951207}
   increasePower: 0
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
