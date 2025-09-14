@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePower: {fileID: 72948587070055579}
-  shipPower: {fileID: 6171656874433951207}
+  shipPower: {fileID: 8058721609754980770}
   rapierPower: {fileID: 2345494572067798200}
   powerChangeTransitionTime: 3
   onCooldown: 0
@@ -3895,6 +3895,8 @@ MonoBehaviour:
   textLevel: {fileID: 440533664057478968}
   powerLevel: 2
   fanSource: {fileID: 0}
+  deathScreen: {fileID: 0}
+  timeToDie: 10
 --- !u!1 &5726384036871600568
 GameObject:
   m_ObjectHideFlags: 0
@@ -4440,7 +4442,7 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerCat: {fileID: 6171656874433951207}
+  powerCat: {fileID: 8058721609754980770}
   increasePower: 1
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
   uninteractableMaterial: {fileID: 2100000, guid: 3d020efd8153f1845be6bae464491e9c, type: 2}
@@ -6569,7 +6571,7 @@ MonoBehaviour:
   promptMessage: 
   requirementsNotMetMessage: 
   isInteractable: 1
-  powerCat: {fileID: 6171656874433951207}
+  powerCat: {fileID: 8058721609754980770}
   increasePower: 0
   interactableMaterial: {fileID: 2100000, guid: d8595c3d61282274ca89444061369ab8, type: 2}
   uninteractableMaterial: {fileID: 2100000, guid: 3d020efd8153f1845be6bae464491e9c, type: 2}
@@ -6687,7 +6689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619099551168621040}
-  - component: {fileID: 6171656874433951207}
+  - component: {fileID: 8058721609754980770}
   m_Layer: 5
   m_Name: Ship Systems
   m_TagString: Untagged
@@ -6720,7 +6722,7 @@ RectTransform:
   m_AnchoredPosition: {x: -17, y: -5}
   m_SizeDelta: {x: 19.039999, y: 10.710001}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6171656874433951207
+--- !u!114 &8058721609754980770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6729,7 +6731,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8529829565934481987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5b127894868456b87f60bf84cbb882, type: 3}
+  m_Script: {fileID: 11500000, guid: 78be7dd00c1174207a795385401d54b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   batteries:

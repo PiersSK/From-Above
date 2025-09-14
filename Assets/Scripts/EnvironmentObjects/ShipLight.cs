@@ -16,6 +16,10 @@ public class ShipLight : MonoBehaviour
     public bool lightIsOn = false;
     public bool lightStateCanBeChanged = true;
 
+    private bool previousOnState;
+    private bool previousChangeableState;
+    private Dictionary<Light, float> startIntensities = new();
+
     private void Start()
     {
         onMat = new(Resources.Load<Material>(ONMATPATH));
@@ -26,16 +30,51 @@ public class ShipLight : MonoBehaviour
 
         Material mat = lightIsOn ? onMat : offMat;
         foreach(Renderer ren in lightRenderers) ren.material = mat;
+        foreach (Light light in lightSources) {
+            light.enabled = lightIsOn;
+            startIntensities[light] = light.intensity;
+        }
+
+        previousOnState = lightIsOn;
+        previousChangeableState = lightStateCanBeChanged;
+    }
+
+    public void SetLightState(bool setToOn)
+    {
+        previousOnState = lightIsOn;
+
+        lightIsOn = setToOn;
+        Material mat = lightIsOn ? onMat : offMat;
+        foreach (Renderer ren in lightRenderers) ren.material = mat;
         foreach (Light light in lightSources) light.enabled = lightIsOn;
+    }
+
+    public void SetLightToBright()
+    {
+        foreach(Light l in lightSources) l.intensity = startIntensities[l] * 2f;
+    }
+
+    public void SetLightToStartIntensity()
+    {
+        foreach (Light l in lightSources) l.intensity = startIntensities[l];
+    }
+
+    public void SetChangeableState(bool canBeChanged)
+    {
+        previousChangeableState = lightStateCanBeChanged;
+        lightStateCanBeChanged = canBeChanged;
+    }
+
+    public void RevertToPreviousState()
+    {
+        SetChangeableState(previousChangeableState);
+        SetLightState(previousOnState);
     }
 
     public void ToggleLight()
     {
         if (!lightStateCanBeChanged) return;
 
-        lightIsOn = !lightIsOn;
-        Material mat = lightIsOn ? onMat : offMat;
-        foreach (Renderer ren in lightRenderers) ren.material = mat;
-        foreach (Light light in lightSources) light.enabled = lightIsOn;
+        SetLightState(!lightIsOn);
     }
 }

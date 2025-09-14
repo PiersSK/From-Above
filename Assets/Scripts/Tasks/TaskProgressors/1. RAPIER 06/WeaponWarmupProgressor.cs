@@ -15,7 +15,7 @@ public class WeaponWarmupProgressor : TaskProgressor
             TaskManager.Instance.ProgressTask(task);
             Interactable.PlayerInteracted -= WarmupButtonPressed;
             ShipLightController.Instance.ShutDownAllShipLights();
-            ShipLightController.Instance.SetLightsRed();
+            ShipLightController.Instance.SetSecondaryLightsToEmergency();
         }
     }
 }
