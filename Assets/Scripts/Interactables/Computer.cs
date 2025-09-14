@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 public class Computer : Interactable
 {
+    [SerializeField] protected GameObject screen;
+    protected bool computerIsOff = false;
+    private bool defaultInteractState = false;
+
     protected bool playerAtComputer = false;
     protected PlayerMotor motor;
     protected PlayerLook look;
@@ -51,6 +55,11 @@ public class Computer : Interactable
     {
         Cursor.lockState = CursorLockMode.Locked;
         defaultSelectable?.Select();
+    }
+
+    protected virtual void Start()
+    {
+        defaultInteractState = isInteractable;
     }
 
     protected virtual void Update()
@@ -102,5 +111,19 @@ public class Computer : Interactable
         UIManager.Instance.ShowButtonPrompt(UIManager.ButtonPromptType.TaskPad, string.Empty, false);
         UIManager.Instance.ClearSelectedUIObject();
         playerAtComputer = false;
+    }
+
+    public void SwitchOffComputer()
+    {
+        screen.SetActive(false);
+        isInteractable = false;
+        computerIsOff = true;
+    }
+
+    public void SwitchOnComputer()
+    {
+        screen.SetActive(true);
+        isInteractable = defaultInteractState;
+        computerIsOff = false;
     }
 }

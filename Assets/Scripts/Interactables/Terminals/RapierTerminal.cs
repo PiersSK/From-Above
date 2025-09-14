@@ -75,8 +75,9 @@ public class RapierTerminal : Computer
 
     private const string BACKTOMAINSCREEN = "Return To Home Screen";
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         uploadStatusBtn.onClick.AddListener(UploadShipStatus);
         readDataBtn.onClick.AddListener(ReadData);
     }

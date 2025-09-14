@@ -23,8 +23,9 @@ public class DiaryTerminal : Computer
     private const string LOOKOUTWINDOW = "To look out the window";
     private const string RETURNTODIARY = "To enter your observations";
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         questionBlocks[0].SetActive(true);
     }
 

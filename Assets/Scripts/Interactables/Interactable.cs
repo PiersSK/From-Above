@@ -5,7 +5,7 @@ public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected string promptMessage;
     [SerializeField] protected string requirementsNotMetMessage;
-    [SerializeField] protected bool isInteractable = true;
+    public bool isInteractable = true;
 
     public delegate void OnInteract(Interactable interactable);
     public static event OnInteract PlayerInteracted;

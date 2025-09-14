@@ -9,12 +9,6 @@ public class KeycardTerminal : Computer
     [SerializeField] private KeycardInput keycardInput;
     [SerializeField] private TextMeshProUGUI countdown;
     [SerializeField] private TextMeshProUGUI countdownHeader;
-    [SerializeField] private GameObject screen;
-
-    private void Start()
-    {
-
-    }
 
     override protected void Update()
     {
