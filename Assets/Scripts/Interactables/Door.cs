@@ -73,6 +73,7 @@ public class Door : Interactable
     {
         isOpen = twinButton.isOpen;
         if (isLocked && !twinButton.isLocked) UnlockDoor();
+        if (!isLocked && twinButton.isLocked) LockDoor();
         UpdatePromptMessage();
 
     }
@@ -82,7 +83,14 @@ public class Door : Interactable
         promptMessage = (isOpen ? "Close" : "Open") + " " + type.ToString();
     }
 
-    private void UnlockDoor()
+    public void LockDoor()
+    {
+        isLocked = true;
+        GetComponent<Renderer>().material = uninteractableLight;
+        if (twinButton != null && hasButton) twinButton.SyncToTwinButton();
+    }
+
+    public void UnlockDoor()
     {
         isLocked = false;
         GetComponent<Renderer>().material = interactableLight;

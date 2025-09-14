@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static LocalContent;
 
 public class ShipDoorController : MonoBehaviour
 {
+    public static ShipDoorController Instance;
+
     public Door bridgeDoor;
     public Door lq1Door;
     public Door lq2Door;
@@ -10,6 +13,44 @@ public class ShipDoorController : MonoBehaviour
     public Door utilityDoor;
     public Door engineDoor;
     public Door doomsdayDoor;
+
+    private List<Door> overriddenLockedDoors = new();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void RemoteLockIfUnlocked(Door door)
+    {
+        if(!door.isLocked)
+        {
+            door.LockDoor();
+            overriddenLockedDoors.Add(door);
+        }
+    }
+
+    public void OverrideLockAllDoors()
+    {
+        RemoteLockIfUnlocked(bridgeDoor);
+        RemoteLockIfUnlocked(lq1Door);
+        RemoteLockIfUnlocked(lq2Door);
+        RemoteLockIfUnlocked(healthDoor);
+        RemoteLockIfUnlocked(utilityDoor);
+        RemoteLockIfUnlocked(engineDoor);
+        RemoteLockIfUnlocked(doomsdayDoor);
+    }
+
+    public void UnlockAllOverriddenDoors()
+    {
+        foreach(Door d in overriddenLockedDoors)
+        {
+            d.UnlockDoor();
+        }
+
+        overriddenLockedDoors = new();
+    }
+
 
     public void RemoteUnlockAndOpen(LocalLocations location)
     {

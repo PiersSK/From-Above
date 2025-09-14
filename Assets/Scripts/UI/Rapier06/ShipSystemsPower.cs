@@ -8,8 +8,10 @@ public class ShipSystemsPower : PowerCategory
         switch (powerLevel)
         {
             case 0:
+                ShipDoorController.Instance.OverrideLockAllDoors();
                 break;
             case 1:
+                ShipDoorController.Instance.UnlockAllOverriddenDoors();
                 ShipLightController.Instance.ShutDownAllShipLights();
                 ShipLightController.Instance.SetSecondaryLightsToEmergency();
                 ShipLightController.Instance.SetEmergencyState(true);
