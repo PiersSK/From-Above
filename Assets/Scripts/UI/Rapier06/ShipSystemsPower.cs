@@ -10,12 +10,14 @@ public class ShipSystemsPower : PowerCategory
             case 0:
                 ShipDoorController.Instance.OverrideLockAllDoors();
                 ShipComputerController.Instance.SwitchOffAllComputers();
+                PowerRouterController.Instance.SetToLowPower();
                 break;
             case 1:
                 ShipComputerController.Instance.SwitchOnAllComputers();
                 ShipDoorController.Instance.UnlockAllOverriddenDoors();
                 ShipLightController.Instance.ShutDownAllShipLights();
                 ShipLightController.Instance.SetSecondaryLightsToEmergency();
+                PowerRouterController.Instance.SetToNormalPower();
                 ShipLightController.Instance.SetEmergencyState(true);
                 break;
             case 2:
@@ -28,7 +30,7 @@ public class ShipSystemsPower : PowerCategory
                 ShipLightController.Instance.SetShipLightsToBrightIntensity();
                 break;
             default:
-                Debug.LogError("LifeSupportPower asked to update to impossible power level");
+                Debug.LogError("ShipSystemsPower asked to update to impossible power level");
                 break;
         }
     }

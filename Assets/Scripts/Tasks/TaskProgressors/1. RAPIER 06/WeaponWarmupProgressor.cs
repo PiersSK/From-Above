@@ -14,9 +14,11 @@ public class WeaponWarmupProgressor : TaskProgressor
         {
             TaskManager.Instance.ProgressTask(task);
             Interactable.PlayerInteracted -= WarmupButtonPressed;
-            //TODO: Change Power State
-            ShipLightController.Instance.ShutDownAllShipLights();
-            ShipLightController.Instance.SetSecondaryLightsToEmergency();
+
+            PowerRouterController prc = PowerRouterController.Instance;
+            prc.ForcePowerToLevel(prc.lifePower, 1);
+            prc.ForcePowerToLevel(prc.shipPower, 1);
+            prc.ForcePowerToLevel(prc.rapierPower, 3);
         }
     }
 }

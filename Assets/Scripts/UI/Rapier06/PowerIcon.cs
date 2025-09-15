@@ -34,10 +34,11 @@ public class PowerIcon : MonoBehaviour
         GetRelevantBlock().gameObject.SetActive(true);
     }
 
-    public void SetAllocatedState(bool state)
+    public void SetAllocatedState(bool state, bool setInstant = false)
     {
         allocated = state;
-        StartCoroutine(ChangeBatteryPower(state));
+        if (setInstant) GetRelevantBlock().fillAmount = state ? 1 : 0;
+        else StartCoroutine(ChangeBatteryPower(state));
         UpdateUIState();
     }
 

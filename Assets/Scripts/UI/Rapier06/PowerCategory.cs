@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static System.TimeZoneInfo;
 
 public class PowerCategory : MonoBehaviour
 {
@@ -25,23 +26,27 @@ public class PowerCategory : MonoBehaviour
         textLevel.text = powerLevel.ToString();
     }
 
-    public virtual void LowerPowerLevel()
+    public virtual void LowerPowerLevel(bool overrideTransitionTime = false)
     {
+        float transitionTime = overrideTransitionTime ? 0f : PowerRouterController.Instance.powerChangeTransitionTime;
+
         if (powerLevel > 0)
         {
-            batteries[powerLevel - 1].SetAllocatedState(false);
-            Invoke("PowerMinusOne", PowerRouterController.Instance.powerChangeTransitionTime);
-            Invoke("CommitPowerLevelChange", PowerRouterController.Instance.powerChangeTransitionTime + 0.1f);
+            batteries[powerLevel - 1].SetAllocatedState(false, overrideTransitionTime);
+            if (overrideTransitionTime) PowerMinusOne();
+            else Invoke("PowerMinusOne", transitionTime);
         }
     }
 
-    public virtual void IncreasePowerLevel()
+    public virtual void IncreasePowerLevel(bool overrideTransitionTime = false)
     {
+        float transitionTime = overrideTransitionTime ? 0f : PowerRouterController.Instance.powerChangeTransitionTime;
+
         if (powerLevel < 3)
         {
-            batteries[powerLevel].SetAllocatedState(true);
-            Invoke("PowerAddOne", PowerRouterController.Instance.powerChangeTransitionTime);
-            Invoke("CommitPowerLevelChange", PowerRouterController.Instance.powerChangeTransitionTime + 0.1f);
+            batteries[powerLevel].SetAllocatedState(true, overrideTransitionTime);
+            if (overrideTransitionTime) PowerAddOne();
+            else Invoke("PowerAddOne", transitionTime);
 
         }
     }
@@ -49,11 +54,13 @@ public class PowerCategory : MonoBehaviour
     private void PowerAddOne() {
         powerLevel++;
         UpdateUIState();
+        CommitPowerLevelChange();
     }
 
     private void PowerMinusOne() {
         powerLevel--;
         UpdateUIState();
+        CommitPowerLevelChange();
     }
     protected virtual void CommitPowerLevelChange() { }
 }
