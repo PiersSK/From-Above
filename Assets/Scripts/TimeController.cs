@@ -47,7 +47,7 @@ public class TimeController : MonoBehaviour
         }
         else if (isTimeSet)
         {
-            time += Time.deltaTime;
+            (TaskManager.Instance.currentPhase as WeaponTaskPhase).phaseTimer += Time.deltaTime;
             if (!isTimePaused)
             {
                 timeSinceLastVoiceLine += Time.deltaTime;
@@ -62,6 +62,10 @@ public class TimeController : MonoBehaviour
                 isKeyCardTimerRunning = false;
                 onTimerExpiredCallback?.Invoke();
             }
+        }
+        if (TaskManager.Instance.currentPhase is DownTimePhase)
+        {
+            (TaskManager.Instance.currentPhase as DownTimePhase).phaseTimer += Time.deltaTime;
         }
 
         clockTimer += Time.deltaTime;

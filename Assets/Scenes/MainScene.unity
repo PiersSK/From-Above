@@ -60733,8 +60733,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bfb0c75828701a648bf7d1e2831b0a0b, type: 2}
   completedTasks: []
   phaseTimer: 0
-  timeLimitMins: 0
-  taskCount: {fileID: 0}
+  timeLimitMins: 1
   timer: {fileID: 1609501767}
 --- !u!43 &374194944
 Mesh:
@@ -288031,6 +288030,10 @@ PrefabInstance:
     - target: {fileID: 2005119627675146670, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313462267319647220, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: timeLimitMins
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2400121517131125937, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh

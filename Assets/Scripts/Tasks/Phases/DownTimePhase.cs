@@ -8,7 +8,6 @@ public class DownTimePhase : TimedPhase
 {
 
   [Header("Canvas Items")]
-  [SerializeField] private TextMeshProUGUI taskCount;
   [SerializeField] private TextMeshProUGUI timer;
 
   public void Update()
