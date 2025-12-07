@@ -60730,7 +60730,7 @@ MonoBehaviour:
   taskBeep: {fileID: 8300000, guid: 02d82c2595760204ba17aba5071fabcc, type: 3}
   taskPadListParent: {fileID: 1857918106}
   tasks:
-  - {fileID: 11400000, guid: bfb0c75828701a648bf7d1e2831b0a0b, type: 2}
+  - {fileID: 11400000, guid: 7d63be8856f7dad40b0f0718bbe23513, type: 2}
   completedTasks: []
   phaseTimer: 0
   timeLimitMins: 1
@@ -288103,6 +288103,30 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5117945891382137778, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: tasks.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117945891382137778, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: 'tasks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 59cf49005981c9b4ca61aced8023cb71, type: 2}
+    - target: {fileID: 5117945891382137778, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: 'tasks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: be674cb2ee166e2499011f9abb6dc4fc, type: 2}
+    - target: {fileID: 5117945891382137778, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: 'tasks.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6eb5f8503b17d8943bef9b372890ae4b, type: 2}
+    - target: {fileID: 5117945891382137778, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: 'tasks.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f7a42dfbef06a744a3f13145a035461, type: 2}
+    - target: {fileID: 5117945891382137778, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
+      propertyPath: 'tasks.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d63be8856f7dad40b0f0718bbe23513, type: 2}
     - target: {fileID: 5652793803996411498, guid: a0aeb80084dd8ec4cad85c69bf45e06b, type: 3}
       propertyPath: m_Mesh
       value: 
