@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de8d2ca1479d974f94f2f170d1147b3, type: 3}
-  m_Name: 2 AmbientLoop
+  m_Name: DowntimeSO
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 3f9f7ff7762fef04f93228e72ff85d02, type: 3}
-  nextSoundtrack: {fileID: 11400000, guid: 3c5f44a7e8785a84e9aa6f52c2603363, type: 2}
+  nextSoundtrack: {fileID: 11400000, guid: 9d7968a7d94b99840ae50f336c8fe43a, type: 2}
   progressOnEnd: 0
   progressOnTimeCondition: 0
   progressOnPhaseTransition: 1
@@ -22,7 +22,7 @@ MonoBehaviour:
   leaveTimeBetweenLoops: 1
   minSecondsBetweenLoops: 15
   maxSecondsBetweenLoops: 45
-  timeConditionType: 2
+  timeConditionType: 0
   absoluteSecondsIntoPhase: 1
   absoluteSecondsBeforePhaseEnd: 1
   percentageThroughPhase: 1
