@@ -13,7 +13,7 @@ public class DailyLogProgressor: TaskProgressor
 
     private void Update()
     {
-        if ((TaskManager.Instance.currentPhase.GetActiveTask(task) != null))
+        if (TaskManager.Instance.currentPhase.GetActiveTask(task) != null)
         {
             switch (TaskManager.Instance.currentPhase.GetActiveTask(task).currentStep)
             {
