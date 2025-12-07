@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ClearableInteractable : Interactable
@@ -16,4 +17,9 @@ public class ClearableInteractable : Interactable
             SoundManager.Instance.PlaySFXOneShot(sfx, 0f, 0.4f);
         } 
     }
+
+  public override bool CanInteract()
+  {
+    return TaskManager.Instance.currentPhase is DownTimePhase;
+  }
 }
