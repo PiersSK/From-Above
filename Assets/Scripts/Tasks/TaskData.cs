@@ -7,7 +7,8 @@ public class TaskData : ScriptableObject
     public enum TaskType
     {
         Daily,
-        Weapon
+        Weapon,
+        DownTime
     }
 
     public string taskName;

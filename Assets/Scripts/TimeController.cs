@@ -20,11 +20,7 @@ public class TimeController : MonoBehaviour
     private float clockTimer = 0f;
 
     [Header("Time Settings")]
-    [Range(0, 20)]
-    public int phase1TimeLimitMins = 10;
-    [Range(0, 20)]
-    public int phase2TimeLimitMins = 10;
-    [Range(0,15)]
+    [Range(0, 15)]
     public float keyCardTaskTimerMax = 15f;
 
     [Header("Events")]
@@ -51,7 +47,7 @@ public class TimeController : MonoBehaviour
         }
         else if (isTimeSet)
         {
-            time += Time.deltaTime;
+            (TaskManager.Instance.currentPhase as WeaponTaskPhase).phaseTimer += Time.deltaTime;
             if (!isTimePaused)
             {
                 timeSinceLastVoiceLine += Time.deltaTime;
@@ -66,6 +62,10 @@ public class TimeController : MonoBehaviour
                 isKeyCardTimerRunning = false;
                 onTimerExpiredCallback?.Invoke();
             }
+        }
+        if (TaskManager.Instance.currentPhase is DownTimePhase)
+        {
+            (TaskManager.Instance.currentPhase as DownTimePhase).phaseTimer += Time.deltaTime;
         }
 
         clockTimer += Time.deltaTime;

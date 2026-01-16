@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -59,10 +60,10 @@ public class SoundtrackManager : MonoBehaviour
         if (currentSoundtrack.progressOnEnd && !bGMusicSource.isPlaying && !SoundManager.Instance.bgPaused && applicationInFocus)
             return true;
 
-        if (currentSoundtrack.progressOnTimeCondition)
+        if (currentSoundtrack.progressOnTimeCondition && TaskManager.Instance.currentPhase is TimedPhase)
         {
-            float currentTime = TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time);
-            float phaseTimeLimit = TimeController.Instance.phase2TimeLimitMins * 60f;
+            float currentTime = TimeController.Instance.GetTimeInSeconds((TaskManager.Instance.currentPhase as TimedPhase).phaseTimer);
+            float phaseTimeLimit = (TaskManager.Instance.currentPhase as TimedPhase).timeLimitMins * 60;
 
             if (currentSoundtrack.timeConditionType == Soundtrack.TimeConditionType.AbsoluteFromStart)
                 return currentTime >= currentSoundtrack.absoluteSecondsIntoPhase;

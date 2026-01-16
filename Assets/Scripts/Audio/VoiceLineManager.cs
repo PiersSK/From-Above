@@ -95,34 +95,33 @@ public class VoiceLineManager : MonoBehaviour
 
     private bool AreTimeConditionsSatisfied(VoiceLine vl)
     {
-        switch (vl.timeConditionType)
-        {
-            case VoiceLine.TimeConditionType.AbsoluteFromStart:
-                if(TimeController.Instance.time >= vl.absoluteSecondsIntoPhase)
-                    return true;
-                else return false;
-            
-            case VoiceLine.TimeConditionType.RelativeToLastVoiceLine:
-                if(vl.name == "Rapier 6 6 - Inactivity Chaser")
-                    if(vl.secondsSinceLastVoiceLine <= TimeController.Instance.inactivityTimer)
-                        return true;
-                    else return false;
-                else if (vl.secondsSinceLastVoiceLine <= TimeController.Instance.timeSinceLastVoiceLine)   
-                        return true;
-                else return false;
+        var currentTimedPhase = TaskManager.Instance.currentPhase as TimedPhase;
 
-            case VoiceLine.TimeConditionType.AbsoluteFromEnd:
-                if(TimeController.Instance.phase2TimeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(TimeController.Instance.time) <= vl.absoluteSecondsBeforePhaseEnd)
-                    return true;
-                else return false;
-            
-            case VoiceLine.TimeConditionType.PeriodOfInactivity:
-                if(TimeController.Instance.inactivityTimer >= vl.secondsOfInactivity
-                && TaskManager.Instance.completedTasks.Contains(vl.inactivityStartTask)
-                && !TaskManager.Instance.completedTasks.Contains(vl.inactivityEndTask))
-                    return true;
-                else return false;
-            default: return false;
+        if (currentTimedPhase is not null)
+        {
+            switch (vl.timeConditionType)
+            {
+                case VoiceLine.TimeConditionType.AbsoluteFromStart:
+                    return TimeController.Instance.time >= vl.absoluteSecondsIntoPhase;
+
+                case VoiceLine.TimeConditionType.RelativeToLastVoiceLine:
+                    if (vl.name == "Rapier 6 6 - Inactivity Chaser")
+                        return vl.secondsSinceLastVoiceLine <= TimeController.Instance.inactivityTimer;
+                    else
+                        return vl.secondsSinceLastVoiceLine <= TimeController.Instance.timeSinceLastVoiceLine;
+
+                case VoiceLine.TimeConditionType.AbsoluteFromEnd:
+                    return currentTimedPhase.timeLimitMins * 60 - TimeController.Instance.GetTimeInSeconds(currentTimedPhase.phaseTimer) <= vl.absoluteSecondsBeforePhaseEnd;
+
+                case VoiceLine.TimeConditionType.PeriodOfInactivity:
+                    return TimeController.Instance.inactivityTimer >= vl.secondsOfInactivity
+                    && TaskManager.Instance.completedTasks.Contains(vl.inactivityStartTask)
+                    && !TaskManager.Instance.completedTasks.Contains(vl.inactivityEndTask);
+
+                default:
+                    return false;
+            }
         }
+        return false;
     }
 }
